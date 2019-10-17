@@ -1,0 +1,9 @@
+.navbar {
+    background-color: #11252c;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.navbar a {
+    color: orange;
+}

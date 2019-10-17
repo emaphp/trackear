@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>BlackMountain - Dashboard</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Open+Sans&Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  </head>
+  <body>
+  <nav id="navbar" class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <%= image_tag "logo-alt.svg", height: "18" %>
+      </a>
+      <div class="d-none mx-right d-sm-block">
+        <%= image_tag current_user.picture, class: "avatar" %>
+        Welcome <%= current_user.first_name %>,
+        <%= link_to('Logout?', destroy_user_session_path, method: :delete) %>
+      </div>
+    </div>
+  </nav>
+  <% if notice.present? %>
+    <div class="alert alert-info text-center"><%= notice %></div>
+  <% end %>
+  <div class="container mt-4 mb-5">
+    <div class="row content-container">
+      <div class="d-none d-sm-none d-md-none d-lg-block col-lg-3">
+        <div class="box menu">
+          <%= link_to('Create project', new_project_path, class: "btn btn-green btn-block") %>
+          <%= link_to('Home', home_path, class: "btn btn-block text-left") %>
+          <%= link_to('Projects', projects_path, class: "btn btn-block text-left") %>
+          <%= link_to('Users', users_path, class: "btn btn-block text-left") %>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+  <%= javascript_include_tag 'application' %>
+  </body>
+</html>

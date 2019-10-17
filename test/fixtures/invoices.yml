@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  discount_percentage: 
+  currency: MyString
+
+two:
+  project: two
+  discount_percentage: 
+  currency: MyString

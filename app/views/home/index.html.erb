@@ -1,0 +1,45 @@
+<div class="box">
+  <h6>Projects</h6>
+  <p class="lead text-center">
+    <%= "You don't have any projects :(" unless @active_contracts.present? %>
+    <% @active_contracts.each do |active_contract| %>
+      <div class="media mb-3 p-3 border rounded shadow-sm">
+        <%= image_tag "", class: "avatar align-self-start mr-3" %>
+        <div class="media-body text-dark pt-1">
+          <%= link_to active_contract.project.name, active_contract.project %>
+        </div>
+      </div>
+    <% end %>
+  </p>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="box mt-4">
+      <h6>Invoices</h6>
+      <p class="lead text-center">
+        Nothing to show... yet!
+      </p>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="box mt-4">
+      <h6>Contracts</h6>
+      <p class="lead text-center">
+        <%= "You don't have any contracts" unless @contracts.present? %>
+        <% @contracts.each do |contract| %>
+          <div class="border rounded shadow-sm p-3 mb-3">
+            <strong><%= contract.project.name %></strong>
+            -
+            <%= "Active" if contract.currently_active? %>
+            <%= "Finished" if contract.finished? %>
+            <%= "Deferred" if contract.deferred? %>
+            <small class="d-block">
+              Rate <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %>
+            </small>
+          </div>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

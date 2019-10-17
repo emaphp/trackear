@@ -1,0 +1,17 @@
+<div class="media p-3 border rounded shadow-sm">
+  <%= image_tag log.project_contract.user.picture, class: "avatar align-self-start mr-3" %>
+  <div class="media-body text-dark">
+    <strong><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %></strong>
+    <br>
+    <small class="text-muted">
+      <%= log.from.strftime "%d %B" %>, <%= distance_of_time_in_words(log.from, log.to, true, :only => [:minutes, :hours]) %> logged
+    </small>
+    <p class="mb-0 mt-2">
+      <%= log.description %>
+    </p>
+  </div>
+  <div class="align-self-start">
+    <%= link_to "Edit", edit_project_activity_track_path(log.project_contract.project, log), class: "btn btn-green btn-sm" %>
+    <%= link_to "Delete", [log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "btn btn-red btn-sm" %>
+  </div>
+</div>

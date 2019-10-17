@@ -1,0 +1,99 @@
+<div class="box">
+  <h6>Invoice</h6>
+  <div class="row mb-5">
+    <div class="col-md-6 text-center">
+      <%= image_tag "logo.svg", class: "img-fluid" %>
+      <p class="text-center font-italic py-3">Thank you for working with us!</p>
+    </div>
+    <div class="col-md-6 text-right text-dark">
+      CUIT: 20379097740<br />
+      Avenida Juan Domingo Perón 1750<br />
+      Yerba Buena, Tucumán<br />
+      +54 9 280 4722-909
+    </div>
+  </div>
+  <div class="text-dark text-right py-3">
+    Invoice Period: <%= humanized_invoice_period(@invoice) %>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-borderless">
+    <thead class="border-bottom border-top">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item</th>
+        <th scope="col" class="text-right">Rate</th>
+        <th scope="col" class="text-right">Qty</th>
+        <th scope="col" class="text-right">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice.invoice_entries.each_with_index do |entry, index| %>
+        <tr>
+          <td scope="row"><%= index %></td>
+          <td><%= entry.description %></td>
+          <td class="text-right"><%= entry.rate %></td>
+          <td class="text-right"><%= entry.calculate_quantity.round(2) %></td>
+          <td class="text-right"><%= humanized_money_with_currency(entry.calculate_total, @invoice.currency) %></td>
+        </tr>
+      <% end %>
+      <tr class="border-top">
+        <td colspan="3" rowspan="4">
+          <div class="d-none d-lg-block">
+            <strong class="d-block pb-2">Notes</strong>
+            <ul>
+              <li>Full Name: Franco Héctor Hugo Montenegro</li>
+              <li>DNI: 37909774</li>
+              <li>Account Number: 4003317-0 374-8</li>
+              <li>CBU: 00703749 31004003317086</li>
+              <li>Bank: Banco de Galicia y Buenos Aires SAU.</li>
+              <li>Swift Code Bank Galicia: GABAARBA</li>
+            </ul>
+
+            <strong class="d-block pb-2">Bank Information</strong>
+            <ul>
+              <li>Correspondent Bank: WELLS FARGO BANK N.A.</li>
+              <li>Swift Code: PNBPUS3NNYC ABA 026005092</li>
+              <li>Account Number Bank Galicia: 2000192261221</li>
+            </ul>
+
+            Service Code: S13
+          </div>
+        </td>
+        <td class="text-right"><strong>SUBTOTAL</strong></td>
+        <td class="text-right">
+          <%= humanized_money_with_currency(@invoice.calculate_subtotal, @invoice.currency) %>
+        </td>
+      </tr>
+      <tr class="text-right">
+        <td class="pt-0"><strong>DISCOUNT</strong></td>
+        <td class="pt-0"><%= @invoice.discount_percentage %>%</td>
+      </tr>
+      <tr class="text-right">
+        <td class="pt-0"><strong>TOTAL</strong></td>
+        <td class="pt-0"><%= humanized_money_with_currency(@invoice.calculate_total, @invoice_currency) %></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="d-block d-lg-none text-dark">
+    <strong class="d-block pb-2">Notes</strong>
+    <ul>
+      <li>Full Name: Franco Héctor Hugo Montenegro</li>
+      <li>DNI: 37909774</li>
+      <li>Account Number: 4003317-0 374-8</li>
+      <li>CBU: 00703749 31004003317086</li>
+      <li>Bank: Banco de Galicia y Buenos Aires SAU.</li>
+      <li>Swift Code Bank Galicia: GABAARBA</li>
+    </ul>
+
+    <strong class="d-block pb-2">Bank Information</strong>
+    <ul>
+      <li>Correspondent Bank: WELLS FARGO BANK N.A.</li>
+      <li>Swift Code: PNBPUS3NNYC ABA 026005092</li>
+      <li>Account Number Bank Galicia: 2000192261221</li>
+    </ul>
+
+    Service Code: S13
+  </div>
+</div>

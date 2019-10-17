@@ -1,0 +1,29 @@
+.btn {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 2px;
+}
+
+.btn-primary {
+    background-color: #68c7ff !important;
+    border-color: #68c7ff !important;
+}
+
+.btn-red {
+    color: #fff !important;
+    background-color: #f56849;
+    border-color: #f56849;
+}
+
+.btn-orange {
+    color: #fff !important;
+    background-color: orange;
+    border-color: orange;
+}
+
+.btn-green {
+    color: #fff !important;
+    background-color: #88e240;
+    border-color: #88e240;
+}

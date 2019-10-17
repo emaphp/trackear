@@ -1,0 +1,12 @@
+<div class="box">
+  <h6>Invoices</h6>
+  <p class="lead text-center">
+    <%= "Nothing to be displayed here..." unless @invoices.present? %>
+  </p>
+  <% @invoices.each do |invoice| %>
+    <div class="mb-3 p-3 border rounded shadow-sm">
+      <%= link_to invoice.from, edit_project_invoice_path(@project, invoice) %>
+    </div>
+  <% end %>
+  <%= link_to "Create invoice", new_project_invoice_path(@project), class: "btn btn-primary" %>
+</div>

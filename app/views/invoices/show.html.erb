@@ -37,28 +37,7 @@
         </tr>
       <% end %>
       <tr class="border-top">
-        <td colspan="3" rowspan="4">
-          <div class="d-none d-lg-block">
-            <strong class="d-block pb-2">Notes</strong>
-            <ul>
-              <li>Full Name: Franco Héctor Hugo Montenegro</li>
-              <li>DNI: 37909774</li>
-              <li>Account Number: 4003317-0 374-8</li>
-              <li>CBU: 00703749 31004003317086</li>
-              <li>Bank: Banco de Galicia y Buenos Aires SAU.</li>
-              <li>Swift Code Bank Galicia: GABAARBA</li>
-            </ul>
-
-            <strong class="d-block pb-2">Bank Information</strong>
-            <ul>
-              <li>Correspondent Bank: WELLS FARGO BANK N.A.</li>
-              <li>Swift Code: PNBPUS3NNYC ABA 026005092</li>
-              <li>Account Number Bank Galicia: 2000192261221</li>
-            </ul>
-
-            Service Code: S13
-          </div>
-        </td>
+        <td colspan="3" rowspan="4"></td>
         <td class="text-right"><strong>SUBTOTAL</strong></td>
         <td class="text-right">
           <%= humanized_money_with_currency(@invoice.calculate_subtotal, @invoice.currency) %>
@@ -76,7 +55,7 @@
   </table>
   </div>
 
-  <div class="d-block d-lg-none text-dark">
+  <div class="form-group text-dark">
     <strong class="d-block pb-2">Notes</strong>
     <ul>
       <li>Full Name: Franco Héctor Hugo Montenegro</li>
@@ -96,4 +75,14 @@
 
     Service Code: S13
   </div>
+
+  <% if can? :manage, @invoice %>
+    <div class="form-group text-center">
+      <% if @invoice.is_visible? %>
+        <%= link_to "Hide", hide_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-red" %>
+      <% else %>
+        <%= link_to "Make it visible", make_visible_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-primary" %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

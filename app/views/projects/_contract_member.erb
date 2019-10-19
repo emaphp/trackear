@@ -1,0 +1,18 @@
+<div class="media mt-3 p-3 border rounded shadow-sm">
+  <%= image_tag (contract.user.picture || ""), class: "avatar align-self-center mr-3" %>
+  <div class="media-body text-dark">
+    <% if can? :manage, contract %>
+      <%= link_to contract.user.first_name, edit_project_project_contract_path(project, contract) %>
+    <% else %>
+      <%= contract.user.first_name %>
+    <% end %>
+    <% if contract.user.is_premium? %>
+      <span
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Premium customers have access to special benefits such as discounts, top priority support and future features coming up soon"
+      >🔥</span>
+    <% end %>
+    <small class="d-block text-muted"><%= contract.activity %></small>
+  </div>
+</div>

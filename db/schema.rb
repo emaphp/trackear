@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_211902) do
+ActiveRecord::Schema.define(version: 2019_10_19_220728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_211902) do
     t.datetime "updated_at", null: false
     t.date "from"
     t.date "to"
+    t.boolean "is_visible"
     t.index ["project_id"], name: "index_invoices_on_project_id"
   end
 
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_211902) do
     t.string "name"
     t.string "currency"
     t.string "slug"
+    t.text "icon_data"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
@@ -98,6 +100,8 @@ ActiveRecord::Schema.define(version: 2019_10_16_211902) do
     t.string "last_name"
     t.string "picture"
     t.string "slug"
+    t.boolean "is_admin"
+    t.boolean "is_premium"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true

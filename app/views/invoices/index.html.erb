@@ -5,8 +5,15 @@
   </p>
   <% @invoices.each do |invoice| %>
     <div class="mb-3 p-3 border rounded shadow-sm">
-      <%= link_to invoice.from, edit_project_invoice_path(@project, invoice) %>
+      <% if @project.is_client? current_user %>
+        <%= link_to invoice.from, [@project, invoice] %>
+      <% else %>
+        <%= link_to invoice.from, edit_project_invoice_path(@project, invoice) %>
+      <% end %>
     </div>
   <% end %>
-  <%= link_to "Create invoice", new_project_invoice_path(@project), class: "btn btn-primary" %>
+
+  <% if can? :manage, Invoice %>
+    <%= link_to "Create invoice", new_project_invoice_path(@project), class: "btn btn-primary" %>
+  <% end %>
 </div>

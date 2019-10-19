@@ -4,7 +4,7 @@
     <%= "You don't have any projects :(" unless @active_contracts.present? %>
     <% @active_contracts.each do |active_contract| %>
       <div class="media mb-3 p-3 border rounded shadow-sm">
-        <%= image_tag "", class: "avatar align-self-start mr-3" %>
+        <%= image_tag active_contract.project.icon_url, class: "avatar align-self-start mr-3" %>
         <div class="media-body text-dark pt-1">
           <%= link_to active_contract.project.name, active_contract.project %>
         </div>

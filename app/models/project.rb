@@ -1,6 +1,9 @@
 class Project < ApplicationRecord
     extend FriendlyId
+
     friendly_id :slug_candidates, use: :slugged
+
+    include Shrine::Attachment(:icon)
 
     has_many :project_contracts
     has_many :users, through: :project_contracts
@@ -8,6 +11,7 @@ class Project < ApplicationRecord
     has_many :invoices
 
     validates :name, presence: true
+    validates :icon, presence: true
 
     def slug_candidates
         [[:name, :slug_suffix]]
@@ -26,4 +30,8 @@ class Project < ApplicationRecord
         )
         owner_contract.project
     end
+
+  def is_client?(user)
+      project_contracts.where(user: user, activity: "Owner").any?
+  end
 end

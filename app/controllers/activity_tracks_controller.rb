@@ -1,6 +1,8 @@
 class ActivityTracksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_currently_active_contract, only: [:show, :create, :edit, :update, :destroy]
   before_action :set_activity_track, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /activity_tracks
   # GET /activity_tracks.json

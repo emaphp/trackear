@@ -7,6 +7,12 @@
   </div>
 
   <div class="form-group">
+    <%= form.hidden_field :icon, value: project.cached_icon_data %>
+    <%= form.label :icon %>
+    <%= form.file_field :icon, class: "form-control", style: "height: 45px;" %>
+  </div>
+
+  <div class="form-group">
     <%= form.submit "Create project", class: "btn btn-primary" unless project.persisted? %>
     <%= form.submit "Update project", class: "btn btn-primary" if project.persisted? %>
   </div>

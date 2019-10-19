@@ -1,6 +1,8 @@
 class ProjectContractsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project, only: [:show, :new, :create, :edit, :update, :destroy]
   before_action :set_project_contract, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /project_contracts
   # GET /project_contracts.json

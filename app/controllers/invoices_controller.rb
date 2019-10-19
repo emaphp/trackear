@@ -1,6 +1,8 @@
 class InvoicesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :make_visible, :hide]
+  load_and_authorize_resource
 
   # GET /invoices
   # GET /invoices.json
@@ -62,6 +64,26 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def make_visible
+    @invoice.is_visible = true
+    @invoice.save
+
+    respond_to do |format|
+      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice is visible.' }
+      format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
+    end
+  end
+
+  def hide
+    @invoice.is_visible = false
+    @invoice.save
+
+    respond_to do |format|
+      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice is no longer visible.' }
+      format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
     end
   end
 

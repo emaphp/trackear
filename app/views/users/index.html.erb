@@ -2,7 +2,7 @@
   <h6>Users</h6>
   <% @users.each do |user| %>
     <div class="media mb-3 p-3 border rounded shadow-sm">
-      <%= image_tag user.picture, class: "avatar align-self-center mr-3" %>
+      <%= image_tag (user.picture || ""), class: "avatar align-self-center mr-3" %>
       <div class="media-body text-dark align-self-center">
         <%= link_to user.first_name + " " + user.last_name, edit_user_path(user) %>
         <small class="d-block">

@@ -74,3 +74,5 @@ gem 'friendly_id'
 gem 'date_validator'
 
 gem 'dotiw'
+
+gem 'shrine', '~> 3.0'

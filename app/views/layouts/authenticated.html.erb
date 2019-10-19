@@ -35,7 +35,10 @@
           <%= link_to('Create project', new_project_path, class: "btn btn-green btn-block") %>
           <%= link_to('Home', home_path, class: "btn btn-block text-left") %>
           <%= link_to('Projects', projects_path, class: "btn btn-block text-left") %>
-          <%= link_to('Users', users_path, class: "btn btn-block text-left") %>
+
+          <% if can? :manage, User %>
+            <%= link_to('Users', users_path, class: "btn btn-block text-left") %>
+          <% end %>
         </div>
       </div>
       <div class="col-lg-9">

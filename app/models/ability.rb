@@ -6,6 +6,7 @@ class Ability
   def initialize(user)
     return unless user.present?
 
+    can :create, Project
     can :read, Project, users: { id: user.id }
     can :manage, Project, project_contracts: { user_id: user.id, activity: "Owner" }
 

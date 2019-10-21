@@ -14,7 +14,7 @@
 </div>
 
 <div class="row">
-  <div class="col-6">
+  <div class="col-lg-6">
     <div class="box mt-4">
       <h6>Invoices</h6>
       <p class="lead text-center">
@@ -22,7 +22,7 @@
       </p>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-lg-6">
     <div class="box mt-4">
       <h6>Contracts</h6>
       <p class="lead text-center">
@@ -35,7 +35,11 @@
             <%= "Finished" if contract.finished? %>
             <%= "Deferred" if contract.deferred? %>
             <small class="d-block">
-              Rate <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %>
+              <% if contract.project.is_client? current_user %>
+                Owner
+              <% else %>
+                Rate <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %>
+              <% end %>
             </small>
           </div>
         <% end %>

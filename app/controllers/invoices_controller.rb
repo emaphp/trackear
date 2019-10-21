@@ -7,7 +7,11 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = @project.invoices
+    if current_user.is_admin?
+      @invoices = @project.invoices
+    else
+      @invoices = @project.invoices.visible
+    end
   end
 
   # GET /invoices/1
@@ -95,7 +99,11 @@ class InvoicesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_invoice
-    @invoice = Invoice.find(params[:id])
+    if current_user.is_admin?
+      @invoice = Invoice.find(params[:id])
+    else
+      @invoice = @project.invoices.visible.find(params[:id])
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

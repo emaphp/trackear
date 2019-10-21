@@ -5,6 +5,8 @@ class Invoice < ApplicationRecord
 
   after_create :create_invoice_entries_in_invoice_period
 
+  scope :visible, -> () { where(is_visible: true) }
+
   def calculate_subtotal
     invoice_entries.collect { |entry| entry.calculate_total }.sum
   end

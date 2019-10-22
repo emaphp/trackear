@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:become, :show, :edit, :update, :destroy]
   load_and_authorize_resource
 
   # GET /users
@@ -62,6 +62,11 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def become
+    sign_in(:user, @user)
+    redirect_to home_url
   end
 
   private

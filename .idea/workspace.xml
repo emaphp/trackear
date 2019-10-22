@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6be932d6-74a1-4cf2-a34e-448b1d8cebff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/helpers/projects_helper.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers/projects_helper.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/activity_tracks/_show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/activity_tracks/_show.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/projects/_tracks_box.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/projects/_tracks_box.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/users_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/users_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -195,7 +195,7 @@
       <workItem from="1571515408708" duration="5031000" />
       <workItem from="1571660018103" duration="2432000" />
       <workItem from="1571689463055" duration="3094000" />
-      <workItem from="1571777760804" duration="2133000" />
+      <workItem from="1571777760804" duration="4568000" />
     </task>
     <servers />
   </component>

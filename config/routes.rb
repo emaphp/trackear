@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, :skip => [:registrations]
   scope 'admin' do
-    resources :users
+    resources :users do
+      post :become, on: :member
+    end
   end
   resources :projects do
     resources :project_contracts, except: [:index]

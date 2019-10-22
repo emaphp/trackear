@@ -31,10 +31,13 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+    begin
     @project = current_user.create_project_and_ensure_owner_contract(project_params)
+    rescue
+    end
 
     respond_to do |format|
-      if @project.persisted?
+      if @project.valid? && @project.persisted?
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else

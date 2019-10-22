@@ -16,7 +16,12 @@
     </div>
   <% end %>
   <div class="mb-2">
-    <% if not logs.present? %>
+    <% if logs.present? %>
+      <p class="pt-3">
+        Total entries: <%= logs.size %><br />
+        Logged time in all entries: <%= calculate_hours_from logs %>
+      </p>
+    <% else %>
       <p class="lead text-center py-5">No logs found :(</p>
     <% end %>
     <% logs.each do |log| %>

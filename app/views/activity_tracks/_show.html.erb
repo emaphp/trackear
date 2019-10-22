@@ -4,7 +4,7 @@
     <strong><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %></strong>
     <br>
     <small class="text-muted">
-      <%= log.from.strftime "%d %B" %>, <%= distance_of_time_in_words(log.from, log.to, true, :only => [:minutes, :hours]) %> logged
+      <%= log.from.strftime "%d %B" %> to <%= log.to.strftime "%d %B" %>, <%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %> logged
     </small>
     <p class="mb-0 mt-2">
       <%= log.description %>

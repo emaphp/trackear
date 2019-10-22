@@ -1,7 +1,9 @@
 <div class="box mb-4">
   <h6>Members</h6>
-  <% contracts.order(activity: :desc).each do |contract| %>
-    <%= render 'contract_member', project: project, contract: contract %>
-  <% end %>
+  <div class="members-container">
+    <% contracts.order(activity: :desc).each do |contract| %>
+      <%= render 'contract_member', project: project, contract: contract %>
+    <% end %>
+  </div>
   <%= render 'add_member_button', project: project %>
 </div>

@@ -1,3 +1,12 @@
 .project-icon {
     max-width: 135px;
 }
+
+.members-container {
+    max-height: 200px;
+    overflow: auto;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding-left: 30px;
+    padding-right: 30px;
+}

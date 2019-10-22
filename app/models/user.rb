@@ -19,15 +19,20 @@ class User < ApplicationRecord
     SecureRandom.hex(3)
   end
 
-  def create_owner_contract_for(project)
-    project_contracts.create(
-        activity: "Owner",
-        project: project,
-        active_from: Date.today,
-        ends_at: Date.today.next_year,
-        user_rate: 0,
-        project_rate: 0
-    )
+  def create_project_and_ensure_owner_contract(project_params)
+    ActiveRecord::Base.transaction do
+      project = Project.new(project_params)
+      project_contracts.create!(
+          activity: "Owner",
+          project: project,
+          active_from: Date.today,
+          ends_at: Date.today.next_year,
+          user_rate: 0,
+          project_rate: 0
+      )
+      project.save!
+      project
+    end
   end
 
   def currently_active_contract_for(project)

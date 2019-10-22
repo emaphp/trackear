@@ -31,11 +31,10 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
-    @contract = current_user.create_owner_contract_for(@project)
+    @project = current_user.create_project_and_ensure_owner_contract(project_params)
 
     respond_to do |format|
-      if @project.save
+      if @project.persisted?
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else

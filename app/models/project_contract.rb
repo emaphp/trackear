@@ -8,7 +8,7 @@ class ProjectContract < ApplicationRecord
   validates :activity, presence: true
   validates :active_from, date: { before: :ends_at }
   validates :ends_at, date: { after: :active_from }
-  validates :project_rate, numericality: { greater_than_or_equal_to: 0 }
+  validates :project_rate, numericality: { greater_than_or_equal_to: :user_rate }
   validates :user_rate, numericality: { greater_than_or_equal_to: 0 }
   validate :dates_do_not_collide_with_existing_contracts
 
@@ -17,6 +17,7 @@ class ProjectContract < ApplicationRecord
   scope :currently_active, -> () { active_in(Date.today) }
 
   def dates_do_not_collide_with_existing_contracts
+    return unless user.present?
     user_contracts = user.project_contracts.where(project: project).where.not(id: id)
     contracts_collide = user_contracts.active_in(active_from).or(user_contracts.active_in(ends_at))
     errors.add(:user_id, "has contracts colliding with the selected dates") if contracts_collide.any?

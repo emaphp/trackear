@@ -3,6 +3,8 @@ class Invoice < ApplicationRecord
   has_many :invoice_entries
   accepts_nested_attributes_for :invoice_entries
 
+  validates :discount_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+
   after_create :create_invoice_entries_in_invoice_period
 
   scope :visible, -> () { where(is_visible: true) }

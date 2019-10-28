@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
@@ -12,7 +14,7 @@ class User < ApplicationRecord
   has_many :activity_tracks
 
   def slug_candidates
-    [[:first_name, :last_name, :slug_suffix]]
+    [%i[first_name last_name slug_suffix]]
   end
 
   def slug_suffix
@@ -23,12 +25,12 @@ class User < ApplicationRecord
     ActiveRecord::Base.transaction do
       project = Project.new(project_params)
       project_contracts.create!(
-          activity: "Owner",
-          project: project,
-          active_from: Date.today,
-          ends_at: Date.today.next_year,
-          user_rate: 0,
-          project_rate: 0
+        activity: 'Owner',
+        project: project,
+        active_from: Date.today,
+        ends_at: Date.today.next_year,
+        user_rate: 0,
+        project_rate: 0
       )
       project.save!
       project
@@ -46,23 +48,21 @@ class User < ApplicationRecord
 
     if user_is_invited_but_uninitialized
       user.update(
-          first_name: data['first_name'],
-          last_name: data['last_name'],
-          picture: data['image'],
-          password: Devise.friendly_token[0, 20]
+        first_name: data['first_name'],
+        last_name: data['last_name'],
+        picture: data['image'],
+        password: Devise.friendly_token[0, 20]
       )
     end
 
     # debug code, remove!
-    unless user
-      user = User.create(
-          email: data['email'],
-          first_name: data['first_name'],
-          last_name: data['last_name'],
-          picture: data['image'],
-          password: Devise.friendly_token[0, 20]
-      )
-    end
+    user ||= User.create(
+      email: data['email'],
+      first_name: data['first_name'],
+      last_name: data['last_name'],
+      picture: data['image'],
+      password: Devise.friendly_token[0, 20]
+    )
 
     user
   end

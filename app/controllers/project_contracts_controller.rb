@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ProjectContractsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:show, :new, :create, :edit, :update, :destroy]
-  before_action :set_project_contract, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show new create edit update destroy]
+  before_action :set_project_contract, only: %i[show edit update destroy]
   load_and_authorize_resource
 
   # GET /project_contracts
@@ -12,8 +14,7 @@ class ProjectContractsController < ApplicationController
 
   # GET /project_contracts/1
   # GET /project_contracts/1.json
-  def show
-  end
+  def show; end
 
   # GET /project_contracts/new
   def new
@@ -81,12 +82,12 @@ class ProjectContractsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_contract_params
     params.require(:project_contract).permit(
-        :user_id,
-        :activity,
-        :active_from,
-        :ends_at,
-        :project_rate,
-        :user_rate
+      :user_id,
+      :activity,
+      :active_from,
+      :ends_at,
+      :project_rate,
+      :user_rate
     )
   end
 end

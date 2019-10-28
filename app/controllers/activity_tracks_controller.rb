@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ActivityTracksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_currently_active_contract, only: [:show, :create, :edit, :update, :destroy]
-  before_action :set_activity_track, only: [:show, :edit, :update, :destroy]
+  before_action :set_currently_active_contract, only: %i[show create edit update destroy]
+  before_action :set_activity_track, only: %i[show edit update destroy]
   load_and_authorize_resource
 
   # GET /activity_tracks
@@ -12,8 +14,7 @@ class ActivityTracksController < ApplicationController
 
   # GET /activity_tracks/1
   # GET /activity_tracks/1.json
-  def show
-  end
+  def show; end
 
   # GET /activity_tracks/new
   def new
@@ -21,8 +22,7 @@ class ActivityTracksController < ApplicationController
   end
 
   # GET /activity_tracks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /activity_tracks
   # POST /activity_tracks.json

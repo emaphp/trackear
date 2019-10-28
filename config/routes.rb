@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, :skip => [:registrations]
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, skip: [:registrations]
   scope 'admin' do
     resources :users do
       post :become, on: :member
@@ -13,5 +15,5 @@ Rails.application.routes.draw do
     end
     resources :activity_tracks, except: [:index]
   end
-  root to: "home#index", as: 'home'
+  root to: 'home#index', as: 'home'
 end

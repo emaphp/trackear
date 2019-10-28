@@ -8,9 +8,9 @@ class Ability
 
     can :create, Project
     can :read, Project, users: { id: user.id }
-    can :manage, Project, project_contracts: { user_id: user.id, activity: "Owner" }
+    can :manage, Project, project_contracts: { user_id: user.id, activity: 'Owner' }
 
-    can :read, Invoice, project: { project_contracts: { user_id: user.id, activity: "Owner" } }
+    can :read, Invoice, project: { project_contracts: { user_id: user.id, activity: 'Owner' } }
 
     can :manage, ActivityTrack, project_contract: { user_id: user.id }
     can :create, ActivityTrack

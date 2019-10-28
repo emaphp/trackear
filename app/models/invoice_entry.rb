@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvoiceEntry < ApplicationRecord
   belongs_to :invoice
   belongs_to :activity_track

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show edit update destroy]
   load_and_authorize_resource
 
   # GET /projects
@@ -25,15 +27,14 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /projects
   # POST /projects.json
   def create
     begin
-    @project = current_user.create_project_and_ensure_owner_contract(project_params)
-    rescue
+      @project = current_user.create_project_and_ensure_owner_contract(project_params)
+    rescue StandardError
     end
 
     respond_to do |format|
@@ -72,6 +73,7 @@ class ProjectsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_project
     @project = current_user.projects.friendly.find(params[:id])
@@ -80,18 +82,22 @@ class ProjectsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
     begin
-    params[:project][:icon].open
-    rescue
+      params[:project][:icon].open
+    rescue StandardError
     end
     params.require(:project).permit(:name, :icon)
   end
 
   def logs_from_param
-    Date.parse(logs_params.fetch(:from)) rescue Date.today.beginning_of_month
+    Date.parse(logs_params.fetch(:from))
+  rescue StandardError
+    Date.today.beginning_of_month
   end
 
   def logs_to_param
-    Date.parse(logs_params.fetch(:to)) rescue Date.today.end_of_month
+    Date.parse(logs_params.fetch(:to))
+  rescue StandardError
+    Date.today.end_of_month
   end
 
   def logs_params

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Invoice < ApplicationRecord
   belongs_to :project
   has_many :invoice_entries
@@ -7,12 +9,12 @@ class Invoice < ApplicationRecord
 
   after_create :create_invoice_entries_in_invoice_period
 
-  scope :visible, -> () { where(is_visible: true) }
+  scope :visible, -> { where(is_visible: true) }
 
   def calculate_subtotal
-    invoice_entries.collect { |entry| entry.calculate_total }.sum
+    invoice_entries.collect(&:calculate_total).sum
   end
-  
+
   def calculate_total
     calculate_subtotal * ((100 - discount_percentage) / 100)
   end

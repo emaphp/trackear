@@ -1,23 +1,24 @@
+# frozen_string_literal: true
+
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :make_visible, :hide]
+  before_action :set_invoice, only: %i[show edit update destroy make_visible hide]
   load_and_authorize_resource
 
   # GET /invoices
   # GET /invoices.json
   def index
-    if current_user.is_admin?
-      @invoices = @project.invoices
-    else
-      @invoices = @project.invoices.visible
-    end
+    @invoices = if current_user.is_admin?
+                  @project.invoices
+                else
+                  @project.invoices.visible
+                end
   end
 
   # GET /invoices/1
   # GET /invoices/1.json
-  def show
-  end
+  def show; end
 
   # GET /invoices/new
   def new
@@ -28,8 +29,7 @@ class InvoicesController < ApplicationController
   end
 
   # GET /invoices/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /invoices
   # POST /invoices.json
@@ -118,8 +118,8 @@ class InvoicesController < ApplicationController
 
   def update_invoice_params
     params.require(:invoice).permit(
-        :discount_percentage,
-        invoice_entries_attributes: [:id, :description, :rate, :from, :to]
+      :discount_percentage,
+      invoice_entries_attributes: %i[id description rate from to]
     )
   end
 end

@@ -80,3 +80,7 @@ gem 'dotiw'
 gem 'shrine', '~> 3.0'
 
 gem 'rubocop'
+
+gem 'secure_headers'
+
+gem 'rack-attack'

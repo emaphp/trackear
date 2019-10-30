@@ -55,15 +55,6 @@ class User < ApplicationRecord
       )
     end
 
-    # debug code, remove!
-    user ||= User.create(
-      email: data['email'],
-      first_name: data['first_name'],
-      last_name: data['last_name'],
-      picture: data['image'],
-      password: Devise.friendly_token[0, 20]
-    )
-
     user
   end
 end

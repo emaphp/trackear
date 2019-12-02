@@ -14,9 +14,16 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    impersonate_from = session[:impersonating_from]
+    if impersonate_from.present?
+      sign_in(:user, User.find(impersonate_from))
+      session.delete(:impersonating_from)
+      redirect_to home_url
+    else
+      super
+    end
+  end
 
   # protected
 

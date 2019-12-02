@@ -11,5 +11,5 @@ SecureHeaders::Configuration.default do |config|
     config.csp.form_action = %w('self')
     config.csp.block_all_mixed_content = true
     config.csp.upgrade_insecure_requests = true
-    config.csp.script_src = %w('self' 'unsafe-inline' jquery.com cloudflare.com bootstrapcdn.com)
+    config.csp.script_src = %w('self' 'unsafe-inline' *.jquery.com *.cloudflare.com *.bootstrapcdn.com)
 end

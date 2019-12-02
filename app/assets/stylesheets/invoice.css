@@ -1,0 +1,14 @@
+.invoice-description-col {
+    width: 50%;
+    word-break: break-all;
+}
+
+.invoice-number-col,
+.invoice-rate-col,
+.invoice-qty-col {
+    width: 10%;
+}
+
+.invoice-total-col {
+    width: 20%;
+}

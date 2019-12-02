@@ -100,9 +100,29 @@ class InvoicesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_invoice
     if current_user.is_admin?
-      @invoice = Invoice.includes(:invoice_entries).find(params[:id])
+      @invoice = Invoice.includes(
+        invoice_entries: [
+          {
+            activity_track: [
+              {
+                project_contract: [:user]
+              }
+            ]
+          }
+        ]
+      ).find(params[:id])
     else
-      @invoice = @project.invoices.includes(:invoice_entries).visible.find(params[:id])
+      @invoice = @project.invoices.includes(
+        invoice_entries: [
+          {
+            activity_track: [
+              {
+                project_contract: [:user]
+              }
+            ]
+          }
+        ]
+      ).visible.find(params[:id])
     end
   end
 

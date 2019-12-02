@@ -15,47 +15,61 @@
   <div class="text-dark text-right py-3">
     Invoice Period: <%= humanized_invoice_period(@invoice) %>
   </div>
-  <div class="table-responsive">
+  <div class="table-responsive border">
     <table class="table table-borderless">
-    <thead class="border-bottom border-top">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Item</th>
-        <th scope="col" class="text-right">Rate</th>
-        <th scope="col" class="text-right">Qty</th>
-        <th scope="col" class="text-right">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @invoice.invoice_entries.each_with_index do |entry, index| %>
+      <thead class="border-bottom">
         <tr>
-          <td scope="row"><%= index %></td>
-          <td><%= entry.description %></td>
-          <td class="text-right"><%= entry.rate %></td>
-          <td class="text-right"><%= entry.calculate_quantity.round(2) %></td>
-          <td class="text-right"><%= humanized_money_with_currency(entry.calculate_total, @invoice.currency) %></td>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col" class="text-right">Rate</th>
+          <th scope="col" class="text-right">Qty</th>
+          <th scope="col" class="text-right">Total</th>
         </tr>
-      <% end %>
-      <tr class="border-top">
-        <td colspan="3" rowspan="4"></td>
-        <td class="text-right"><strong>SUBTOTAL</strong></td>
-        <td class="text-right">
-          <%= humanized_money_with_currency(@invoice.calculate_subtotal, @invoice.currency) %>
-        </td>
-      </tr>
-      <tr class="text-right">
-        <td class="pt-0"><strong>DISCOUNT</strong></td>
-        <td class="pt-0"><%= @invoice.discount_percentage %>%</td>
-      </tr>
-      <tr class="text-right">
-        <td class="pt-0"><strong>TOTAL</strong></td>
-        <td class="pt-0"><%= humanized_money_with_currency(@invoice.calculate_total, @invoice_currency) %></td>
-      </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @invoice.invoice_entries.order(from: :asc).each_with_index do |entry, index| %>
+          <tr>
+            <td scope="row" class="invoice-number-col">
+              <div><%= index %></div>
+            </td>
+            <td class="invoice-description-col">
+              <div>
+                <%= entry.description %>
+                <br />
+                <small>From <%= entry.activity_track.project_contract.user.first_name %></small>
+              </div>
+            </td>
+            <td class="text-right invoice-rate-col">
+              <div><%= entry.rate %></div>
+            </td>
+            <td class="text-right invoice-qty-col">
+              <div><%= entry.calculate_quantity.round(2) %></div>
+            </td>
+            <td class="text-right invoice-total-col">
+              <div><%= humanized_money_with_currency(entry.calculate_total, @invoice.currency) %></div>
+            </td>
+          </tr>
+        <% end %>
+        <tr class="border-top">
+          <td colspan="3" rowspan="4"></td>
+          <td class="text-right"><strong>SUBTOTAL</strong></td>
+          <td class="text-right">
+            <%= humanized_money_with_currency(@invoice.calculate_subtotal, @invoice.currency) %>
+          </td>
+        </tr>
+        <tr class="text-right">
+          <td class="pt-0"><strong>DISCOUNT</strong></td>
+          <td class="pt-0"><%= @invoice.discount_percentage %>%</td>
+        </tr>
+        <tr class="text-right">
+          <td class="pt-0"><strong>TOTAL</strong></td>
+          <td class="pt-0"><%= humanized_money_with_currency(@invoice.calculate_total, @invoice_currency) %></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="form-group text-dark">
+  <div class="mt-4 form-group text-dark">
     <strong class="d-block pb-2">Notes</strong>
     <ul>
       <li>Full Name: Franco Héctor Hugo Montenegro</li>

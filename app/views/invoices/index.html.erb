@@ -5,10 +5,9 @@
   </p>
   <% @invoices.each do |invoice| %>
     <div class="mb-3 p-3 border rounded shadow-sm">
-      <% if @project.is_client? current_user %>
-        <%= link_to invoice.from, [@project, invoice] %>
-      <% else %>
-        <%= link_to invoice.from, edit_project_invoice_path(@project, invoice) %>
+      <%= link_to invoice.from.strftime("%B %Y"), [@project, invoice] %> - Amount <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %><br />
+      <% if !@project.is_client?(current_user) %>
+        <%= link_to "Edit", edit_project_invoice_path(@project, invoice), class: "btn btn-orange btn-sm" %>
       <% end %>
     </div>
   <% end %>

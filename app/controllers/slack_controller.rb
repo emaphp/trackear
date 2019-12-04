@@ -4,25 +4,16 @@ class SlackController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def log
-        unless SlackService.is_request_from_slack?(request)
-            render(status: '400', plain: 'Invalid request')
-            return
-        end
+        # return render(status: '400', plain: 'Invalid request') unless SlackService.is_request_from_slack?(request)
 
         client = Slack::Web::Client.new
 
-        info = client.users_info(user: params[:user_id])
-        unless info
-            render(status: '404', plain: 'User not found')
-            return
-        end
+        info = client.users_info(user: params[:user_id])        
+        return render(status: '404', plain: 'User not found') unless info
 
         email = info.user.profile.email
         user = User.find_by(email: email)
-        unless user
-            render(status: '404', plain: 'User with email #{email} not found')
-            return
-        end
+        return render(status: '404', plain: 'User with email #{email} not found') unless user
 
         text_splitted = params[:text].split(" ", 3)
 
@@ -31,22 +22,15 @@ class SlackController < ApplicationController
         description = text_splitted[2]
 
         project = user.projects.where("lower(name) = ?", project_name.downcase).first
-        unless project
-            render(status: '404', plain: 'Project with name #{project_name} not found')
-            return
-        end
+        return render(status: '404', plain: 'Project with name #{project_name} not found') unless project
 
         time = DateTime.parse(worked_time)
 
         active_contract = user.currently_active_contract_for(project)
-
-        unless active_contract
-            render(status: '404', plain: 'No active contract found for project #{project_name}')
-            return
-        end
+        return render(status: '404', plain: 'No active contract found for project #{project_name}') unless active_contract
 
         active_contract.activity_tracks.create(
-            from: DateTime.now.in_time_zone("America/Argentina/Buenos_Aires") - (time.hour * 1.hour) - (time.minutes * 1.minute),
+            from: DateTime.now.in_time_zone("America/Argentina/Buenos_Aires") - (time.hour * 1.hour) - (time.minute * 1.minute),
             to: DateTime.now.in_time_zone("America/Argentina/Buenos_Aires"),
             description: description
         )

@@ -84,3 +84,5 @@ gem 'rubocop'
 gem 'secure_headers'
 
 gem 'rack-attack'
+
+gem 'slack-ruby-client'

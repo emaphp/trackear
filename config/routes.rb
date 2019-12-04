@@ -15,5 +15,8 @@ Rails.application.routes.draw do
     end
     resources :activity_tracks, except: [:index]
   end
+  scope 'slack' do
+    post 'log', to: 'slack#log'
+  end
   root to: 'home#index', as: 'home'
 end

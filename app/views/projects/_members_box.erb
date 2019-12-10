@@ -1,7 +1,7 @@
 <div class="box mb-4">
   <h6>Members</h6>
   <div class="members-container">
-    <% contracts.order(activity: :desc).each do |contract| %>
+    <% contracts.order("case activity when 'Owner' then 0 end").each do |contract| %>
       <%= render 'contract_member', project: project, contract: contract %>
     <% end %>
   </div>

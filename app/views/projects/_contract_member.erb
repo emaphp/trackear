@@ -6,13 +6,9 @@
     <% else %>
       <%= contract.user.first_name %>
     <% end %>
-    <% if contract.user.is_premium? %>
-      <span
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Premium customers have access to special benefits such as discounts, top priority support and future features coming up soon"
-      >🔥</span>
-    <% end %>
     <small class="d-block text-muted"><%= contract.activity %></small>
+    <% if contract.user.is_premium? %>
+      <span class="badge badge-primary">Premium customer</span>
+    <% end %>
   </div>
 </div>

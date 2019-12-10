@@ -1,16 +1,45 @@
 <div class="box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+      <li class="breadcrumb-item active" aria-current="page">Invoices</li>
+    </ol>
+  </nav>
+
   <h6>Invoices</h6>
   <p class="lead text-center">
     <%= "Nothing to be displayed here..." unless @invoices.present? %>
   </p>
-  <% @invoices.each do |invoice| %>
-    <div class="mb-3 p-3 border rounded shadow-sm">
-      <%= link_to invoice.from.strftime("%B %Y"), [@project, invoice] %> - Amount <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %><br />
-      <% if !@project.is_client?(current_user) %>
-        <%= link_to "Edit", edit_project_invoice_path(@project, invoice), class: "btn btn-orange btn-sm" %>
+  <table class="table border">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Month</th>
+        <th scope="col">Year</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Discount</th>
+        <th scope="col" class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoices.each.with_index(1) do |invoice, index| %>
+        <tr>
+          <th scope="row"><%= index %></th>
+          <td><%= invoice.from.strftime("%B") %></td>
+          <td><%= invoice.from.strftime("%Y") %></td>
+          <td><%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %></td>
+          <td><%= invoice.discount_percentage %>%</td>
+          <td class="text-center">
+            <%= link_to "Details", [@project, invoice], class: "btn btn-primary btn-sm" %>
+            <% if !@project.is_client?(current_user) %>
+              <%= link_to "Edit", edit_project_invoice_path(@project, invoice), class: "btn btn-orange btn-sm" %>
+            <% end %>
+          </td>
+        </th>
       <% end %>
-    </div>
-  <% end %>
+    </tbody>
+  </table>
 
   <% if can? :manage, Invoice %>
     <%= link_to "Create invoice", new_project_invoice_path(@project), class: "btn btn-primary" %>

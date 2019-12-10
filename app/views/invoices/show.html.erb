@@ -1,4 +1,13 @@
 <div class="box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+      <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= humanized_invoice_period(@invoice) %></li>
+    </ol>
+  </nav>
+
   <h6>Invoice</h6>
   <div class="row mb-5">
     <div class="col-md-6 text-center">

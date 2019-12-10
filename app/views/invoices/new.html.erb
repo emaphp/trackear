@@ -1,4 +1,13 @@
 <div class="box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+      <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
+      <li class="breadcrumb-item active" aria-current="page">Create invoice</li>
+    </ol>
+  </nav>
+
   <h6>New Invoice</h6>
   <%= render 'form', invoice: @invoice, project: @project %>
 </div>

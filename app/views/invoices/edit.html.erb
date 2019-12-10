@@ -1,4 +1,14 @@
 <div class="box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+      <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
+      <li class="breadcrumb-item"><%= link_to humanized_invoice_period(@invoice), [@project, @invoice] %></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+  </nav>
+
   <h6>Review invoice entries</h6>
 
   <%= render 'shared/form/errors', errors: @invoice.errors %>

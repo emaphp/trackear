@@ -1,4 +1,11 @@
 <div class="box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Create project</li>
+    </ol>
+  </nav>
+
   <h6>New Project</h6>
   <%= render 'form', project: @project %>
 </div>

@@ -1,16 +1,26 @@
 <div class="box">
   <h6>Users</h6>
-  <% @users.each do |user| %>
-    <div class="media mb-3 p-3 border rounded shadow-sm">
-      <%= image_tag (user.picture || ""), class: "avatar align-self-start mr-3" %>
-      <div class="media-body text-dark align-self-center">
-        <%= link_to user.first_name + " " + user.last_name, edit_user_path(user) %>
-        <small class="d-block">
-          <%= user.email %>
-        </small>
-        <%= link_to "Impersonate", become_user_path(user), method: :post, class: "btn btn-orange btn-sm" %>
-      </div>
-    </div>
-  <% end %>
+  <%= link_to "Add user", new_user_path, class: "btn btn-primary" %>
+  <table class="table border my-3">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Email</th>
+        <th scope="col"><div class="text-center">Actions</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td class="align-middle"><%= image_tag (user.picture || ""), class: "avatar" %> <%= user.first_name + " " + user.last_name %></td>
+          <td class="align-middle"><%= user.email %></td>
+          <td class="align-middle text-center">
+            <%= link_to "Edit", edit_user_path(user), class: "btn btn-primary" %>
+            <%= link_to "Impersonate", become_user_path(user), method: :post, class: "btn btn-orange btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <%= link_to "Add user", new_user_path, class: "btn btn-primary" %>
 </div>

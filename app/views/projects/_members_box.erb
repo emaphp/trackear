@@ -1,3 +1,4 @@
+<% if project.is_client? user %>
 <div class="box mb-4">
   <h6>Members</h6>
   <div class="members-container">
@@ -7,3 +8,4 @@
   </div>
   <%= render 'add_member_button', project: project %>
 </div>
+<% end %>

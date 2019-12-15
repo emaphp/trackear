@@ -9,18 +9,14 @@
       <%= render 'edit_button', project: @project %>
       <%= render 'invoices_button', project: @project, invoice: @project.invoices.first %>
     </div>
-    <%= render 'members_box', project: @project, contracts: @contracts if @project.is_client? current_user %>
+
+    <%= render 'members_box', project: @project, contracts: @contracts, user: current_user %>
     <%= render 'project_contracts/your_contract', project: @project, contract: @contract, user: current_user %>
   </div>
 
   <div class="col-lg-8">
-    <% unless @project.is_client? current_user %>
-      <div class="box mb-4">
-        <h6>Activity track</h6>
-        <%= render 'activity_tracks/form', project: @project, activity_track: ActivityTrack.new %>
-      </div>
-
-      <%= render 'tracks_box', project: @project, logs_from: @logs_from, logs_to: @logs_to, logs: @logs %>
-    <% end %>
+    <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
+    <%= render 'tracks_box', project: @project, logs_from: @logs_from, logs_to: @logs_to, logs: @logs, user: current_user %>
+    <%= render 'client_invoice_box', project: @project, invoices: @invoices, user: current_user %>
   </div>
 </div>

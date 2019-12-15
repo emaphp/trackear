@@ -8,9 +8,11 @@
   </nav>
 
   <h6>Invoices</h6>
+  <% unless @invoices.present? %>
   <p class="lead text-center">
-    <%= "Nothing to be displayed here..." unless @invoices.present? %>
+    <%= "Nothing to be displayed here..." %>
   </p>
+  <% else %>
   <table class="table border">
     <thead class="thead-light">
       <tr>
@@ -40,6 +42,7 @@
       <% end %>
     </tbody>
   </table>
+  <% end %>
 
   <% if can? :manage, Invoice %>
     <%= link_to "Create invoice", new_project_invoice_path(@project), class: "btn btn-primary" %>

@@ -3,7 +3,6 @@
   <h6>Your active contract</h6>
   <p class="pb-3 border-bottom">Rate: <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %></p>
   <p class="pb-3 border-bottom">Role: <%= contract.activity %></p>
-  <p class="pb-3 border-bottom">Created at: <%= contract.created_at.strftime("%d %B %Y") %></p>
   <p class="pb-3 border-bottom">Active from: <%= contract.active_from.strftime("%d %B %Y") %></p>
   <p class="pb-3">Ends at: <%= contract.ends_at.strftime("%d %B %Y") %></p>
   <button class="btn btn-primary btn-block" disabled>Download signed contract *</button>

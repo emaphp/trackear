@@ -16,7 +16,7 @@
   </head>
   <body>
   <nav id="navbar" class="navbar">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <%= image_tag "logo-alt.svg", height: "18" %>
       </a>
@@ -27,16 +27,16 @@
           <%= link_to('Exit impersonate', destroy_user_session_path, method: :delete) %>
         <% else %>
           <%= link_to('Logout?', destroy_user_session_path, method: :delete) %>
-        <% end %>
+        <% end %>         
       </div>
     </div>
   </nav>
   <% if notice.present? %>
     <div class="alert alert-info text-center"><%= notice %></div>
   <% end %>
-  <div class="container mt-4 mb-5">
+  <div class="container-fluid mt-4 mb-5">
     <div class="row content-container">
-      <div class="d-none d-sm-none d-md-none d-lg-block col-lg-3">
+      <div class="d-none d-sm-none d-md-none d-lg-block col-lg-2">
         <div class="box menu">
           <%= link_to('Create project', new_project_path, class: "btn btn-green btn-block") %>
           <%= link_to('Home', home_path, class: "btn btn-block text-left") %>
@@ -47,7 +47,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-lg-9">
+      <div class="col-lg-10">
         <%= yield %>
       </div>
     </div>

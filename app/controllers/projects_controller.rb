@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     @contract = current_user.currently_active_contract_for(@project)
     @logs_from = logs_from_param
     @logs_to = logs_to_param
-    @logs = @contract.activity_tracks.where(from: @logs_from..@logs_to + 1.day).includes(:project_contract)
+    @logs = @contract.activity_tracks.where(from: @logs_from..@logs_to + 1.day).includes(:project_contract).order(from: :desc)
   end
 
   # GET /projects/new

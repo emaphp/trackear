@@ -1,4 +1,5 @@
-<div class="box">
+<% if !project.is_client? user %>
+<div class="box mb-4">
   <h6>Your active contract</h6>
   <p class="pb-3 border-bottom">Rate: <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %></p>
   <p class="pb-3 border-bottom">Role: <%= contract.activity %></p>
@@ -8,3 +9,4 @@
   <button class="btn btn-primary btn-block" disabled>Download signed contract *</button>
   <small class="text-center form-text text-muted">* Coming up soon!</small>
 </div>
+<% end %>

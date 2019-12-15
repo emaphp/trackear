@@ -1,4 +1,4 @@
-<% if project.is_client? user %>
+<% if project.is_client? user or user.is_admin? %>
 <div class="box mb-4">
   <h6>Members</h6>
   <div class="members-container">

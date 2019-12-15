@@ -7,7 +7,7 @@
       <%= log.from.strftime "%d %B" %> to <%= log.to.strftime "%d %B" %>, <%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %> logged
     </small>
     <p class="mb-0 mt-2">
-      <%= log.description %>
+      <%= log.description.gsub(/\n/, '<br/>').html_safe %>
     </p>
   </div>
   <div class="align-self-start">

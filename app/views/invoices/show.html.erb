@@ -1,6 +1,6 @@
 <div class="box">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb d-print-none">
       <li class="breadcrumb-item"><a href="/">Home</a></li>
       <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
       <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
@@ -36,14 +36,14 @@
         </tr>
       </thead>
       <tbody>
-        <% @invoice.invoice_entries.order(from: :asc).each_with_index do |entry, index| %>
+        <% @invoice.invoice_entries.order(from: :asc).each.with_index(1) do |entry, index| %>
           <tr>
             <td scope="row" class="invoice-number-col">
               <div><%= index %></div>
             </td>
             <td class="invoice-description-col">
               <div>
-                <%= entry.description %>
+                <%= entry.description.gsub(/\n/, '<br/>').html_safe %>
                 <br />
                 <small>From <%= entry.activity_track.project_contract.user.first_name %></small>
               </div>
@@ -102,9 +102,9 @@
   <% if can? :manage, @invoice %>
     <div class="form-group text-center">
       <% if @invoice.is_visible? %>
-        <%= link_to "Hide", hide_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-red" %>
+        <%= link_to "Hide", hide_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-red d-print-none" %>
       <% else %>
-        <%= link_to "Make it visible", make_visible_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-primary" %>
+        <%= link_to "Make it visible", make_visible_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-primary d-print-none" %>
       <% end %>
     </div>
   <% end %>

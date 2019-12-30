@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :invoices do
       post :make_visible, on: :member
       post :hide, on: :member
+      get :download_invoice, on: :member
+      get :download_payment, on: :member
     end
     resources :activity_tracks, except: [:index]
   end

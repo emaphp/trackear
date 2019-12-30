@@ -16,17 +16,35 @@
     <%= form.number_field :discount_percentage, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :from %>
-    <%= form.date_field :from, class: "form-control" %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= form.label :from %>
+        <%= form.date_field :from, class: "form-control", readonly: invoice.persisted? %>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <%= form.label :to %>
+        <%= form.date_field :to, class: "form-control", readonly: invoice.persisted? %>
+      </div>
+    </div>
   </div>
 
   <div class="form-group">
-    <%= form.label :to %>
-    <%= form.date_field :to, class: "form-control" %>
+    <%= form.hidden_field :invoice, value: invoice.cached_invoice_data %>
+    <%= form.label :invoice, "AFIP Invoice PDF" %>
+    <%= form.file_field :invoice, class: "form-control", style: "height: 45px;" %>
+    <small class="form-text text-muted">If you have doubts on how to generate this file, please check this <a href="https://docs.google.com/document/d/1BCDl-NOO22qfPmLEyJh16CBZKe1-8a_3fFDQHghYfls/edit?usp=sharing" target="_blank" rel="nofollow">document</a> (opens in a new tab).</small>
+    <small class="form-text text-muted">If on the countrary, you need to know how to undo an invalid invoice, please check this <a href="https://docs.google.com/document/d/1lYBMM7QWmxQ0MGgqhiFfvu3MCM_RUEoSh_jrYXvGiBg/edit?usp=sharing" target="_blank" rel="nofollow">document</a> (opens in a new tab).</small>
   </div>
 
   <div class="form-group">
-    <%= form.submit "Create invoice", class: "btn btn-primary" %>
+    <% if invoice.persisted? %>
+      <%= form.submit "Update invoice", class: "btn btn-primary" %>
+    <% else %>
+      <%= form.submit "Create invoice", class: "btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>

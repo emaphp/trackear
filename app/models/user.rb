@@ -13,6 +13,8 @@ class User < ApplicationRecord
 
   has_many :activity_tracks
 
+  has_many :invoices
+
   def slug_candidates
     [%i[first_name last_name slug_suffix]]
   end

@@ -17,6 +17,11 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
+        <% if current_user.is_admin? %>
+        <th scope="col">From</th>
+        <th scope="col">Is for client</th>
+        <th scope="col">Is visible</th>
+        <% end %>
         <th scope="col">Month</th>
         <th scope="col">Year</th>
         <th scope="col">Amount</th>
@@ -28,6 +33,11 @@
       <% @invoices.each.with_index(1) do |invoice, index| %>
         <tr>
           <th scope="row"><%= index %></th>
+          <% if current_user.is_admin? %>
+          <td><%= image_tag (invoice.user.picture || ""), class: "avatar align-self-center mr-3" %> <%= invoice.user.first_name %></td>
+          <td><%= invoice.is_client_visible? ? "Yes" : "No" %></td>
+          <td><%= invoice.is_visible? ? "Yes" : "No" %></td>
+          <% end %>
           <td><%= invoice.from.strftime("%B") %></td>
           <td><%= invoice.from.strftime("%Y") %></td>
           <td><%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %></td>
@@ -44,7 +54,7 @@
   </table>
   <% end %>
 
-  <% if can? :manage, Invoice %>
+  <% unless @project.is_client? current_user %>
     <%= link_to "Create invoice", new_project_invoice_path(@project), class: "btn btn-primary" %>
   <% end %>
 </div>

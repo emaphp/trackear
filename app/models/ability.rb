@@ -10,7 +10,9 @@ class Ability
     can :read, Project, users: { id: user.id }
     can :manage, Project, project_contracts: { user_id: user.id, activity: 'Owner' }
 
+    can :create, Invoice
     can :read, Invoice, project: { project_contracts: { user_id: user.id, activity: 'Owner' } }
+    can :manage, Invoice, user: { id: user.id }
 
     can :manage, ActivityTrack, project_contract: { user_id: user.id }
     can :create, ActivityTrack

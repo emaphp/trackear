@@ -3,16 +3,18 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: %i[show edit update destroy make_visible hide]
+  before_action :set_invoice, only: %i[show edit update destroy make_visible hide download_invoice download_payment]
   load_and_authorize_resource
 
   # GET /invoices
   # GET /invoices.json
   def index
     @invoices = if current_user.is_admin?
-                  @project.invoices
+                  @project.invoices.includes(:user)
+                elsif @project.is_client? current_user 
+                  @project.invoices.includes(:user).for_client
                 else
-                  @project.invoices.visible
+                  current_user.invoices.includes(:user).where(project: @project)
                 end
   end
 
@@ -35,6 +37,7 @@ class InvoicesController < ApplicationController
   # POST /invoices.json
   def create
     @invoice = @project.invoices.new(invoice_params)
+    @invoice.user = current_user
 
     respond_to do |format|
       if @invoice.save
@@ -91,6 +94,16 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def download_invoice
+    name = @invoice.project.name + " - " + @invoice.from.strftime("%B %Y")
+    send_data @invoice.invoice.download.read, filename: name + '.pdf', type: 'application/pdf'
+  end
+
+  def download_payment
+    name = @invoice.project.name + " - Payment - " + @invoice.from.strftime("%B %Y")
+    send_data @invoice.payment.download.read, filename: name + '.pdf', type: 'application/pdf'
+  end
+
   private
 
   def set_project
@@ -99,47 +112,57 @@ class InvoicesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_invoice
+    to_be_included = [
+      {
+        activity_track: [
+          {
+            project_contract: [:user]
+          }
+        ]
+      }
+    ]
     if current_user.is_admin?
-      @invoice = Invoice.includes(
-        invoice_entries: [
-          {
-            activity_track: [
-              {
-                project_contract: [:user]
-              }
-            ]
-          }
-        ]
-      ).find(params[:id])
+      @invoice = Invoice.includes(invoice_entries: to_be_included).find(params[:id])
+    elsif @project.is_client? current_user
+      @invoice = @project.invoices.includes(invoice_entries: to_be_included).for_client.find(params[:id])
     else
-      @invoice = @project.invoices.includes(
-        invoice_entries: [
-          {
-            activity_track: [
-              {
-                project_contract: [:user]
-              }
-            ]
-          }
-        ]
-      ).visible.find(params[:id])
+      @invoice = current_user.invoices.find(params[:id])
     end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
+    begin
+      params[:invoice][:invoice].open
+    rescue StandardError
+    end
+    begin
+      params[:invoice][:payment].open
+    rescue StandardError
+    end
     params.require(:invoice).permit(
       :currency,
       :discount_percentage,
       :from,
-      :to
+      :to,
+      :invoice
     )
   end
 
   def update_invoice_params
-    params.require(:invoice).permit(
-      :discount_percentage,
-      invoice_entries_attributes: %i[id description rate from to]
-    )
+    if current_user.is_admin?
+      params.require(:invoice).permit(
+        :is_client_visible,
+        :discount_percentage,
+        :payment,
+        invoice_entries_attributes: %i[id description rate from to]
+      )
+    else
+      params.require(:invoice).permit(
+        :currency,
+        :invoice,
+        :discount_percentage,
+      )
+    end
   end
 end

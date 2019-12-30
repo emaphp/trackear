@@ -18,9 +18,15 @@
     <div class="box mt-4">
       <h6>Invoices</h6>
       <p class="lead text-center">
-        Nothing to show... yet!*
+        <%= "You don't have any invoices" unless @invoices.present? %>
       </p>
-      <p class="text-center">* Coming up soon!</p>
+      <% @invoices.each do |invoice| %>
+        <div class="border rounded shadow-sm p-3 mb-3">
+          <%= link_to invoice.from.strftime("%B %Y"), [invoice.project, invoice] %> - <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
+          <br />
+          <small><%= invoice.project.name %></small>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="col-lg-6">

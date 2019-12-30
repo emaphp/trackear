@@ -1,15 +1,20 @@
 # frozen_string_literal: true
 
 class Invoice < ApplicationRecord
+  include Shrine::Attachment(:invoice)
+  include Shrine::Attachment(:payment)
+
   belongs_to :project
+  belongs_to :user
   has_many :invoice_entries
   accepts_nested_attributes_for :invoice_entries
 
   validates :discount_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :invoice, presence: true
 
   after_create :create_invoice_entries_in_invoice_period
 
-  scope :visible, -> { where(is_visible: true) }
+  scope :for_client, -> { where(is_visible: true).where(is_client_visible: true) }
 
   def calculate_subtotal
     invoice_entries.collect(&:calculate_total).sum

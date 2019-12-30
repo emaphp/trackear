@@ -21,6 +21,17 @@
       +54 9 280 4722-909
     </div>
   </div>
+
+  <% if current_user.is_admin? %>
+    <div class="my-3 text-center">
+      <% if @invoice.is_visible? %>
+        <%= link_to "Make it hidden", hide_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-red d-print-none" %>
+      <% else %>
+        <%= link_to "Make it visible", make_visible_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-warning d-print-none" %>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="text-dark text-right py-3">
     Invoice Period: <%= humanized_invoice_period(@invoice) %>
   </div>
@@ -78,6 +89,7 @@
     </table>
   </div>
 
+  <% if @invoice.is_client_visible? %>
   <div class="mt-4 form-group text-dark">
     <strong class="d-block pb-2">Notes</strong>
     <ul>
@@ -98,14 +110,17 @@
 
     Service Code: S13
   </div>
+  <% end %>
 
   <% if can? :manage, @invoice %>
-    <div class="form-group text-center">
-      <% if @invoice.is_visible? %>
-        <%= link_to "Hide", hide_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-red d-print-none" %>
-      <% else %>
-        <%= link_to "Make it visible", make_visible_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-lg btn-primary d-print-none" %>
+    <div class="my-3 text-right">
+      <%= link_to "Download Invoice", download_invoice_project_invoice_path(@project, @invoice), class: "btn btn-primary" %>
+      <% if @invoice.payment_data.present? %>
+        <%= link_to "Download Payment Receipt", download_payment_project_invoice_path(@project, @invoice), class: "btn btn-secondary" %>
       <% end %>
-    </div>
+    <div>
+    <% unless @invoice.payment_data.present? %>
+      <small>Once the payment is done, you will be able to download the receipt</small>
+    <% end %>
   <% end %>
 </div>

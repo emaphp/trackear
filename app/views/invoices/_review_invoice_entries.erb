@@ -1,0 +1,36 @@
+<h6>Review invoice entries</h6>
+
+<%= render 'shared/form/errors', errors: invoice.errors %>
+
+<%= form_with(model: [project, invoice], local: true, id: "invoice-form") do |form| %>
+
+<div class="form-group">
+    <%= form.check_box :is_client_visible %>
+    <%= form.label :is_client_visible %>
+</div>
+
+<div class="form-group">
+    <%= form.label :discount_percentage %>
+    <%= form.number_field :discount_percentage, class: "form-control discount-percentage", onchange: "updateInvoiceTotal()" %>
+</div>
+
+<div class="form-group">
+    <%= form.hidden_field :payment, value: invoice.cached_payment_data %>
+    <%= form.label :payment %>
+    <%= form.file_field :payment, class: "form-control", style: "height: 45px;" %>
+</div>
+
+<label>Entries</label>
+<p class="lead">
+    <%= "No entries found for this period" if invoice.invoice_entries.empty? %>
+</p>
+<%= form.fields_for :invoice_entries do |entry| %>
+    <%= render 'invoice_entry', entry: entry %>
+<% end %>
+<div class="text-right form-group">
+    <strong>Total:</strong> <span class="invoice-total">0</span> <%= invoice.currency %>
+</div>
+<div class="form-group text-right">
+    <%= form.submit "Update and review", class: "btn btn-primary" %>
+</div>
+<% end %>

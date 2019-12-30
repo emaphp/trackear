@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
     @logs_from = logs_from_param
     @logs_to = logs_to_param
     @logs = @contract.activity_tracks.where(from: @logs_from..@logs_to + 1.day).includes(:project_contract).order(from: :desc)
-    @invoices = @project.invoices.visible if @project.is_client? current_user
+    @invoices = @project.invoices.for_client if @project.is_client? current_user
   end
 
   # GET /projects/new

@@ -42,6 +42,10 @@
 
   <div class="form-group">
     <% if invoice.persisted? %>
+      <% if current_user.is_admin? %>
+        <%= link_to "Review entries", review_entries_project_invoice_path(@project, @invoice), class: "btn btn-secondary" %>
+        <span>or</span>
+      <% end %>
       <%= form.submit "Update invoice", class: "btn btn-primary" %>
     <% else %>
       <%= form.submit "Create invoice", class: "btn btn-primary" %>

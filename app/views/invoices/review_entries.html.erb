@@ -5,9 +5,10 @@
       <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
       <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
       <li class="breadcrumb-item"><%= link_to humanized_invoice_period(@invoice), [@project, @invoice] %></li>
-      <li class="breadcrumb-item active" aria-current="page">Edit</li>
+      <li class="breadcrumb-item"><%= link_to "Edit", edit_project_invoice_path(@project, @invoice) %></li>
+      <li class="breadcrumb-item active" aria-current="page">Review entries</li>
     </ol>
   </nav>
 
-  <%= render 'form', project: @project, invoice: @invoice %>
+  <%= render 'review_invoice_entries', project: @project, invoice: @invoice %>
 </div>

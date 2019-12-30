@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post :hide, on: :member
       get :download_invoice, on: :member
       get :download_payment, on: :member
+      get :review_entries, on: :member
     end
     resources :activity_tracks, except: [:index]
   end

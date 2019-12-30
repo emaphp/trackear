@@ -3,7 +3,7 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: %i[show edit update destroy make_visible hide download_invoice download_payment]
+  before_action :set_invoice, only: %i[show edit update destroy make_visible hide download_invoice download_payment review_entries]
   load_and_authorize_resource
 
   # GET /invoices
@@ -104,6 +104,8 @@ class InvoicesController < ApplicationController
     send_data @invoice.payment.download.read, filename: name + '.pdf', type: 'application/pdf'
   end
 
+  def review_entries; end
+
   private
 
   def set_project
@@ -152,6 +154,8 @@ class InvoicesController < ApplicationController
   def update_invoice_params
     if current_user.is_admin?
       params.require(:invoice).permit(
+        :currency,
+        :invoice,
         :is_client_visible,
         :discount_percentage,
         :payment,

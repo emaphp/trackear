@@ -9,7 +9,7 @@ class ActivityTrack < ApplicationRecord
   validates :to, date: { after: :from }
   validate :activity_is_inside_contract
 
-  scope :logged_in_period, ->(from, to) { where(from: from..to) }
+  scope :logged_in_period, ->(from, to) { where(from: from..to + 1.day) }
 
   def calculate_hours
     (to - from) / 1.hour

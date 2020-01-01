@@ -41,7 +41,7 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to edit_project_invoice_path(@project, @invoice), notice: 'Invoice was successfully created.' }
+        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice was successfully created.' }
         format.json { render :show, status: :created, location: @invoice }
       else
         format.html { render :new }

@@ -27,7 +27,13 @@ class Invoice < ApplicationRecord
   private
 
   def create_invoice_entries_in_invoice_period
-    contracts = project.project_contracts
+    contracts = 
+      if user.is_admin?
+        project.project_contracts
+      else
+        project.project_contracts.where(user: user)
+      end
+
     contracts.each do |contract|
       logged = contract.activity_tracks.logged_in_period(from, to)
       logged.each do |activity|

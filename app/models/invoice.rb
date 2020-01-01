@@ -38,7 +38,7 @@ class Invoice < ApplicationRecord
       logged = contract.activity_tracks.logged_in_period(from, to)
       logged.each do |activity|
         invoice_entries.create(
-          rate: contract.project_rate,
+          rate: user.is_admin ? contract.project_rate : contract.user_rate,
           activity_track: activity,
           description: activity.description,
           from: activity.from,

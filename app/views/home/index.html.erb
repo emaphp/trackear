@@ -41,13 +41,12 @@
             <%= "Active" if contract.currently_active? %>
             <%= "Finished" if contract.finished? %>
             <%= "Deferred" if contract.deferred? %>
-            <small class="d-block">
-              <% if contract.project.is_client? current_user %>
-                Owner
-              <% else %>
-                Rate <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %>
-              <% end %>
-            </small>
+            <% if contract.project.is_client? current_user %>
+              <small class="d-block">Owner</small>
+            <% else %>
+              <small class="d-block">From <%= contract.active_from.strftime("%B %Y") %> to <%= contract.ends_at.strftime("%B %Y") %></small>
+              <small class="d-block">Rate <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %></small>
+            <% end %>
           </div>
         <% end %>
       </p>

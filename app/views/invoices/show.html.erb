@@ -108,9 +108,9 @@
       <% if @invoice.payment_data.present? %>
         <%= link_to "Download Payment Receipt", download_payment_project_invoice_path(@project, @invoice), class: "btn btn-secondary" %>
       <% end %>
-    <div>
-    <% unless @invoice.payment_data.present? %>
-      <small>Once the payment is done, you will be able to download the receipt</small>
-    <% end %>
+      <% unless @invoice.payment_data.present? %>
+        <small class="d-block">Once the payment is done, you will be able to download the receipt</small>
+      <% end %>
+    </div>
   <% end %>
 </div>

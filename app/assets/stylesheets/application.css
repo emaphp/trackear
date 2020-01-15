@@ -13,19 +13,40 @@
  *= require_tree .
  *= require_self
  */
-html, body {
-    height: 100%;
-}
-
 body {
     background-color: #e7edf5;
     font-family: 'Open Sans', sans-serif;
     color: #455a64;
     cursor: default;
+    margin-bottom: 400px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 325px;
+    padding: 80px;
+    font-size: 14px;
+    border-top: 1px solid #dce2e9;
+    background-color: white;
+}
+
+.footer a {
+    color: #112e54;
+}
+
+.footer i {
+    margin-right: 10px;
+    color: #9ca8b9;
 }
 
 .menu {
-    /*background: linear-gradient(0deg, #fabe78, #f58260);*/
     background: linear-gradient(0deg, #e7edff, #f0f9ff);
 }
 

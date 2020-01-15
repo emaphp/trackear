@@ -4,6 +4,51 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-.navbar a {
-    color: orange;
+.dropdown-menu:before {
+    position: absolute;
+    display: inline-block;
+    top: -16px;
+    right: 9px;
+    left: auto;
+    border: 8px solid transparent;
+    border-bottom-color: rgba(27,31,35,.25);
+    content: "";
+}
+
+.dropdown-menu:after {
+    position: absolute;
+    display: inline-block;
+    border: 7px solid transparent;
+    border-bottom-color: #fff;
+    top: -14px;
+    right: 10px;
+    left: auto;
+    content: "";
+}
+
+.dropdown-menu.dropdown-menu-left:before {
+    right: auto;
+    left: 9px;
+}
+
+.dropdown-menu.dropdown-menu-left:after {
+    right: auto;
+    left: 10px;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    background-color: #e0efff;
+    color: #11252c !important;
+}
+
+.dropdown-item {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.dropdown-item i {
+    margin-right: 10px;
+    color: #496483;
+    font-size: 14px;
 }

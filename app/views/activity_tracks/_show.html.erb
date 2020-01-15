@@ -11,7 +11,25 @@
     </p>
   </div>
   <div class="align-self-start">
-    <%= link_to "Edit", edit_project_activity_track_path(log.project_contract.project, log), class: "btn btn-green btn-sm" %>
-    <%= link_to "Delete", [log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "btn btn-red btn-sm" %>
+    <button
+      id="track-menu-popover-<%= log.id %>"
+      type="button"
+      class="btn btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <i class="fas fa-cog"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="track-menu-popover-<%= log.id %>">
+      <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "dropdown-item") do %>
+        <i class="fas fa-edit"></i>
+        Edit
+      <% end %>
+      <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "dropdown-item") do %>
+        <i class="fas fa-trash"></i>
+        Delete
+      <% end %>
+    </div>
   </div>
 </div>

@@ -10,6 +10,12 @@
     border-color: #68c7ff !important;
 }
 
+.btn-outline-secondary {
+    color: #596f77 !important;
+    border-color: #aeb8bb !important;
+    background-color: transparent !important;
+}
+
 .btn-red {
     color: #fff !important;
     background-color: #f56849;
@@ -26,4 +32,14 @@
     color: #fff !important;
     background-color: #88e240;
     border-color: #88e240;
+}
+
+.btn-dark {
+    color: #fff !important;
+    background-color: #2a3f46 !important;
+    border-color: #315461 !important;
+}
+
+.btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
 }

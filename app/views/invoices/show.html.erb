@@ -22,16 +22,6 @@
     </div>
   </div>
 
-  <% if current_user.is_admin? %>
-    <div class="my-3 text-center">
-      <% if @invoice.is_visible? %>
-        <%= link_to "Make it hidden", hide_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-red d-print-none" %>
-      <% else %>
-        <%= link_to "Make it visible", make_visible_project_invoice_path(@project, @invoice), method: :post, class: "btn btn-warning d-print-none" %>
-      <% end %>
-    </div>
-  <% end %>
-
   <div class="text-dark text-right py-3">
     Invoice Period: <%= humanized_invoice_period(@invoice) %>
   </div>

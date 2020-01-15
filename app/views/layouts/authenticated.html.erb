@@ -12,42 +12,70 @@
 
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Open+Sans&Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/5cd170f825.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
   <body>
-  <nav id="navbar" class="navbar">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <%= image_tag "logo-alt.svg", height: "18" %>
-      </a>
-      <div class="d-none mx-right d-sm-block">
-        <%= image_tag current_user.picture, class: "avatar" %>
-        Welcome <%= current_user.first_name %>,
-        <% if session[:impersonating_from].present? %>
-          <%= link_to('Exit impersonate', destroy_user_session_path, method: :delete) %>
-        <% else %>
-          <%= link_to('Logout?', destroy_user_session_path, method: :delete) %>
-        <% end %>         
-      </div>
-    </div>
+  <nav id="navbar" class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+    <a class="navbar-brand" href="/">
+      <%= image_tag "logo-alt.svg", height: "18" %>
+    </a>
+    <ul class="navbar-nav ml-md-auto">
+      <li class="nav-item dropdown">
+        <button
+          id="menu-popover"
+          type="button"
+          class="px-3 btn btn-primary btn-sm rounded-pill text-white nav-item nav-link dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <%= image_tag current_user.picture, class: "avatar" %>
+          Hi <%= current_user.first_name %>!
+        </button>
+        <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="menu-popover">
+          <div class="text-center p-4">
+            <%= image_tag current_user.picture, class: "rounded-circle mb-3" %>
+            <h5 class="mb-0"><%= current_user.first_name + " " + current_user.last_name %></h5>
+            <h6 class="text-muted"><%= current_user.email %></h6>
+          </div>
+          <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header font-weight-bold">Menu</h6>
+          <%= link_to(new_project_path, class: "dropdown-item") do %>
+            <i class="far fa-plus-square"></i>
+            Create new project
+          <% end %>
+          <%= link_to(projects_path, class: "dropdown-item") do %>
+            <i class="fas fa-columns"></i>
+            Projects
+          <% end %>
+          <% if can? :manage, User %>
+            <%= link_to(users_path, class: "dropdown-item") do %>
+              <i class="fas fa-users"></i>
+              Users
+            <% end %>
+          <% end %>
+          <% if session[:impersonating_from].present? %>
+            <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
+              <i class="fas fa-sign-out-alt"></i>
+              Exit impersonate
+            <% end %>
+          <% else %>
+            <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            <% end %>
+          <% end %>
+        </div>
+      </li>
+    </ul>
   </nav>
   <% if notice.present? %>
     <div class="alert alert-info text-center"><%= notice %></div>
   <% end %>
-  <div class="container-fluid mt-4 mb-5">
+  <div class="container mt-4 mb-5">
     <div class="row content-container">
-      <div class="d-none d-sm-none d-md-none d-lg-block col-lg-2">
-        <div class="box menu">
-          <%= link_to('Create project', new_project_path, class: "btn btn-green btn-block") %>
-          <%= link_to('Home', home_path, class: "btn btn-block text-left") %>
-          <%= link_to('Projects', projects_path, class: "btn btn-block text-left") %>
-
-          <% if can? :manage, User %>
-            <%= link_to('Users', users_path, class: "btn btn-block text-left") %>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-lg-10">
+      <div class="col-lg-12">
         <%= yield %>
       </div>
     </div>

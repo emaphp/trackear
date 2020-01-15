@@ -10,13 +10,32 @@
       </tr>
     </thead>
     <tbody>
-      <% @users.each do |user| %>
+      <% @users.each.with_index do |user, index| %>
         <tr>
           <td class="align-middle"><%= image_tag (user.picture || ""), class: "avatar" %> <%= user.first_name + " " + user.last_name %></td>
           <td class="align-middle"><%= user.email %></td>
           <td class="align-middle text-center">
-            <%= link_to "Edit", edit_user_path(user), class: "btn btn-primary" %>
-            <%= link_to "Impersonate", become_user_path(user), method: :post, class: "btn btn-orange btn-sm" %>
+            <button
+              id="menu-popover-<%= index %>"
+              type="button"
+              class="btn btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-cog"></i>
+              Actions
+            </button>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="menu-popover-<%= index %>">
+              <%= link_to(edit_user_path(user), class: "dropdown-item") do %>
+                <i class="fas fa-edit"></i>
+                Edit
+              <% end %>
+              <%= link_to(become_user_path(user), method: :post, class: "dropdown-item") do %>
+                <i class="fas fa-user-secret"></i>
+                Impersonate
+              <% end %>
+            </div>
           </td>
         </tr>
       <% end %>

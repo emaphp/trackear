@@ -69,6 +69,9 @@
                 <%= link_to(review_entries_project_invoice_path(@project, invoice), class: "dropdown-item") do %>
                   <i class="fas fa-list-ol"></i>
                   Review entries
+                  <small class="form-text text-muted">
+                    Review and edit all the activity logs associated with this invoice
+                  </small>
                 <% end %>
                 <% if invoice.is_visible? %>
                   <%= link_to(hide_project_invoice_path(@project, invoice), method: :post, class: "dropdown-item") do %>
@@ -109,6 +112,9 @@
                   <%= link_to(download_payment_project_invoice_path(@project, invoice), class: "dropdown-item") do %>
                     <i class="fas fa-receipt"></i>
                     Download payment receipt
+                    <small class="form-text text-muted">
+                      Download the PDF used as a payment receipt for this invoice
+                    </small>
                   <% end %>
                 <% end %>
               <% end %>

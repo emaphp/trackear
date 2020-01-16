@@ -1,6 +1,6 @@
 <div style="text-align: center; font-family: Arial;">
-    <img src="<%= asset_url 'logo-alt.svg' %>" %>
-    <h1>You've got a new invoice for $<%= @invoice.calculate_total %></h1>
+    <h1>BlackMountain</h1>
+    <h2>You've got a new invoice for $<%= @invoice.calculate_total %></h2>
     <%= link_to "See your invoice in our dashboard", project_invoice_url(@invoice.project, @invoice) %>
-    <h2>Thank you for working with us!</h2>
+    <h3>Thank you for working with us!</h3>
 </div>

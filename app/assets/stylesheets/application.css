@@ -14,7 +14,7 @@
  *= require_self
  */
 body {
-    background-color: #e7edf5;
+    background-color: #e2f1ff;
     font-family: 'Open Sans', sans-serif;
     color: #455a64;
     cursor: default;
@@ -33,7 +33,7 @@ html {
     height: 325px;
     padding: 80px;
     font-size: 14px;
-    border-top: 1px solid #dce2e9;
+    border-top: 1px solid #badcff;
     background-color: white;
 }
 

@@ -1,12 +1,12 @@
-<div class="box">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-      <li class="breadcrumb-item active" aria-current="page">Edit activity track</li>
-    </ol>
-  </nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit activity track</li>
+  </ol>
+</nav>
 
+<div class="box">
   <h6>Editing Activity Track</h6>
   <%= render 'form', activity_track: @activity_track, project: @project %>
 </div>

@@ -22,6 +22,16 @@
   </div>
 
   <div class="form-group">
+    <%= form.check_box :is_premium %>
+    <%= form.label :is_premium %>
+  </div>
+
+  <div class="form-group">
+    <%= form.check_box :is_admin %>
+    <%= form.label :is_admin %>
+  </div>
+
+  <div class="form-group">
     <%= form.submit "Update", class: "btn btn-primary" %>
   </div>
 <% end %>

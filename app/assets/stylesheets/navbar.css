@@ -26,6 +26,20 @@
     content: "";
 }
 
+.dropdown-menu[x-placement="top-start"]:before {
+    border-color: transparent;
+    border-top-color: rgba(27,31,35,.25);
+    top: auto;
+    bottom: -16px;
+}
+
+.dropdown-menu[x-placement="top-start"]:after {
+    border-color: transparent;
+    border-top-color: #fff;
+    bottom: -14px;
+    top: auto;
+}
+
 .dropdown-menu.dropdown-menu-left:before {
     right: auto;
     left: 9px;

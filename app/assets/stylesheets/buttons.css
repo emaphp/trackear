@@ -1,3 +1,9 @@
+.welcome-button {
+    background: linear-gradient(45deg, #ff7d43, #ffb42b);
+    border: 0;
+    text-shadow: 0 0 2px #56270a;
+}
+
 .btn {
     padding: 10px;
     padding-left: 20px;

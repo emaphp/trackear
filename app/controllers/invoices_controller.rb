@@ -10,11 +10,11 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   def index
     @invoices = if current_user.is_admin?
-                  @project.invoices.includes(:user)
+                  @project.invoices.includes(:user).order(from: :desc)
                 elsif @project.is_client? current_user 
-                  @project.invoices.includes(:user).for_client
+                  @project.invoices.includes(:user).for_client.order(from: :desc)
                 else
-                  current_user.invoices.includes(:user).where(project: @project)
+                  current_user.invoices.includes(:user).where(project: @project).order(from: :desc)
                 end
   end
 

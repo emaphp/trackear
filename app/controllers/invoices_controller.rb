@@ -3,7 +3,7 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: %i[show edit update destroy make_visible hide download_invoice download_payment review_entries]
+  before_action :set_invoice, only: %i[show edit update destroy email_notify make_visible hide download_invoice download_payment review_entries]
   load_and_authorize_resource
 
   # GET /invoices
@@ -71,6 +71,14 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def email_notify
+    InvoiceMailer.invoice_notify(@invoice).deliver
+    respond_to do |format|
+      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Email notification sent' }
+      format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
     end
   end
 

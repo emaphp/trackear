@@ -1,0 +1,10 @@
+.home-invoice-box {
+    position: relative;
+}
+
+.home-invoice-action-button-container {
+    width: 80px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

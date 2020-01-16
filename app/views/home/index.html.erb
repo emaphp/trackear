@@ -27,10 +27,13 @@
         <%= "You don't have any invoices" unless @invoices.present? %>
       </p>
       <% @invoices.each do |invoice| %>
-        <div class="border rounded p-3 mb-3">
+        <div class="border rounded p-3 mb-3 home-invoice-box">
           <%= link_to invoice.from.strftime("%B %Y"), [invoice.project, invoice] %> - <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
           <br />
           <small><%= invoice.project.name %></small>
+          <div class="home-invoice-action-button-container">
+            <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
+          </div>
         </div>
       <% end %>
     </div>

@@ -3,7 +3,7 @@
   <p class="lead text-center">
     <%= "You don't have any projects :(" unless @active_contracts.present? %>
     <% @active_contracts.each do |active_contract| %>
-      <div class="media mb-3 p-3 border rounded shadow-sm">
+      <div class="media mb-3 p-3 border rounded">
         <%= image_tag active_contract.project.icon_url, class: "avatar align-self-start mr-3" %>
         <div class="media-body text-dark pt-1">
           <%= link_to active_contract.project.name, active_contract.project %>
@@ -21,7 +21,7 @@
         <%= "You don't have any invoices" unless @invoices.present? %>
       </p>
       <% @invoices.each do |invoice| %>
-        <div class="border rounded shadow-sm p-3 mb-3">
+        <div class="border rounded p-3 mb-3">
           <%= link_to invoice.from.strftime("%B %Y"), [invoice.project, invoice] %> - <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
           <br />
           <small><%= invoice.project.name %></small>
@@ -35,7 +35,7 @@
       <p class="lead text-center">
         <%= "You don't have any contracts" unless @contracts.present? %>
         <% @contracts.each do |contract| %>
-          <div class="border rounded shadow-sm p-3 mb-3">
+          <div class="border rounded p-3 mb-3">
             <strong><%= contract.project.name %></strong>
             -
             <%= "Active" if contract.currently_active? %>

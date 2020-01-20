@@ -1,6 +1,6 @@
 <div style="text-align: center; font-family: Arial;">
     <h1>BlackMountain</h1>
-    <h2>You've got a new invoice for $<%= @invoice.calculate_total %></h2>
-    <%= link_to "See your invoice in our dashboard", project_invoice_url(@invoice.project, @invoice) %>
-    <h3>Thank you for working with us!</h3>
+    <h2>You've got a new invoice for $<%= @invoice.calculate_total.round(2) %></h2>
+    <%= link_to "See your invoice in our dashboard", project_invoice_url(@invoice.project, @invoice), style: "border-radius: 2px; text-decoration: none; background-color: #0091ff; padding: 10px; padding-left: 20px; padding-right: 20px; color: white; font-size: 16px;" %>
+    <h3 style="font-weight: normal; font-style: italic;">Thank you for working with us!</h3>
 </div>

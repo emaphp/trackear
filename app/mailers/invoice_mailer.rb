@@ -1,8 +1,12 @@
 class InvoiceMailer < ApplicationMailer
-    default from: "contact@black-mountain.com.ar"
+    default from: "BlackMountain <contact@black-mountain.com.ar>"
 
     def invoice_notify(invoice)
         @invoice = invoice
-        mail(to: "franco.montenegro.ruke@gmail.com", subject: "BlackMountain - Invoice " + @invoice.from.strftime('%B %Y'))
+        mail(
+            to: "BlackMountain <contact@black-mountain.com.ar>",
+            subject: "BlackMountain - Invoice " + @invoice.from.strftime('%B %Y'),
+            cc: ProjectService.clients_from_project(invoice.project).map { |client| client.email }
+        )
     end
 end

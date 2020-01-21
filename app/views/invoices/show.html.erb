@@ -16,8 +16,8 @@
     </div>
     <div class="col-md-6 text-right text-dark">
       CUIT: 20379097740<br />
-      Avenida Juan Domingo Perón 1750<br />
-      Yerba Buena, Tucumán<br />
+      Avenida Juan Domingo Peron 1750<br />
+      Yerba Buena, Tucuman<br />
       +54 9 280 4722-909
     </div>
   </div>
@@ -81,24 +81,31 @@
 
   <% if @invoice.is_client_visible? %>
   <div class="mt-4 form-group text-dark">
-    <strong class="d-block pb-2">Notes</strong>
+    <strong class="d-block pb-2">Beneficiary information</strong>
     <ul>
-      <li>Full Name: Franco Héctor Hugo Montenegro</li>
-      <li>DNI: 37909774</li>
+      <li>Beneficiary: Franco Hector Hugo Montenegro</li>
       <li>Account Number: 4003317-0 374-8</li>
-      <li>CBU: 00703749 31004003317086</li>
-      <li>Bank: Banco de Galicia y Buenos Aires SAU.</li>
-      <li>Swift Code Bank Galicia: GABAARBA</li>
+      <li>Bank: Banco de Galicia y Buenos Aires S.A.U.</li>
+      <li>SWIFT Code: GABAARBA</li>
     </ul>
 
-    <strong class="d-block pb-2">Bank Information</strong>
+    <strong class="d-block pb-2">Intermediary Bank Information (option 1)</strong>
     <ul>
-      <li>Correspondent Bank: WELLS FARGO BANK N.A.</li>
-      <li>Swift Code: PNBPUS3NNYC ABA 026005092</li>
-      <li>Account Number Bank Galicia: 2000192261221</li>
+      <li>Account Number: 3544032000001</li>
+      <li>Bank: STANDARD CHARTERED BANK</li>
+      <li>SWIFT Code: SCBL US 33 ABA: 0260-0256-1</li>
+      <li>Address: 1095 Avenue of the Americas NY, USA</li>
+      <li>Payment reference: S13</li>
     </ul>
 
-    Service Code: S13
+    <strong class="d-block pb-2">Intermediary Bank Information (option 2)</strong>
+    <ul>
+      <li>Account Number: 790081459</li>
+      <li>Bank: J.P. MORGAN CHASE BANK NA</li>
+      <li>SWIFT Code: CHASUS33 ABA: 021000021</li>
+      <li>Address: 270 Park Avenue NY, USA</li>
+      <li>Payment reference: S13</li>
+    </ul>
   </div>
   <% end %>
 

@@ -86,3 +86,8 @@ gem 'secure_headers'
 gem 'rack-attack'
 
 gem 'slack-ruby-client'
+
+gem 'asset_sync'
+gem 'fog-aws'
+
+gem 'aws-sdk-s3', '~> 1.14'

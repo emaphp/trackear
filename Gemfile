@@ -91,3 +91,5 @@ gem 'asset_sync'
 gem 'fog-aws'
 
 gem 'aws-sdk-s3', '~> 1.14'
+
+gem 'font-awesome-sass', '~> 5.12.0'

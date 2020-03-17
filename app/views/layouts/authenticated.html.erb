@@ -10,76 +10,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Open+Sans&Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/5cd170f825.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
   <body>
-  <nav id="navbar" class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-    <a class="navbar-brand" href="/">
-      <%= image_tag "logo-alt.svg", height: "18" %>
-    </a>
-    <ul class="navbar-nav ml-md-auto">
-      <li class="nav-item dropdown">
-        <button
-          id="menu-popover"
-          type="button"
-          class="welcome-button px-3 btn btn-primary btn-sm rounded-pill text-white nav-item nav-link dropdown-toggle"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <%= image_tag current_user.picture, class: "avatar" %>
-          <i class="fas fa-cog"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="menu-popover">
-          <div class="text-center p-4">
-            <%= image_tag current_user.picture, class: "rounded-circle mb-3", height: 80, width: 80 %>
-            <h5 class="mb-0"><%= current_user.first_name + " " + current_user.last_name %></h5>
-            <h6 class="text-muted"><%= current_user.email %></h6>
-          </div>
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header font-weight-bold">Menu</h6>
-          <a href="/" class="dropdown-item">
-            <i class="fas fa-home"></i>
-            Home
-          </a>
-          <%= link_to(new_project_path, class: "dropdown-item") do %>
-            <i class="far fa-plus-square"></i>
-            Create new project
-          <% end %>
-          <%= link_to(projects_path, class: "dropdown-item") do %>
-            <i class="fas fa-columns"></i>
-            Projects
-          <% end %>
-          <% if can? :manage, User %>
-            <%= link_to(users_path, class: "dropdown-item") do %>
-              <i class="fas fa-users"></i>
-              Users
-            <% end %>
-          <% end %>
-          <% if session[:impersonating_from].present? %>
-            <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
-              <i class="fas fa-sign-out-alt"></i>
-              Exit impersonate
-            <% end %>
-          <% else %>
-            <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
-              <i class="fas fa-sign-out-alt"></i>
-              Logout
-            <% end %>
-          <% end %>
-        </div>
-      </li>
-    </ul>
-  </nav>
   <% if notice.present? %>
     <div class="alert alert-info text-center"><%= notice %></div>
   <% end %>
-  <div class="container mt-4 mb-5">
-    <div class="row content-container">
-      <div class="col-lg-12">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2 left-menu">
+        <a class="d-flex justify-content-center py-3" href="/">
+          <%= image_tag "logo-alt.svg", height: "18" %>
+        </a>
+        <div class="media menu-item-user">
+          <%= image_tag current_user.picture, class: "rounded-circle mr-2", height: 36, width: 36 %>
+          <div class="media-body">
+            <h6 class="username"><%= "#{current_user.first_name} #{current_user.last_name}" %></h6>
+            <span class="email"><%= current_user.email %></span>
+          </div>
+        </div>
+        <a href="/" class="menu-item">
+          <i class="fas fa-home mx-3"></i>
+          Home
+        </a>
+        <%= link_to(new_project_path, class: "menu-item") do %>
+          <i class="far fa-plus-square mx-3"></i>
+          Create new project
+        <% end %>
+        <%= link_to(projects_path, class: "menu-item") do %>
+          <i class="fas fa-columns mx-3"></i>
+          Projects
+        <% end %>
+        <% if can? :manage, User %>
+          <%= link_to(users_path, class: "menu-item") do %>
+            <i class="fas fa-users mx-3"></i>
+            Users
+          <% end %>
+        <% end %>
+        <% if session[:impersonating_from].present? %>
+          <%= link_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
+            <i class="fas fa-sign-out-alt mx-3"></i>
+            Exit impersonate
+          <% end %>
+        <% else %>
+          <%= link_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
+            <i class="fas fa-sign-out-alt mx-3"></i>
+            Logout
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-10 content-container pt-5">
         <%= yield %>
       </div>
     </div>

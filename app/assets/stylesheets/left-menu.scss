@@ -1,0 +1,42 @@
+.left-menu {
+    background-color: #293145;
+    padding-bottom: 200px;
+
+    .menu-item {
+        i {
+            color: #4e586f;
+        }
+
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+        display: block;
+        color: white;
+        text-decoration: none !important;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #394258;
+        padding: 10px;
+    }
+
+    .menu-item-user {
+        margin-bottom: 10px;
+        background-color: #394258;
+        padding: 10px;
+        padding-top: 15px;
+        border-radius: 5px;
+
+        .username {
+            margin: 0;
+            margin-top: 5px;
+            line-height: 12px;
+        }
+
+        .email {
+            font-size: 12px;
+            color: #8a97b9;
+        }
+    }
+
+    .username {
+        color: white;
+    }
+}

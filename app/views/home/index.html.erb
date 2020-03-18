@@ -1,64 +1,10 @@
-<div class="box">
-  <h6>Projects</h6>
-  <p class="lead text-center">
-    <%= "You don't have any projects :(" unless @active_contracts.present? %>
-    <% @active_contracts.each do |active_contract| %>
-      <div class="media mb-3 p-3 border rounded">
-        <%= image_tag active_contract.project.icon_url, class: "avatar align-self-start mr-3" %>
-        <div class="media-body text-dark pt-1">
-          <%= link_to active_contract.project.name, active_contract.project %>
-        </div>
-      </div>
-    <% end %>
-    <div class="text-center">
-      <%= link_to(new_project_path, class: "btn btn-primary") do %>
-        <i class="far fa-plus-square mr-2"></i>
-        Create new project
-      <% end %>
-    </div>
-  </p>
-</div>
-
-<div class="row">
-  <div class="col-lg-6">
-    <div class="box mt-4">
-      <h6>Invoices</h6>
-      <p class="lead text-center">
-        <%= "You don't have any invoices" unless @invoices.present? %>
-      </p>
-      <% @invoices.each do |invoice| %>
-        <div class="border rounded p-3 mb-3 home-invoice-box">
-          <%= link_to invoice.from.strftime("%B %Y"), [invoice.project, invoice] %> - <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
-          <br />
-          <small><%= invoice.project.name %></small>
-          <div class="home-invoice-action-button-container">
-            <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
-          </div>
-        </div>
-      <% end %>
+<div class="home-index">
+  <div class="media mb-4">
+    <div style="font-size: 36px;" class="mr-3">👋</div>
+    <div class="media-body">
+      <h2 class="mb-0">Welcome <%= current_user.first_name %>!</h2>
+      <p>We keep working on the dashboard. Expect new features coming up soon!</p>
     </div>
   </div>
-  <div class="col-lg-6">
-    <div class="box mt-4">
-      <h6>Contracts</h6>
-      <p class="lead text-center">
-        <%= "You don't have any contracts" unless @contracts.present? %>
-        <% @contracts.each do |contract| %>
-          <div class="border rounded p-3 mb-3">
-            <strong><%= contract.project.name %></strong>
-            -
-            <%= "Active" if contract.currently_active? %>
-            <%= "Finished" if contract.finished? %>
-            <%= "Deferred" if contract.deferred? %>
-            <% if contract.project.is_client? current_user %>
-              <small class="d-block">Owner</small>
-            <% else %>
-              <small class="d-block">From <%= contract.active_from.strftime("%B %Y") %> to <%= contract.ends_at.strftime("%B %Y") %></small>
-              <small class="d-block">Rate <%= humanized_money_with_symbol Money.new(contract.user_rate * 100, 'USD') %></small>
-            <% end %>
-          </div>
-        <% end %>
-      </p>
-    </div>
-  </div>
+  <%= render 'projects_box' %>
 </div>

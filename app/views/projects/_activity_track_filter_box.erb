@@ -1,0 +1,15 @@
+<%= form_with(url: project, method: "get", local: true) do %>
+<div class="p-4">
+    <div class="form-group">
+        <%= label "logs", "from", "From" %>
+        <%= date_field "logs", "from", value: logs_from, class: "form-control" %>
+    </div>
+    <div class="form-group">
+        <%= label "logs", "to", "To" %>
+        <%= date_field "logs", "to", value: logs_to, class: "form-control" %>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary btn-sm">Filter</button>
+    </div>
+</div>
+<% end %>

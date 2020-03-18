@@ -1,0 +1,12 @@
+<% contracts.order("case activity when 'Owner' then 0 end").each do |contract| %>
+    <% if can? :manage, contract %>
+      <%= link_to edit_project_project_contract_path(project, contract) do %>
+        <%= image_tag (contract.user.picture || ""), title: "#{contract.user.first_name} #{contract.user.last_name}", class: "member-list-item", data: { placement: "top", toggle: "tooltip" } %>
+      <% end %>
+    <% else %>
+        <%= image_tag (contract.user.picture || ""), title: "#{contract.user.first_name} #{contract.user.last_name}", class: "member-list-item", data: { placement: "top", toggle: "tooltip" } %>
+    <% end %>
+<% end %>
+<div class="d-inline ml-3">
+    <%= render 'add_member_button', project: project %>
+</div>

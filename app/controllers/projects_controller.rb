@@ -19,7 +19,12 @@ class ProjectsController < ApplicationController
     @logs_from = logs_from_param
     @logs_to = logs_to_param
     @logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to).includes(:project_contract).order(from: :desc)
-    @invoices = @project.invoices.for_client if @project.is_client? current_user
+
+    if @project.is_client? current_user
+      @invoices = @project.invoices.for_client
+    else
+      @invoices = @project.invoices.where(user: current_user)
+    end
   end
 
   # GET /projects/new

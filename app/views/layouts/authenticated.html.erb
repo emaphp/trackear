@@ -20,9 +20,9 @@
   <% end %>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-2 left-menu">
+      <div class="col-2 col-sm-4 col-md-4 col-lg-3 col-xl-2 left-menu">
         <a class="d-flex justify-content-center py-3" href="/">
-          <%= image_tag "logo-alt.svg", height: "18" %>
+          <%= image_tag "logo.svg", height: "18" %>
         </a>
         <div class="media menu-item-user">
           <%= image_tag current_user.picture, class: "rounded-circle mr-2", height: 36, width: 36 %>
@@ -38,10 +38,6 @@
         <%= link_to(new_project_path, class: "menu-item") do %>
           <i class="far fa-plus-square mx-3"></i>
           Create new project
-        <% end %>
-        <%= link_to(projects_path, class: "menu-item") do %>
-          <i class="fas fa-columns mx-3"></i>
-          Projects
         <% end %>
         <% if can? :manage, User %>
           <%= link_to(users_path, class: "menu-item") do %>
@@ -61,7 +57,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-10 content-container pt-5">
+      <div class="col-10 col-sm-8 col-md-8 col-lg-9 col-xl-10 content-container pt-5">
         <%= yield %>
       </div>
     </div>

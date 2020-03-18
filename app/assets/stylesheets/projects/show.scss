@@ -1,0 +1,32 @@
+.projects-show {
+    .member-list-item {
+        position: relative;
+        border-radius: 100%;
+        border: 5px solid #f0f7ff;
+        width: 36px;
+        height: auto;
+        margin-right: -15px;
+        transition: all 150ms;
+
+        &:hover {
+            z-index: 1;
+            transform: scale(1.15);
+        }
+    }
+
+    .track-footer {
+        font-size: 14px;
+        color: #768492;
+        background-color: #e2e7ec;
+        padding: 25px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: 25px;
+        margin-left: -25px;
+        margin-right: -25px;
+        margin-bottom: -30px;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+}

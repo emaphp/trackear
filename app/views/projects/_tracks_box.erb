@@ -1,23 +1,47 @@
 <% unless project.is_client? user %>
-  <div class="box mb-4">
-    <h6>Tracks</h6>
-    <%= form_with(url: project, method: "get", local: true) do %>
-      <div class="row">
-        <div class="col-lg-5">
-          <%= label "logs", "from", "From" %>
-          <%= date_field "logs", "from", value: logs_from, class: "form-control" %>
-        </div>
-        <div class="col-lg-5">
-          <%= label "logs", "to", "To" %>
-          <%= date_field "logs", "to", value: logs_to, class: "form-control" %>
-        </div>
-        <div class="col-lg-2 align-self-end">
-          <button class="btn btn-primary btn-sm btn-block">Search</button>
+  <div class="row">
+    <div class="col-lg-3">
+      <h4 class="mt-2">Tracks</h4>
+    </div>
+    <div class="col-lg-9 text-right">
+      <div class="dropdown d-inline">
+        <a class="btn btn-sm btn-green dropdown-toggle" href="#" role="button" id="trackFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= icon "fas", "search", class: "mr-1" %>
+          Filter tracks
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="trackFilterDropdown">
+          <%= render 'activity_track_filter_box', project: @project, logs_from: @logs_from, logs_to: @logs_to %>
         </div>
       </div>
-    <% end %>
-    <div class="mb-2">
-      <% if logs.present? %>
+
+      <div class="dropdown d-inline">
+        <a class="btn btn-sm btn-primary dropdown-toggle" href="#" role="button" id="addTrackDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= icon "fas", "plus", class: "mr-1" %>
+          Add track
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="trackFilter">
+          <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% unless logs.present? %>
+    <div class="mt-2 box text-center">
+      <p class="lead mb-0">No tracks found...</p>
+    </div>
+  <% end %>
+  
+  <% logs.each do |log| %>
+    <%= render 'activity_tracks/show', log: log %>
+  <% end %>
+<% end %>
+
+
+<!--
+<% if logs.present? %>
         <p class="pt-3">
           Total entries: <%= logs.size %><br />
           Logged time in all entries: <%= calculate_hours_from logs %><br />
@@ -26,11 +50,4 @@
       <% else %>
         <p class="lead text-center py-5">No logs found :(</p>
       <% end %>
-      <% logs.each do |log| %>
-        <div class="mt-3">
-          <%= render 'activity_tracks/show', log: log %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+-->

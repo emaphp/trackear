@@ -9,6 +9,7 @@
     padding-left: 25px;
     padding-right: 25px;
     border-radius: 25px;
+    font-weight: bold;
 }
 
 .btn-primary {
@@ -36,8 +37,8 @@
 
 .btn-green {
     color: #fff !important;
-    background-color: #88e240;
-    border-color: #88e240;
+    background-color: #42dc38;
+    border-color: #42dc38;
 }
 
 .btn-dark {

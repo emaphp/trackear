@@ -4,3 +4,11 @@
     padding: 0;
     background: transparent;
 }
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #a9d4ff;
+}
+
+.breadcrumb-item.active {
+    color: #000000;
+}

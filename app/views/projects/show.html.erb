@@ -1,29 +1,29 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page"><%= @project.name %></li>
-  </ol>
-</nav>
+<div class="projects-show">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= @project.name %></li>
+    </ol>
+  </nav>
 
-<div class="row">
-  <div class="col-lg-4">
-    <div class="box mb-4">
-      <h6>Project</h6>
-      <div class="text-center">
-        <%= image_tag @project.icon_url, class: "project-icon" %>
-        <h5><%= @project.name %></h5>
-      </div>
-      <%= render 'edit_button', project: @project %>
-      <%= render 'invoices_button', project: @project, invoice: @project.invoices.first %>
+  <div class="media mb-4">
+    <%= image_tag @project.icon_url || '', class: "project-icon mr-3 align-self-start" %>
+    <div class="media-body">
+      <h2 class="mb-0"><%= @project.name %></h2>
+      <%= render 'members_list', project: @project, contracts: @contracts %>
     </div>
-
-    <%= render 'members_box', project: @project, contracts: @contracts, user: current_user %>
-    <%= render 'project_contracts/your_contract', project: @project, contract: @contract, user: current_user %>
   </div>
 
-  <div class="col-lg-8">
-    <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
-    <%= render 'tracks_box', project: @project, logs_from: @logs_from, logs_to: @logs_to, logs: @logs, user: current_user %>
-    <%= render 'client_invoice_box', project: @project, invoices: @invoices, user: current_user %>
+  <% unless @project.is_client? current_user %>
+  <div class="row">
+    <div class="col-xl-6">
+      <%= render 'tracks_box', project: @project, logs_from: @logs_from, logs_to: @logs_to, logs: @logs, user: current_user %>
+    </div>
+    <div class="col-xl-6">
+      <%= render 'invoices_box', project: @project, activity_track: ActivityTrack.new, user: current_user, invoices: @invoices %>
+    </div>
   </div>
+  <% else %>
+    <%= render 'invoices_box', project: @project, activity_track: ActivityTrack.new, user: current_user, invoices: @invoices %>
+  <% end %>
 </div>

@@ -1,0 +1,26 @@
+<h4>Projects</h4>
+<% unless @active_contracts.present? %>
+    <div class="box mb-3">
+        <p class="lead text-center mb-0">
+            You don't have any projects :(
+        </p>
+    </div>
+<% end %>
+
+<% @active_contracts.each do |active_contract| %>
+    <div class="box mb-3">
+        <div class="media">
+            <%= image_tag active_contract.project.icon_url || '', class: "avatar align-self-start mr-3" %>
+            <div class="media-body mt-1 project-name">
+                <%= link_to active_contract.project.name, active_contract.project %>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<div class="text-center">
+  <%= link_to(new_project_path, class: "btn btn-green") do %>
+    <i class="far fa-plus-square mr-2"></i>
+    Create new project
+  <% end %>
+</div>

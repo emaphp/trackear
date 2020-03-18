@@ -1,35 +1,36 @@
-<div class="media p-3 border rounded">
-  <%= image_tag log.project_contract.user.picture, class: "avatar align-self-start mr-3" %>
-  <div class="media-body text-dark">
-    <strong><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %></strong>
-    <br>
-    <small class="text-muted">
-      <%= log.from.strftime "%d %B" %> to <%= log.to.strftime "%d %B" %>, <%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %> logged
-    </small>
-    <p class="mb-0 mt-2">
-      <%= log.description.gsub(/\n/, '<br/>').html_safe %>
-    </p>
-  </div>
-  <div class="align-self-start">
-    <button
-      id="track-menu-popover-<%= log.id %>"
-      type="button"
-      class="btn btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <i class="fas fa-cog"></i>
-    </button>
-    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="track-menu-popover-<%= log.id %>">
-      <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "dropdown-item") do %>
-        <i class="fas fa-edit"></i>
-        Edit
-      <% end %>
-      <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "dropdown-item") do %>
-        <i class="fas fa-trash"></i>
-        Delete
-      <% end %>
+<div class="box mt-2 mb-3">
+  <div class="media">
+    <%= image_tag log.project_contract.user.picture, class: "avatar align-self-start mr-3" %>
+    <div class="media-body">
+      <h5 class="mt-1 m-0"><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %></h5>
+      <p class="mb-0">
+        <%= log.description.gsub(/\n/, '<br/>').html_safe %>
+      </p>
     </div>
+    <div class="align-self-start">
+      <button
+        id="track-menu-popover-<%= log.id %>"
+        type="button"
+        class="btn btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-cog"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="track-menu-popover-<%= log.id %>">
+        <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "dropdown-item") do %>
+          <i class="fas fa-edit"></i>
+          Edit
+        <% end %>
+        <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "dropdown-item") do %>
+          <i class="fas fa-trash"></i>
+          Delete
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="track-footer">
+    <%= log.from.strftime "%d %B %Y" %> to <%= log.to.strftime "%d %B %Y" %>, <%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %> logged
   </div>
 </div>

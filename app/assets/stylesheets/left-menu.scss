@@ -1,27 +1,33 @@
 .left-menu {
-    background-color: #293145;
-    padding-bottom: 200px;
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    padding-bottom: 300px;
+    box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.05);
 
     .menu-item {
         i {
-            color: #4e586f;
+            color: #2591ff;
         }
 
         font-family: 'Nunito', sans-serif;
         font-weight: bold;
         display: block;
-        color: white;
+        color: black;
         text-decoration: none !important;
         margin-bottom: 5px;
-        border-bottom: 1px solid #394258;
         padding: 10px;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: #ebf5ff;
+        }
     }
 
     .menu-item-user {
         margin-bottom: 10px;
-        background-color: #394258;
+        background-color: #2591ff;
         padding: 10px;
-        padding-top: 15px;
         border-radius: 5px;
 
         .username {
@@ -32,19 +38,16 @@
             display: block;
             width: 200px;
             overflow: hidden;
+            color: white;
         }
 
         .email {
             font-size: 12px;
-            color: #8a97b9;
+            color: #d5e6ff;
             text-overflow: ellipsis;
             display: block;
             width: 200px;
             overflow: hidden;
         }
-    }
-
-    .username {
-        color: white;
     }
 }

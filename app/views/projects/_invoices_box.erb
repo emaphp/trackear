@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-lg-6">
+      <h4 class="mt-2">Invoices</h4>
+    </div>
+    <div class="col-lg-6 text-right">
+        <% unless project.is_client? current_user %>
+            <%= link_to new_project_invoice_path(project), class: "btn btn-sm btn-primary" do %>
+                <%= icon "far", "file-alt", class: "mr-1" %>
+                Create invoice
+            <% end %>
+        <% end %>
+    </div>
+</div>
+<% unless invoices.present? %>
+    <div class="box text-center mt-2">
+        <p class="lead mb-0">No invoices found...</p>
+    </div>
+<% else %>
+    <% invoices.each do |invoice| %>
+        <div class="box mt-2 mb-3">
+            <div class="media">
+                <%= image_tag invoice.user.picture, class: "avatar align-self-start mr-3" %>
+                <div class="media-body">
+                    <h5 class="mt-1 m-0">
+                        <%= invoice.user.first_name %> <%= invoice.user.last_name %>
+                        <% if invoice.is_paid? %>
+                            <span class="badge badge-success">Paid</span>
+                        <% end %>
+
+                        <% if invoice.is_unpaid? %>
+                            <span class="badge badge-warning">Unpaid</span>
+                        <% end %>
+                    </h5>
+                    <p class="mb-0">
+                        <%= humanized_invoice_period(invoice) %> - <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
+                    </p>
+                </div>
+                <div class="align-self-start">
+                    <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>

@@ -10,7 +10,6 @@ class Invoice < ApplicationRecord
   accepts_nested_attributes_for :invoice_entries
 
   validates :discount_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
-  validates :invoice, presence: true
 
   after_create :create_invoice_entries_in_invoice_period
 
@@ -22,6 +21,14 @@ class Invoice < ApplicationRecord
 
   def calculate_total
     calculate_subtotal * ((100 - discount_percentage) / 100)
+  end
+
+  def is_paid?
+    payment.present?
+  end
+
+  def is_unpaid?
+    !is_paid?
   end
 
   private

@@ -31,14 +31,14 @@
 
 .btn-orange {
     color: #fff !important;
-    background-color: orange;
-    border-color: orange;
+    background-color: #ff6a00;
+    border-color: #ff6a00;
 }
 
 .btn-green {
     color: #fff !important;
-    background-color: #41d01e;
-    border-color: #41d01e;
+    background-color: #00c746;
+    border-color: #00c746;
 }
 
 .btn-dark {

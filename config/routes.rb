@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :projects do
     resources :project_contracts, except: [:index]
     resources :invoices do
+      post :make_internal, on: :member
+      post :make_client, on: :member
       post :email_notify, on: :member
       post :make_visible, on: :member
       post :hide, on: :member

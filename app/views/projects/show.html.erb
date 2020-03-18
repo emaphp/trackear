@@ -21,6 +21,12 @@
     </div>
     <div class="col-xl-6">
       <%= render 'invoices_box', project: @project, activity_track: ActivityTrack.new, user: current_user, invoices: @invoices %>
+      <div class="text-right">
+        <%= link_to project_invoices_path(@project), class: "btn btn-sm btn-outline-secondary border-0" do %>
+          <%= icon "fas", "file-invoice", class: "mr-1" %>
+          See all invoices
+        <% end %>
+      </div>
     </div>
   </div>
   <% else %>

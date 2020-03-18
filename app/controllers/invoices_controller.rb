@@ -77,7 +77,27 @@ class InvoicesController < ApplicationController
   def email_notify
     InvoiceMailer.invoice_notify(@invoice).deliver
     respond_to do |format|
-      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Email notification sent' }
+      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Email notification sent.' }
+      format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
+    end
+  end
+
+  def make_internal
+    @invoice.is_client_visible = false
+    @invoice.save
+
+    respond_to do |format|
+      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice is now internal.' }
+      format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
+    end
+  end
+
+  def make_client
+    @invoice.is_client_visible = true
+    @invoice.save
+
+    respond_to do |format|
+      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice is now a client invoice.' }
       format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
     end
   end

@@ -2,11 +2,6 @@
   <%= render 'shared/form/errors', errors: invoice.errors %>
 
   <div class="form-group">
-    <%= form.label :project %>
-    <input type="text" value="<%= project.name %>" class="form-control-plaintext" readonly />
-  </div>
-
-  <div class="form-group">
     <%= form.label :currency %>
     <%= form.select :currency, [['USD', 'USD'], ['ARS', 'ARS']], {}, { class: "form-control" } %>
   </div>
@@ -32,23 +27,9 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= form.hidden_field :invoice, value: invoice.cached_invoice_data %>
-    <%= form.label :invoice, "AFIP Invoice PDF" %>
-    <%= form.file_field :invoice, class: "form-control", style: "height: 45px;" %>
-    <small class="form-text text-muted">If you have doubts on how to generate this file, please check this <a href="https://docs.google.com/document/d/1BCDl-NOO22qfPmLEyJh16CBZKe1-8a_3fFDQHghYfls/edit?usp=sharing" target="_blank" rel="nofollow">document</a> (opens in a new tab).</small>
-    <small class="form-text text-muted">If on the countrary, you need to know how to undo an invalid invoice, please check this <a href="https://docs.google.com/document/d/1lYBMM7QWmxQ0MGgqhiFfvu3MCM_RUEoSh_jrYXvGiBg/edit?usp=sharing" target="_blank" rel="nofollow">document</a> (opens in a new tab).</small>
-  </div>
-
-  <div class="form-group">
-    <% if invoice.persisted? %>
-      <% if current_user.is_admin? %>
-        <%= link_to "Review entries", review_entries_project_invoice_path(@project, @invoice), class: "btn btn-secondary" %>
-        <span>or</span>
-      <% end %>
-      <%= form.submit "Update invoice", class: "btn btn-primary" %>
-    <% else %>
-      <%= form.submit "Create invoice", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <% if invoice.persisted? %>
+    <%= form.submit "Update invoice", class: "btn btn-primary" %>
+  <% else %>
+    <%= form.submit "Create invoice", class: "btn btn-primary" %>
+  <% end %>
 <% end %>

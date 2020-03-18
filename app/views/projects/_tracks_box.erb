@@ -4,25 +4,35 @@
       <h4 class="mt-2">Tracks</h4>
     </div>
     <div class="col-lg-9 text-right">
-      <div class="dropdown d-inline">
-        <a class="btn btn-sm btn-outline-secondary border-0 dropdown-toggle" href="#" role="button" id="trackFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= icon "fas", "search", class: "mr-1" %>
-          Filter tracks
-        </a>
+      <button type="button" class="btn btn-sm btn-outline-secondary border-0" data-target="#trackFilterModal" data-toggle="modal">
+        <%= icon "fas", "search", class: "mr-1" %>
+        Filter tracks
+      </button>
 
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="trackFilterDropdown">
-          <%= render 'activity_track_filter_box', project: @project, logs_from: @logs_from, logs_to: @logs_to %>
+      <div class="modal fade" id="trackFilterModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-left">
+              <h6 class="px-4 pt-4">Filter tracks</h6>
+              <%= render 'activity_track_filter_box', project: @project, logs_from: @logs_from, logs_to: @logs_to %>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="dropdown d-inline">
-        <a class="btn btn-sm btn-primary dropdown-toggle" href="#" role="button" id="addTrackDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= icon "fas", "plus", class: "mr-1" %>
-          Add track
-        </a>
+      <button type="button" class="btn btn-sm btn-primary" data-target="#addTrackModal" data-toggle="modal">
+        <%= icon "fas", "plus", class: "mr-1" %>
+        Add track
+      </button>
 
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="trackFilter">
-          <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
+      <div class="modal fade" id="addTrackModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-left">
+              <h6 class="px-4 pt-4">Add track</h6>
+              <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

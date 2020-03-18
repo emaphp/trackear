@@ -5,47 +5,60 @@
   </ol>
 </nav>
 
-<div class="box">
-  <h6>Users</h6>
-  <%= link_to "Add user", new_user_path, class: "btn btn-primary" %>
-  <table class="table border my-3">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">User</th>
-        <th scope="col">Email</th>
-        <th scope="col"><div class="text-center">Actions</div></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each.with_index do |user, index| %>
-        <tr>
-          <td class="align-middle"><%= image_tag (user.picture || ""), class: "avatar" %> <%= user.first_name + " " + user.last_name %></td>
-          <td class="align-middle"><%= user.email %></td>
-          <td class="align-middle text-center">
-            <button
-              id="menu-popover-<%= index %>"
-              type="button"
-              class="btn btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fas fa-cog"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="menu-popover-<%= index %>">
-              <%= link_to(edit_user_path(user), class: "dropdown-item") do %>
-                <i class="fas fa-edit"></i>
-                Edit
-              <% end %>
-              <%= link_to(become_user_path(user), method: :post, class: "dropdown-item") do %>
-                <i class="fas fa-user-secret"></i>
-                Impersonate
-              <% end %>
-            </div>
-          </td>
-        </tr>
+<div class="row">
+    <div class="col-lg-6">
+      <h4 class="mt-2">Users</h4>
+    </div>
+    <div class="col-lg-6 text-right">
+      <%= link_to new_user_path, class: "btn btn-sm btn-primary" do %>
+        <%= icon "fas", "user-plus", class: "mr-1" %>
+        Create user
       <% end %>
-    </tbody>
-  </table>
-  <%= link_to "Add user", new_user_path, class: "btn btn-primary" %>
+    </div>
 </div>
+<% unless @users.present? %>
+    <div class="box text-center mt-2">
+        <p class="lead mb-0">No users found...</p>
+    </div>
+<% else %>
+    <% @users.each.with_index do |user, index| %>
+        <div class="box mt-2 mb-3">
+            <div class="media">
+                <%= image_tag user.picture, class: "avatar align-self-start mr-3" %>
+                <div class="media-body">
+                    <h5 class="mt-1 m-0">
+                      <%= user.first_name %> <%= user.last_name %>
+                      <% if user.is_admin? %>
+                        <span class="badge badge-primary">Admin</span>
+                      <% end %>
+                    </h5>
+                    <p class="mb-0">
+                        <%= user.email %>
+                    </p>
+                </div>
+                <div class="align-self-start">
+                    <button
+                      id="menu-popover-<%= index %>"
+                      type="button"
+                      class="btn btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menu-popover-<%= index %>">
+                      <%= link_to(edit_user_path(user), class: "dropdown-item") do %>
+                        <i class="fas fa-edit"></i>
+                        Edit
+                      <% end %>
+                      <%= link_to(become_user_path(user), method: :post, class: "dropdown-item") do %>
+                        <i class="fas fa-user-secret"></i>
+                        Impersonate
+                      <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>

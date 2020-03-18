@@ -15,6 +15,8 @@ class Invoice < ApplicationRecord
 
   scope :for_client, -> { where(is_visible: true).where(is_client_visible: true) }
 
+  default_scope { order(created_at: :desc) }
+
   def calculate_subtotal
     invoice_entries.collect(&:calculate_total).sum
   end

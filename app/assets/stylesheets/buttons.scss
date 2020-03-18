@@ -15,12 +15,21 @@
 .btn-primary {
     background-color: #0091ff !important;
     border-color: #0091ff !important;
+
+    &:hover {
+        background-color: #56b6ff !important;
+        border-color: #56b6ff !important;
+    }
 }
 
 .btn-outline-secondary {
     color: #596f77 !important;
     border-color: #aeb8bb !important;
     background-color: transparent !important;
+
+    &:hover {
+        color: #758991 !important;
+    }
 }
 
 .btn-red {
@@ -33,6 +42,11 @@
     color: #fff !important;
     background-color: #ff6a00;
     border-color: #ff6a00;
+
+    &:hover {
+        background-color: #ff832a;
+        border-color: #ff832a;
+    }
 }
 
 .btn-green {

@@ -93,3 +93,7 @@ gem 'fog-aws'
 gem 'aws-sdk-s3', '~> 1.14'
 
 gem 'font-awesome-sass', '~> 5.12.0'
+
+gem 'bootstrap', '~> 4.4.1'
+
+gem 'jquery-rails'

@@ -13,7 +13,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-body text-left">
-              <h6 class="px-4 pt-4">Filter tracks</h6>
+              <h4 class="px-4 pt-4">Filter tracks</h4>
               <%= render 'activity_track_filter_box', project: @project, logs_from: @logs_from, logs_to: @logs_to %>
             </div>
           </div>
@@ -29,7 +29,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-body text-left">
-              <h6 class="px-4 pt-4">Add track</h6>
+              <h4 class="px-4 pt-4">Add track</h4>
               <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
             </div>
           </div>

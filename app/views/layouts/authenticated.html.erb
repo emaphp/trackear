@@ -18,9 +18,56 @@
   <% if notice.present? %>
     <div class="alert alert-info text-center"><%= notice %></div>
   <% end %>
+  <nav class="d-xl-none navbar navbar-expand-lg navbar-light bg-white border-bottom py-2">
+    <a class="navbar-brand" href="/">
+      <%= image_tag "logo.svg", height: "18" %>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-home mx-3"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <%= link_to(new_project_path, class: "nav-link") do %>
+            <i class="far fa-plus-square mx-3"></i>
+            Create new project
+          <% end %>
+        </li>
+        <% if can? :manage, User %>
+          <li class="nav-item">
+            <%= link_to(users_path, class: "nav-link") do %>
+              <i class="fas fa-users mx-3"></i>
+              Users
+            <% end %>
+          </li>
+        <% end %>
+        <% if session[:impersonating_from].present? %>
+          <li class="nav-item">
+            <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
+              <i class="fas fa-sign-out-alt mx-3"></i>
+              Exit impersonate
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
+              <i class="fas fa-sign-out-alt mx-3"></i>
+              Logout
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-2 col-sm-4 col-md-4 col-lg-3 col-xl-2 left-menu">
+      <div class="col-xl-2 d-none d-xl-block left-menu">
         <a class="d-flex justify-content-center py-3" href="/">
           <%= image_tag "logo.svg", height: "18" %>
         </a>
@@ -57,7 +104,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-10 col-sm-8 col-md-8 col-lg-9 col-xl-10 content-container pt-5">
+      <div class="col-xl-10 content-container pt-5">
         <div class="px-4">
           <%= yield %>
         </div>
@@ -67,10 +114,13 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-4 text-center">
+        <div class="d-none d-lg-block d-xl-block col-lg-4 text-center">
           <%= image_tag "icon.png" %>
         </div>
-        <div class="col-4">
+        <div class="d-xl-none d-lg-none mb-4 col-lg-4 text-center">
+          <%= image_tag "logo.png", height: "18" %>
+        </div>
+        <div class="col-lg-4">
           <h6 class="font-weight-bold">COMPANY</h6>
           <ul class="list-unstyled">
             <li class="py-2">
@@ -92,7 +142,7 @@
           </ul>
         </div>
 
-        <div class="col-4">
+        <div class="col-lg-4">
           <h6 class="font-weight-bold">SOCIAL MEDIA</h6>
           <ul class="list-unstyled">
             <li class="py-2">

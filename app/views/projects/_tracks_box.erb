@@ -42,10 +42,32 @@
     <div class="mt-2 box text-center">
       <p class="lead mb-0">No tracks found...</p>
     </div>
-  <% end %>
-  
-  <% logs.each do |log| %>
-    <%= render 'activity_tracks/show', log: log %>
+  <% else %>
+    <div class="form-row">
+      <div class="col-xl-4 mt-2 mb-2">
+        <div class="p-3">
+          Total tracks
+          <div class="stats-number"><%= logs.size %></div>
+        </div>
+      </div>
+      <div class="col-xl-4 mt-2 mb-2">
+        <div class="p-3">
+          Time from tracks
+          <div class="stats-number"><%= calculate_hours_from logs %></div>
+        </div>
+      </div>
+      <div class="col-xl-4 mt-2 mb-2">
+        <div class="p-3">
+          Amount from tracks
+          <div class="stats-number">
+            <%= humanized_money_with_currency(calculate_invoice_amount_from(logs), 'USD') %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% logs.each do |log| %>
+      <%= render 'activity_tracks/show', log: log %>
+    <% end %>
   <% end %>
 <% end %>
 

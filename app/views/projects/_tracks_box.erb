@@ -1,9 +1,8 @@
 <% unless project.is_client? user %>
-  <div class="row">
-    <div class="col-lg-3">
-      <h4 class="mt-2">Tracks</h4>
-    </div>
-    <div class="col-lg-9 text-right">
+  <div class="d-flex justify-content-between">
+    <h4 class="mt-2">Tracks</h4>
+
+    <div class="d-flex justify-content-end">
       <button type="button" class="btn btn-sm btn-outline-secondary border-0" data-target="#trackFilterModal" data-toggle="modal">
         <%= icon "fas", "search", class: "mr-1" %>
         Filter tracks

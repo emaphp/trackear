@@ -97,3 +97,5 @@ gem 'font-awesome-sass', '~> 5.12.0'
 gem 'bootstrap', '~> 4.4.1'
 
 gem 'jquery-rails'
+
+gem 'mini_racer'

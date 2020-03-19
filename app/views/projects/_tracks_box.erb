@@ -70,16 +70,3 @@
     <% end %>
   <% end %>
 <% end %>
-
-
-<!--
-<% if logs.present? %>
-        <p class="pt-3">
-          Total entries: <%= logs.size %><br />
-          Logged time in all entries: <%= calculate_hours_from logs %><br />
-          Amount from logs: <%= humanized_money_with_currency(calculate_invoice_amount_from(logs), 'USD') %>
-        </p>
-      <% else %>
-        <p class="lead text-center py-5">No logs found :(</p>
-      <% end %>
--->

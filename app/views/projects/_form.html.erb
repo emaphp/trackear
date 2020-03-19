@@ -12,8 +12,6 @@
     <%= form.file_field :icon, class: "form-control", style: "height: 45px;" %>
   </div>
 
-  <div class="form-group">
-    <%= form.submit "Create project", class: "btn btn-primary" unless project.persisted? %>
-    <%= form.submit "Update project", class: "btn btn-primary" if project.persisted? %>
-  </div>
+  <%= form.submit "Create project", class: "btn btn-primary" unless project.persisted? %>
+  <%= form.submit "Update project", class: "btn btn-primary" if project.persisted? %>
 <% end %>

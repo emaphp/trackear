@@ -2,11 +2,6 @@
   <%= render 'shared/form/errors', errors: project_contract.errors %>
 
   <div class="form-group">
-    <%= form.label :project %>
-    <input type="text" value="<%= project.name %>" class="form-control-plaintext" readonly />
-  </div>
-
-  <div class="form-group">
     <%= form.label :user_id %>
 
     <% if project_contract.persisted? %>
@@ -51,8 +46,6 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= form.submit "Add member", class: "btn btn-primary" unless project_contract.persisted? %>
-    <%= form.submit "Update contract", class: "btn btn-primary" if project_contract.persisted? %>
-  </div>
+  <%= form.submit "Add member", class: "btn btn-primary" unless project_contract.persisted? %>
+  <%= form.submit "Update contract", class: "btn btn-primary" if project_contract.persisted? %>
 <% end %>

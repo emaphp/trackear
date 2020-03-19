@@ -35,4 +35,24 @@
         font-weight: bold;
         color: black;
     }
+
+    .pagination {
+        justify-content: flex-end;
+        color: #b4c4d6;
+
+        .current {
+            color: black;
+            font-style: normal;
+        }
+
+        .disabled {
+            display: none;
+        }
+
+        .current,
+        a {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
 }

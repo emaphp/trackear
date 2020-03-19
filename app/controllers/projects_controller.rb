@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
+  include ProjectsHelper
+
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy]
   load_and_authorize_resource
@@ -18,13 +20,18 @@ class ProjectsController < ApplicationController
     @contract = current_user.currently_active_contract_for(@project)
     @logs_from = logs_from_param
     @logs_to = logs_to_param
-    @logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to).includes(:project_contract).order(from: :desc)
+    
+    @all_logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to)
+      .includes(:project_contract)
+      .order(from: :desc)
 
     if @project.is_client? current_user
-      @invoices = @project.invoices.for_client
+      @invoices = @project.invoices.for_client.paginate(page: 1, per_page: 10)
     else
-      @invoices = @project.invoices.where(user: current_user)
+      @invoices = @project.invoices.where(user: current_user).paginate(page: 1, per_page: 10)
     end
+
+    @logs = @all_logs.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /projects/new

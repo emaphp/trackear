@@ -99,3 +99,5 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 
 gem 'mini_racer'
+
+gem 'will_paginate', '~> 3.1.0'

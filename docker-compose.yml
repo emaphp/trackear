@@ -3,15 +3,6 @@ services:
   db:
     image: postgres:11.5-alpine
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-  web:
-    env_file:
-      - .env
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 80 -b '0.0.0.0'"
-    volumes:
-      - .:/app
+      - /var/lib/postgresql/data
     ports:
-      - "80:80"
-    depends_on:
-      - db
+      - "5432:5432"

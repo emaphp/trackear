@@ -9,7 +9,7 @@
   <h6>Projects</h6>
   <% @projects.each do |project| %>
     <div class="media mt-3 p-3 border rounded shadow-sm">
-      <%= image_tag project.icon_url, class: "avatar align-self-center mr-3" %>
+      <%= image_tag project.icon_url || '', class: "avatar align-self-center mr-3" %>
       <div class="media-body text-dark pt-1">
         <%= link_to project.name, project %>
       </div>

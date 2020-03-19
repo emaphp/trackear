@@ -29,6 +29,7 @@ class ProjectContract < ApplicationRecord
   end
 
   def active_in?(date)
+    return false if date.nil? || active_from.nil? || ends_at.nil?
     date.between?(active_from, ends_at)
   end
 
@@ -38,6 +39,7 @@ class ProjectContract < ApplicationRecord
   end
 
   def deferred?
+    return false if active_from.nil?
     today = Date.today
     today < active_from
   end

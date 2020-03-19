@@ -26,12 +26,12 @@ class ProjectsController < ApplicationController
       .order(from: :desc)
 
     if @project.is_client? current_user
-      @invoices = @project.invoices.for_client.paginate(page: 1, per_page: 10)
+      @invoices = @project.invoices.for_client.paginate(page: 1, per_page: 5)
     else
-      @invoices = @project.invoices.where(user: current_user).paginate(page: 1, per_page: 10)
+      @invoices = @project.invoices.where(user: current_user).paginate(page: 1, per_page: 5)
     end
 
-    @logs = @all_logs.paginate(page: params[:page], per_page: 10)
+    @logs = @all_logs.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /projects/new

@@ -40,12 +40,12 @@
                     <button
                       id="menu-popover-<%= index %>"
                       type="button"
-                      class="btn btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
+                      class="btn border-0 btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      <i class="fas fa-cog"></i>
+                      <%= icon "fas", "ellipsis-v" %>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menu-popover-<%= index %>">
                       <%= link_to(edit_user_path(user), class: "dropdown-item") do %>

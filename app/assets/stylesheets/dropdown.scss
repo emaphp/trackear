@@ -19,3 +19,7 @@
     color: #2591ff;
     font-size: 14px;
 }
+
+.dropdown-toggle::after {
+    display: none;
+}

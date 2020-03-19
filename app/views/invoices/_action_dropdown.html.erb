@@ -1,12 +1,12 @@
 <button
     id="invoice-menu-popover-<%= invoice.id %>"
     type="button"
-    class="btn btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
+    class="btn border-0 btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
     data-toggle="dropdown"
     aria-haspopup="true"
     aria-expanded="false"
 >
-    <i class="fas fa-cog"></i>
+    <%= icon "fas", "ellipsis-v" %>
 </button>
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="invoice-menu-popover-<%= invoice.id %>">
     <%= link_to([invoice.project, invoice], class: "dropdown-item") do %>

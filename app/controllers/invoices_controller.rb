@@ -3,7 +3,7 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: %i[show edit update destroy email_notify make_visible hide download_invoice download_payment review_entries]
+  before_action :set_invoice, only: %i[show edit update destroy email_notify make_visible hide download_invoice download_payment review_entries upload_invoice upload_payment]
   load_and_authorize_resource
 
   # GET /invoices
@@ -134,6 +134,30 @@ class InvoicesController < ApplicationController
 
   def review_entries; end
 
+  def upload_invoice
+    respond_to do |format|
+      if @invoice.update(upload_invoice_params)
+        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice attached successfully.' }
+        format.json { render :show, status: :ok, location: @invoice }
+      else
+        format.html { render :edit }
+        format.json { render json: @invoice.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def upload_payment
+    respond_to do |format|
+      if @invoice.update(upload_payment_params)
+        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Payment receipt attached successfully.' }
+        format.json { render :show, status: :ok, location: @invoice }
+      else
+        format.html { render :edit }
+        format.json { render json: @invoice.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def set_project
@@ -162,20 +186,11 @@ class InvoicesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
-    begin
-      params[:invoice][:invoice].open
-    rescue StandardError
-    end
-    begin
-      params[:invoice][:payment].open
-    rescue StandardError
-    end
     params.require(:invoice).permit(
       :currency,
       :discount_percentage,
       :from,
-      :to,
-      :invoice
+      :to
     )
   end
 
@@ -183,18 +198,31 @@ class InvoicesController < ApplicationController
     if current_user.is_admin?
       params.require(:invoice).permit(
         :currency,
-        :invoice,
         :is_client_visible,
         :discount_percentage,
-        :payment,
         invoice_entries_attributes: %i[id description rate from to]
       )
     else
       params.require(:invoice).permit(
         :currency,
-        :invoice,
         :discount_percentage,
       )
     end
+  end
+
+  def upload_invoice_params
+    begin
+      params[:invoice][:invoice].open
+    rescue StandardError
+    end
+    params.require(:invoice).permit(:invoice)
+  end
+
+  def upload_payment_params
+    begin
+      params[:invoice][:payment].open
+    rescue StandardError
+    end
+    params.require(:invoice).permit(:payment)
   end
 end

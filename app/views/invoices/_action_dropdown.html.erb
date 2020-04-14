@@ -2,114 +2,132 @@
     id="invoice-menu-popover-<%= invoice.id %>"
     type="button"
     class="btn border-0 btn-block btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
+    data-target="#invoiceActions<%= invoice.id %>"
+    data-toggle="modal"
 >
     <%= icon "fas", "ellipsis-v" %>
 </button>
-<div class="dropdown-menu dropdown-menu-right" aria-labelledby="invoice-menu-popover-<%= invoice.id %>">
-    <%= link_to([invoice.project, invoice], class: "dropdown-item") do %>
-        <i class="fas fa-info-circle"></i>
-        Details
-    <% end %>
+<div class="modal fade" id="invoiceActions<%= invoice.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-left">
+                <h4 class="mt-2">Invoice actions</h4>
 
-    <% if !invoice.project.is_client?(user) %>
-        <%= link_to(edit_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
-            <i class="fas fa-edit"></i>
-            Edit
-        <% end %>
-    <% end %>
+                <%= link_to([invoice.project, invoice], class: "dropdown-item") do %>
+                    <i class="fas fa-info-circle"></i>
+                    Details
+                <% end %>
 
-    <% if user.is_admin? %>
-        <%= link_to(email_notify_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
-            <i class="far fa-envelope"></i>
-            Email notification
-            <small class="form-text text-muted">
-                Send an email notification to your client
-            </small>
-        <% end %>
-        <%= link_to(review_entries_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
-            <i class="fas fa-list-ol"></i>
-            Review entries
-            <small class="form-text text-muted">
-                Review and edit all the activity logs associated with this invoice
-            </small>
-        <% end %>
+                <% if !invoice.project.is_client?(user) %>
+                    <%= link_to(edit_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    <% end %>
+                <% end %>
 
-        <% if invoice.is_client_visible? %>
-            <%= link_to(make_internal_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
-                <i class="fas fa-user-secret"></i>
-                Convert to internal invoice
-                <small class="form-text text-muted">
-                    Internal invoices are only visible for our team
-                </small>
-            <% end %>
-        <% else %>
-            <%= link_to(make_client_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
-                <i class="fas fa-user-tie"></i>
-                Convert to client invoice
-                <small class="form-text text-muted">
-                    These invoices can be accessed by clients
-                </small>
-            <% end %>
-        <% end %>
+                <% if user.is_admin? %>
+                    <%= link_to(email_notify_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
+                        <i class="far fa-envelope"></i>
+                        Email notification
+                        <small class="form-text text-muted">
+                            Send an email notification to your client
+                        </small>
+                    <% end %>
+                    <%= link_to(review_entries_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
+                        <i class="fas fa-list-ol"></i>
+                        Review entries
+                        <small class="form-text text-muted">
+                            Review and edit all the activity logs associated with this invoice
+                        </small>
+                    <% end %>
 
-        <% if invoice.is_visible? %>
-            <%= link_to(hide_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
-                <i class="fas fa-eye-slash"></i>
-                Make it invisible
-                <small class="form-text text-muted">
-                    For client invoices, this will hide the invoice for them
-                </small>
-            <% end %>
-        <% else %>
-            <%= link_to(make_visible_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
-                <i class="fas fa-eye"></i>
-                Make it visible
-                <small class="form-text text-muted">
-                    For client invoices, this will make the invoice visible to them
-                </small>
-            <% end %>
-        <% end %>
-    <% end %>
+                    <% if invoice.is_client_visible? %>
+                        <%= link_to(make_internal_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
+                            <i class="fas fa-user-secret"></i>
+                            Convert to internal invoice
+                            <small class="form-text text-muted">
+                                Internal invoices are only visible for our team
+                            </small>
+                        <% end %>
+                    <% else %>
+                        <%= link_to(make_client_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
+                            <i class="fas fa-user-tie"></i>
+                            Convert to client invoice
+                            <small class="form-text text-muted">
+                                These invoices can be accessed by clients
+                            </small>
+                        <% end %>
+                    <% end %>
 
-    <% if can? :manage, invoice %>
-        <div class="dropdown-divider"></div>
+                    <% if invoice.is_visible? %>
+                        <%= link_to(hide_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
+                            <i class="fas fa-eye-slash"></i>
+                            Make it invisible
+                            <small class="form-text text-muted">
+                                For client invoices, this will hide the invoice for them
+                            </small>
+                        <% end %>
+                    <% else %>
+                        <%= link_to(make_visible_project_invoice_path(invoice.project, invoice), method: :post, class: "dropdown-item") do %>
+                            <i class="fas fa-eye"></i>
+                            Make it visible
+                            <small class="form-text text-muted">
+                                For client invoices, this will make the invoice visible to them
+                            </small>
+                        <% end %>
+                    <% end %>
+                <% end %>
 
-        <% if invoice.invoice.nil? %>
-            <a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">
-                <i class="fas fa-lock"></i>
-                Download invoice
-                <small class="form-text text-muted">
-                    Once the invoice gets uploaded you will be able to download it
-                </small>
-            </a>
-        <% else %>
-            <%= link_to(download_invoice_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
-                <i class="fas fa-file-invoice"></i>
-                Download invoice
-                <small class="form-text text-muted">
-                    Download the PDF file attached when the invoice was created
-                </small>
-            <% end %>
-        <% end %>
-    <% if invoice.payment.nil? %>
-        <a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">
-            <i class="fas fa-lock"></i>
-            Download payment receipt
-            <small class="form-text text-muted">
-                Once the payment is done, you will be able to download the receipt
-            </small>
-        </a>
-    <% else %>
-        <%= link_to(download_payment_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
-        <i class="fas fa-receipt"></i>
-        Download payment receipt
-        <small class="form-text text-muted">
-            Download the PDF used as a payment receipt for this invoice
-        </small>
-        <% end %>
-    <% end %>
-    <% end %>
+                <% if can? :manage, invoice %>
+                    <div class="dropdown-divider"></div>
+
+                    <% if invoice.invoice.nil? %>
+                        <%= form_with(url: upload_invoice_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
+                            <div class="py-3">
+                                <h6 class="m-0">Attach invoice</h6>
+                                <%= form.file_field :invoice, class: "form-control", style: "height: 45px;" %>
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Upload invoice
+                                    </button>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% else %>
+                        <%= link_to(download_invoice_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
+                            <i class="fas fa-file-invoice"></i>
+                            Download invoice
+                            <small class="form-text text-muted">
+                                Download the PDF file attached when the invoice was created
+                            </small>
+                        <% end %>
+                    <% end %>
+
+                    <div class="dropdown-divider"></div>
+
+                    <% if invoice.payment.nil? %>
+                        <%= form_with(url: upload_payment_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
+                            <div class="py-3">
+                                <h6 class="m-0">Attach payment</h6>
+                                <%= form.file_field :payment, class: "form-control", style: "height: 45px;" %>
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Upload payment
+                                    </button>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% else %>
+                        <%= link_to(download_payment_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
+                            <i class="fas fa-receipt"></i>
+                            Download payment receipt
+                            <small class="form-text text-muted">
+                                Download the PDF used as a payment receipt for this invoice
+                            </small>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
 </div>

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       post :email_notify, on: :member
       post :make_visible, on: :member
       post :hide, on: :member
+      post :upload_invoice, on: :member
+      post :upload_payment, on: :member
       get :download_invoice, on: :member
       get :download_payment, on: :member
       get :review_entries, on: :member

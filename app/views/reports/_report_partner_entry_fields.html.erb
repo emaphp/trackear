@@ -1,0 +1,15 @@
+<div class="nested-fields col-6">
+    <div class="form-group border p-4">
+        <div class="form-group">
+            <%= f.label :user_id, "Partner" %>
+            <%= f.select :user_id, @users.collect { |user| [user.email, user.id] }, { :include_blank => "Select a user" }, { :class => "form-control" } %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :percentage %>
+            <%= f.number_field :percentage, class: "form-control" %>
+        </div>
+
+        <%= link_to_remove_association "Remove partner", f %>
+    </div>
+</div>

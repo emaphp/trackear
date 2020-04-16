@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
   end
   resources :projects do
+    resources :reports
     resources :project_contracts, except: [:index]
     resources :invoices do
       post :make_internal, on: :member

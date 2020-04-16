@@ -1,0 +1,13 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item"><%= link_to "Reports", project_reports_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit report</li>
+  </ol>
+</nav>
+
+<div class="box">
+  <h6>Edit report</h6>
+  <%= render 'form', project: @report.project, report: @report %>
+</div>

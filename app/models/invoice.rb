@@ -13,7 +13,10 @@ class Invoice < ApplicationRecord
 
   after_create :create_invoice_entries_in_invoice_period
 
-  scope :for_client, -> { where(is_visible: true).where(is_client_visible: true) }
+  scope :for_client, -> { where(is_client_visible: true) }
+  scope :for_client_visible, -> { where(is_visible: true).where(is_client_visible: true) }
+
+  scope :in_range, ->(a, b) { where(['"invoices"."from" >= ? and "invoices"."to" >= ?', a, b]) }
 
   default_scope { order(created_at: :desc) }
 
@@ -23,6 +26,14 @@ class Invoice < ApplicationRecord
 
   def calculate_total
     calculate_subtotal * ((100 - discount_percentage) / 100)
+  end
+
+  def calculate_hours
+    invoice_entries.collect(&:calculate_quantity).sum
+  end
+
+  def calculate_revenue
+    invoice_entries.collect(&:calculate_project_total).sum - calculate_total
   end
 
   def is_paid?

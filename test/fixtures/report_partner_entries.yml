@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  report: one
+  user: one
+  percentage: 9.99
+
+two:
+  report: two
+  user: two
+  percentage: 9.99

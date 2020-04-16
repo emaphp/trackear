@@ -12,7 +12,7 @@ class InvoicesController < ApplicationController
     @invoices = if current_user.is_admin?
                   @project.invoices.includes(:user).order(from: :desc)
                 elsif @project.is_client? current_user 
-                  @project.invoices.includes(:user).for_client.order(from: :desc)
+                  @project.invoices.includes(:user).for_client_visible.order(from: :desc)
                 else
                   current_user.invoices.includes(:user).where(project: @project).order(from: :desc)
                 end
@@ -178,7 +178,7 @@ class InvoicesController < ApplicationController
     if current_user.is_admin?
       @invoice = Invoice.includes(invoice_entries: to_be_included).find(params[:id])
     elsif @project.is_client? current_user
-      @invoice = @project.invoices.includes(invoice_entries: to_be_included).for_client.find(params[:id])
+      @invoice = @project.invoices.includes(invoice_entries: to_be_included).for_client_visible.find(params[:id])
     else
       @invoice = current_user.invoices.find(params[:id])
     end

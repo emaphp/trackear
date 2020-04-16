@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
       .order(from: :desc)
 
     if @project.is_client? current_user
-      @invoices = @project.invoices.for_client.paginate(page: 1, per_page: 5)
+      @invoices = @project.invoices.for_client_visible.paginate(page: 1, per_page: 5)
     else
       @invoices = @project.invoices.where(user: current_user).paginate(page: 1, per_page: 5)
     end

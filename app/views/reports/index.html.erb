@@ -1,0 +1,35 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item"><%= link_to "Reports", project_reports_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">Show report</li>
+  </ol>
+</nav>
+
+<div class="box">
+  <h6>Reports</h6>
+
+  <table class="table border">
+    <thead>
+      <tr>
+        <th scope="col">Period</th>
+        <th scope="col">Show</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Destroy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.from %> - <%= report.to %></td>
+        <td><%= link_to 'Show', [report.project, report] %></td>
+        <td><%= link_to 'Edit', edit_project_report_path(report.project, report) %></td>
+        <td><%= link_to 'Destroy', [report.project, report], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'New Report', new_project_report_path, class: "btn btn-primary" %>
+</div>
+

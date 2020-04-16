@@ -11,4 +11,8 @@ class InvoiceEntry < ApplicationRecord
   def calculate_total
     calculate_quantity * rate
   end
+
+  def calculate_project_total
+    calculate_quantity * activity_track.project_rate
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_025630) do
+ActiveRecord::Schema.define(version: 2020_04_16_173505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,43 @@ ActiveRecord::Schema.define(version: 2019_12_17_025630) do
     t.string "currency"
     t.string "slug"
     t.text "icon_data"
-    t.index ["slug"], name: "index_projects_on_slug", unique: true
+    t.bigint "user_id"
+    t.index ["user_id", "slug"], name: "index_projects_on_user_id_and_slug", unique: true
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "report_partner_entries", force: :cascade do |t|
+    t.bigint "report_id"
+    t.bigint "user_id"
+    t.decimal "percentage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_partner_entries_on_report_id"
+    t.index ["user_id"], name: "index_report_partner_entries_on_user_id"
+  end
+
+  create_table "report_worker_entries", force: :cascade do |t|
+    t.bigint "report_id"
+    t.bigint "user_id"
+    t.bigint "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_report_worker_entries_on_invoice_id"
+    t.index ["report_id"], name: "index_report_worker_entries_on_report_id"
+    t.index ["user_id"], name: "index_report_worker_entries_on_user_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.date "from"
+    t.date "to"
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "invoice_id"
+    t.index ["invoice_id"], name: "index_reports_on_invoice_id"
+    t.index ["project_id"], name: "index_reports_on_project_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,13 +143,24 @@ ActiveRecord::Schema.define(version: 2019_12_17_025630) do
     t.string "slug"
     t.boolean "is_admin"
     t.boolean "is_premium"
+    t.string "username"
+    t.string "oauth_service"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "invoice_entries", "invoices"
   add_foreign_key "invoices", "projects"
   add_foreign_key "project_contracts", "projects"
   add_foreign_key "project_contracts", "users"
+  add_foreign_key "projects", "users"
+  add_foreign_key "report_partner_entries", "reports"
+  add_foreign_key "report_partner_entries", "users"
+  add_foreign_key "report_worker_entries", "invoices"
+  add_foreign_key "report_worker_entries", "reports"
+  add_foreign_key "report_worker_entries", "users"
+  add_foreign_key "reports", "projects"
+  add_foreign_key "reports", "users"
 end

@@ -11,7 +11,26 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body text-left">
-                <h4 class="mt-2">Invoice actions</h4>
+                <h4 class="mt-2">Invoice</h4>
+
+                <div class="media p-3">
+                    <%= image_tag invoice.user.picture, class: "avatar align-self-start mr-3" %>
+                    <div class="media-body">
+                        <h5 class="mt-1 m-0">
+                            <%= invoice.user.first_name %> <%= invoice.user.last_name %>
+                            <% if invoice.is_paid? %>
+                                <span class="badge badge-success">Paid</span>
+                            <% end %>
+
+                            <% if invoice.is_unpaid? %>
+                                <span class="badge badge-warning">Unpaid</span>
+                            <% end %>
+                        </h5>
+                        <p class="mb-0">
+                            <%= humanized_invoice_period(invoice) %> - <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
+                        </p>
+                    </div>
+                </div>
 
                 <%= link_to([invoice.project, invoice], class: "dropdown-item") do %>
                     <i class="fas fa-info-circle"></i>

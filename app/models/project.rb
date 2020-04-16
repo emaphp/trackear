@@ -11,6 +11,7 @@ class Project < ApplicationRecord
   has_many :users, through: :project_contracts
 
   has_many :invoices
+  has_many :reports
 
   validates :name, presence: true
   validates :icon, presence: true

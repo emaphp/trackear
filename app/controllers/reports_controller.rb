@@ -5,20 +5,20 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all
+    @reports = @project.reports
   end
 
   # GET /reports/1
   # GET /reports/1.json
   def show
-    @invoices = Invoice.where(project: @report.project).in_range(@report.from, @report.to)
-    @client_invoices = Invoice.where(project: @report.project).in_range(@report.from, @report.to).for_client
+    @invoices = @project.invoices.in_range(@report.from, @report.to)
+    @client_invoices = @project.invoices.in_range(@report.from, @report.to).for_client
   end
 
   # GET /reports/new
   def new
     @users = User.all
-    @report = Report.new(project: @project, user: current_user)
+    @report = @project.reports.new(user: current_user)
   end
 
   # GET /reports/1/edit
@@ -29,9 +29,8 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    @report = Report.new(report_params)
+    @report = @project.reports.new(report_params)
     @report.user = current_user
-    @report.project = @project
 
     respond_to do |format|
       if @report.save
@@ -75,7 +74,7 @@ class ReportsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_report
-      @report = Report.find(params[:id])
+      @report = @project.reports.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

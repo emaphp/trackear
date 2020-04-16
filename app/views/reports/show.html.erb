@@ -37,7 +37,7 @@
             <div>
               <div class="d-flex">
                 <%= worker_entry.select :invoice_id,
-                                        @invoices.collect { |invoice| ["#{invoice.user.first_name} #{invoice.user.last_name} ($#{invoice.calculate_total}) #{invoice.is_paid? ? 'PAID' : 'UNPAID'}", invoice.id] },
+                                        @invoices.collect { |invoice| ["#{invoice.user.first_name} #{invoice.user.last_name} (#{humanized_money_with_currency(invoice.calculate_total, "USD")}) #{invoice.is_paid? ? 'PAID' : 'UNPAID'}", invoice.id] },
                                         { include_blank: "Select invoice" },
                                         { class: "form-control" } %>
                 <% if worker_entry.object.invoice.present? %>
@@ -57,7 +57,7 @@
             <% else %>
               <% invoice_amount = worker_entry.object.invoice.calculate_total %>
               <% total_to_be_paid += invoice_amount %>
-              <%= "$#{invoice_amount}" %>
+              <%= humanized_money_with_currency invoice_amount, "USD" %>
             <% end %>
           </td>
           <td class="text-right">
@@ -75,7 +75,7 @@
             <% else %>
               <% invoice_revenue = worker_entry.object.invoice.calculate_revenue %>
               <% total_revenue += invoice_revenue %>
-              <%= invoice_revenue %>
+              <%= humanized_money_with_currency invoice_revenue, "USD" %>
             <% end %>
           </td>
         </tr>
@@ -83,9 +83,9 @@
 
       <tr>
         <td colspan="2" class="text-right">Total</td>
-        <td class="text-right"><%= "$#{total_to_be_paid}" %></td>
+        <td class="text-right"><%= humanized_money_with_currency total_to_be_paid, "USD" %></td>
         <td class="text-right"><%= total_hours %></td>
-        <td class="text-right"><%= "$#{total_revenue}" %></td>
+        <td class="text-right"><%= humanized_money_with_currency total_revenue, "USD" %></td>
       </tr>
     </tbody>
   </table>
@@ -109,7 +109,7 @@
           <div>
             <div class="d-flex">
               <%= form.select :invoice_id,
-                              @client_invoices.collect { |invoice| ["$#{invoice.calculate_total} - #{invoice.is_paid? ? 'PAID' : 'UNPAID'}", invoice.id] },
+                              @client_invoices.collect { |invoice| ["#{humanized_money_with_currency(invoice.calculate_total, "USD")} - #{invoice.is_paid? ? 'PAID' : 'UNPAID'}", invoice.id] },
                               { include_blank: "Select client invoice" },
                               { class: "form-control" } %>
               <% if @report.invoice.present? %>
@@ -124,13 +124,13 @@
           <% end %>
         </td>
         <td class="text-right">
-          <%= @report.invoice.present? ? "$#{@report.invoice.calculate_total}" : "-" %>
+          <%= @report.invoice.present? ? humanized_money_with_currency(@report.invoice.calculate_total, "USD") : "-" %>
         </td>
         <td class="text-right">
           <% total_profit = 0 %>
           <% if @report.invoice.present? %>
             <% total_profit = @report.invoice.calculate_total - total_to_be_paid %>
-            <%= "$#{total_profit}" %>
+            <%= humanized_money_with_currency total_profit, "USD" %>
           <% end %>
         </td>
       </tr>
@@ -151,7 +151,7 @@
       <tr>
         <td><%= "#{partner_entry.user.first_name} #{partner_entry.user.last_name}" %></td>
         <td class="text-right"><%= partner_entry.percentage %>%</td>
-        <td class="text-right"><%= "$#{total_profit * (partner_entry.percentage / 100)}" %></td>
+        <td class="text-right"><%= humanized_money_with_currency(total_profit * (partner_entry.percentage / 100), "USD") %></td>
       </tr>
       <% end %>
     </tbody>

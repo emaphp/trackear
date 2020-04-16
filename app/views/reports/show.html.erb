@@ -74,7 +74,7 @@
               -
             <% else %>
               <% invoice_revenue = worker_entry.object.invoice.calculate_revenue %>
-              <% total_revenue += invoice_hours %>
+              <% total_revenue += invoice_revenue %>
               <%= invoice_revenue %>
             <% end %>
           </td>

@@ -66,7 +66,7 @@
             <% else %>
               <% invoice_hours = worker_entry.object.invoice.calculate_hours %>
               <% total_hours += invoice_hours %>
-              <%= invoice_hours %>
+              <%= invoice_hours.round(2) %>
             <% end %>
           </td>
           <td class="text-right">
@@ -84,7 +84,7 @@
       <tr>
         <td colspan="2" class="text-right">Total</td>
         <td class="text-right"><%= humanized_money_with_currency total_to_be_paid, "USD" %></td>
-        <td class="text-right"><%= total_hours %></td>
+        <td class="text-right"><%= total_hours.round(2) %></td>
         <td class="text-right"><%= humanized_money_with_currency total_revenue, "USD" %></td>
       </tr>
     </tbody>

@@ -19,6 +19,10 @@ class ActivityTrack < ApplicationRecord
     calculate_hours * project_contract.user_rate
   end
 
+  def project_rate
+    project_contract.project_rate
+  end
+
   def activity_is_inside_contract
     unless project_contract.active_in?(from)
       errors.add(:from, 'is outside of the contract')

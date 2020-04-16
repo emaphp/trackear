@@ -127,8 +127,11 @@
           <%= @report.invoice.present? ? "$#{@report.invoice.calculate_total}" : "-" %>
         </td>
         <td class="text-right">
-          <% total_profit = @report.invoice.calculate_total - total_to_be_paid %>
-          <%= @report.invoice.present? ? "$#{total_profit}" : "-" %>
+          <% total_profit = 0 %>
+          <% if @report.invoice.present? %>
+            <% total_profit = @report.invoice.calculate_total - total_to_be_paid %>
+            <%= "$#{total_profit}" %>
+          <% end %>
         </td>
       </tr>
     </tbody>

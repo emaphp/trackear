@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_173505) do
+ActiveRecord::Schema.define(version: 2020_04_21_152002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 2020_04_16_173505) do
     t.text "invoice_data"
     t.text "payment_data"
     t.boolean "is_client_visible"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
     t.index ["project_id"], name: "index_invoices_on_project_id"
     t.index ["user_id"], name: "index_invoices_on_user_id"
   end
@@ -85,9 +87,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_173505) do
     t.string "currency"
     t.string "slug"
     t.text "icon_data"
-    t.bigint "user_id"
-    t.index ["user_id", "slug"], name: "index_projects_on_user_id_and_slug", unique: true
-    t.index ["user_id"], name: "index_projects_on_user_id"
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
   create_table "report_partner_entries", force: :cascade do |t|
@@ -143,19 +143,15 @@ ActiveRecord::Schema.define(version: 2020_04_16_173505) do
     t.string "slug"
     t.boolean "is_admin"
     t.boolean "is_premium"
-    t.string "username"
-    t.string "oauth_service"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "invoice_entries", "invoices"
   add_foreign_key "invoices", "projects"
   add_foreign_key "project_contracts", "projects"
   add_foreign_key "project_contracts", "users"
-  add_foreign_key "projects", "users"
   add_foreign_key "report_partner_entries", "reports"
   add_foreign_key "report_partner_entries", "users"
   add_foreign_key "report_worker_entries", "invoices"

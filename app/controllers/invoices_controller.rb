@@ -69,7 +69,7 @@ class InvoicesController < ApplicationController
   def destroy
     @invoice.destroy
     respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
+      format.html { redirect_to project_invoices_url(@project), notice: 'Invoice was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -190,7 +190,8 @@ class InvoicesController < ApplicationController
       :currency,
       :discount_percentage,
       :from,
-      :to
+      :to,
+      :is_for_client
     )
   end
 

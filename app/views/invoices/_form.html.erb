@@ -27,6 +27,13 @@
     </div>
   </div>
 
+  <% if current_user.is_admin? %>
+    <div class="form-group">
+      <%= form.check_box :is_client_visible %>
+      <%= form.label :is_client_visible, "Is client invoice?" %>
+    </div>
+  <% end %>
+
   <% if invoice.persisted? %>
     <%= form.submit "Update invoice", class: "btn btn-primary" %>
   <% else %>

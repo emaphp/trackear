@@ -103,3 +103,5 @@ gem 'mini_racer'
 gem 'will_paginate', '~> 3.1.0'
 
 gem 'cocoon'
+
+gem 'acts_as_paranoid'

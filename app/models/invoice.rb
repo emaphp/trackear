@@ -4,6 +4,8 @@ class Invoice < ApplicationRecord
   include Shrine::Attachment(:invoice)
   include Shrine::Attachment(:payment)
 
+  acts_as_paranoid
+
   belongs_to :project
   belongs_to :user
   has_many :invoice_entries
@@ -47,8 +49,9 @@ class Invoice < ApplicationRecord
   private
 
   def create_invoice_entries_in_invoice_period
-    contracts = 
-      if user.is_admin?
+    is_for_client = user.is_admin? && is_client_visible?
+    contracts =
+      if is_for_client
         project.project_contracts
       else
         project.project_contracts.where(user: user)
@@ -58,7 +61,7 @@ class Invoice < ApplicationRecord
       logged = contract.activity_tracks.logged_in_period(from, to)
       logged.each do |activity|
         invoice_entries.create(
-          rate: user.is_admin ? contract.project_rate : contract.user_rate,
+          rate: is_for_client ? contract.project_rate : contract.user_rate,
           activity_track: activity,
           description: activity.description,
           from: activity.from,

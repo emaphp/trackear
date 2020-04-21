@@ -106,4 +106,4 @@ gem 'cocoon', '~> 1.2.14'
 
 gem 'acts_as_paranoid', '~> 0.6.3'
 
-gem 'sassc', '~> 2.3.0'
+gem 'sassc', '~> 2.1.0'

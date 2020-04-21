@@ -63,32 +63,32 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'devise'
+gem 'devise', '~> 4.7.1'
 
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
 
-gem 'cancancan'
+gem 'cancancan', '~> 3.0.2'
 
-gem 'money-rails'
+gem 'money-rails', '~> 1.13.3'
 
-gem 'friendly_id'
+gem 'friendly_id', '~> 5.3.0'
 
-gem 'date_validator'
+gem 'date_validator', '~> 0.9.0'
 
-gem 'dotiw'
+gem 'dotiw', '~> 4.0.1'
 
 gem 'shrine', '~> 3.0'
 
-gem 'rubocop'
+gem 'rubocop', '~> 0.81.0'
 
-gem 'secure_headers'
+gem 'secure_headers', '~> 6.3.0'
 
-gem 'rack-attack'
+gem 'rack-attack', '~> 6.2.2'
 
-gem 'slack-ruby-client'
+gem 'slack-ruby-client', '~> 0.14.5'
 
-gem 'asset_sync'
-gem 'fog-aws'
+gem 'asset_sync', '~> 2.11.0'
+gem 'fog-aws', '~> 3.6.2'
 
 gem 'aws-sdk-s3', '~> 1.14'
 
@@ -96,12 +96,12 @@ gem 'font-awesome-sass', '~> 5.12.0'
 
 gem 'bootstrap', '~> 4.4.1'
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.5'
 
-gem 'mini_racer'
+gem 'mini_racer', '~> 0.2.9'
 
 gem 'will_paginate', '~> 3.1.0'
 
-gem 'cocoon'
+gem 'cocoon', '~> 1.2.14'
 
-gem 'acts_as_paranoid'
+gem 'acts_as_paranoid', '~> 0.6.3'

@@ -4,7 +4,9 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.all
+    from = from_param
+    to = to_param
+    @expenses = Expense.in_period(from, to)
   end
 
   # GET /expenses/1
@@ -76,5 +78,17 @@ class ExpensesController < ApplicationController
         :from,
         :project_id
       )
+    end
+
+    def from_param
+      Date.parse(params.fetch(:from))
+    rescue StandardError
+      Date.today.beginning_of_month
+    end
+  
+    def to_param
+      Date.parse(params.fetch(:to))
+    rescue StandardError
+      Date.today.end_of_month
     end
 end

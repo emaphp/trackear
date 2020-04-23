@@ -1,39 +1,24 @@
 <div class="d-flex justify-content-between">
+  <div class="d-flex">
     <h4 class="mt-2">Expenses</h4>
-    <div class="d-flex justify-content-end">
+    <div class="ml-2">
           <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
             <%= icon "fas", "wallet", class: "mr-1" %>
             Create expense
           <% end %>
     </div>
+  </div>
+  <div class="">
+    <div id="dateFilter"></div>
+  </div>
 </div>
 
-<div class="form-row">
-  <div class="col-3 mt-2 mb-2">
-    <div class="p-3">
-      <h5>From</h5>
-      <p class="lead">March 19, 2020</p>
-    </div>
-  </div>
-  <div class="col-3 mt-2 mb-2">
-    <div class="p-3">
-      <h5>To</h5>
-      <p class="lead">March 20, 2020</p>
-    </div>
-  </div>
-  <div class="col-3 mt-2 mb-2">
-    <div class="p-3">
-      <h5>Expenses</h5>
-      <p class="lead"><%= @expenses.count %></p>
-    </div>
-  </div>
-  <div class="col-3 mt-2 mb-2">
-    <div class="p-3">
-      <h5>Total from expenses</h5>
-      <p class="lead">$40.00</p>
-    </div>
-  </div>
+<% if @expenses.empty? %>
+<div class="p-4 text-center">
+  <p class="lead">No expenses found </p>
+  <%= link_to "Create one", new_expense_path, class: "btn btn-orange" %>
 </div>
+<% end %>
 
 <% @expenses.each do |expense| %>
 <div class="box mt-2 mb-3">
@@ -64,3 +49,5 @@
   </div>
 </div>
 <% end %>
+
+<%= javascript_pack_tag 'expenses' %>

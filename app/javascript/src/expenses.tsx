@@ -78,14 +78,18 @@ function BasicDateRangePicker(props) {
   );
 }
 
-const params = new URLSearchParams(window.location.search);
+const elem = document.getElementById('dateFilter');
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <BasicDateRangePicker
-      from={params.get('from') || null}
-      to={params.get('to') || null}
-    />,
-    document.getElementById('dateFilter'),
-  )
-})
+if (elem) {
+  const params = new URLSearchParams(window.location.search);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    ReactDOM.render(
+      <BasicDateRangePicker
+        from={params.get('from') || null}
+        to={params.get('to') || null}
+      />,
+      elem,
+    )
+  });
+}

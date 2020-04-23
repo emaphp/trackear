@@ -85,6 +85,10 @@
           <i class="far fa-plus-square mx-3"></i>
           Create new project
         <% end %>
+        <%= link_to(expenses_path, class: "menu-item") do %>
+          <i class="fas fa-wallet mx-3"></i>
+          Expenses
+        <% end %>
         <% if can? :manage, User %>
           <%= link_to(users_path, class: "menu-item") do %>
             <i class="fas fa-users mx-3"></i>

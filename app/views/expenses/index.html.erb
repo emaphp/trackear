@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-between">
+    <h4 class="mt-2">Expenses</h4>
+    <div class="d-flex justify-content-end">
+          <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
+            <%= icon "fas", "wallet", class: "mr-1" %>
+            Create expense
+          <% end %>
+    </div>
+</div>
+
+<div class="form-row">
+  <div class="col-3 mt-2 mb-2">
+    <div class="p-3">
+      <h5>From</h5>
+      <p class="lead">March 19, 2020</p>
+    </div>
+  </div>
+  <div class="col-3 mt-2 mb-2">
+    <div class="p-3">
+      <h5>To</h5>
+      <p class="lead">March 20, 2020</p>
+    </div>
+  </div>
+  <div class="col-3 mt-2 mb-2">
+    <div class="p-3">
+      <h5>Expenses</h5>
+      <p class="lead"><%= @expenses.count %></p>
+    </div>
+  </div>
+  <div class="col-3 mt-2 mb-2">
+    <div class="p-3">
+      <h5>Total from expenses</h5>
+      <p class="lead">$40.00</p>
+    </div>
+  </div>
+</div>
+
+<% @expenses.each do |expense| %>
+<div class="box mt-2 mb-3">
+  <div class="row align-items-center">
+    <div class="col-lg-3">
+      <h5 class="m-0">
+        <%= expense.name %>
+      </h5>
+    </div>
+
+    <div class="col-lg-2">
+      <span class="lead">
+        <%= expense.from.strftime "%d %b %Y" %>
+      </span>
+    </div>
+
+    <div class="col-lg-2">
+      <span class="lead">
+        <%= money_without_cents_and_with_symbol(expense.price_unit) %>
+      </span>
+    </div>
+
+    <div class="col-lg-5 text-right">
+      <%= link_to "Download receipt", "", class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to "Edit", edit_expense_path(expense), class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to "Delete", expense, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+    </div>
+  </div>
+</div>
+<% end %>

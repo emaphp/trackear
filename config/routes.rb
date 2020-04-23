@@ -2,14 +2,19 @@
 
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'users/sessions' }, skip: [:registrations]
+
   scope 'admin' do
     resources :users do
       post :become, on: :member
     end
   end
+
+  resources :expenses
+
   resources :projects do
     resources :reports
     resources :project_contracts, except: [:index]
+    resources :activity_tracks, except: [:index]
     resources :invoices do
       post :make_internal, on: :member
       post :make_client, on: :member
@@ -22,10 +27,11 @@ Rails.application.routes.draw do
       get :download_payment, on: :member
       get :review_entries, on: :member
     end
-    resources :activity_tracks, except: [:index]
   end
+
   scope 'slack' do
     post 'log', to: 'slack#log'
   end
+
   root to: 'home#index', as: 'home'
 end

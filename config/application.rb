@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 module App
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     config.middleware.use Rack::Attack
 
@@ -24,7 +24,7 @@ module App
       env_file = File.join(Rails.root, 'env.yml')
       YAML.load(File.open(env_file)).each do |key, value|
         ENV[key.to_s] = value
-      end if File.exists?(env_file) && ENV['RAILS_ENV'] != "production"
+      end if File.exist?(env_file) && ENV['RAILS_ENV'] != "production"
     end
   end
 end

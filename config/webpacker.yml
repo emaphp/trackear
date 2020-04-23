@@ -3,8 +3,8 @@
 default: &default
   source_path: app/assets/javascripts/webpack
   source_entry_path: packs
-  public_root_path: public/assets
-  public_output_path: packs
+  public_root_path: public
+  public_output_path: assets/webpack/packs
   cache_path: tmp/cache/webpacker
   webpack_compile_output: true
 

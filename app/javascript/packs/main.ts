@@ -16,7 +16,6 @@
 // const imagePath = (name) => images(name, true)
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import 'jquery'
 import 'bootstrap'
 
 require('@rails/ujs').start()

@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import moment from "moment";
 import MomentUtils from '@material-ui/pickers/adapter/moment';
 import Grid from '@material-ui/core/Grid';
-import { LocalizationProvider } from '@material-ui/pickers';
-import { DateRangePicker, DateRange } from "@material-ui/pickers";
+import { LocalizationProvider, DateRangePicker, DateRange } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 

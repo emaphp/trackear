@@ -14,11 +14,13 @@
     "bootstrap": "^4.4.1",
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
+    "moment-locales-webpack-plugin": "^1.2.0",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack-bundle-analyzer": "^3.7.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.10.3"

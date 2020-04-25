@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :expenses
+  resources :expenses do
+    get :download, on: :member
+  end
 
   resources :projects do
     resources :reports

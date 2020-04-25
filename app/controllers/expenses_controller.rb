@@ -1,12 +1,13 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /expenses
   # GET /expenses.json
   def index
     from = from_param
     to = to_param
-    @expenses = Expense.in_period(from, to)
+    page = params[:page]
+    @expenses = Expense.in_period(from, to).paginate(page: page, per_page: 10)
   end
 
   # GET /expenses/1
@@ -63,6 +64,16 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def download
+    receipt = @expense.receipt
+    metadata = receipt.metadata
+    name = @expense.name + ' ' + @expense.from.strftime("%B %Y") + ' - ' + metadata['filename']
+    mime_type = metadata['mime_type']
+    send_data @expense.receipt.download.read, filename: name, type: mime_type
+  rescue StandardError
+    redirect_to expenses_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
@@ -74,7 +85,7 @@ class ExpensesController < ApplicationController
       params.require(:expense).permit(
         :name,
         :price_cents,
-        :receipt_data,
+        :receipt,
         :from,
         :project_id
       )

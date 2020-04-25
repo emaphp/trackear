@@ -1,3 +1,5 @@
+// https://github.com/rails/webpacker/blob/master/docs/webpack.md
+
 const { environment } = require('@rails/webpacker')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;

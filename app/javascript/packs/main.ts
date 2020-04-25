@@ -21,5 +21,6 @@ import 'bootstrap'
 
 require('@rails/ujs').start()
 
+import '../tooltip'
 import '../expenses'
 import '../invoices'

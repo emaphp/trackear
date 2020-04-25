@@ -22,3 +22,4 @@ import 'bootstrap'
 require('@rails/ujs').start()
 
 import '../expenses'
+import '../invoices'

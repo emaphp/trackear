@@ -5,5 +5,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 // Only en locale by default
 environment.plugins.append('MomentLocales', new MomentLocalesPlugin());
 environment.plugins.append('BundleAnalyzer', new BundleAnalyzerPlugin({ analyzerMode: 'static' }))
+environment.config.set('resolve.alias', {
+    "react": "preact/compat",
+    "react-dom": "preact/compat",
+})
 
 module.exports = environment

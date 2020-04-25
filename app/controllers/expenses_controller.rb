@@ -7,7 +7,8 @@ class ExpensesController < ApplicationController
     from = from_param
     to = to_param
     page = params[:page]
-    @expenses = Expense.in_period(from, to).paginate(page: page, per_page: 10)
+    @all_expenses = Expense.in_period(from, to)
+    @expenses = @all_expenses.paginate(page: page, per_page: 10)
   end
 
   # GET /expenses/1

@@ -27,10 +27,7 @@ const useStyles = makeStyles({
 function BasicDateRangePicker(props) {
   const classes = useStyles();
   const { from, to } = props;
-  const initialDates: DateRange = [
-    from ? moment(from) : null,
-    to ? moment(to) : null
-  ];
+  const initialDates: DateRange = [moment(from), moment(to)];
   const [selectedDate, handleDateChange] = useState<DateRange>(initialDates);
 
   const filterExpenses = useCallback((dates: DateRange) => {    
@@ -81,12 +78,14 @@ const elem = document.getElementById('dateFilter');
 
 if (elem) {
   const params = new URLSearchParams(window.location.search);
+  const defaultFrom = moment().startOf('month');
+  const defaultTo = moment().endOf('month');
 
   document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
       <BasicDateRangePicker
-        from={params.get('from') || null}
-        to={params.get('to') || null}
+        from={params.get('from') || defaultFrom}
+        to={params.get('to') || defaultTo}
       />,
       elem,
     )

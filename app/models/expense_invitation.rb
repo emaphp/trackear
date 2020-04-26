@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExpenseInvitation < ApplicationRecord
   belongs_to :user
 
@@ -8,6 +10,8 @@ class ExpenseInvitation < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: { scope: :user_id }
   validate :check_self_invite
+
+  scope :accepted, -> { where(status: 'accepted') }
 
   def accept
     self.status = 'accepted'

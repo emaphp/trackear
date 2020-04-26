@@ -11,7 +11,7 @@ class InvoicesController < ApplicationController
   def index
     @invoices = if current_user.is_admin?
                   @project.invoices.includes(:user).order(from: :desc)
-                elsif @project.is_client? current_user 
+                elsif @project.is_client? current_user
                   @project.invoices.includes(:user).for_client_visible.order(from: :desc)
                 else
                   current_user.invoices.includes(:user).where(project: @project).order(from: :desc)
@@ -123,12 +123,12 @@ class InvoicesController < ApplicationController
   end
 
   def download_invoice
-    name = @invoice.project.name + " - " + @invoice.from.strftime("%B %Y")
+    name = @invoice.project.name + ' - ' + @invoice.from.strftime('%B %Y')
     send_data @invoice.invoice.download.read, filename: name + '.pdf', type: 'application/pdf'
   end
 
   def download_payment
-    name = @invoice.project.name + " - Payment - " + @invoice.from.strftime("%B %Y")
+    name = @invoice.project.name + ' - Payment - ' + @invoice.from.strftime('%B %Y')
     send_data @invoice.payment.download.read, filename: name + '.pdf', type: 'application/pdf'
   end
 
@@ -206,7 +206,7 @@ class InvoicesController < ApplicationController
     else
       params.require(:invoice).permit(
         :currency,
-        :discount_percentage,
+        :discount_percentage
       )
     end
   end

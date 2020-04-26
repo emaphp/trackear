@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: %i[show edit update destroy]
 
   # GET /reports
   # GET /reports.json
@@ -69,18 +71,19 @@ class ReportsController < ApplicationController
   end
 
   private
-    def set_project
-      @project = Project.friendly.find(params[:project_id])
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = @project.reports.find(params[:id])
-    end
+  def set_project
+    @project = Project.friendly.find(params[:project_id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def report_params
-      params
+  # Use callbacks to share common setup or constraints between actions.
+  def set_report
+    @report = @project.reports.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def report_params
+    params
       .require(:report)
       .permit(
         :from,
@@ -88,8 +91,8 @@ class ReportsController < ApplicationController
         :user_id,
         :project_id,
         :invoice_id,
-        report_worker_entries_attributes: [:id, :user_id, :invoice_id, :_destroy],
-        report_partner_entries_attributes: [:id, :user_id, :percentage, :_destroy]
+        report_worker_entries_attributes: %i[id user_id invoice_id _destroy],
+        report_partner_entries_attributes: %i[id user_id percentage _destroy]
       )
-    end
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateExpenseInvitations < ActiveRecord::Migration[6.0]
   def change
     create_table :expense_invitations do |t|

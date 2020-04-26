@@ -20,10 +20,10 @@ class ProjectsController < ApplicationController
     @contract = current_user.currently_active_contract_for(@project)
     @logs_from = logs_from_param
     @logs_to = logs_to_param
-    
+
     @all_logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to)
-      .includes(:project_contract)
-      .order(from: :desc)
+                                    .includes(:project_contract)
+                                    .order(from: :desc)
 
     if @project.is_client? current_user
       @invoices = @project.invoices.for_client_visible.paginate(page: 1, per_page: 5)

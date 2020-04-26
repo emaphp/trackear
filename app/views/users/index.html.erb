@@ -24,7 +24,7 @@
     <% @users.each.with_index do |user, index| %>
         <div class="box mt-2 mb-3">
             <div class="media">
-                <%= image_tag user.picture, class: "avatar align-self-start mr-3" %>
+                <%= image_tag user.picture || '', class: "avatar align-self-start mr-3" %>
                 <div class="media-body">
                     <h5 class="mt-1 m-0">
                       <%= user.first_name %> <%= user.last_name %>

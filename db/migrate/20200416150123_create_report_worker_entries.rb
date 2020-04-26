@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateReportWorkerEntries < ActiveRecord::Migration[5.2]
   def change
     create_table :report_worker_entries do |t|

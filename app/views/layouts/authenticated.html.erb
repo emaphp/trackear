@@ -38,6 +38,12 @@
             Create new project
           <% end %>
         </li>
+        <li class="nav-item">
+          <%= link_to(expenses_path, class: "nav-link") do %>
+            <i class="fas fa-wallet mx-3"></i>
+            Expenses
+          <% end %>
+        </li>
         <% if can? :manage, User %>
           <li class="nav-item">
             <%= link_to(users_path, class: "nav-link") do %>

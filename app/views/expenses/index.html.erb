@@ -4,17 +4,17 @@
   Here you will be able to keep track of all your expenses, receipts, total amounts and even invite accountants to review your activity for reports.
 </p>
 
-<div class="d-flex justify-content-between">
+<div class="my-4 d-flex justify-content-between">
   <div>
     <div id="dateFilter"></div>
   </div>
   <div class="d-flex">
     <div class="ml-2">
+      <%= render 'invite_people_button' %>
       <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
         <%= icon "fas", "wallet", class: "mr-1" %>
         Create expense
       <% end %>
-      <%= render 'invite_people_button' %>
     </div>
   </div>
 </div>
@@ -55,20 +55,26 @@
 <div class="box mt-2 mb-3">
   <div class="row align-items-center">
     <div class="col-lg-3">
-      <h5 class="m-0">
+      <span class="lead text-dark">
+        <%= expense.name %>
         <% if can? :manage, expense %>
-          <%= link_to edit_expense_path(expense) do %>
+          <%= link_to edit_expense_path(expense), class: "btn-block text-left btn btn-sm btn-link p-1 px-2 border-0" do %>
             <%= icon "fa", "edit" %>
-            <%= expense.name %>
+            Edit
           <% end %>
-        <% else %>
-          <%= expense.name %>
         <% end %>
-      </h5>
+      </span>
     </div>
 
     <div class="col-lg-2">
+      <% if expense.receipt.present? %>
       <%= link_to "Download receipt", download_expense_path(expense), class: "btn btn-outline-secondary btn-sm py-1" %>
+      <% else %>
+        <span>
+          <i class="fas fa-exclamation-triangle mr-2"></i>
+          No receipt attached
+        </span>
+      <% end %>
     </div>
 
     <div class="col-lg-2">
@@ -97,7 +103,7 @@
 </div>
 
 <% if @all_expenses.present? %>
-<div class="mt-2 lead text-right">
+<div class="mt-2 mr-2 lead text-dark text-right">
   Total amount in expenses for selected period: <%= humanized_money_with_symbol(calculate_total(@all_expenses)) %>
 </div>
 <% end %>

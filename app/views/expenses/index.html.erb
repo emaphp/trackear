@@ -1,6 +1,14 @@
+<h4 class="mt-2">Expenses</h4>
+<p class="lead mb-5">
+  Welcome to expenses <%= current_user.first_name %> 🙌<br />
+  Here you will be able to keep track of all your expenses, receipts, total amounts and even invite accountants to review your activity for reports.
+</p>
+
 <div class="d-flex justify-content-between">
+  <div>
+    <div id="dateFilter"></div>
+  </div>
   <div class="d-flex">
-    <h4 class="mt-2">Expenses</h4>
     <div class="ml-2">
       <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
         <%= icon "fas", "wallet", class: "mr-1" %>
@@ -8,9 +16,6 @@
       <% end %>
       <%= render 'invite_people_button' %>
     </div>
-  </div>
-  <div class="">
-    <div id="dateFilter"></div>
   </div>
 </div>
 

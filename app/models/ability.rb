@@ -17,6 +17,8 @@ class Ability
     can :manage, ActivityTrack, project_contract: { user_id: user.id }
     can :create, ActivityTrack
 
+    can :manage, Expense, user: user
+
     can :manage, :all if user.is_admin?
   end
 end

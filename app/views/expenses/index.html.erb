@@ -96,3 +96,5 @@
   Total amount in expenses for selected period: <%= humanized_money_with_symbol(calculate_total(@all_expenses)) %>
 </div>
 <% end %>
+
+<%= javascript_pack_tag 'expenses/index' %>

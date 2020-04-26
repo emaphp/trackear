@@ -75,19 +75,14 @@ function BasicDateRangePicker(props) {
 }
 
 const elem = document.getElementById('dateFilter');
+const params = new URLSearchParams(window.location.search);
+const defaultFrom = moment().startOf('month');
+const defaultTo = moment().endOf('month');
 
-if (elem) {
-  const params = new URLSearchParams(window.location.search);
-  const defaultFrom = moment().startOf('month');
-  const defaultTo = moment().endOf('month');
-
-  document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(
-      <BasicDateRangePicker
+ReactDOM.render(
+    <BasicDateRangePicker
         from={params.get('from') || defaultFrom}
         to={params.get('to') || defaultTo}
-      />,
-      elem,
-    )
-  });
-}
+    />,
+    elem,
+)

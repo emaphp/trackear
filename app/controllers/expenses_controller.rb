@@ -111,7 +111,7 @@ class ExpensesController < ApplicationController
     @invitation = ExpenseInvitation.find_by(token: params[:token])
     @invitation.accept
     @invitation.save
-    User.where(email: @invitation.email).first_or_create
+    User.where(email: @invitation.email).first_or_create(password: Devise.friendly_token[0, 20])
     redirect_to home_url, notice: 'The invitation was accepted, please log in with your Google account'
   end
 

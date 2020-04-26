@@ -9,7 +9,7 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts';
-  
+
 export default class ExpenseChartWidget extends React.PureComponent {
     render() {
         return (

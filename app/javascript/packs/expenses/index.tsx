@@ -20,8 +20,20 @@ ReactDOM.render(
 const chart = document.getElementById('chart');
   
 if (chart) {
+  const sumSpendedByDate = (data) => {
+      const summed = data.reduce((result, val) => {
+          const exist = result[val.name];
+          result[val.name] = {
+              name: val.name,
+              Spended: exist ? exist.Spended + val.Spended : val.Spended
+          }
+          return result;
+      }, {});
+      return Object.values(summed);
+  }
+
   ReactDOM.render(
-    <ExpenseChartWidget data={window.data} />,
+    <ExpenseChartWidget data={sumSpendedByDate(window.data)} />,
     chart,
   )
 }

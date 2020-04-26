@@ -111,6 +111,12 @@ class ExpensesController < ApplicationController
     redirect_to home_url, notice: 'The invitation was accepted, please log in with your Google account'
   end
 
+  def destroy_invitation
+    @invitation = current_user.expense_invitations.find(params[:invitation_id])
+    @invitation.destroy
+    redirect_to expenses_url, notice: 'Invitation successfully removed'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense

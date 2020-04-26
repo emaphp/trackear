@@ -32,7 +32,10 @@
 <% end %>
 <% @invitations.each do |invitation| %>
 <div class="mr-2 badge badge-pill badge-secondary">
-  <%= invitation.name + " (" + invitation.email + ")" %>
+  <%= invitation.name %>
+  <%= link_to destroy_invitation_expenses_path(invitation), method: :delete, class: "ml-2 text-white", title: "Remove", data: { placement: "top", toggle: "tooltip" } do %>
+    <%= icon "fas", "times-circle" %>
+  <% end %>
 </div>
 <% end %>
 

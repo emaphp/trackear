@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :expenses do
+    delete '/destroy_invitation/:invitation_id', as: 'destroy_invitation', action: :destroy_invitation, on: :collection
     get '/accept_invitation/:token', as: 'accept_invitation', action: :accept_invitation, on: :collection
     post :send_invitation, on: :collection
     get :download, on: :member

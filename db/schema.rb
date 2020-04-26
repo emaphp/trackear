@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_002529) do
+ActiveRecord::Schema.define(version: 2020_04_26_013534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,9 @@ ActiveRecord::Schema.define(version: 2020_04_26_002529) do
     t.datetime "updated_at", null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
+    t.bigint "user_id", null: false
     t.index ["project_id"], name: "index_expenses_on_project_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -173,6 +175,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_002529) do
 
   add_foreign_key "expense_invitations", "users"
   add_foreign_key "expenses", "projects"
+  add_foreign_key "expenses", "users"
   add_foreign_key "invoice_entries", "invoices"
   add_foreign_key "invoices", "projects"
   add_foreign_key "project_contracts", "projects"

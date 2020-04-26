@@ -15,9 +15,19 @@ class ExpensesController < ApplicationController
     from = from_param
     to = to_param
     page = params[:page]
-    @all_expenses = Expense.in_period(from, to)
+
+    @invitation_id = params[:invitation]
+    @expenses_invited_to = ExpenseInvitationService.get_list_from_user(current_user)
+
+    if (@invitation_id.nil?)
+      @all_expenses = current_user.expenses.in_period(from, to)
+    else
+      @invitation = ExpenseInvitation.where(id: @invitation_id, email: current_user.email, status: 'accepted').first
+      @all_expenses = Expense.where(user_id: @invitation.user_id).in_period(from, to)
+    end
     @expenses = @all_expenses.paginate(page: page, per_page: 10)
     @invitations = current_user.expense_invitations
+    
   end
 
   # GET /expenses/1
@@ -37,7 +47,7 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
-    @expense = Expense.new(expense_params)
+    @expense = current_user.expenses.new(expense_params)
 
     respond_to do |format|
       if @expense.save
@@ -105,7 +115,7 @@ class ExpensesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
-      @expense = Expense.find(params[:id])
+      @expense = current_user.expenses.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

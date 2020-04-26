@@ -14,6 +14,19 @@
   </div>
 </div>
 
+<% if @expenses_invited_to.present? %>
+  <%= form_with(local: true, method: :get) do |form| %>
+    <div class="form-group">
+      <%= form.label :invitation, "Switch expenses" %>
+      <%= form.select :invitation,
+        @expenses_invited_to.collect { |invitation| [invitation.user.first_name, invitation.id] },
+        { include_blank: "Select which user's expenses you want to see" },
+        { class: "form-control", onchange: "this.form.submit()" }
+      %>
+    </div>
+  <% end %>
+<% end %>
+
 <% if @invitations.present? %>
 <small>Invitations: </small>
 <% end %>

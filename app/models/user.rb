@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :invoices
 
+  has_many :expenses
   has_many :expense_invitations
 
   def slug_candidates

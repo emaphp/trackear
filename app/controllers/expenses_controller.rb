@@ -95,11 +95,15 @@ class ExpensesController < ApplicationController
 
   def send_invitation
     invitation = current_user.expense_invitations.new(expense_invitation_params)
-    invitation.save
 
     respond_to do |format|
-      format.html { redirect_to expenses_url, notice: 'Invitation sent successfully.' }
-      format.json { head :no_content }
+      if invitation.save
+        format.html { redirect_to expenses_url, notice: 'Invitation sent successfully.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to expenses_url, notice: 'There was an error sending your invitation, please try again in a few minutes' }
+        format.json { head :no_content }
+      end
     end
   end
 

@@ -31,14 +31,9 @@
 <small>Invitations: </small>
 <% end %>
 <% @invitations.each do |invitation| %>
-<div
-  class="mr-2 badge badge-pill badge-secondary"
-  data-placement="top"
-  data-toggle="tooltip"
-  title="Invitation <%= invitation.status %>"
->
-  <%= invitation.name %>
-  <%= link_to destroy_invitation_expenses_path(invitation), method: :delete, class: "ml-2 text-white", title: "Remove", data: { placement: "top", toggle: "tooltip" } do %>
+<div class="mr-2 badge badge-pill badge-secondary">
+  <span data-placement="top" data-toggle="tooltip" title="Invitation <%= invitation.status %>"><%= invitation.name %></span>
+  <%= link_to destroy_invitation_expenses_path(invitation), method: :delete, class: "ml-2 text-white", title: "Remove", data: { confirm: 'Are you sure?', placement: "top", toggle: "tooltip" } do %>
     <%= icon "fas", "times-circle" %>
   <% end %>
 </div>

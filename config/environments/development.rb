@@ -64,11 +64,11 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :test
 
-  config.action_controller.asset_host = ENV['DOMAIN']
+  # config.action_controller.asset_host = ENV['DOMAIN']
 
-  config.action_mailer.asset_host = ENV['DOMAIN']
+  config.action_mailer.asset_host = "https://#{ENV['FOG_DIRECTORY']}"
 
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",

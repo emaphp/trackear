@@ -2,16 +2,26 @@
   <div class="d-flex">
     <h4 class="mt-2">Expenses</h4>
     <div class="ml-2">
-          <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
-            <%= icon "fas", "wallet", class: "mr-1" %>
-            Create expense
-          <% end %>
+      <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
+        <%= icon "fas", "wallet", class: "mr-1" %>
+        Create expense
+      <% end %>
+      <%= render 'invite_people_button' %>
     </div>
   </div>
   <div class="">
     <div id="dateFilter"></div>
   </div>
 </div>
+
+<% if @invitations.present? %>
+<small>Invitations: </small>
+<% end %>
+<% @invitations.each do |invitation| %>
+<div class="mr-2 badge badge-pill badge-secondary">
+  <%= invitation.name + " (" + invitation.email + ")" %>
+</div>
+<% end %>
 
 <% if @expenses.empty? %>
 <div class="p-4 text-center">

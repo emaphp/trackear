@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
 
   resources :expenses do
+    get '/accept_invitation/:token', as: 'accept_invitation', action: :accept_invitation, on: :collection
+    post :send_invitation, on: :collection
     get :download, on: :member
   end
 

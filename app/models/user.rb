@@ -15,6 +15,8 @@ class User < ApplicationRecord
 
   has_many :invoices
 
+  has_many :expense_invitations
+
   def slug_candidates
     [%i[first_name last_name slug_suffix]]
   end

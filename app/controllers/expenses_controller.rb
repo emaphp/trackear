@@ -1,5 +1,13 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: [:show, :edit, :update, :destroy, :download]
+  before_action :authenticate_user!, except: [:accept_invitation]
+
+  before_action :set_expense, only: [
+    :show,
+    :edit,
+    :update,
+    :destroy,
+    :download
+  ]
 
   # GET /expenses
   # GET /expenses.json
@@ -9,6 +17,7 @@ class ExpensesController < ApplicationController
     page = params[:page]
     @all_expenses = Expense.in_period(from, to)
     @expenses = @all_expenses.paginate(page: page, per_page: 10)
+    @invitations = current_user.expense_invitations
   end
 
   # GET /expenses/1
@@ -75,6 +84,24 @@ class ExpensesController < ApplicationController
     redirect_to expenses_url
   end
 
+  def send_invitation
+    invitation = current_user.expense_invitations.new(expense_invitation_params)
+    invitation.save
+
+    respond_to do |format|
+      format.html { redirect_to expenses_url, notice: 'Invitation sent successfully.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def accept_invitation
+    @invitation = ExpenseInvitation.find_by(token: params[:token])
+    @invitation.accept
+    @invitation.save
+    User.where(email: @invitation.email).first_or_create
+    redirect_to home_url, notice: 'The invitation was accepted, please log in with your Google account'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
@@ -102,5 +129,12 @@ class ExpensesController < ApplicationController
       Date.parse(params.fetch(:to))
     rescue StandardError
       Date.today.end_of_month
+    end
+
+    def expense_invitation_params
+      params.require(:expense_invitation).permit(
+        :name,
+        :email
+      )
     end
 end

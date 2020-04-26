@@ -7,4 +7,7 @@ class Expense < ApplicationRecord
 
   scope :in_period, ->(from, to) { where(from: from..to) }
   default_scope { order(created_at: :desc) }
+
+  validates :name, presence: true
+  validates :from, presence: true
 end

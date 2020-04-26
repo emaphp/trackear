@@ -50,8 +50,8 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
-        format.json { render :show, status: :created, location: @expense }
+        format.html { redirect_to expenses_url, notice: 'Expense was successfully created.' }
+        format.json { render :show, status: :created, location: expenses_url }
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
@@ -64,8 +64,8 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expense_params)
-        format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
-        format.json { render :show, status: :ok, location: @expense }
+        format.html { redirect_to expenses_url, notice: 'Expense was successfully updated.' }
+        format.json { render :show, status: :ok, location: expenses_url }
       else
         format.html { render :edit }
         format.json { render json: @expense.errors, status: :unprocessable_entity }

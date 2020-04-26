@@ -86,8 +86,6 @@ class ExpensesController < ApplicationController
     expense_id = params[:id]
     receipt = ExpenseReceiptService.download!(current_user, expense_id)
     send_data receipt[:file], filename: receipt[:name], type: receipt[:mime_type]
-  rescue StandardError
-    redirect_to expenses_url
   end
 
   def send_invitation

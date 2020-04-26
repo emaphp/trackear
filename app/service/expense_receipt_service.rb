@@ -12,8 +12,8 @@ class ExpenseReceiptService
     receipt_filename = metadata['filename']
     receipt_mime_type = metadata['mime_type']
     name = expense.name + ' ' + expense_from + ' - ' + receipt_filename
-    receipt = expense.receipt.download.read
-    { file: receipt, name: name, mime_type: receipt_mime_type }
+    file = receipt.download.read
+    { file: file, name: name, mime_type: receipt_mime_type }
   end
 
   private

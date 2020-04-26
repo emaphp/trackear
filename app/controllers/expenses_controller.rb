@@ -16,18 +16,17 @@ class ExpensesController < ApplicationController
     to = to_param
     page = params[:page]
 
-    @invitation_id = params[:invitation]
+    @invitation_id = params.dig(:expense_invitation, :id)
+    @invitation = ExpenseInvitation.where(id: @invitation_id, email: current_user.email, status: 'accepted').first || ExpenseInvitation.new
     @expenses_invited_to = ExpenseInvitationService.get_list_from_user(current_user)
 
-    if (@invitation_id.nil?)
-      @all_expenses = current_user.expenses.in_period(from, to)
-    else
-      @invitation = ExpenseInvitation.where(id: @invitation_id, email: current_user.email, status: 'accepted').first
+    if @invitation_id.present?
       @all_expenses = Expense.where(user_id: @invitation.user_id).in_period(from, to)
+    else
+      @all_expenses = current_user.expenses.in_period(from, to)
     end
     @expenses = @all_expenses.paginate(page: page, per_page: 10)
     @invitations = current_user.expense_invitations
-    
   end
 
   # GET /expenses/1

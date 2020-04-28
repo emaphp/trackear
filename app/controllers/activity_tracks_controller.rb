@@ -78,6 +78,6 @@ class ActivityTracksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def activity_track_params
-    params.require(:activity_track).permit(:from, :to, :description)
+    params.require(:activity_track).permit(:from, :hours, :description)
   end
 end

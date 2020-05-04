@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.4.1",
+    "cocoon-js": "^0.0.5",
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "moment-locales-webpack-plugin": "^1.2.0",

@@ -21,7 +21,11 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @users = User.all
-    @report = @project.reports.new(user: current_user)
+    @report = @project.reports.new(
+      user: current_user,
+      from: Date.today.beginning_of_month,
+      to: Date.today.end_of_month
+    )
   end
 
   # GET /reports/1/edit

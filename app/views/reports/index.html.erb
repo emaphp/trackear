@@ -22,7 +22,7 @@
     <tbody>
       <% @reports.each do |report| %>
       <tr>
-        <td><%= report.from %> - <%= report.to %></td>
+        <td><%= report.from.strftime("%d %B %Y") %> - <%= report.to.strftime("%d %B %Y") %></td>
         <td><%= link_to 'Show', [report.project, report] %></td>
         <td><%= link_to 'Edit', edit_project_report_path(report.project, report) %></td>
         <td><%= link_to 'Destroy', [report.project, report], method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,0 +1,6 @@
+<% if can? :manage, Report %>
+  <%= link_to project_reports_path(project), class: "p-1 px-3 btn btn-sm btn-outline-primary" do %>
+    <%= icon "far", "file-alt", class: "mr-2" %>
+    Reports
+  <% end %>
+<% end %>

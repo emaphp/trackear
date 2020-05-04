@@ -191,7 +191,7 @@ class InvoicesController < ApplicationController
       :discount_percentage,
       :from,
       :to,
-      :is_for_client
+      :is_client_visible
     )
   end
 

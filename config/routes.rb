@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'users/sessions' }, skip: [:registrations]
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'users/sessions'
+  }, skip: [:registrations]
+
+  match "/404", to: "error#not_found", via: :all
+  match "/422", to: "error#unacceptable", via: :all
+  match "/500", to: "error#internal_error", via: :all
 
   scope 'admin' do
     resources :users do

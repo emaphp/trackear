@@ -15,6 +15,8 @@ module App
 
     config.middleware.use Rack::Attack
 
+    config.exceptions_app = self.routes
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -22,9 +24,11 @@ module App
 
     config.before_configuration do
       env_file = File.join(Rails.root, 'env.yml')
-      YAML.load(File.open(env_file)).each do |key, value|
-        ENV[key.to_s] = value
-      end if File.exist?(env_file) && ENV['RAILS_ENV'] != "production"
+      if File.exist?(env_file) && ENV['RAILS_ENV'] != 'production'
+        YAML.safe_load(File.open(env_file)).each do |key, value|
+          ENV[key.to_s] = value
+        end
+      end
     end
   end
 end

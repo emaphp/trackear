@@ -73,13 +73,22 @@
       </div>
 
       <div class="col-lg-2">
-        <% if expense.receipt.present? %>
-        <%= link_to "Download receipt", download_expense_path(expense), class: "btn btn-outline-secondary btn-sm py-1" %>
+        <% if expense.invoice.present? %>
+          <%= link_to "Download invoice", download_invoice_expense_path(expense), class: "btn btn-block btn-outline-secondary btn-sm py-1" %>
         <% else %>
-          <span>
+          <div>
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            No invoice attached
+          </div>
+        <% end %>
+
+        <% if expense.receipt.present? %>
+          <%= link_to "Download receipt", download_receipt_expense_path(expense), class: "btn btn-block btn-outline-secondary btn-sm py-1" %>
+        <% else %>
+          <div>
             <i class="fas fa-exclamation-triangle mr-2"></i>
             No receipt attached
-          </span>
+          </div>
         <% end %>
       </div>
 

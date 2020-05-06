@@ -2,6 +2,8 @@
 
 class Expense < ApplicationRecord
   include Shrine::Attachment(:receipt)
+  include Shrine::Attachment(:invoice)
+
   monetize :price_cents
 
   belongs_to :user

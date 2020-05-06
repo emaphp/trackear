@@ -82,9 +82,15 @@ class ExpensesController < ApplicationController
     end
   end
 
-  def download
+  def download_invoice
     expense_id = params[:id]
-    receipt = ExpenseReceiptService.download!(current_user, expense_id)
+    invoice = ExpenseFileService.download_invoice!(current_user, expense_id)
+    send_data invoice[:file], filename: invoice[:name], type: invoice[:mime_type]
+  end
+
+  def download_receipt
+    expense_id = params[:id]
+    receipt = ExpenseFileService.download_receipt!(current_user, expense_id)
     send_data receipt[:file], filename: receipt[:name], type: receipt[:mime_type]
   end
 
@@ -128,6 +134,7 @@ class ExpensesController < ApplicationController
     params.require(:expense).permit(
       :name,
       :price,
+      :invoice,
       :receipt,
       :from,
       :project_id

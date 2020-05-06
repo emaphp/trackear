@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions'
-  }, skip: [:registrations]
+  }
 
-  match "/404", to: "error#not_found", via: :all
-  match "/422", to: "error#unacceptable", via: :all
-  match "/500", to: "error#internal_error", via: :all
+  match '/404', to: 'error#not_found', via: :all
+  match '/422', to: 'error#unacceptable', via: :all
+  match '/500', to: 'error#internal_error', via: :all
 
   scope 'admin' do
     resources :users do
@@ -20,13 +20,15 @@ Rails.application.routes.draw do
     delete '/destroy_invitation/:invitation_id', as: 'destroy_invitation', action: :destroy_invitation, on: :collection
     get '/accept_invitation/:token', as: 'accept_invitation', action: :accept_invitation, on: :collection
     post :send_invitation, on: :collection
-    get :download, on: :member
+    get :download_invoice, on: :member
+    get :download_receipt, on: :member
   end
 
   resources :projects do
     resources :reports
     resources :project_contracts, except: [:index]
     resources :activity_tracks, except: [:index]
+
     resources :invoices do
       post :make_internal, on: :member
       post :make_client, on: :member

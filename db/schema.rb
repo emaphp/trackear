@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_085504) do
+ActiveRecord::Schema.define(version: 2020_05_06_210217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_085504) do
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
     t.bigint "user_id", null: false
+    t.string "invoice_data"
     t.index ["project_id"], name: "index_expenses_on_project_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
@@ -106,6 +107,19 @@ ActiveRecord::Schema.define(version: 2020_04_26_085504) do
     t.date "ends_at"
     t.index ["project_id"], name: "index_project_contracts_on_project_id"
     t.index ["user_id"], name: "index_project_contracts_on_user_id"
+  end
+
+  create_table "project_invitations", force: :cascade do |t|
+    t.string "email"
+    t.bigint "user_id", null: false
+    t.string "activity"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "project_id", null: false
+    t.string "token"
+    t.index ["project_id"], name: "index_project_invitations_on_project_id"
+    t.index ["user_id"], name: "index_project_invitations_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -169,9 +183,18 @@ ActiveRecord::Schema.define(version: 2020_04_26_085504) do
     t.string "slug"
     t.boolean "is_admin"
     t.boolean "is_premium"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "expense_invitations", "users"
@@ -181,6 +204,8 @@ ActiveRecord::Schema.define(version: 2020_04_26_085504) do
   add_foreign_key "invoices", "projects"
   add_foreign_key "project_contracts", "projects"
   add_foreign_key "project_contracts", "users"
+  add_foreign_key "project_invitations", "projects"
+  add_foreign_key "project_invitations", "users"
   add_foreign_key "report_partner_entries", "reports"
   add_foreign_key "report_partner_entries", "users"
   add_foreign_key "report_worker_entries", "invoices"

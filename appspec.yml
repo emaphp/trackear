@@ -1,0 +1,29 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/dashboard-prod
+permissions:
+  - object: /var/www/dashboard-prod
+    owner: nginx
+    group: nginx
+    pattern: "*"
+    mode: 775
+    type:
+      - file
+      - directory
+hooks:
+  BeforeInstall:
+    - location: deployment_scripts/folders.sh
+      runas: root
+  AfterInstall:
+    - location: deployment_scripts/install_gems.sh
+      runas: nginx
+    - location: deployment_scripts/compile_assets.sh
+      runas: nginx
+    - location: deployment_scripts/db_migrations.sh
+      runas: nginx
+
+  ApplicationStart:
+    - location: deployment_scripts/finish_installation.sh
+      runas: root

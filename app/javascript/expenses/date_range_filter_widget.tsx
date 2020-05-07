@@ -54,7 +54,7 @@ export default function ExpenseDateRangeFilterWidget(props) {
             endText="End period"
             value={selectedDate}
             onChange={handleDateChange}
-            calendars={1}
+            calendars={2}
           />
         </Grid>
         <Grid item xs={3}>

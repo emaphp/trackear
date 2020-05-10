@@ -3,8 +3,8 @@
 if defined?(AssetSync)
   AssetSync.configure do |config|
     config.fog_provider = 'AWS'
-    config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
-    config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+    config.aws_access_key_id = Rails.application.credentials.aws_access_key_id
+    config.aws_secret_access_key = Rails.application.credentials.aws_secret_access_key
     # To use AWS reduced redundancy storage.
     # config.aws_reduced_redundancy = true
     #
@@ -19,7 +19,7 @@ if defined?(AssetSync)
     #
     # Use http instead of https. Default should be "https" (at least for fog-aws)
     # config.fog_scheme = "http"
-    config.fog_directory = ENV['S3_BUCKET']
+    config.fog_directory = Rails.application.credentials.s3_bucket
 
     # Invalidate a file on a cdn after uploading files
     # config.cdn_distribution_id = "12345"

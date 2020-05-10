@@ -6,10 +6,10 @@ require 'shrine/storage/file_system'
 
 if ENV['RAILS_ENV'] == 'production'
   s3_options = {
-    bucket: ENV['S3_BUCKET'],
+    bucket: Rails.application.credentials.s3_bucket,
     region: 'us-east-1',
-    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    access_key_id: Rails.application.credentials.aws_access_key_id,
+    secret_access_key: Rails.application.credentials.aws_secret_access_key
   }
   cache = Shrine::Storage::S3.new(prefix: 'uploads/cache', **s3_options)
   store = Shrine::Storage::S3.new(prefix: 'uploads', **s3_options)

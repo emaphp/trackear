@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 Slack.configure do |config|
-  config.token = ENV['SLACK_API_TOKEN']
+  config.token = Rails.application.credentials.slack_api_token
 end

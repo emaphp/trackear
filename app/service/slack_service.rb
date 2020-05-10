@@ -2,7 +2,7 @@
 
 class SlackService
   def self.is_request_from_slack?(request)
-    secret = ENV['SLACK_SIGNING_SECRET']
+    secret = Rails.application.credentials.slack_signing_secret
     timestamp = request.headers['X-Slack-Request-Timestamp']
     body = request.body
     data = "v0:#{timestamp}:#{body}"

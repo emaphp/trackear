@@ -17,7 +17,7 @@
     <% invoices.each do |invoice| %>
         <div class="box mt-2 mb-3">
             <div class="media">
-                <%= image_tag invoice.user.picture, class: "avatar align-self-start mr-3" %>
+                <%= image_tag invoice.user.avatar_or_default, class: "avatar align-self-start mr-3" %>
                 <div class="media-body">
                     <h5 class="mt-1 m-0">
                         <%= invoice.user.first_name %> <%= invoice.user.last_name %>
@@ -36,6 +36,19 @@
                 <div class="align-self-start">
                     <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
                 </div>
+            </div>
+            <div class="mt-4 d-flex justify-content-end">
+                <% if invoice.invoice.present? %>
+                    <%= link_to("Download invoice", download_invoice_project_invoice_path(invoice.project, invoice), class: "mx-2 border btn btn-sm py-2 px-4") %>
+                <% else %>
+                    <button data-toggle="tooltip" title="You will be able to download the invoice once it gets uploaded" class="disabled mx-2 border btn btn-sm py-2 px-4" type="button">Download invoice</button>
+                <% end %>
+
+                <% if invoice.payment.present? %>
+                    <%= link_to("Download payment", download_payment_project_invoice_path(invoice.project, invoice), class: "mx-2 border btn btn-sm py-2 px-4") %>
+                <% else %>
+                    <button data-toggle="tooltip" title="You will be able to download the payment receipt once it gets uploaded" class="disabled mx-2 border btn btn-sm py-2 px-4" type="button">Download receipt</button>
+                <% end %>
             </div>
         </div>
     <% end %>

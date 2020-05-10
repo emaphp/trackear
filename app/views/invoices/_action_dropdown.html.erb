@@ -108,50 +108,30 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <% if invoice.invoice.nil? %>
-                        <%= form_with(url: upload_invoice_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
-                            <div class="py-3">
-                                <h6 class="m-0">Attach invoice</h6>
-                                <%= form.file_field :invoice, class: "form-control", style: "height: 45px;" %>
-                                <div class="text-center mt-2">
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-upload"></i> Upload invoice
-                                    </button>
-                                </div>
+                    <%= form_with(url: upload_invoice_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
+                        <div class="py-3">
+                            <h6 class="m-0">Attach invoice</h6>
+                            <%= form.file_field :invoice, class: "form-control", style: "height: 45px;" %>
+                            <div class="text-center mt-2">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-upload"></i> Upload invoice
+                                </button>
                             </div>
-                        <% end %>
-                    <% else %>
-                        <%= link_to(download_invoice_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
-                            <i class="fas fa-file-invoice"></i>
-                            Download invoice
-                            <small class="form-text text-muted">
-                                Download the PDF file attached when the invoice was created
-                            </small>
-                        <% end %>
+                        </div>
                     <% end %>
 
                     <div class="dropdown-divider"></div>
 
-                    <% if invoice.payment.nil? %>
-                        <%= form_with(url: upload_payment_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
-                            <div class="py-3">
-                                <h6 class="m-0">Attach payment</h6>
-                                <%= form.file_field :payment, class: "form-control", style: "height: 45px;" %>
-                                <div class="text-center mt-2">
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-upload"></i> Upload payment
-                                    </button>
-                                </div>
+                    <%= form_with(url: upload_payment_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
+                        <div class="py-3">
+                            <h6 class="m-0">Attach payment</h6>
+                            <%= form.file_field :payment, class: "form-control", style: "height: 45px;" %>
+                            <div class="text-center mt-2">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-upload"></i> Upload payment
+                                </button>
                             </div>
-                        <% end %>
-                    <% else %>
-                        <%= link_to(download_payment_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
-                            <i class="fas fa-receipt"></i>
-                            Download payment receipt
-                            <small class="form-text text-muted">
-                                Download the PDF used as a payment receipt for this invoice
-                            </small>
-                        <% end %>
+                        </div>
                     <% end %>
                 <% end %>
             </div>

@@ -10,6 +10,8 @@ Bundler.require(*Rails.groups)
 
 module App
   class Application < Rails::Application
+    config.secret_key_base = Rails.application.credentials.secret_key_base
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 

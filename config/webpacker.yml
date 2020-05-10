@@ -89,9 +89,9 @@ production:
   compile: true
 
   # Extract and emit a css file
-  extract_css: true
+  # extract_css: true
 
   # Cache manifest.json for performance
-  cache_manifest: true
+  # cache_manifest: false
 
   check_yarn_integrity: false

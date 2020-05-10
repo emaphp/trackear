@@ -103,4 +103,4 @@ gem 'acts_as_paranoid', '~> 0.6.3'
 
 gem 'sassc', '~> 2.1.0'
 
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.1'

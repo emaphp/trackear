@@ -2,28 +2,37 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/dashboard-prod
+    destination: /home/ec2-user/app
 permissions:
-  - object: /var/www/dashboard-prod
-    owner: nginx
-    group: nginx
-    pattern: "*"
-    mode: 775
-    type:
-      - file
-      - directory
+  - object: /home/ec2-user/app
+    owner: ec2-user
+    group: ec2-user
 hooks:
+  ApplicationStop:
+    - location: deployment_scripts/stop_puma.sh
+      timeout: 20
+      runas: ec2-user
   BeforeInstall:
-    - location: deployment_scripts/folders.sh
-      runas: root
+    - location: deployment_scripts/remove_old_code.sh
+      timeout: 10
+      runas: ec2-user
   AfterInstall:
-    - location: deployment_scripts/install_gems.sh
-      runas: nginx
-    - location: deployment_scripts/compile_assets.sh
-      runas: nginx
-    - location: deployment_scripts/db_migrations.sh
-      runas: nginx
-
+    - location: deployment_scripts/0_create_tmp_dirs.sh
+      timeout: 20
+      runas: ec2-user
+    - location: deployment_scripts/1_install_gems.sh
+      timeout: 20
+      runas: ec2-user
+    - location: deployment_scripts/2_yarn_install.sh
+      timeout: 200
+      runas: ec2-user
+    - location: deployment_scripts/3_run_migrations.sh
+      timeout: 60
+      runas: ec2-user
+    - location: deployment_scripts/4_compile_assets.sh
+      timeout: 200
+      runas: ec2-user
   ApplicationStart:
-    - location: deployment_scripts/finish_installation.sh
-      runas: root
+    - location: deployment_scripts/start_puma.sh
+      timeout: 20
+      runas: ec2-user

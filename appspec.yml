@@ -8,10 +8,6 @@ permissions:
     owner: ec2-user
     group: ec2-user
 hooks:
-  ApplicationStop:
-    - location: deployment_scripts/stop_puma.sh
-      timeout: 20
-      runas: ec2-user
   BeforeInstall:
     - location: deployment_scripts/remove_old_code.sh
       timeout: 10

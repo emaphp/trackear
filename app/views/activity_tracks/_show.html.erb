@@ -1,6 +1,6 @@
 <div class="box mt-2 mb-3">
   <div class="media">
-    <%= image_tag log.project_contract.user.picture, class: "avatar align-self-start mr-3" %>
+    <%= image_tag log.project_contract.user.picture || '', class: "avatar align-self-start mr-3" %>
     <div class="media-body">
       <h5 class="mt-1 m-0"><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %></h5>
       <p class="mb-0">

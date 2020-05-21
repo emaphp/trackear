@@ -2,7 +2,7 @@
 
 class ActivityTracksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_currently_active_contract, only: %i[show create edit update destroy]
+  before_action :set_currently_active_contract, only: %i[show new create edit update destroy]
   before_action :set_activity_track, only: %i[show edit update destroy]
   load_and_authorize_resource
 
@@ -18,7 +18,7 @@ class ActivityTracksController < ApplicationController
 
   # GET /activity_tracks/new
   def new
-    @activity_track = ActivityTrack.new
+    @activity_track = ActivityTrack.new(from: Date.today)
   end
 
   # GET /activity_tracks/1/edit

@@ -12,13 +12,9 @@
  *
  */
 
- $grid-breakpoints: (
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 992px,
-    xl: 1600px
-) !default;
+$blue: rgb(30, 167, 253) !default;
+
+$body-bg: #F7FAFC !default;
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -26,8 +22,9 @@
 @import "**/*";
 @import "*";
 
-html {
-    min-height: 100%;
+html,
+body {
+    height: 100%;
 }
 
 body {
@@ -35,24 +32,28 @@ body {
     color: #455a64;
 }
 
+#page-content {
+    
+}
+
 .content-container {
-    background: #f0f7ff;
-    padding-bottom: 300px;
+    flex: 1 0 auto;
 }
 
 .footer {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    margin-top: 100px;
+    flex-shrink: none;
+    padding-top: 75px;
+    padding-bottom: 75px;
     font-size: 14px;
-    border-top: 1px solid #d2d8e2;
-    background-color: white;
+    background-color: #ebeff3;
 }
 
 .footer a {
-    color: black;
+    color: #4A5568;
 }
 
 .footer i {
     margin-right: 10px;
-    color: #2591ff;
+    color: #CBD5E0;
 }

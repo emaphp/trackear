@@ -1,22 +1,16 @@
 <div class="expenses-index">
   <h4 class="mt-2">Expenses</h4>
-  <p class="lead mb-5">
-    Welcome to expenses <%= current_user.first_name %> 🙌<br />
+  <p class="lead">
     Here you will be able to keep track of all your expenses, receipts, total amounts and even invite accountants to review your activity for reports.
   </p>
 
-  <div class="my-4 d-flex justify-content-between">
-    <div>
-      <div id="dateFilter"></div>
-    </div>
+  <div class="mb-4">
     <div class="d-flex">
-      <div class="ml-2">
-        <%= render 'invite_people_button' %>
-        <%= link_to new_expense_path, class: "btn btn-sm btn-primary" do %>
-          <%= icon "fas", "wallet", class: "mr-1" %>
-          Create expense
-        <% end %>
-      </div>
+      <%= link_to new_expense_path, class: "btn btn-sm btn-primary mr-2" do %>
+        <%= icon "fas", "wallet", class: "mr-1" %>
+        Create expense
+      <% end %>
+      <%= render 'invite_people_button' %>
     </div>
   </div>
 
@@ -52,9 +46,12 @@
   </div>
   <% else %>
     <h4>Chart</h4>
-    <div id="chart" class="chart mb-4"></div>
+    <div id="chart" class="chart"></div>
 
-    <h4>Details</h4>
+    <div class="mt-4 d-flex justify-content-between align-items-center">
+      <h4>Details</h4>
+      <div id="dateFilter"></div>
+    </div>
   <% end %>
 
   <% @expenses.each do |expense| %>
@@ -72,7 +69,7 @@
         </span>
       </div>
 
-      <div class="col-lg-2">
+      <div class="col-lg-3">
         <% if expense.invoice.present? %>
           <%= link_to "Download invoice", download_invoice_expense_path(expense), class: "btn btn-block btn-outline-secondary btn-sm py-1" %>
         <% else %>
@@ -104,7 +101,7 @@
         </span>
       </div>
 
-      <div class="col-lg-3 text-right">
+      <div class="col-lg-2 text-right">
         <span class="lead text-dark">
           <%= humanized_money_with_symbol(expense.price) %>
         </span>

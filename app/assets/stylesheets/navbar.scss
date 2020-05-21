@@ -1,23 +1,24 @@
 .navbar {
     background-color: #11252c;
-    color: white;
     font-family: 'Open Sans', sans-serif;
 }
 
 .nav-link {
     i {
-        color: #2591ff;
+        color: rgb(30, 167, 253);
     }
 
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
     display: block;
-    color: black !important;
+    color: white !important;
     text-decoration: none !important;
-    padding: 10px;
+    padding: 10px !important;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
     border-radius: 5px;
 
     &:hover {
-        background-color: #ebf5ff;
+        background-color: rgba(30, 167, 253, 0.1);
     }
 }

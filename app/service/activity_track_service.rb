@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ActivityTrackService
+  def self.log_from_today?(project, user)
+    all_from_range(project, user, Date.today, Date.today).any?
+  end
+
   def self.all_from_range(project, user, from, to)
     user_contracts = project.project_contracts.where(user: user)
     tracks_from_user_contracts = ActivityTrack.where(project_contract: user_contracts)

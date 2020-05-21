@@ -12,3 +12,27 @@
 .invoice-total-col {
     width: 20%;
 }
+
+.invoice-box {
+    overflow: hidden;
+}
+
+.invoice-status-badge {
+    position: absolute;
+    top: 20px;
+    left: -40px;
+    transform: rotate(-45deg);
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 16px;
+}
+
+.invoice-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.invoice-amount {
+    font-size: 32px;
+}

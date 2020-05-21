@@ -13,109 +13,72 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
-  <body>
-  <% if notice.present? %>
-    <div class="alert alert-info text-center"><%= notice %></div>
-  <% end %>
-  <nav class="d-xl-none navbar navbar-expand-lg navbar-light bg-white border-bottom py-2">
-    <a class="navbar-brand" href="/">
-      <%= image_tag "logo.svg", height: "18" %>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">
-            <i class="fas fa-home mx-3"></i>
-            Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <%= link_to(new_project_path, class: "nav-link") do %>
-            <i class="far fa-plus-square mx-3"></i>
-            Create new project
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to(expenses_path, class: "nav-link") do %>
-            <i class="fas fa-wallet mx-3"></i>
-            Expenses
-          <% end %>
-        </li>
-        <% if can? :manage, User %>
-          <li class="nav-item">
-            <%= link_to(users_path, class: "nav-link") do %>
-              <i class="fas fa-users mx-3"></i>
-              Users
+  <body class="d-flex flex-column">
+  <div class="content-container">
+    <% if notice.present? %>
+      <div class="alert alert-info text-center"><%= notice %></div>
+    <% end %>
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom py-2">
+      <a class="navbar-brand" href="/">
+        <%= image_tag "icon-alt.png", height: "32" %>
+      </a>
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="justify-content-center collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="fas fa-home mr-2"></i>
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <%= link_to(new_project_path, class: "nav-link") do %>
+                <i class="far fa-plus-square mr-2"></i>
+                Create new project
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to(expenses_path, class: "nav-link") do %>
+                <i class="fas fa-wallet mr-2"></i>
+                Expenses
+              <% end %>
+            </li>
+            <% if can? :manage, User %>
+              <li class="nav-item">
+                <%= link_to(users_path, class: "nav-link") do %>
+                  <i class="fas fa-users mr-2"></i>
+                  Users
+                <% end %>
+              </li>
             <% end %>
-          </li>
-        <% end %>
-        <% if session[:impersonating_from].present? %>
-          <li class="nav-item">
-            <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
-              <i class="fas fa-sign-out-alt mx-3"></i>
-              Exit impersonate
+            <% if session[:impersonating_from].present? %>
+              <li class="nav-item">
+                <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  Exit impersonating <%= current_user.email %>
+                <% end %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  Logout <%= current_user.email %>
+                <% end %>
+              </li>
             <% end %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
-              <i class="fas fa-sign-out-alt mx-3"></i>
-              Logout
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xl-2 d-none d-xl-block left-menu">
-        <a class="d-flex justify-content-center py-3" href="/">
-          <%= image_tag "logo.svg", height: "18" %>
-        </a>
-        <div class="media menu-item-user">
-          <%= image_tag current_user.picture, class: "rounded-circle mr-2", height: 36, width: 36 %>
-          <div class="media-body">
-            <h6 class="username"><%= "#{current_user.first_name} #{current_user.last_name}" %></h6>
-            <span class="email" data-toggle="tooltip" title="<%= current_user.email %>"><%= current_user.email %></span>
-          </div>
+          </ul>
         </div>
-        <a href="/" class="menu-item">
-          <i class="fas fa-home mx-3"></i>
-          Home
-        </a>
-        <%= link_to(new_project_path, class: "menu-item") do %>
-          <i class="far fa-plus-square mx-3"></i>
-          Create new project
-        <% end %>
-        <%= link_to(expenses_path, class: "menu-item") do %>
-          <i class="fas fa-wallet mx-3"></i>
-          Expenses
-        <% end %>
-        <% if can? :manage, User %>
-          <%= link_to(users_path, class: "menu-item") do %>
-            <i class="fas fa-users mx-3"></i>
-            Users
-          <% end %>
-        <% end %>
-        <% if session[:impersonating_from].present? %>
-          <%= link_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
-            <i class="fas fa-sign-out-alt mx-3"></i>
-            Exit impersonate
-          <% end %>
-        <% else %>
-          <%= link_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
-            <i class="fas fa-sign-out-alt mx-3"></i>
-            Logout
-          <% end %>
-        <% end %>
       </div>
-      <div class="col-xl-10 content-container pt-5">
-        <div class="px-4">
-          <%= yield %>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 pt-5">
+          <div class="px-4">
+            <%= yield %>
+          </div>
         </div>
       </div>
     </div>
@@ -123,14 +86,14 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="d-none d-lg-block d-xl-block col-lg-4 text-center">
-          <%= image_tag "icon.png" %>
-        </div>
-        <div class="d-xl-none d-lg-none mb-4 col-lg-4 text-center">
+        <div class="col-lg-6">
           <%= image_tag "logo.png", height: "18" %>
+          <p class="py-4">
+            We deliver high quality results on time, no messing around
+          </p>
         </div>
-        <div class="col-lg-4">
-          <h6 class="font-weight-bold">COMPANY</h6>
+        <div class="col-lg-3">
+          <div class="font-weight-bold my-2">COMPANY</div>
           <ul class="list-unstyled">
             <li class="py-2">
               <i class="fas fa-cogs"></i>
@@ -151,8 +114,8 @@
           </ul>
         </div>
 
-        <div class="col-lg-4">
-          <h6 class="font-weight-bold">SOCIAL MEDIA</h6>
+        <div class="col-lg-3">
+          <div class="my-2 font-weight-bold">SOCIAL MEDIA</div>
           <ul class="list-unstyled">
             <li class="py-2">
               <i class="fab fa-linkedin"></i>

@@ -12,17 +12,18 @@ class ActivityTrack < ApplicationRecord
   scope :logged_in_period, ->(from, to) { where(from: from.beginning_of_day..to.end_of_day) }
 
   def hours
-    return "00:00" if !to || !from
+    return '00:00' if !to || !from
+
     time_diff = (to - from)
     hours = (time_diff / 1.hour).floor
     dt = DateTime.strptime(time_diff.to_s, '%s')
-    "#{hours}:#{dt.strftime "%M"}"
+    "#{hours}:#{dt.strftime '%M'}"
   end
 
   def hours=(hh_mm)
-    s = hh_mm.split(":")
-    h = s.empty? ? "00" : s[0]
-    m = s.size != 2 ? "00" : s[1]
+    s = hh_mm.split(':')
+    h = s.empty? ? '00' : s[0]
+    m = s.size != 2 ? '00' : s[1]
     self.to = from + h.to_i.hours + m.to_i.minutes
   end
 

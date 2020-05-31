@@ -1,0 +1,60 @@
+<div class="box invoice-next-step <%= "completed" if completed %>">
+  <div class="media">
+    <%= image_tag "make-payments.png", class: "mr-4" %>
+    <div class="media-body">
+      <h4 class="mt-4 mb-1">
+        <% if completed %>
+          #4 - Pay the team <i class="fas fa-check-circle text-success"></i>
+        <% else %>
+          #4 - What to do next?
+        <% end %>
+      </h4>
+      <p class="lead">Time to make the payments to the team members!</p>
+
+      <% @invoice_status.invoice_statuses.each do |member_status| %>
+        <div class="p-3 rounded-pill mb-3 border d-flex align-items-center">
+          <div class="flex-grow-1 d-flex align-items-center">
+            <%= image_tag member_status.user.picture, class: "avatar mr-3" %>
+            <div class="">
+              <h5 class="mb-0">
+                <%= "#{member_status.user.first_name} #{member_status.user.last_name}" %>
+              </h5>
+              AFIP Amount: <%= humanized_money_with_symbol member_status.invoice.afip_price %>
+            </div>
+          </div>
+          <div class="justify-self-end">
+            <% if member_status.invoice.invoice.nil? %>
+              <span class="badge badge-danger">Waiting for user to upload AFIP invoice</span>
+            <% elsif member_status.invoice.is_paid? %>
+              <span class="badge badge-success">Paid</span>
+            <% else %>
+              <button type="button" class="btn btn-sm btn-primary" data-target="#addPaymentModal<%= member_status.id %>" data-toggle="modal">
+                Add payment
+              </button>
+              <div class="modal fade" id="addPaymentModal<%= member_status.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body text-left">
+                      <h4 class="pt-4"><%= "Add payment for #{member_status.user.first_name}" %></h4>
+                      <%= form_with(url: upload_payment_project_invoice_path(member_status.invoice.project, member_status.invoice), model: member_status.invoice, method: :post, local: true) do |f| %>
+                        <div class="form-group">
+                          <%= f.label :payment, "Payment receipt" %>
+                          <%= f.file_field :payment, class: "form-control", style: "height: 45px;" %>
+                        </div>
+                        <div class="text-center">
+                          <%= f.submit "Register payment", class: "btn btn-primary" %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render 'invoices/invoice_status/admin/admin_waiting_for_client_payment', completed: true %>

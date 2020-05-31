@@ -6,9 +6,11 @@
                 <%= icon "fas", "file-invoice", class: "mr-1" %>
                 See all invoices
             <% end %>
-            <%= link_to new_project_invoice_path(project), class: "btn btn-sm btn-primary" do %>
-                <%= icon "far", "file-alt", class: "mr-1" %>
-                Create invoice
+            <% if can? :create, Invoice %>
+              <%= link_to new_project_invoice_path(project), class: "btn btn-sm btn-primary" do %>
+                  <%= icon "far", "file-alt", class: "mr-1" %>
+                  Create invoice
+              <% end %>
             <% end %>
         <% end %>
     </div>
@@ -44,19 +46,11 @@
                     <p class="invoice-amount mb-0 text-dark"><%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %></p>
                 </div>
 
-                <div class="mt-4 text-center">
-                    <% if invoice.invoice.present? %>
-                        <%= link_to("Download invoice", download_invoice_project_invoice_path(invoice.project, invoice), class: "my-1 mx-2 border btn btn-sm py-2 px-4") %>
-                    <% else %>
-                        <button data-toggle="tooltip" title="You will be able to download the invoice once it gets uploaded" class="disabled my-1 mx-2 border btn btn-sm py-2 px-4" type="button">Download invoice</button>
-                    <% end %>
-
-                    <% if invoice.payment.present? %>
-                        <%= link_to("Download receipt", download_payment_project_invoice_path(invoice.project, invoice), class: "my-1 mx-2 border btn btn-sm py-2 px-4") %>
-                    <% else %>
-                        <button data-toggle="tooltip" title="You will be able to download the payment receipt once it gets uploaded" class="disabled my-1 mx-2 border btn btn-sm py-2 px-4" type="button">Download receipt</button>
-                    <% end %>
-                </div>
+                <% if can? :status, invoice %>
+                  <div class="mt-4 text-center">
+                    <%= link_to "Status", status_project_invoice_path(invoice.project, invoice), class: "btn btn-outline-primary" %>
+                  </div>
+                <% end %>
             </div>
         </div>
         <% end %>

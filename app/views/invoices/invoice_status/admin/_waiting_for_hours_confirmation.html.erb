@@ -1,0 +1,45 @@
+<div class="box invoice-next-step <%= "completed" if completed %>">
+  <div class="media">
+    <%= image_tag "waiting-confirmation.png", class: "mr-4" %>
+    <div class="media-body">
+      <h4 class="mt-4 mb-1">
+        <% if completed %>
+          #1 - Confirm invoices with the team <i class="fas fa-check-circle text-success"></i>
+        <% else %>
+          #1 - What to do next?
+        <% end %>
+      </h4>
+      <p class="lead">Wait until all members confirm their invoices</p>
+
+      <% @invoice_status.invoice_statuses.each do |member_status| %>
+        <div class="p-3 rounded-pill mb-3 border d-flex align-items-center">
+          <div class="flex-grow-1 d-flex align-items-center">
+            <%= image_tag member_status.user.picture, class: "avatar mr-3" %>
+            <div class="">
+              <h5 class="mb-0">
+                <%= "#{member_status.user.first_name} #{member_status.user.last_name}" %>
+              </h5>
+            </div>
+          </div>
+          <div class="justify-self-end">
+            <% if member_status.confirmed_hours? %>
+              <span class="badge badge-success">Confirmed</span>
+            <% else %>
+              <span class="badge badge-warning">Waiting for confirmation</span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% unless completed %>
+        <div class="text-right">
+          <% if @invoice_status.all_hours_confirmed? %>
+            <%= link_to "Create client invoice for review", add_entries_to_client_invoice_project_invoice_path(@invoice.project, @invoice), method: :post, class: "btn btn-primary" %>
+          <% else %>
+            <button disabled="disabled" class="btn btn-primary">Create client invoice for review</button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

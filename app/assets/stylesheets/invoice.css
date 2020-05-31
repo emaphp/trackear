@@ -36,3 +36,15 @@
 .invoice-amount {
     font-size: 32px;
 }
+
+.invoice-next-step {
+    border: 0;
+    padding: 30px;
+    border-radius: 25px;
+    margin-bottom: 50px;
+}
+
+.invoice-next-step.completed {
+    opacity: 0.6;
+    transform: scale(0.95);
+}

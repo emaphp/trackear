@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_210217) do
+ActiveRecord::Schema.define(version: 2020_05_31_205326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,19 @@ ActiveRecord::Schema.define(version: 2020_05_06_210217) do
     t.index ["invoice_id"], name: "index_invoice_entries_on_invoice_id"
   end
 
+  create_table "invoice_statuses", force: :cascade do |t|
+    t.bigint "invoice_status_id"
+    t.bigint "user_id", null: false
+    t.bigint "invoice_id"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_checked"
+    t.index ["invoice_id"], name: "index_invoice_statuses_on_invoice_id"
+    t.index ["invoice_status_id"], name: "index_invoice_statuses_on_invoice_status_id"
+    t.index ["user_id"], name: "index_invoice_statuses_on_user_id"
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.bigint "project_id"
     t.decimal "discount_percentage"
@@ -90,6 +103,10 @@ ActiveRecord::Schema.define(version: 2020_05_06_210217) do
     t.text "payment_data"
     t.boolean "is_client_visible"
     t.datetime "deleted_at"
+    t.integer "afip_price_cents", default: 0, null: false
+    t.string "afip_price_currency", default: "USD", null: false
+    t.integer "exchange_cents", default: 0, null: false
+    t.string "exchange_currency", default: "USD", null: false
     t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
     t.index ["project_id"], name: "index_invoices_on_project_id"
     t.index ["user_id"], name: "index_invoices_on_user_id"
@@ -105,6 +122,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_210217) do
     t.datetime "updated_at", null: false
     t.date "active_from"
     t.date "ends_at"
+    t.decimal "user_fixed_rate"
     t.index ["project_id"], name: "index_project_contracts_on_project_id"
     t.index ["user_id"], name: "index_project_contracts_on_user_id"
   end
@@ -201,6 +219,9 @@ ActiveRecord::Schema.define(version: 2020_05_06_210217) do
   add_foreign_key "expenses", "projects"
   add_foreign_key "expenses", "users"
   add_foreign_key "invoice_entries", "invoices"
+  add_foreign_key "invoice_statuses", "invoice_statuses"
+  add_foreign_key "invoice_statuses", "invoices"
+  add_foreign_key "invoice_statuses", "users"
   add_foreign_key "invoices", "projects"
   add_foreign_key "project_contracts", "projects"
   add_foreign_key "project_contracts", "users"

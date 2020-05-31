@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   include ProjectsHelper
 
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_project, only: %i[show edit update destroy status_period]
   load_and_authorize_resource
 
   # GET /projects
@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
     @contract = current_user.currently_active_contract_for(@project)
     @logs_from = logs_from_param
     @logs_to = logs_to_param
+    @invoice_status = current_user.invoice_status.for_members.with_news.first
 
     @has_logged_today = ActivityTrackService.log_from_today?(@project, current_user)
     @all_logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to)
@@ -83,6 +84,23 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to home_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def status_period
+    start_date = Date.parse(params[:start_date])
+    end_date = Date.parse(params[:end_date])
+    contracts = @project.project_contracts.currently_active.only_team.includes(:user)
+    tracks = contracts.map do |contract|
+      {
+        user: contract.user,
+        contract: contract,
+        tracks: ActivityTrackService.all_from_range(@project, contract.user, start_date, end_date)
+      }
+    end
+
+    respond_to do |format|
+      format.json { render json: tracks }
     end
   end
 

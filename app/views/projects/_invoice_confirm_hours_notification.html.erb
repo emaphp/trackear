@@ -1,0 +1,17 @@
+<% if @invoice_status.present? && @invoice_status.user_confirm_hours? %>
+  <div class="alert alert-success border">
+    <div class="media">
+      <div class="mr-3">
+        <i class="fas fa-bullhorn"></i>
+      </div>
+      <div class="media-body">
+        <h6 class="alert-heading mb-0">Time to create the invoice!</h6>
+        <p>
+          <%= current_user.first_name %>, it's end of the month and it's time to get paid and create some invoices 🎉<br>
+          Please review your hours and amounts, if they are correct confirm to continue the process.
+        </p>
+        <%= link_to "Yes, the hours and amounts are correct", confirm_hours_project_invoice_status_path(@project, @invoice_status), method: :post %>
+      </div>
+    </div>
+  </div>
+<% end %>

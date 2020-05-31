@@ -3,46 +3,39 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_invoice, only: %i[show edit update destroy email_notify make_visible hide download_invoice download_payment review_entries upload_invoice upload_payment]
-  load_and_authorize_resource
+  before_action :set_invoice, except: %i[index new create]
+  authorize_resource
 
-  # GET /invoices
-  # GET /invoices.json
   def index
-    @invoices = if current_user.is_admin?
-                  @project.invoices.includes(:user).order(from: :desc)
-                elsif @project.is_client? current_user
-                  @project.invoices.includes(:user).for_client_visible.order(from: :desc)
-                else
-                  current_user.invoices.includes(:user).where(project: @project).order(from: :desc)
-                end
+    @invoices = InvoiceService.invoices_from(current_user, @project)
   end
 
-  # GET /invoices/1
-  # GET /invoices/1.json
   def show; end
 
-  # GET /invoices/new
   def new
-    @invoice = Invoice.new
-    @invoice.discount_percentage = 0
-    @invoice.from = Date.today.beginning_of_month
-    @invoice.to = Date.today.end_of_month
+    @invoice = current_user.invoices.new(
+      project: @project,
+      discount_percentage: 0,
+      from: Date.today.beginning_of_month,
+      to: Date.today.end_of_month
+    )
   end
 
-  # GET /invoices/1/edit
   def edit; end
 
-  # POST /invoices
-  # POST /invoices.json
   def create
-    @invoice = @project.invoices.new(invoice_params)
-    @invoice.user = current_user
+    params_with_project_and_discount = invoice_params.merge(
+      project: @project,
+      discount_percentage: 0
+    )
+    @invoice = current_user.invoices.new_client_invoice(
+      params_with_project_and_discount
+    )
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
+        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Invoice was successfully created.' }
+        format.json { render json: status_project_invoice_url(@project, @invoice), status: :created }
       else
         format.html { render :new }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
@@ -50,8 +43,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /invoices/1
-  # PATCH/PUT /invoices/1.json
   def update
     respond_to do |format|
       if @invoice.update(update_invoice_params)
@@ -64,8 +55,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # DELETE /invoices/1
-  # DELETE /invoices/1.json
   def destroy
     @invoice.destroy
     respond_to do |format|
@@ -74,11 +63,20 @@ class InvoicesController < ApplicationController
     end
   end
 
-  def email_notify
-    InvoiceMailer.invoice_notify(@invoice).deliver
+  def add_entries_to_client_invoice
+    @invoice.add_entries_to_client_invoice
     respond_to do |format|
-      format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Email notification sent.' }
-      format.json { render :show, status: :ok, location: project_invoice_path(@project, @invoice) }
+      format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Entries successfully added.' }
+      format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
+    end
+  end
+
+  def email_notify
+    @invoice.notify_client
+
+    respond_to do |format|
+      format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Email notification sent.' }
+      format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
     end
   end
 
@@ -136,9 +134,9 @@ class InvoicesController < ApplicationController
 
   def upload_invoice
     respond_to do |format|
-      if @invoice.update(upload_invoice_params)
-        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice attached successfully.' }
-        format.json { render :show, status: :ok, location: @invoice }
+      if @invoice.add_invoice(upload_invoice_params)
+        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Invoice attached successfully.' }
+        format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
       else
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
@@ -148,8 +146,8 @@ class InvoicesController < ApplicationController
 
   def upload_payment
     respond_to do |format|
-      if @invoice.update(upload_payment_params)
-        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Payment receipt attached successfully.' }
+      if @invoice.add_payment(upload_payment_params)
+        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Payment receipt attached successfully.' }
         format.json { render :show, status: :ok, location: @invoice }
       else
         format.html { render :edit }
@@ -158,13 +156,17 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def status
+    @invoice_status = @invoice.invoice_status
+    @invoice_status.update_last_checked
+  end
+
   private
 
   def set_project
     @project = current_user.projects.friendly.find(params[:project_id])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_invoice
     to_be_included = [
       {
@@ -184,7 +186,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def invoice_params
     params.require(:invoice).permit(
       :currency,
@@ -224,6 +225,6 @@ class InvoicesController < ApplicationController
       params[:invoice][:payment].open
     rescue StandardError
     end
-    params.require(:invoice).permit(:payment)
+    params.require(:invoice).permit(:invoice, :payment, :exchange)
   end
 end

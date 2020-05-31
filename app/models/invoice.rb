@@ -6,14 +6,24 @@ class Invoice < ApplicationRecord
 
   acts_as_paranoid
 
+  monetize :afip_price_cents, with_currency: :ars
+  monetize :exchange_cents, with_currency: :ars
+
   belongs_to :project
   belongs_to :user
+  has_one :invoice_status
   has_many :invoice_entries
   accepts_nested_attributes_for :invoice_entries
 
-  validates :discount_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :discount_percentage, numericality: {
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 100
+  }
 
-  after_create :create_invoice_entries_in_invoice_period
+  after_create :create_admin_invoice_status, if: :is_client_visible?
+  after_create :create_entries_for_member_invoice, unless: :is_client_visible?
+
+  before_update :calc_and_set_afip_amount, if: :exchange_cents_changed?
 
   scope :for_client, -> { where(is_client_visible: true) }
   scope :for_client_visible, -> { where(is_visible: true).where(is_client_visible: true) }
@@ -22,11 +32,96 @@ class Invoice < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
+  def fixed_price
+    first_entry = invoice_entries.first
+    return 0 if first_entry.nil?
+
+    first_entry.activity_track.project_contract.user_fixed_rate || 0
+  end
+
+  def fixed_price?
+    fixed_price.positive?
+  end
+
+  def calculate_afip_amount_in_ars
+    return Money.new(fixed_price * 100, 'ARS') if fixed_price?
+
+    Money.add_rate('USD', 'ARS', exchange_cents)
+    total = Money.new(calculate_total, 'USD')
+    total.exchange_to('ARS')
+  end
+
+  def calc_and_set_afip_amount
+    afip_amount = calculate_afip_amount_in_ars
+    update_columns(
+      afip_price_cents: afip_amount.fractional,
+      afip_price_currency: afip_amount.currency.iso_code
+    )
+  end
+
+  def add_payment(params)
+    update(params)
+    invoice_status.admin_add_client_payment(exchange) if is_client_visible?
+    invoice_status.member_add_payment unless is_client_visible?
+    true
+  end
+
+  def add_invoice(params)
+    update(params)
+    invoice_status.user_add_invoice unless is_client_visible?
+    true
+  end
+
+  def add_entries_to_client_invoice
+    return unless is_client_visible?
+
+    contracts = project.project_contracts
+
+    contracts.each do |contract|
+      logged = contract.activity_tracks.logged_in_period(from, to)
+      logged.each do |activity|
+        invoice_entries.create(
+          rate: contract.project_rate,
+          activity_track: activity,
+          description: activity.description,
+          from: activity.from,
+          to: activity.to
+        )
+      end
+    end
+
+    invoice_status.admin_entries_added_to_client_invoice
+  end
+
+  def notify_client
+    return unless is_client_visible?
+
+    update(is_visible: true)
+    InvoiceMailer.invoice_notify(self).deliver
+    invoice_status.admin_client_notification_sent
+  end
+
+  def self.new_client_invoice(params)
+    new(params.merge(is_client_visible: true))
+  end
+
+  def self.new_team_member_invoice(client_invoice)
+    new(
+      is_client_visible: false,
+      from: client_invoice.from,
+      to: client_invoice.to,
+      project: client_invoice.project,
+      discount_percentage: 0
+    )
+  end
+
   def calculate_subtotal
     invoice_entries.collect(&:calculate_total).sum
   end
 
   def calculate_total
+    return fixed_price if fixed_price?
+
     calculate_subtotal * ((100 - discount_percentage) / 100)
   end
 
@@ -48,20 +143,22 @@ class Invoice < ApplicationRecord
 
   private
 
-  def create_invoice_entries_in_invoice_period
-    is_for_client = user.is_admin? && is_client_visible?
-    contracts =
-      if is_for_client
-        project.project_contracts
-      else
-        project.project_contracts.where(user: user)
-      end
+  def create_admin_invoice_status
+    status = InvoiceStatus.new
+    status.invoice = self
+    status.status = InvoiceStatus.statuses[:admin_waiting_for_hours_confirmation]
+    status.user = user
+    status.save
+  end
+
+  def create_entries_for_member_invoice
+    contracts = project.project_contracts.where(user: user)
 
     contracts.each do |contract|
       logged = contract.activity_tracks.logged_in_period(from, to)
       logged.each do |activity|
         invoice_entries.create(
-          rate: is_for_client ? contract.project_rate : contract.user_rate,
+          rate: contract.user_rate,
           activity_track: activity,
           description: activity.description,
           from: activity.from,

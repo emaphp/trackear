@@ -46,6 +46,11 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <%= form.label :user_fixed_rate, "User fixed rate (in ARS)" %>
+    <%= form.number_field :user_fixed_rate, step: ".01", class: "form-control" %>
+  </div>
+
   <%= form.submit "Add member", class: "btn btn-primary" unless project_contract.persisted? %>
   <%= form.submit "Update contract", class: "btn btn-primary" if project_contract.persisted? %>
 <% end %>

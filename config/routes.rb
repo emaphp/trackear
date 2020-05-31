@@ -25,11 +25,19 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
+    resources :invoice_statuses, only: [] do
+      post :confirm_hours, on: :member
+    end
+
+    get :status_period, on: :member
+
     resources :reports
     resources :project_contracts, except: [:index]
+
     resources :activity_tracks, except: [:index]
 
     resources :invoices do
+      post :add_entries_to_client_invoice, on: :member
       post :make_internal, on: :member
       post :make_client, on: :member
       post :email_notify, on: :member
@@ -40,6 +48,7 @@ Rails.application.routes.draw do
       get :download_invoice, on: :member
       get :download_payment, on: :member
       get :review_entries, on: :member
+      get :status, on: :member
     end
   end
 

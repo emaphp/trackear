@@ -1,0 +1,48 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb d-print-none">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
+    <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
+    <li class="breadcrumb-item"><%= link_to humanized_invoice_period(@invoice), [@invoice.project, @invoice] %></li>
+    <li class="breadcrumb-item active" aria-current="page">Status</li>
+  </ol>
+</nav>
+
+<h1 class="mb-0">Invoice status</h1>
+<h4 class="text-muted">Period <%= humanized_invoice_period(@invoice) =%></h4>
+
+<div class="text-center my-4">
+  <%= link_to "Invoice details", [@invoice.project, @invoice], class: "btn btn-link" %>
+
+  <% if @invoice.payment.present? %>
+    <%= link_to("Download payment receipt", download_payment_project_invoice_path(@invoice.project, @invoice), class: "btn btn-link") %>
+  <% else %>
+    <button
+      data-toggle="tooltip"
+      title="You will be able to download the payment receipt once it gets uploaded"
+      class="disabled btn btn-link"
+      type="button"
+    >
+      Download payment receipt
+    </button>
+  <% end %>
+
+  <% if @invoice.invoice.present? %>
+    <%= link_to("Download AFIP invoice", download_invoice_project_invoice_path(@invoice.project, @invoice), class: "btn btn-link") %>
+  <% else %>
+    <button
+      data-toggle="tooltip"
+      title="You will be able to download the invoice once it gets uploaded"
+      class="disabled btn btn-link"
+      type="button"
+    >
+      Download AFIP invoice
+    </button>
+  <% end %>
+</div>
+
+<% if @invoice_status.admin_status? %>
+  <%= render 'admin_status' %>
+<% else %>
+  <%= render 'member_status' %>
+<% end %>

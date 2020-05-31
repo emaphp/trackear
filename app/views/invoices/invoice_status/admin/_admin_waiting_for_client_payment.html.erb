@@ -1,0 +1,51 @@
+<div class="box invoice-next-step <%= "completed" if completed %>">
+  <div class="media">
+    <%= image_tag "waiting-client-payment.png", class: "mr-4" %>
+    <div class="media-body">
+      <h4 class="mt-4 mb-1">
+        <% if completed %>
+          #3 - Wait for client's payment <i class="fas fa-check-circle text-success"></i>
+        <% else %>
+          #3 - What to do next?
+        <% end %>
+      </h4>
+      <p class="lead">Wait for the client to make the payment. Once paid, register the payment and the exchange rate</p>
+    </div>
+  </div>
+  <% unless completed %>
+    <div class="text-right">
+      <button type="button" class="btn btn-primary" data-target="#addPaymentModal" data-toggle="modal">
+        Add payment
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<div class="modal fade" id="addPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-left">
+        <h4 class="pt-4">Add client payment</h4>
+        <%= form_with(url: upload_payment_project_invoice_path(@invoice.project, @invoice), model: @invoice, method: :post, local: true) do |f| %>
+          <div class="form-group">
+            <%= f.label :exchange %>
+            <%= f.text_field :exchange, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :invoice, "AFIP invoice" %>
+            <%= f.file_field :invoice, class: "form-control", style: "height: 45px;" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :payment, "Payment receipt" %>
+            <%= f.file_field :payment, class: "form-control", style: "height: 45px;" %>
+          </div>
+          <div class="text-center">
+            <%= f.submit "Register payment", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'invoices/invoice_status/admin/admin_review_entries', completed: true %>

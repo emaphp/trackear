@@ -1,0 +1,15 @@
+<div class="box invoice-next-step <%= "completed" if completed%>">
+  <div class="media">
+    <%= image_tag "transfer.png", class: "mr-4" %>
+    <div class="media-body">
+      <% if completed %>
+        <h4 class="mt-4 mb-1">#3 - Wait for payment <i class="fas fa-check-circle text-success"></i></h4>
+      <% else %>
+        <h4 class="mt-4 mb-1">#3 - What to do next?</h4>
+      <% end %>
+      <p class="lead">We will be transfering the amount to your bank account as soon as possible. We will let you know once it's done!</p>
+    </div>
+  </div>
+</div>
+
+<%= render 'invoices/invoice_status/member/user_client_paid', completed: true %>

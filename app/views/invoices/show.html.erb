@@ -111,13 +111,7 @@
 
   <% if can? :manage, @invoice %>
     <div class="my-3 text-right">
-      <%= link_to "Download Invoice", download_invoice_project_invoice_path(@project, @invoice), class: "btn btn-primary" %>
-      <% if @invoice.payment_data.present? %>
-        <%= link_to "Download Payment Receipt", download_payment_project_invoice_path(@project, @invoice), class: "btn btn-secondary" %>
-      <% end %>
-      <% unless @invoice.payment_data.present? %>
-        <small class="d-block">Once the payment is done, you will be able to download the receipt</small>
-      <% end %>
+      <%= link_to "View status", status_project_invoice_url(@project, @invoice), class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

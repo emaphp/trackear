@@ -1,0 +1,16 @@
+<div class="box invoice-next-step">
+  <div class="media">
+    <%= image_tag "payment-success.png", class: "mr-4" %>
+    <div class="media-body">
+      <h4 class="mt-4 mb-1">#5 - Done!</h4>
+      <p class="lead">You are all set 😄!</p>
+    </div>
+  </div>
+  <!--
+  <div class="text-right">
+    <%= link_to "Download documentation", "/", class: "btn btn-primary" %>
+  </div>
+  -->
+</div>
+
+<%= render 'invoices/invoice_status/admin/admin_client_paid', completed: true %>

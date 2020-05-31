@@ -6,19 +6,40 @@ class Ability
   def initialize(user)
     return unless user.present?
 
-    can :create, Project
-    can :read, Project, users: { id: user.id }
-    can :manage, Project, project_contracts: { user_id: user.id, activity: 'Owner' }
-
-    can :create, Invoice
-    can :read, Invoice, project: { project_contracts: { user_id: user.id, activity: 'Owner' } }
-    can :manage, Invoice, user: { id: user.id }
-
-    can :manage, ActivityTrack, project_contract: { user_id: user.id }
-    can :create, ActivityTrack
-
-    can :manage, Expense, user: user
+    project_ability(user)
+    invoice_ability(user)
+    activity_track_ability(user)
+    expense_ability(user)
 
     can :manage, :all if user.is_admin?
+  end
+
+  def project_ability(user)
+    can :create, Project
+    can :read, Project, users: { id: user.id }
+    can :manage, Project, project_contracts: { user: user, activity: 'Owner' }
+  end
+
+  def invoice_ability(user)
+    can :index, Invoice, user: user
+    can :show, Invoice, user: user
+    can :show, Invoice, is_client_visible: true, is_visible: true, project: {
+      project_contracts: { user: user, activity: 'Owner' }
+    }
+    can :download_invoice, Invoice, user: user
+    can :download_payment, Invoice, user: user
+    can :upload_invoice, Invoice, user: user
+
+    # Allow to read the invoice status
+    can :status, Invoice, user: user
+  end
+
+  def activity_track_ability(user)
+    can :manage, ActivityTrack, project_contract: { user: user }
+    can :create, ActivityTrack
+  end
+
+  def expense_ability(user)
+    can :manage, Expense, user: user
   end
 end

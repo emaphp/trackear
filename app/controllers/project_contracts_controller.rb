@@ -87,7 +87,8 @@ class ProjectContractsController < ApplicationController
       :active_from,
       :ends_at,
       :project_rate,
-      :user_rate
+      :user_rate,
+      :user_fixed_rate
     )
   end
 end

@@ -1,0 +1,58 @@
+<div class="box invoice-next-step <%= "completed" if completed %>">
+  <div class="media">
+    <%= image_tag "afip-invoice.png", class: "mr-4" %>
+    <div class="media-body">
+      <% if completed %>
+        <h4 class="mt-4 mb-1">#2 - Create AFIP invoice <i class="fas fa-check-circle text-success"></i></h4>
+      <% else %>
+        <h4 class="mt-4 mb-1">#2 - What to do next?</h4>
+      <% end%>
+      <p class="lead">
+        The client has paid, you need to create the AFIP invoice for ARS <%= humanized_money @invoice_status.invoice.afip_price %> and upload it.
+      </p>
+      <p class="lead">
+        <a href="https://docs.google.com/document/d/1BCDl-NOO22qfPmLEyJh16CBZKe1-8a_3fFDQHghYfls/edit?usp=sharing" target="_blank">
+          <i class="fas fa-external-link-alt"></i> How to create the AFIP invoice?
+        </a>
+        <br>
+        <a href="https://docs.google.com/document/d/1lYBMM7QWmxQ0MGgqhiFfvu3MCM_RUEoSh_jrYXvGiBg/edit?usp=sharing" target="_blank">
+          <i class="fas fa-external-link-alt"></i> I made a mistake, how to undo AFIP invoice?
+        </a>
+      </p>
+
+      <% unless completed %>
+        <div class="text-right">
+          <%= link_to "https://www.afip.gob.ar/", target: "_blank", class: "btn btn-outline-secondary" do %>
+            <i class="fas fa-external-link-alt"></i>
+            Create AFIP invoice
+          <% end %>
+          <span class="px-2">then</span>
+          <button type="button" class="btn btn-primary" data-target="#addAFIPInvoiceModal" data-toggle="modal">
+            Upload AFIP invoice
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addAFIPInvoiceModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-left">
+        <h4 class="pt-4">Add AFIP invoice</h4>
+        <%= form_with(url: upload_invoice_project_invoice_path(@invoice.project, @invoice), model: @invoice, method: :post, local: true) do |f| %>
+          <div class="form-group">
+            <%= f.label :invoice, "AFIP invoice" %>
+            <%= f.file_field :invoice, class: "form-control", style: "height: 45px;" %>
+          </div>
+          <div class="text-center">
+            <%= f.submit "Add invoice", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'invoices/invoice_status/member/waiting_client_payment', completed: true %>

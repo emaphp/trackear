@@ -1,0 +1,11 @@
+<% if @invoice_status.admin_waiting_for_hours_confirmation? %>
+  <%= render 'invoices/invoice_status/admin/waiting_for_hours_confirmation', completed: false %>
+<% elsif @invoice_status.admin_review_entries? %>
+  <%= render 'invoices/invoice_status/admin/admin_review_entries', completed: false %>
+<% elsif @invoice_status.admin_waiting_for_client_payment? %>
+  <%= render 'invoices/invoice_status/admin/admin_waiting_for_client_payment', completed: false %>
+<% elsif @invoice_status.admin_client_paid? %>
+  <%= render 'invoices/invoice_status/admin/admin_client_paid', completed: false %>
+<% elsif @invoice_status.admin_complete? %>
+  <%= render 'invoices/invoice_status/admin/admin_complete' %>
+<% end %>

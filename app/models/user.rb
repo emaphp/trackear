@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :activity_tracks
 
   has_many :invoices
+  has_many :invoice_status
 
   has_many :expenses
   has_many :expense_invitations

@@ -14,6 +14,7 @@ class ProjectContract < ApplicationRecord
   validates :user_rate, numericality: { greater_than_or_equal_to: 0 }
   validate :dates_do_not_collide_with_existing_contracts
 
+  scope :only_team, -> { where.not(activity: 'Owner') }
   scope :in_range, ->(from, to) { where(['active_from >= ? and ends_at >= ?', from, to]) }
   scope :active_in, ->(date) { where(['active_from <= ? and ends_at >= ?', date, date]) }
   scope :currently_active, -> { active_in(Date.today) }

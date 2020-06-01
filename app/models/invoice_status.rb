@@ -96,7 +96,7 @@ class InvoiceStatus < ApplicationRecord
 
   def create_member_status
     project = invoice.project
-    contracts = project.project_contracts.only_team.includes(:user)
+    contracts = project.project_contracts.in_range(invoice.from, invoice.to).only_team.includes(:user)
     contracts.each do |contract|
       user = contract.user
       user_invoice_status = user.invoice_status.new

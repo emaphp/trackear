@@ -20,12 +20,18 @@ class ProjectsController < ApplicationController
     @contract = current_user.currently_active_contract_for(@project)
     @logs_from = logs_from_param
     @logs_to = logs_to_param
-    @invoice_status = current_user.invoice_status.for_members.with_news.first
-
     @has_logged_today = ActivityTrackService.log_from_today?(@project, current_user)
     @all_logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to)
                                     .includes(:project_contract)
                                     .order(from: :desc)
+
+    @invoice_status = current_user.invoice_status.for_members.for_project(@project).with_news.first
+
+    if @invoice_status.present?
+      @invoice_status_logs = ActivityTrackService.all_from_range(@project, current_user, @invoice_status.invoice_status.invoice.from, @invoice_status.invoice_status.invoice.from)
+                                                 .includes(:project_contract)
+                                                 .order(from: :desc)
+    end
 
     if @project.is_client? current_user
       @invoices = @project.invoices.for_client_visible.paginate(page: 1, per_page: 4)

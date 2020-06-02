@@ -8,8 +8,12 @@ class InvoiceStatus < ApplicationRecord
 
   after_create :create_member_status, if: :admin_status?
 
-  scope :with_news, -> { where('last_checked is null or last_checked < updated_at') }
-  scope :for_members, -> { where('invoice_status_id is not null') }
+  scope :with_news, -> { where('invoice_statuses.last_checked is null or invoice_statuses.last_checked < invoice_statuses.updated_at') }
+  scope :for_members, -> { where('invoice_statuses.invoice_status_id is not null') }
+  scope :for_project, ->(project) {
+    joins(invoice_status: [:invoice])
+      .where({ invoice_status: { invoices: { project: project } } })
+  }
 
   enum status: {
     admin_waiting_for_hours_confirmation: 'admin_waiting_for_hours_confirmation',

@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
     @invoice_status = current_user.invoice_status.for_members.for_project(@project).with_news.first
 
     if @invoice_status.present?
-      @invoice_status_logs = ActivityTrackService.all_from_range(@project, current_user, @invoice_status.invoice_status.invoice.from, @invoice_status.invoice_status.invoice.from)
+      @invoice_status_logs = ActivityTrackService.all_from_range(@project, current_user, @invoice_status.invoice_status.invoice.from, @invoice_status.invoice_status.invoice.to)
                                                  .includes(:project_contract)
                                                  .order(from: :desc)
     end

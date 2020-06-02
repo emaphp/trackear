@@ -10,7 +10,7 @@ class InvoiceStatus < ApplicationRecord
 
   scope :with_news, -> { where('invoice_statuses.last_checked is null or invoice_statuses.last_checked < invoice_statuses.updated_at') }
   scope :for_members, -> { where('invoice_statuses.invoice_status_id is not null') }
-  scope :for_project, ->(project) {
+  scope :for_project, lambda { |project|
     joins(invoice_status: [:invoice])
       .where({ invoice_status: { invoices: { project: project } } })
   }

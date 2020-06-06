@@ -9,9 +9,9 @@
 
 <% @active_contracts.each do |active_contract| %>
     <div class="box mb-3">
-        <div class="media">
+        <div class="media d-flex align-items-center">
             <%= image_tag active_contract.project.icon_url || '', class: "avatar align-self-start mr-3" %>
-            <div class="media-body mt-1 project-name">
+            <div class="media-body project-name">
                 <%= link_to active_contract.project.name, active_contract.project %>
             </div>
         </div>

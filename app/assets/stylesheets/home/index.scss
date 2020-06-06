@@ -1,12 +1,50 @@
 .home-index {
     .avatar {
         border-radius: 100%;
-        width: 32px;
-        height: auto;
-        margin-right: 10px;
+        width: auto;
+        height: 48px;
+        margin-right: 20px !important;
     }
 
     .project-name {
         font-size: 18px;
+    }
+
+    .image-preview {
+      width: auto;
+      height: 400px;
+      border-radius: 25px;
+    }
+
+    .header {
+      background-color: white;
+    }
+
+    .footer {
+      background: linear-gradient(45deg, #ffefa3, #ff8731);
+      margin-bottom: -100px;
+      h2 { color: #6b3600 !important; }
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section {
+      padding-top: 75px;
+      padding-bottom: 75px;
+    }
+
+    .carousel-indicators {
+      bottom: -50px;
+    }
+
+    .carousel-indicators li {
+      background-color: #0091ff;
+    }
+
+    .caption {
+      padding: 30px;
     }
 }

@@ -1,0 +1,156 @@
+<div class="home-index">
+  <div class="section header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2>La herramienta indispensable para el freelancer argentino</h2>
+          <p class="lead">Registra horas de trabajo, invita a tu equipo y crea facturas para tus clientes, todo de manera automática y simple.</p>
+          <%= link_to "Probalo completamente gratis!", "/", class: "btn btn-lg btn-orange" %>
+        </div>
+        <div class="col-lg-6">
+          <%= image_tag 'projects-view', class: "image-preview border" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 text-center">
+        <%= image_tag 'project-detail-view', class: "image-preview" %>
+      </div>
+      <div class="col-lg-6">
+        <h2>Crea y administra proyectos</h2>
+        <p class="lead">Crea tus proyectos, dale seguimiento y no te pierdas de ningún detalle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h2>Registra tu trabajo</h2>
+        <p class="lead">Toma el control y registra tu trabajo de forma simple y rápida. No dejes que se te escape un segundo!</p>
+      </div>
+      <div class="col-lg-6 text-center">
+        <%= image_tag 'add-logs', class: "image-preview" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="section container">
+    <div class="text-center">
+      <h2>Facturación</h2>
+      <p class="lead">
+        Olvidate de las complicaciones la hora de facturar. Te mostramos que simple es facturar con nuestro sistema.
+      </p>
+  </div>
+
+  <div id="invoicingProcess" class="carousel slide" data-ride="carousel" data-interval="6000">
+    <ol class="carousel-indicators">
+      <li data-target="#invoicingProcess" data-slide-to="0" class="active"></li>
+      <li data-target="#invoicingProcess" data-slide-to="1"></li>
+      <li data-target="#invoicingProcess" data-slide-to="2"></li>
+      <li data-target="#invoicingProcess" data-slide-to="3"></li>
+      <li data-target="#invoicingProcess" data-slide-to="4"></li>
+      <li data-target="#invoicingProcess" data-slide-to="5"></li>
+      <li data-target="#invoicingProcess" data-slide-to="6"></li>
+    </ol>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="text-center">
+          <%= image_tag 'create-invoice' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Crea tu factura</h5>
+          <p>
+            Selecciona el período a facturar. Te vamos a mostrar un resumen rápido de horas.<br>
+            No te preocupes, durante el proceso vas a poder confirmar que esté todo correcto.
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="text-center">
+          <%= image_tag 'invoice-member-first' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Confirma los montos con tu equipo</h5>
+          <p>En este momento pedimos la confirmación del equipo.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="text-center">
+          <%= image_tag 'review-invoice' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Revisión final</h5>
+          <p>Te damos la oportunidad de que hagas una revisión final, si todo está correcto estás listo para notificar al cliente!</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="text-center">
+          <%= image_tag 'client-notified' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Cliente notificado!</h5>
+          <p>
+            Listo, ya enviamos la notificación de la factura al cliente.<br>
+            Dulce, dulce espera...
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="text-center">
+          <%= image_tag 'register-payment' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Registrando el pago</h5>
+          <p>
+            Una vez el cliente efectue el pago lo podemos registrar, junto con la factura de AFIP.
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="text-center">
+          <%= image_tag 'pay-member' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Paga a tu equipo</h5>
+          <p>
+            Lorem ipsum dolor sit amet
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="text-center">
+          <%= image_tag 'done' %>
+        </div>
+        <div class="caption text-center">
+          <h5>Listo!</h5>
+          <p>
+            Ahora ya podes descargar toda la documentación y facturación (incluída la de tu equipo) de la factura.<br>
+            Documentación ideal y perfecta para contadores!
+          </p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#invoicingProcess" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#invoicingProcess" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<div class="section footer">
+  <div class="container text-center">
+    <h2>Como dijimos...<br>La herramienta indispensable para el freelancer argentino!</h2>
+    <%= link_to "Probalo completamente gratis!", "/", class: "mt-4 btn btn-lg btn-orange" %>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'main' %>

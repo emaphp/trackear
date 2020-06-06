@@ -56,5 +56,6 @@ Rails.application.routes.draw do
     post 'log', to: 'slack#log'
   end
 
+  get '/solutions', to: 'home#solutions', as: 'home_solutions'
   root to: 'home#index', as: 'home'
 end

@@ -13,7 +13,7 @@
 
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <title>BlackMountain - Welcome to our dashboard</title>
+    <title>BlackMountain</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -24,13 +24,92 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
-  <body class="users-sign-in-container">
-    <% if notice.present? %>
-      <div class="alert alert-info text-center"><%= notice %></div>
-    <% end %>
-    <div class="container">
+  <body class="d-flex flex-column">
+    <div class="content-container">
+      <% if notice.present? %>
+        <div class="alert alert-info text-center"><%= notice %></div>
+      <% end %>
+      <nav class="navbar navbar-expand-lg navbar-light border-bottom py-2">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <%= image_tag "icon-alt.png", height: "32" %>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <%= link_to "Home", "/", class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Soluciones", home_solutions_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/">
+                  Precios
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
       <%= yield %>
     </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <%= image_tag "logo.png", height: "18" %>
+            <p class="pt-4">
+              We deliver high quality results on time, no messing around
+            </p>
+            <p class="pt-2">
+              If you have any comments, suggestions or feedback, please write us to contact@black-mountain.com.ar
+            </p>
+          </div>
+          <div class="col-lg-3">
+            <div class="font-weight-bold my-2">COMPANY</div>
+            <ul class="list-unstyled">
+              <li class="py-2">
+                <i class="fas fa-cogs"></i>
+                <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#what-do-we-do">Our services</a>
+              </li>
+              <li class="py-2">
+                <i class="fas fa-hands-helping"></i>
+                <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#why-us">Why working with us?</a>
+              </li>
+              <li class="py-2">
+                <i class="fas fa-question-circle"></i>
+                <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#how">How do we work?</a>
+              </li>
+              <li class="py-2">
+                <i class="fas fa-paper-plane"></i>
+                <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#get-in-touch">Get in touch</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="my-2 font-weight-bold">SOCIAL MEDIA</div>
+            <ul class="list-unstyled">
+              <li class="py-2">
+                <i class="fab fa-linkedin"></i>
+                <a href="https://www.linkedin.com/company/blackmountain-solutions">LinkedIn</a>
+              </li>
+              <li class="py-2">
+                <i class="fab fa-github-square"></i>
+                <a href="https://github.com/BlackMountainSolutions">GitHub</a>
+              </li>
+              <li class="py-2">
+                <i class="fab fa-facebook-square"></i>
+                <a href="https://www.facebook.com/blackmountainsolutions">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

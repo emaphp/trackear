@@ -1,0 +1,39 @@
+<div class="home-index">
+  <div class="section">
+    <div class="content">
+      <div class="row align-items-center">
+        <div class="col-lg-3">
+          <h1>Registra tu trabajo, invita a tu equipo y factura.</h1>
+          <p class="lead">La herramienta indispensable para el freelancer argentino</p>
+          <%= link_to "Registrate con Google", "/", class: "btn btn-orange" %>
+        </div>
+        <div class="col-lg-9 text-center">
+          <div id="preview" class="carousel slide" data-ride="carousel" data-interval="4500">
+            <ol class="carousel-indicators">
+              <li data-target="#preview" data-slide-to="0" class="active"></li>
+              <li data-target="#preview" data-slide-to="1"></li>
+              <li data-target="#preview" data-slide-to="2"></li>
+              <li data-target="#preview" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <%= image_tag 'krita-preview-2', class: "img-fluid" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag 'krita-preview-6', class: "img-fluid" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag 'krita-preview-4', class: "img-fluid" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag 'krita-preview-5', class: "img-fluid" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'main' %>

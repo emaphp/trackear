@@ -14,7 +14,7 @@
       <% @invoice_status.invoice_statuses.each do |member_status| %>
         <div class="p-3 rounded-pill mb-3 border d-flex align-items-center">
           <div class="flex-grow-1 d-flex align-items-center">
-            <%= image_tag member_status.user.picture, class: "avatar mr-3" %>
+            <%= image_tag member_status.user.picture || '', class: "avatar mr-3" %>
             <div class="">
               <h5 class="mb-0">
                 <%= "#{member_status.user.first_name} #{member_status.user.last_name}" %>

@@ -2,52 +2,38 @@
   <%= render 'shared/form/errors', errors: project_contract.errors %>
 
   <div class="form-group">
-    <%= form.label :user_id %>
+    <%= form.label :user_email, "User Gmail" %>
 
     <% if project_contract.persisted? %>
       <input type="text" value="<%= project_contract.user.email %>" class="form-control-plaintext" readonly />
     <% else %>
-      <%= form.select :user_id, members.collect { |member| [member.email, member.id] }, { :include_blank => "Select a user" }, { :class => "form-control" } %>
+      <%= form.email_field :user_email, class: "form-control", required: true %>
+      <small class="text-muted">Only Gmail accounts are supported</small>
     <% end %>
   </div>
 
   <div class="form-group">
-    <%= form.label :activity %>
-    <%= form.text_field :activity, class: "form-control" %>
+    <%= form.label :activity, "Role" %> <i class="fas fa-question-circle" data-toggle="tooltip" title="Use the role Client to invite customers. Members with role Client can log into the platform and check invoices"></i>
+    <%= form.text_field :activity, class: "form-control", placeholder: "Developer, designer, etc." %>
   </div>
 
   <div class="row">
     <div class="col-6">
       <div class="form-group">
-        <%= form.label :active_from %>
-        <%= form.date_field :active_from, class: "form-control" %>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group">
-        <%= form.label :ends_at %>
-        <%= form.date_field :ends_at, class: "form-control" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group">
-        <%= form.label :project_rate %>
+        <%= form.label :project_rate %> <i class="fas fa-question-circle" data-toggle="tooltip" title="How much will you charge the client"></i>
         <%= form.number_field :project_rate, step: ".01", class: "form-control" %>
       </div>
     </div>
     <div class="col-6">
       <div class="form-group">
-        <%= form.label :user_rate %>
+        <%= form.label :user_rate, "Member rate" %> <i class="fas fa-question-circle" data-toggle="tooltip" title="How much will you pay to this new member"></i>
         <%= form.number_field :user_rate, step: ".01", class: "form-control" %>
       </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= form.label :user_fixed_rate, "User fixed rate (in ARS)" %>
+    <%= form.label :user_fixed_rate, "Member fixed rate" %> <i class="fas fa-question-circle" data-toggle="tooltip" title="If you pay a fixed amount to the new member, ignore member rate and complete this field"></i>
     <%= form.number_field :user_fixed_rate, step: ".01", class: "form-control" %>
   </div>
 

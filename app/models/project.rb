@@ -27,7 +27,7 @@ class Project < ApplicationRecord
   def from_owner(owner, props)
     owner_contract = owner.project_contracts.new(
       project: Project.new(props),
-      activity: 'Owner',
+      activity: 'Creator',
       project_rate: 0,
       user_rate: 0
     )
@@ -35,6 +35,6 @@ class Project < ApplicationRecord
   end
 
   def is_client?(user)
-    project_contracts.where(user: user, activity: 'Owner').any?
+    project_contracts.where(user: user, activity: 'Client').any?
   end
 end

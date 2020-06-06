@@ -38,10 +38,10 @@ class User < ApplicationRecord
     ActiveRecord::Base.transaction do
       project = Project.new(project_params)
       project_contracts.create!(
-        activity: 'Owner',
+        activity: 'Creator',
         project: project,
-        active_from: Date.today,
-        ends_at: Date.today.next_year,
+        active_from: DateTime.now,
+        ends_at: DateTime.now + 100.years,
         user_rate: 0,
         project_rate: 0
       )
@@ -55,22 +55,23 @@ class User < ApplicationRecord
   end
 
   def self.by_email_or_create(email)
-    User.where(email: email).first_or_create(password: Devise.friendly_token[0, 20])
+    User.where(email: email).first_or_create(
+      email: email,
+      password: Devise.friendly_token[0, 20]
+    )
   end
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first
-    user_is_invited_but_uninitialized = user && !user.picture.present?
+    user = User.where(email: data['email']).first_or_create(
+      password: Devise.friendly_token[0, 20]
+    )
 
-    if user_is_invited_but_uninitialized
-      user.update(
-        first_name: data['first_name'],
-        last_name: data['last_name'],
-        picture: data['image'],
-        password: Devise.friendly_token[0, 20]
-      )
-    end
+    user.update(
+      first_name: data['first_name'],
+      last_name: data['last_name'],
+      picture: data['image']
+    )
 
     user
   end

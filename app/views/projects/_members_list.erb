@@ -1,5 +1,5 @@
 <div class="d-inline mr-3">
-<% contracts.order("case activity when 'Owner' then 0 end").each do |contract| %>
+<% contracts.order("case activity when 'Client' then 0 end").each do |contract| %>
     <% if can? :manage, contract %>
       <%= link_to edit_project_project_contract_path(project, contract) do %>
         <%= image_tag (contract.user.picture || ""), title: "#{contract.user.first_name} #{contract.user.last_name}", class: "member-list-item", data: { placement: "top", toggle: "tooltip" } %>

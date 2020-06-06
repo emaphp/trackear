@@ -29,6 +29,10 @@ class InvoiceStatus < ApplicationRecord
     user_complete: 'user_complete'
   }
 
+  def has_news?
+    last_checked.nil? || last_checked < updated_at
+  end
+
   def update_last_checked
     # update_columns wont run any callbacks
     # Do not use update, we don't want update_at to be updated as well

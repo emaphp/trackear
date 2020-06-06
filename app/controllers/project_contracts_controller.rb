@@ -18,7 +18,6 @@ class ProjectContractsController < ApplicationController
 
   # GET /project_contracts/new
   def new
-    @members = User.all
     @project_contract = @project.project_contracts.new
   end
 
@@ -30,14 +29,13 @@ class ProjectContractsController < ApplicationController
   # POST /project_contracts
   # POST /project_contracts.json
   def create
-    @project_contract = @project.project_contracts.new(project_contract_params)
+    @project_contract = @project.project_contracts.from_invite(invite_member_params)
 
     respond_to do |format|
       if @project_contract.save
-        format.html { redirect_to @project_contract.project, notice: 'Project contract was successfully created.' }
+        format.html { redirect_to @project_contract.project, notice: 'The new member was added successfully, when they login to the platform they will have access the project' }
         format.json { render :show, status: :created, location: @project_contract.project }
       else
-        @members = User.all
         format.html { render :new }
         format.json { render json: @project_contract.errors, status: :unprocessable_entity }
       end
@@ -74,18 +72,26 @@ class ProjectContractsController < ApplicationController
     @project = current_user.projects.friendly.find(params[:project_id])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_project_contract
     @project_contract = @project.project_contracts.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def project_contract_params
     params.require(:project_contract).permit(
       :user_id,
       :activity,
       :active_from,
       :ends_at,
+      :project_rate,
+      :user_rate,
+      :user_fixed_rate
+    )
+  end
+
+  def invite_member_params
+    params.require(:project_contract).permit(
+      :user_email,
+      :activity,
       :project_rate,
       :user_rate,
       :user_fixed_rate

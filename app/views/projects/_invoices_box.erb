@@ -46,9 +46,23 @@
                     <p class="invoice-amount mb-0 text-dark"><%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %></p>
                 </div>
 
+                <div class="text-center">
+                  <% if invoice.is_client_visible? %>
+                    <span class="badge badge-pill badge-primary">Client invoice</span>
+                  <% else %>
+                    <span class="badge badge-pill border border-primary">Internal invoice</span>
+                  <% end %>
+                </div>
+
                 <% if can? :status, invoice %>
                   <div class="mt-4 text-center">
-                    <%= link_to "Status", status_project_invoice_path(invoice.project, invoice), class: "btn btn-outline-primary" %>
+                    <%= link_to status_project_invoice_path(invoice.project, invoice), class: "btn btn-outline-primary" do %>
+                      Status
+
+                      <% if invoice.invoice_status.present? && invoice.invoice_status.has_news? %>
+                        <i class="ml-2 far fa-bell" data-toggle="tooltip" title="Updates, please review"></i>
+                      <% end %>
+                    <% end %>
                   </div>
                 <% end %>
             </div>

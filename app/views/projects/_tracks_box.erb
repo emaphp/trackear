@@ -1,18 +1,18 @@
 <% unless project.is_client? user %>
   <div class="d-flex justify-content-between">
-    <h4 class="mt-2">Tracks</h4>
+    <h4 class="mt-2">Activity logs</h4>
 
     <div class="d-flex justify-content-end">
       <button type="button" class="btn btn-sm btn-outline-secondary border-0" data-target="#trackFilterModal" data-toggle="modal">
         <%= icon "fas", "search", class: "mr-1" %>
-        Filter tracks
+        Filter logs
       </button>
 
       <div class="modal fade" id="trackFilterModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-body text-left">
-              <h4 class="px-4 pt-4">Filter tracks</h4>
+              <h4 class="px-4 pt-4">Filter logs</h4>
               <%= render 'activity_track_filter_box', project: @project, logs_from: @logs_from, logs_to: @logs_to %>
             </div>
           </div>
@@ -21,14 +21,14 @@
 
       <button type="button" class="btn btn-sm btn-primary" data-target="#addTrackModal" data-toggle="modal">
         <%= icon "fas", "plus", class: "mr-1" %>
-        Add track
+        Log activity
       </button>
 
       <div class="modal fade" id="addTrackModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-body text-left">
-              <h4 class="px-4 pt-4">Add track</h4>
+              <h4 class="px-4 pt-4">Add log</h4>
               <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
             </div>
           </div>
@@ -39,19 +39,19 @@
 
   <% unless logs.present? %>
     <div class="mt-2 box text-center">
-      <p class="lead mb-0">No tracks found...</p>
+      <p class="lead mb-0">No logs found...</p>
     </div>
   <% else %>
     <div class="form-row">
       <div class="col-xl-3 mt-2 mb-2">
         <div class="p-3">
-          Total tracks
+          Total logs
           <div class="stats-number"><%= all_logs.size %></div>
         </div>
       </div>
       <div class="col-xl-6 mt-2 mb-2">
         <div class="p-3">
-          Time from tracks
+          Time from logs
           <div class="stats-number"><%= calculate_hours_from all_logs %></div>
         </div>
       </div>

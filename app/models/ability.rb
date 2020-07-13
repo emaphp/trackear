@@ -6,12 +6,17 @@ class Ability
   def initialize(user)
     return unless user.present?
 
+    user_ability(user)
     project_ability(user)
     invoice_ability(user)
     activity_track_ability(user)
     expense_ability(user)
 
     can :manage, :all if user.is_admin?
+  end
+
+  def user_ability(user)
+    can :update_locale, User, id: user.id
   end
 
   def project_ability(user)
@@ -41,6 +46,7 @@ class Ability
   def activity_track_ability(user)
     can :manage, ActivityTrack, project_contract: { user: user }
     can :create, ActivityTrack
+    can :manage, ActivityStopWatch
   end
 
   def expense_ability(user)

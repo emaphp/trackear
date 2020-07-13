@@ -75,7 +75,7 @@ export default function InvoiceForm({ projectId }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
-        <div className="col-lg-4">
+        <div className="col-lg-5 mb-4">
           <Controller
             as={DatePicker}
             control={control}
@@ -83,7 +83,7 @@ export default function InvoiceForm({ projectId }) {
           />
           {errors && errors.date && <p className="text-danger">Make sure to select both dates (start and ending)</p>}
         </div>
-        <div className="col-lg-8">
+        <div className="col-lg-7">
           <Summary
             loading={summary.loading}
             entries={summary.entries}

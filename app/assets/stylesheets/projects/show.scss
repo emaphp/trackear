@@ -1,4 +1,18 @@
 .projects-show {
+  .stopwatch {
+    position: fixed;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 25px;
+    background-color: #232f3e;
+    padding: 20px 40px;
+    box-shadow: 0 5px 15px rgba(113, 128, 150, 0.25);
+    border: 1px solid rgba(113, 128, 150, 0.25);
+    border-radius: 5px;
+    z-index: 1;
+  }
+
     .member-list-item {
         position: relative;
         border-radius: 100%;
@@ -16,9 +30,10 @@
 
     .track-footer {
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: bold;
         border-top: 1px solid #eaecef;
-        color: #A0AEC0;
+        color: #6f8198;
         background-color: #f8f9fb;
         padding: 25px;
         padding-top: 10px;

@@ -1,13 +1,13 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
     <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-    <li class="breadcrumb-item active" aria-current="page">New activity track</li>
+    <li class="breadcrumb-item active" aria-current="page"><%= t :new_activity_track %></li>
   </ol>
 </nav>
 
 <div class="box">
-  <h6>New Activity Track</h6>
+  <h6><%= t :new_activity_track %></h6>
   <%= render 'form', activity_track: @activity_track, project: @project %>
 </div>
 

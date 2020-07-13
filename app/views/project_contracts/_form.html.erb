@@ -2,41 +2,48 @@
   <%= render 'shared/form/errors', errors: project_contract.errors %>
 
   <div class="form-group">
-    <%= form.label :user_email, "User Gmail" %>
+    <%= form.label :user_email, t(:user_gmail) %>
 
     <% if project_contract.persisted? %>
       <input type="text" value="<%= project_contract.user.email %>" class="form-control-plaintext" readonly />
     <% else %>
       <%= form.email_field :user_email, class: "form-control", required: true %>
-      <small class="text-muted">Only Gmail accounts are supported</small>
+      <small class="text-muted"><%= t :only_gmail_accounts_supported %></small>
     <% end %>
   </div>
 
   <div class="form-group">
-    <%= form.label :activity, "Role" %> <i class="fas fa-question-circle" data-toggle="tooltip" title="Use the role Client to invite customers. Members with role Client can log into the platform and check invoices"></i>
-    <%= form.text_field :activity, class: "form-control", placeholder: "Developer, designer, etc." %>
+    <%= form.label :activity, t(:role) %>
+    <i class="fas fa-question-circle" data-toggle="tooltip" title="<%= t :role_tooltip %>"></i>
+    <%= form.text_field :activity, class: "form-control", placeholder: t(:role_placeholder) %>
   </div>
 
   <div class="row">
     <div class="col-6">
       <div class="form-group">
-        <%= form.label :project_rate %> <i class="fas fa-question-circle" data-toggle="tooltip" title="How much will you charge the client"></i>
+        <%= form.label :project_rate, t(:project_hourly_rate) %>
+        <i class="fas fa-question-circle" data-toggle="tooltip" title="<%= t :project_hourly_rate_tooltip %>"></i>
         <%= form.number_field :project_rate, step: ".01", class: "form-control" %>
       </div>
     </div>
     <div class="col-6">
       <div class="form-group">
-        <%= form.label :user_rate, "Member rate" %> <i class="fas fa-question-circle" data-toggle="tooltip" title="How much will you pay to this new member"></i>
+        <%= form.label :user_rate, t(:user_hourly_rate) %>
+        <i class="fas fa-question-circle" data-toggle="tooltip" title="<%= t :user_hourly_rate_tooltip %>"></i>
         <%= form.number_field :user_rate, step: ".01", class: "form-control" %>
       </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= form.label :user_fixed_rate, "Member fixed rate" %> <i class="fas fa-question-circle" data-toggle="tooltip" title="If you pay a fixed amount to the new member, ignore member rate and complete this field"></i>
+    <%= form.label :user_fixed_rate, t(:user_fixed_rate) %>
+    <i class="fas fa-question-circle" data-toggle="tooltip" title="<%= t :user_fixed_rate_tooltip %>"></i>
     <%= form.number_field :user_fixed_rate, step: ".01", class: "form-control" %>
   </div>
 
-  <%= form.submit "Add member", class: "btn btn-primary" unless project_contract.persisted? %>
-  <%= form.submit "Update contract", class: "btn btn-primary" if project_contract.persisted? %>
+  <div class="text-right">
+    <%= link_to t(:cancel), project, class: "btn btn-link" %>
+    <%= form.submit t(:add_member), class: "btn btn-primary" unless project_contract.persisted? %>
+    <%= form.submit t(:update_member_contract), class: "btn btn-primary" if project_contract.persisted? %>
+  </div>
 <% end %>

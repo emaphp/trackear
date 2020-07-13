@@ -7,12 +7,13 @@ class InvoiceStatusesController < ApplicationController
 
   def confirm_hours
     @invoice_status.confirm_team_member_hours
+    MixpanelService.track(current_user, 'invoice_status_confirm_hours', { project_id: @project.id })
 
     respond_to do |format|
       format.html do
         redirect_to(
           status_project_invoice_url(@project, @invoice_status.invoice),
-          notice: 'Thank you for your confirmation'
+          notice: t(:invoice_status_thank_you_for_confirmation)
         )
       end
     end

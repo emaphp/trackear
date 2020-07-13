@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :projects, through: :project_contracts
 
   has_many :activity_tracks
+  has_many :activity_stop_watches
 
   has_many :invoices
   has_many :invoice_status

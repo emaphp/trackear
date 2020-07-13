@@ -1,17 +1,17 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb d-print-none">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
     <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-    <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
+    <li class="breadcrumb-item"><%= link_to t(:invoices), project_invoices_path(@project) %></li>
     <li class="breadcrumb-item active" aria-current="page"><%= humanized_invoice_period(@invoice) %></li>
   </ol>
 </nav>
 
 <div class="box">
-  <h6>Invoice</h6>
+  <h6><%= t :invoice %></h6>
 
   <h3>
-    Invoice Period <%= humanized_invoice_period(@invoice) %>
+    <%= t :invoice_period %> <%= humanized_invoice_period(@invoice) %>
   </h3>
   <div class="table-responsive border">
     <table class="table table-borderless">

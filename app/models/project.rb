@@ -14,7 +14,6 @@ class Project < ApplicationRecord
   has_many :reports
 
   validates :name, presence: true
-  validates :icon, presence: true
 
   def slug_candidates
     [%i[name slug_suffix]]

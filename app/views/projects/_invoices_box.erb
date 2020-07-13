@@ -1,72 +1,72 @@
 <div class="d-flex justify-content-between">
-    <h4 class="mt-2">Invoices</h4>
-    <div class="d-flex justify-content-end">
-        <% unless project.is_client? current_user %>
-            <%= link_to project_invoices_path(@project), class: "mx-2 btn btn-sm btn-outline-secondary border-0" do %>
-                <%= icon "fas", "file-invoice", class: "mr-1" %>
-                See all invoices
-            <% end %>
-            <% if can? :create, Invoice %>
-              <%= link_to new_project_invoice_path(project), class: "btn btn-sm btn-primary" do %>
-                  <%= icon "far", "file-alt", class: "mr-1" %>
-                  Create invoice
-              <% end %>
-            <% end %>
+  <h4 class="mt-2"><%= t :invoices %></h4>
+  <div class="d-flex justify-content-end">
+    <% unless project.is_client? current_user %>
+      <%= link_to project_invoices_path(@project), class: "mx-2 btn btn-sm btn-outline-secondary border-0" do %>
+        <%= icon "fas", "file-invoice", class: "mr-1" %>
+        <%= t :see_all_invoices %>
+      <% end %>
+      <% if can? :create, Invoice %>
+        <%= link_to new_project_invoice_path(project), class: "btn btn-sm btn-outline-primary" do %>
+          <%= icon "far", "file-alt", class: "mr-1" %>
+          <%= t :create_invoice %>
         <% end %>
-    </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 <% unless invoices.present? %>
-    <div class="box text-center mt-2 mb-3">
-        <p class="lead mb-0">No invoices found...</p>
-    </div>
+  <div class="box text-center mt-2 mb-3">
+    <p class="lead mb-0"><%= t :no_invoices_found %></p>
+  </div>
 <% else %>
-    <div class="row">
-        <% invoices.each do |invoice| %>
-        <div class="col-lg-3">
-            <div class="invoice-box box mt-2 mb-3">
-                <div class="invoice-actions">
-                    <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
-                </div>
+  <div class="row">
+    <% invoices.each do |invoice| %>
+      <div class="col-lg-3">
+        <div class="invoice-box box mt-2 mb-3">
+          <div class="invoice-actions">
+            <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
+          </div>
 
-                <% if invoice.is_paid? %>
-                    <div class="invoice-status-badge badge badge-success">Paid</div>
+          <% if invoice.is_paid? %>
+            <div class="invoice-status-badge badge badge-success"><%= t :invoice_paid %></div>
+          <% end %>
+
+          <% if invoice.is_unpaid? %>
+            <div class="invoice-status-badge badge badge-warning"><%= t :invoice_unpaid %></div>
+          <% end %>
+
+          <div class="text-center">
+              <%= image_tag invoice.user.avatar_or_default, class: "avatar mb-2" %>
+              <h5><%= invoice.user.first_name %><br><%= invoice.user.last_name %></h5>
+          </div>
+
+          <div class="text-center mt-3">
+              <p class="mb-0"><%= humanized_invoice_period(invoice) %></p>
+              <p class="invoice-amount mb-0 text-dark"><%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %></p>
+          </div>
+
+          <div class="text-center">
+            <% if invoice.is_client_visible? %>
+              <span class="badge badge-pill badge-primary"><%= t :client_invoice %></span>
+            <% else %>
+              <span class="badge badge-pill border border-primary"><%= t :internal_invoice %></span>
+            <% end %>
+          </div>
+
+          <% if can? :status, invoice %>
+            <div class="mt-4 text-center">
+              <%= link_to status_project_invoice_path(invoice.project, invoice), class: "btn btn-outline-primary" do %>
+                <%= t :invoice_status %>
+
+                <% if invoice.invoice_status.present? && invoice.invoice_status.has_news? %>
+                  <i class="ml-2 far fa-bell" data-toggle="tooltip" title="<%= t :invoice_updates_please_review %>"></i>
                 <% end %>
-
-                <% if invoice.is_unpaid? %>
-                    <div class="invoice-status-badge badge badge-warning">Unpaid</div>
-                <% end %>
-
-                <div class="text-center">
-                    <%= image_tag invoice.user.avatar_or_default, class: "avatar mb-2" %>
-                    <h5><%= invoice.user.first_name %><br><%= invoice.user.last_name %></h5>
-                </div>
-
-                <div class="text-center mt-3">
-                    <p class="mb-0"><%= humanized_invoice_period(invoice) %></p>
-                    <p class="invoice-amount mb-0 text-dark"><%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %></p>
-                </div>
-
-                <div class="text-center">
-                  <% if invoice.is_client_visible? %>
-                    <span class="badge badge-pill badge-primary">Client invoice</span>
-                  <% else %>
-                    <span class="badge badge-pill border border-primary">Internal invoice</span>
-                  <% end %>
-                </div>
-
-                <% if can? :status, invoice %>
-                  <div class="mt-4 text-center">
-                    <%= link_to status_project_invoice_path(invoice.project, invoice), class: "btn btn-outline-primary" do %>
-                      Status
-
-                      <% if invoice.invoice_status.present? && invoice.invoice_status.has_news? %>
-                        <i class="ml-2 far fa-bell" data-toggle="tooltip" title="Updates, please review"></i>
-                      <% end %>
-                    <% end %>
-                  </div>
-                <% end %>
+              <% end %>
             </div>
+          <% end %>
         </div>
-        <% end %>
-    </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

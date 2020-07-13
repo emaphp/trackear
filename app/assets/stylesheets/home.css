@@ -8,3 +8,15 @@
     right: 10px;
     top: 10px;
 }
+
+.home-welcome-message {
+  background-color: #ddffc8;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 50px !important;
+}
+
+.home-welcome-message p {
+  color: green;
+  font-size: 18px;
+}

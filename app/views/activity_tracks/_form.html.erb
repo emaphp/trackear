@@ -1,23 +1,31 @@
 <%= form_with(model: [project, activity_track], local: true) do |form| %>
   <%= render 'shared/form/errors', errors: activity_track.errors %>
 
+  <% contract = current_user.currently_active_contract_for(project) %>
+  <% unless contract.project_rate.positive? %>
+    <div class="alert alert-warning border mb-2">
+      <%= t :set_your_rates_warning_html, update_rates_url: edit_project_project_contract_path(project, contract) %>
+    </div>
+  <% end %>
+
   <div class="form-group">
-    <%= form.label :from %>
-    <%= form.date_field :from, class: "form-control" %>
+    <%= form.label :from, t(:date) %>
+    <%= form.date_field :from, value: Date.today, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :hours, "Hours (in format hh:mm)" %>
+    <%= form.label :hours, t(:activity_hours_field) %>
     <%= form.text_field :hours, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :description %>
+    <%= form.label :description, t(:description) %>
     <%= form.text_area :description, class: "form-control", placeholder: "What have you been working on?" %>
   </div>
 
-  <div class="text-center">
-    <%= form.submit "Log activity", class: "btn btn-primary" unless activity_track.persisted? %>
-    <%= form.submit "Update activity", class: "btn btn-primary" if activity_track.persisted? %>
+  <div class="text-right">
+    <%= link_to t(:cancel), project, class: "btn btn-link" %>
+    <%= form.submit t(:log_activity), class: "btn btn-primary" unless activity_track.persisted? %>
+    <%= form.submit t(:update_activity), class: "btn btn-primary" if activity_track.persisted? %>
   </div>
 <% end %>

@@ -4,7 +4,18 @@ class ProjectsController < ApplicationController
   include ProjectsHelper
 
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit update destroy status_period]
+  before_action :set_project, only: %i[
+    onboarding
+    update_rate_from_onboarding
+    onboarding_invite_members
+    invite_member_from_onboarding
+    onboarding_done
+    show
+    edit
+    update
+    destroy
+    status_period
+  ]
   load_and_authorize_resource
 
   # GET /projects
@@ -13,9 +24,38 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects.uniq
   end
 
+  def onboarding; end
+
+  def update_rate_from_onboarding
+    contract = current_user.currently_active_contract_for(@project)
+    hourly_rate = params.dig(:project_contract, :user_rate)
+    contract.project_rate = hourly_rate
+    contract.user_rate = hourly_rate
+    contract.save
+    redirect_to onboarding_invite_members_project_url(@project)
+  end
+
+  def onboarding_invite_members
+    @project_contract = ProjectContract.new
+  end
+
+  def invite_member_from_onboarding
+    @project_contract = @project.project_contracts.from_invite(invite_member_params)
+    respond_to do |format|
+      if @project_contract.save
+        format.html { redirect_to onboarding_invite_members_project_url(@project), notice: t(:project_member_invited_from_onboarding) }
+      else
+        format.html { render :onboarding_invite_members }
+      end
+    end
+  end
+
+  def onboarding_done; end
+
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @stopwatch = current_user.activity_stop_watches.active(@project).first
     @contracts = @project.project_contracts.currently_active.includes(:user)
     @contract = current_user.currently_active_contract_for(@project)
     @logs_from = logs_from_param
@@ -40,15 +80,19 @@ class ProjectsController < ApplicationController
     end
 
     @logs = @all_logs.paginate(page: params[:page], per_page: 5)
+    MixpanelService.track(current_user, 'projects_show', { project_id: @project.id })
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+    MixpanelService.track(current_user, 'projects_new')
   end
 
   # GET /projects/1/edit
-  def edit; end
+  def edit
+    MixpanelService.track(current_user, 'projects_edit', { project_id: @project.id })
+  end
 
   # POST /projects
   # POST /projects.json
@@ -60,7 +104,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.valid? && @project.persisted?
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        MixpanelService.track(current_user, 'projects_create', { project_id: @project.id })
+        format.html { redirect_to onboarding_project_url(@project), notice: t(:project_successfully_created) }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -74,7 +119,8 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        MixpanelService.track(current_user, 'projects_update', { project_id: @project.id })
+        format.html { redirect_to @project, notice: t(:project_successfully_updated) }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -86,9 +132,10 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    MixpanelService.track(current_user, 'projects_destroy', { project_id: @project.id })
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to home_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to home_url, notice: t(:project_successfully_destroyed) }
       format.json { head :no_content }
     end
   end
@@ -140,5 +187,15 @@ class ProjectsController < ApplicationController
 
   def logs_params
     params.fetch(:logs, {})
+  end
+
+  def invite_member_params
+    params.require(:project_contract).permit(
+      :user_email,
+      :activity,
+      :project_rate,
+      :user_rate,
+      :user_fixed_rate
+    )
   end
 end

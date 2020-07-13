@@ -1,3 +1,20 @@
 <div class="home-index">
-  <%= render 'projects_box' %>
+  <div class="home-welcome-message d-flex align-items-center media mb-4 shadow-sm border">
+    <span class="mr-3" style="font-size: 36px">👋</span>
+    <div class="media-body">
+      <h5><%= t :welcome, name: current_user.first_name %></h5>
+      <p class="mb-0">
+        <%= t :excellent_day_and_enjoying_app %><br>
+        <%= t :feedback_html %>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= render 'projects_box' %>
+    </div>
+    <div class="col-lg-6">
+      <%= render 'invoices_box' %>
+    </div>
+  </div>
 </div>

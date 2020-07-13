@@ -39,13 +39,21 @@
 }
 
 .btn-orange {
-    color: #fff !important;
-    background-color: #ff6a00;
-    border-color: #ff6a00;
+    // color: #fff !important;
+    // background-color: #ff852d;
+    // border-color: #ff6a00;
+    color: #ff6a00;
+    background-color: white;
+    box-shadow: 0 5px 5px rgba(113, 128, 150, 0.1);
+    // border: 1px solid rgba(113, 128, 150, 0.15);
+    border: 1px solid #ff7919;
+    font-weight: bold;
 
     &:hover {
-        background-color: #ff832a;
-        border-color: #ff832a;
+      // color: #ff832b;
+      // border-color: #ff8d3c;
+      background-color: rgb(255, 144, 53);
+      color: white;
     }
 }
 

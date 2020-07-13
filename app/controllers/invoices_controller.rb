@@ -8,9 +8,12 @@ class InvoicesController < ApplicationController
 
   def index
     @invoices = InvoiceService.invoices_from(current_user, @project)
+    MixpanelService.track(current_user, 'invoices_index', { project_id: @project.id })
   end
 
-  def show; end
+  def show
+    MixpanelService.track(current_user, 'invoices_show', { project_id: @project.id })
+  end
 
   def new
     @invoice = current_user.invoices.new(
@@ -19,9 +22,12 @@ class InvoicesController < ApplicationController
       from: Date.today.beginning_of_month,
       to: Date.today.end_of_month
     )
+    MixpanelService.track(current_user, 'invoices_new', { project_id: @project.id })
   end
 
-  def edit; end
+  def edit
+    MixpanelService.track(current_user, 'invoices_edit', { project_id: @project.id })
+  end
 
   def create
     params_with_project_and_discount = invoice_params.merge(
@@ -34,7 +40,8 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Invoice was successfully created.' }
+        MixpanelService.track(current_user, 'invoices_create', { project_id: @project.id })
+        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: t(:invoice_successfully_created) }
         format.json { render json: status_project_invoice_url(@project, @invoice), status: :created }
       else
         format.html { render :new }
@@ -46,7 +53,8 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(update_invoice_params)
-        format.html { redirect_to project_invoice_path(@project, @invoice), notice: 'Invoice was successfully updated.' }
+        MixpanelService.track(current_user, 'invoices_update', { project_id: @project.id })
+        format.html { redirect_to project_invoice_path(@project, @invoice), notice: t(:invoice_successfully_updated) }
         format.json { render :show, status: :ok, location: @invoice }
       else
         format.html { render :edit }
@@ -58,7 +66,8 @@ class InvoicesController < ApplicationController
   def destroy
     @invoice.destroy
     respond_to do |format|
-      format.html { redirect_to project_invoices_url(@project), notice: 'Invoice was successfully destroyed.' }
+      MixpanelService.track(current_user, 'invoices_destroy', { project_id: @project.id })
+      format.html { redirect_to project_invoices_url(@project), notice: t(:invoice_successfully_destroyed) }
       format.json { head :no_content }
     end
   end
@@ -66,7 +75,8 @@ class InvoicesController < ApplicationController
   def add_entries_to_client_invoice
     @invoice.add_entries_to_client_invoice
     respond_to do |format|
-      format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Entries successfully added.' }
+      MixpanelService.track(current_user, 'invoices_add_entries_to_client_invoice', { project_id: @project.id })
+      format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: t(:invoice_add_entries_successfully) }
       format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
     end
   end
@@ -75,6 +85,7 @@ class InvoicesController < ApplicationController
     @invoice.notify_client
 
     respond_to do |format|
+      MixpanelService.track(current_user, 'invoices_email_notify', { project_id: @project.id })
       format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Email notification sent.' }
       format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
     end
@@ -123,19 +134,24 @@ class InvoicesController < ApplicationController
   def download_invoice
     name = @invoice.project.name + ' - ' + @invoice.from.strftime('%B %Y')
     send_data @invoice.invoice.download.read, filename: name + '.pdf', type: 'application/pdf'
+    MixpanelService.track(current_user, 'invoices_download_invoice', { project_id: @project.id })
   end
 
   def download_payment
     name = @invoice.project.name + ' - Payment - ' + @invoice.from.strftime('%B %Y')
     send_data @invoice.payment.download.read, filename: name + '.pdf', type: 'application/pdf'
+    MixpanelService.track(current_user, 'invoices_download_payment', { project_id: @project.id })
   end
 
-  def review_entries; end
+  def review_entries
+    MixpanelService.track(current_user, 'invoices_review_entries', { project_id: @project.id })
+  end
 
   def upload_invoice
     respond_to do |format|
       if @invoice.add_invoice(upload_invoice_params)
-        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Invoice attached successfully.' }
+        MixpanelService.track(current_user, 'invoices_upload_invoice', { project_id: @project.id })
+        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: t(:invoice_attached_successfully) }
         format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
       else
         format.html { render :edit }
@@ -147,7 +163,8 @@ class InvoicesController < ApplicationController
   def upload_payment
     respond_to do |format|
       if @invoice.add_payment(upload_payment_params)
-        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Payment receipt attached successfully.' }
+        MixpanelService.track(current_user, 'invoices_upload_payment', { project_id: @project.id })
+        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: t(:invoice_payment_attached_successfully) }
         format.json { render :show, status: :ok, location: @invoice }
       else
         format.html { render :edit }
@@ -159,6 +176,7 @@ class InvoicesController < ApplicationController
   def status
     @invoice_status = @invoice.invoice_status
     @invoice_status.update_last_checked
+    MixpanelService.track(current_user, 'invoices_status', { project_id: @project.id })
   end
 
   private

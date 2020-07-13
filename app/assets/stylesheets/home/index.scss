@@ -16,24 +16,26 @@
       border-radius: 25px;
     }
 
+    .section {
+      padding-top: 75px;
+      padding-bottom: 75px;
+    }
+
     .header {
-      background-color: white;
+      background-color: #232f3e;
+      padding-top: 100px;
+      padding-bottom: 100px;
+
+      h1 {
+        font-size: 48px;
+        color: white;
+      }
     }
 
     .footer {
       background: linear-gradient(45deg, #ffefa3, #ff8731);
       margin-bottom: -100px;
       h2 { color: #6b3600 !important; }
-    }
-
-    .content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section {
-      padding-top: 75px;
-      padding-bottom: 75px;
     }
 
     .carousel-indicators {

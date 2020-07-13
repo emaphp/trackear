@@ -6,3 +6,15 @@ services:
       - /var/lib/postgresql/data
     ports:
       - "5432:5432"
+  app:
+    tty: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db

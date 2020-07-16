@@ -6,7 +6,7 @@
         <%= icon "fas", "file-invoice", class: "mr-1" %>
         <%= t :see_all_invoices %>
       <% end %>
-      <% if can? :create, Invoice %>
+      <% if can? :create, project.invoices.new %>
         <%= link_to new_project_invoice_path(project), class: "btn btn-sm btn-outline-primary" do %>
           <%= icon "far", "file-alt", class: "mr-1" %>
           <%= t :create_invoice %>

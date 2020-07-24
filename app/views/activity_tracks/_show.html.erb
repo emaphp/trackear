@@ -2,7 +2,7 @@
   <div class="media">
     <%= image_tag log.project_contract.user.picture || '', class: "avatar align-self-start mr-3" %>
     <div class="media-body">
-      <h5 class="mt-1 m-0"><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %></h5>
+      <h5 class="mt-1 m-0"><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %> <span class="lead"><%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %></span></h5>
       <p class="mb-0">
         <%= log.description.gsub(/\n/, '<br/>').html_safe %>
       </p>
@@ -21,11 +21,11 @@
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="track-menu-popover-<%= log.id %>">
         <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "dropdown-item") do %>
           <i class="fas fa-edit"></i>
-          Edit
+          <%= t :edit %>
         <% end %>
         <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "dropdown-item") do %>
           <i class="fas fa-trash"></i>
-          Delete
+          <%= t :delete %>
         <% end %>
       </div>
     </div>

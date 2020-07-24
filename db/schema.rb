@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_205326) do
+ActiveRecord::Schema.define(version: 2020_06_21_144959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activity_stop_watches", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean "paused"
+    t.bigint "activity_track_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.bigint "project_id", null: false
+    t.index ["activity_track_id"], name: "index_activity_stop_watches_on_activity_track_id"
+    t.index ["project_id"], name: "index_activity_stop_watches_on_project_id"
+    t.index ["user_id"], name: "index_activity_stop_watches_on_user_id"
+  end
 
   create_table "activity_tracks", force: :cascade do |t|
     t.string "description"
@@ -22,6 +37,8 @@ ActiveRecord::Schema.define(version: 2020_05_31_205326) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_contract_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_activity_tracks_on_deleted_at"
     t.index ["project_contract_id"], name: "index_activity_tracks_on_project_contract_id"
   end
 
@@ -208,6 +225,7 @@ ActiveRecord::Schema.define(version: 2020_05_31_205326) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "locale", default: "es"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -215,6 +233,9 @@ ActiveRecord::Schema.define(version: 2020_05_31_205326) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "activity_stop_watches", "activity_tracks"
+  add_foreign_key "activity_stop_watches", "projects"
+  add_foreign_key "activity_stop_watches", "users"
   add_foreign_key "expense_invitations", "users"
   add_foreign_key "expenses", "projects"
   add_foreign_key "expenses", "users"

@@ -1,3 +1,5 @@
-<div class="home-index">
-  <%= render 'projects_box' %>
-</div>
+<% if user_signed_in? %>
+  <%= render 'auth' %>
+<% else %>
+  <%= render 'guest' %>
+<% end %>

@@ -1,12 +1,12 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
     <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-    <li class="breadcrumb-item active" aria-current="page">Add member</li>
+    <li class="breadcrumb-item active" aria-current="page"><%= t :add_member %></li>
   </ol>
 </nav>
 
 <div class="box">
-  <h6>Add member</h6>
+  <h6><%= t :add_member %></h6>
   <%= render 'form', project: @project, project_contract: @project_contract, members: @members %>
 </div>

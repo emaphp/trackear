@@ -5,9 +5,9 @@
         <i class="fas fa-bullhorn"></i>
       </div>
       <div class="media-body">
-        <h6 class="alert-heading mb-0">Updates for your invoice!</h6>
-        <%= current_user.first_name %>, there are updates for your invoice.
-        <%= link_to "Check invoice status", status_project_invoice_path(@project, @invoice_status.invoice) %>.
+        <h6 class="alert-heading mb-0"><%= t :updates_for_your_invoice %></h6>
+        <%= t :updates_in_your_invoice, name: current_user.first_name %>
+        <%= link_to t(:check_invoice_status), status_project_invoice_path(@project, @invoice_status.invoice) %>.
       </div>
     </div>
   </div>

@@ -1,14 +1,14 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
     <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-    <li class="breadcrumb-item"><%= link_to "Invoices", project_invoices_path(@project) %></li>
-    <li class="breadcrumb-item active" aria-current="page">Create invoice</li>
+    <li class="breadcrumb-item"><%= link_to t(:invoices), project_invoices_path(@project) %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= t :create_invoice %></li>
   </ol>
 </nav>
 
 <div class="box">
-  <h6>New Invoice</h6>
+  <h6><%= t :create_invoice %></h6>
   <input type="hidden" id="project_slug" value="<%= @project.slug %>">
   <%= render 'new_invoice_form', invoice: @invoice, project: @project %>
 </div>

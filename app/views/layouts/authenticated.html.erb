@@ -1,13 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <title>BlackMountain - Dashboard</title>
+    <meta charset="utf-8">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153279158-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-153279158-2');
+    </script>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="<%= image_url('favicon/apple-icon-57x57.png') %>">
+    <link rel="apple-touch-icon" sizes="60x60" href="<%= image_url('favicon/apple-icon-60x60.png') %>">
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= image_url('favicon/apple-icon-72x72.png') %>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= image_url('favicon/apple-icon-76x76.png') %>">
+    <link rel="apple-touch-icon" sizes="114x114" href="<%= image_url('favicon/apple-icon-114x114.png') %>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= image_url('favicon/apple-icon-120x120.png') %>">
+    <link rel="apple-touch-icon" sizes="144x144" href="<%= image_url('favicon/apple-icon-144x144.png') %>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= image_url('favicon/apple-icon-152x152.png') %>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= image_url('favicon/apple-icon-180x180.png') %>">
+    <link rel="icon" type="image/png" sizes="192x192"  href="<%= image_url('favicon/android-icon-192x192.png') %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= image_url('favicon/favicon-32x32.png') %>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<%= image_url('favicon/favicon-96x96.png') %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= image_url('favicon/favicon-16x16.png') %>">
+    <link rel="manifest" href="<%= asset_url('favicon/manifest.json') %>">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="<%= image_url('favicon/ms-icon-144x144.png') %>">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Trackear - Aplicación de gestión de trabajo para freelancers argentinos. Calculá y registrá tus horas de trabajo</title>
+    <meta name="description" content="Aplicación de gestión de trabajo para freelancer. Administrá tu equipo, registrá horas de trabajo y facturá. Trackear es LA herramienta indispensable para el freelancer argentino.">
+    <meta name="keywords" content="aplicación para control de tiempo, calculá horas, gestionar horas de trabajo, gestion de trabajo, controla tu tiempo, herramienta de control de tiempo, trackear, registro de trabajo, freelancer, administracion de equipos, registro de horas, freelancer argentino, facturación, afip">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Trackear">
+    <meta property="og:title" content="Registra tu trabajo y facturá">
+    <meta property="og:image" content="<%= image_url 'projects-view.png' %>">
+    <meta property="og:description" content="Aplicación de gestión de trabajo para freelancer. Administrá tu equipo, registrá horas de trabajo y facturá. Trackear es LA herramienta indispensable para el freelancer argentino.">
+    <meta property="og:url" content="https://www.trackear.app">
+
+    <link rel="canonical" href="https://www.trackear.app/">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -15,42 +54,41 @@
   </head>
   <body class="d-flex flex-column">
   <div class="content-container">
-    <% if notice.present? %>
-      <div class="alert alert-info text-center"><%= notice %></div>
-    <% end %>
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom py-2">
-      <a class="navbar-brand" href="/">
-        <%= image_tag "icon-alt.png", height: "32" %>
-      </a>
+    <nav class="navbar navbar-expand-lg navbar-light py-2">
       <div class="container">
+        <a class="navbar-brand" href="/">
+          <span class="text-white font-weight-bold">trackear</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="justify-content-center collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="fas fa-home mr-2"></i>
-                Home
+                <%= t :home %>
               </a>
             </li>
             <li class="nav-item">
               <%= link_to(new_project_path, class: "nav-link") do %>
                 <i class="far fa-plus-square mr-2"></i>
-                Create new project
+                <%= t :create_new_project %>
               <% end %>
             </li>
-            <li class="nav-item">
-              <%= link_to(expenses_path, class: "nav-link") do %>
-                <i class="fas fa-wallet mr-2"></i>
-                Expenses
-              <% end %>
-            </li>
+            <% if can? :manage, Expense %>
+              <li class="nav-item">
+                <%= link_to(expenses_path, class: "nav-link") do %>
+                  <i class="fas fa-wallet mr-2"></i>
+                  <%= t :expenses %>
+                <% end %>
+              </li>
+            <% end %>
             <% if can? :manage, User %>
               <li class="nav-item">
                 <%= link_to(users_path, class: "nav-link") do %>
                   <i class="fas fa-users mr-2"></i>
-                  Users
+                  <%= t :users %>
                 <% end %>
               </li>
             <% end %>
@@ -58,21 +96,30 @@
               <li class="nav-item">
                 <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
                   <i class="fas fa-sign-out-alt mr-2"></i>
-                  Exit impersonating <%= current_user.email %>
+                  <%= t :exit_impersionate, email: current_user.email %>
                 <% end %>
               </li>
             <% else %>
               <li class="nav-item">
                 <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
                   <i class="fas fa-sign-out-alt mr-2"></i>
-                  Logout <%= current_user.email %>
+                  <%= t :logout, email: current_user.first_name %>
                 <% end %>
               </li>
             <% end %>
           </ul>
+          <%= form_with(model: current_user, url: user_update_locale_url, method: :post, local: true, class: "form-inline my-2 my-lg-0") do |form| %>
+            <%= form.select :locale, [['🇦🇷 Español', 'es'], ['🇺🇸 English', 'en']], {}, onchange: "this.form.submit()", class: "form-control" %>
+          <% end %>
         </div>
       </div>
     </nav>
+    <% if notice.present? %>
+      <div class="lead text-success p-4 font-weight-bold alert alert-success text-center">
+        <i class="far fa-thumbs-up fa-lg mr-2"></i>
+        <%= notice %>
+      </div>
+    <% end %>
     <div class="container">
       <div class="row">
         <div class="col-xl-12 pt-5">
@@ -87,47 +134,62 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
-          <%= image_tag "logo.png", height: "18" %>
-          <p class="py-4">
-            We deliver high quality results on time, no messing around
+          <h5 class="font-weight-bold">trackear</h5>
+          <p class="pt-2">
+            Si tenés comentarios y/o sugerencias por favor <a class="text-primary btn-link p-0" href="mailto:contact@black-mountain.com.ar">enviános un email</a>, ¡nos encanta recibir feedback!
+          </p>
+          <p class="pt-2">
+            Trackear es una aplicación desarrollada por <a href="https://black-mountain.com.ar" target="_blank"><%= image_tag "logo.png", height: "12" %></a>
           </p>
         </div>
         <div class="col-lg-3">
-          <div class="font-weight-bold my-2">COMPANY</div>
+          <div class="font-weight-bold my-2">BLACKMOUNTAIN</div>
           <ul class="list-unstyled">
             <li class="py-2">
               <i class="fas fa-cogs"></i>
-              <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#what-do-we-do">Our services</a>
+              <a target="_blank" href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#what-do-we-do">
+                Nuestros servicios
+              </a>
             </li>
             <li class="py-2">
               <i class="fas fa-hands-helping"></i>
-              <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#why-us">Why working with us?</a>
+              <a target="_blank" href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#why-us">
+                ¿Por qué trabajar con nosotros?
+              </a>
             </li>
             <li class="py-2">
               <i class="fas fa-question-circle"></i>
-              <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#how">How do we work?</a>
+              <a target="_blank" href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#how">
+                ¿Cómo trabajamos?
+              </a>
             </li>
             <li class="py-2">
               <i class="fas fa-paper-plane"></i>
-              <a href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#get-in-touch">Get in touch</a>
+              <a target="_blank" href="https://black-mountain.com.ar/?utm_campaign=interaction&utm_medium=footer&utm_source=dashboard#get-in-touch">
+                Contactános
+              </a>
             </li>
           </ul>
         </div>
 
         <div class="col-lg-3">
-          <div class="my-2 font-weight-bold">SOCIAL MEDIA</div>
+          <div class="my-2 font-weight-bold">REDES SOCIALES</div>
           <ul class="list-unstyled">
             <li class="py-2">
               <i class="fab fa-linkedin"></i>
-              <a href="https://www.linkedin.com/company/blackmountain-solutions">LinkedIn</a>
+              <a target="_blank" href="https://www.linkedin.com/company/blackmountain-solutions">LinkedIn</a>
+            </li>
+            <li class="py-2">
+              <i class="fab fa-twitter-square"></i>
+              <a target="_blank" href="https://twitter.com/BlackMountainAR">Twitter</a>
+            </li>
+            <li class="py-2">
+              <i class="fab fa-youtube-square"></i>
+              <a target="_blank" href="https://www.youtube.com/channel/UCdhVmVL4OIY4Kpg59NAc42Q">Youtube</a>
             </li>
             <li class="py-2">
               <i class="fab fa-github-square"></i>
-              <a href="https://github.com/BlackMountainSolutions">GitHub</a>
-            </li>
-            <li class="py-2">
-              <i class="fab fa-facebook-square"></i>
-              <a href="https://www.facebook.com/blackmountainsolutions">Facebook</a>
+              <a target="_blank" href="https://github.com/BlackMountainSolutions">GitHub</a>
             </li>
           </ul>
         </div>

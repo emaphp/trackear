@@ -1,25 +1,44 @@
 <div class="projects-show">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @project.name %></li>
     </ol>
   </nav>
 
   <div class="media mb-4">
-    <%= image_tag @project.icon_url || '', class: "project-icon mr-3 align-self-start" %>
+    <%= render 'shared/icon/avatar', image_url: @project.icon_url || image_url('default-project-icon.png'), extra_css: "big mr-3 align-self-start" %>
     <div class="media-body">
       <h2 class="mb-0">
         <%= @project.name %>
         <% if can? :manage, @project %>
           <%= link_to edit_project_path(@project), class: "btn btn-sm btn-link p-1 px-2 border-0" do %>
             <%= icon "fa", "edit" %>
-            Edit
+            <%= t :edit %>
           <% end %>
         <% end %>
       </h2>
       <%= render 'members_list', project: @project, contracts: @contracts %>
     </div>
+    <% unless @stopwatch.present? %>
+      <button type="button" class="mr-2 btn btn-lg btn-green" data-target="#stopWatchModal" data-toggle="modal">
+        <%= icon "fas", "stopwatch", class: "mr-2" %>
+        <%= t :start_stopwatch %>
+      </button>
+
+      <div class="modal fade" id="stopWatchModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-left">
+              <h4 class="px-4 pt-4"><%= t :stopwatch %></h4>
+              <div class="p-4">
+                <%= render 'activity_stop_watches/form', project: @project, activity_stop_watch: ActivityStopWatch.new, user: current_user %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <% unless @project.is_client? current_user %>
@@ -30,8 +49,8 @@
             <i class="fas fa-bullhorn"></i>
           </div>
           <div class="media-body">
-            <h6 class="alert-heading mb-0">Friendly reminder</h6>
-            <%= current_user.first_name %>, seems like you haven't logged any activity today. Let's <%= link_to "create a new track", new_project_activity_track_path(@project) %>.
+            <h6 class="alert-heading mb-0"><%= t :friendly_reminder %></h6>
+            <%= t :havent_logged_hours_reminder_html, name: current_user.first_name, add_track_url: new_project_activity_track_path(@project) %>
           </div>
         </div>
       </div>
@@ -50,5 +69,39 @@
     </div>
   <% else %>
     <%= render 'invoices_box', project: @project, activity_track: ActivityTrack.new, user: current_user, invoices: @invoices %>
+  <% end %>
+
+  <% if @stopwatch.present? %>
+    <div class="stopwatch">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <div class="media">
+            <span style="font-size: 32px;" class="mr-4">⏰</span>
+            <div class="media-body">
+              <h4 class="m-0 lead">
+                <%= t :stopwatch_running %>
+                <span id="stopwatchTimer"><%= @stopwatch.start.strftime("%G-W%V-%uT%R%:z") %></span>
+              </h4>
+              <% if @stopwatch.description.present? %>
+                <p class="m-0 text-white"><%= @stopwatch.description %></p>
+              <% else %>
+                <p class="m-0 text-white"><%= t :stopwatch_no_description_provided %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 text-right">
+          <%= link_to [@project, @stopwatch], data: { confirm: t(:stopwatch_discard_confirmation) }, method: :delete, class: "my-1 btn btn-outline-primary btn-sm" do %>
+            <i class="fas fa-trash mr-2"></i>
+            <%= t :stopwatch_discard %>
+          <% end %>
+          <%= link_to finish_project_activity_stop_watch_path(@project, @stopwatch), method: :post, class: "my-1 btn btn-primary btn-sm" do %>
+            <i class="fas fa-check mr-2"></i>
+            <%= t :stopwatch_finish %>
+          <% end %>
+        </div>
+      </div>
+      <%= javascript_pack_tag 'projects/stopwatch' %>
+    </div>
   <% end %>
 </div>

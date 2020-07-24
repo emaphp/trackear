@@ -8,8 +8,12 @@ class InvoiceStatus < ApplicationRecord
 
   after_create :create_member_status, if: :admin_status?
 
-  scope :with_news, -> { where('last_checked is null or last_checked < updated_at') }
-  scope :for_members, -> { where('invoice_status_id is not null') }
+  scope :with_news, -> { where('invoice_statuses.last_checked is null or invoice_statuses.last_checked < invoice_statuses.updated_at') }
+  scope :for_members, -> { where('invoice_statuses.invoice_status_id is not null') }
+  scope :for_project, lambda { |project|
+    joins(invoice_status: [:invoice])
+      .where({ invoice_status: { invoices: { project: project } } })
+  }
 
   enum status: {
     admin_waiting_for_hours_confirmation: 'admin_waiting_for_hours_confirmation',
@@ -24,6 +28,10 @@ class InvoiceStatus < ApplicationRecord
     user_paying_in_progress: 'user_paying_in_progress',
     user_complete: 'user_complete'
   }
+
+  def has_news?
+    last_checked.nil? || last_checked < updated_at
+  end
 
   def update_last_checked
     # update_columns wont run any callbacks
@@ -96,7 +104,7 @@ class InvoiceStatus < ApplicationRecord
 
   def create_member_status
     project = invoice.project
-    contracts = project.project_contracts.only_team.includes(:user)
+    contracts = project.project_contracts.currently_active.only_team.includes(:user)
     contracts.each do |contract|
       user = contract.user
       user_invoice_status = user.invoice_status.new

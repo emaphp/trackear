@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body text-left">
-                <h4 class="mt-2">Invoice</h4>
+                <h4 class="mt-2"><%= t :invoice %></h4>
 
                 <div class="media p-3">
                     <%= image_tag invoice.user.picture, class: "avatar align-self-start mr-3" %>
@@ -19,11 +19,11 @@
                         <h5 class="mt-1 m-0">
                             <%= invoice.user.first_name %> <%= invoice.user.last_name %>
                             <% if invoice.is_paid? %>
-                                <span class="badge badge-success">Paid</span>
+                                <span class="badge badge-success"><%= t :invoice_paid %></span>
                             <% end %>
 
                             <% if invoice.is_unpaid? %>
-                                <span class="badge badge-warning">Unpaid</span>
+                                <span class="badge badge-warning"><%= t :invoice_unpaid %></span>
                             <% end %>
                         </h5>
                         <p class="mb-0">
@@ -34,13 +34,13 @@
 
                 <%= link_to([invoice.project, invoice], class: "dropdown-item") do %>
                     <i class="fas fa-info-circle"></i>
-                    Details
+                    <%= t :invoice_details %>
                 <% end %>
 
                 <% if !invoice.project.is_client?(user) %>
                     <%= link_to(edit_project_invoice_path(invoice.project, invoice), class: "dropdown-item") do %>
                         <i class="fas fa-edit"></i>
-                        Edit
+                        <%= t :edit %>
                     <% end %>
                 <% end %>
 
@@ -100,38 +100,10 @@
                 <% if can? :manage, invoice %>
                     <%= link_to(project_invoice_path(invoice.project, invoice), method: :delete, class: "dropdown-item") do %>
                         <i class="fas fa-trash"></i>
-                        Archive
+                        <%= t :delete %>
                         <small class="form-text text-muted">
                             Safely archive this invoice (it can be recover later)
                         </small>
-                    <% end %>
-
-                    <div class="dropdown-divider"></div>
-
-                    <%= form_with(url: upload_invoice_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
-                        <div class="py-3">
-                            <h6 class="m-0">Attach invoice</h6>
-                            <%= form.file_field :invoice, class: "form-control", style: "height: 45px;" %>
-                            <div class="text-center mt-2">
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-upload"></i> Upload invoice
-                                </button>
-                            </div>
-                        </div>
-                    <% end %>
-
-                    <div class="dropdown-divider"></div>
-
-                    <%= form_with(url: upload_payment_project_invoice_path(invoice.project, invoice), model: invoice, method: "post", local: true) do |form| %>
-                        <div class="py-3">
-                            <h6 class="m-0">Attach payment</h6>
-                            <%= form.file_field :payment, class: "form-control", style: "height: 45px;" %>
-                            <div class="text-center mt-2">
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-upload"></i> Upload payment
-                                </button>
-                            </div>
-                        </div>
                     <% end %>
                 <% end %>
             </div>

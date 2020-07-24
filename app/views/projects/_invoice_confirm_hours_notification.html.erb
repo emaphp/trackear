@@ -5,12 +5,10 @@
         <i class="fas fa-bullhorn"></i>
       </div>
       <div class="media-body">
-        <h6 class="alert-heading mb-0">Time to create the invoice!</h6>
-        <p>
-          <%= current_user.first_name %>, it's end of the month and it's time to get paid and create some invoices 🎉<br>
-          Please review your hours and amounts, if they are correct confirm to continue the process.
-        </p>
-        <%= link_to "Yes, the hours and amounts are correct", confirm_hours_project_invoice_status_path(@project, @invoice_status), method: :post %>
+        <h6 class="alert-heading mb-0"><%= t :time_to_create_invoice %></h6>
+        <p><%= t :time_to_create_invoice_message, name: current_user.first_name %></p>
+        <p><%= t :time_to_create_invoice_confirmation, period: @invoice_status.invoice_status.invoice.from.strftime('%B %Y'), hours: calculate_hours_from(@invoice_status_logs), amount: humanized_money_with_currency(calculate_invoice_amount_from(@invoice_status_logs), 'USD') %></p>
+        <%= link_to t(:time_to_create_invoice_yes_its_correct), confirm_hours_project_invoice_status_path(@project, @invoice_status), method: :post %>
       </div>
     </div>
   </div>

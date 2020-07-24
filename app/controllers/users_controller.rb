@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     @users = User.all.order(created_at: :desc)
   end
 
+  def update_locale
+    current_user.update(user_locale_params)
+    redirect_to request.referer
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show; end
@@ -80,5 +85,9 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:picture, :email, :first_name, :last_name, :is_premium, :is_admin)
+  end
+
+  def user_locale_params
+    params.require(:user).permit(:locale)
   end
 end

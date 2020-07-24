@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class ActivityTrack < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :project_contract
   has_one :invoice_entry
 
   validates :description, presence: true
-  validates :from, date: { before: :to }
-  validates :to, date: { after: :from }
-  validate :activity_is_inside_contract
+  # validates :from, date: { before: :to }
+  # validates :to, date: { after: :from }
+  # validate :activity_is_inside_contract
 
   scope :logged_in_period, ->(from, to) { where(from: from.beginning_of_day..to.end_of_day) }
 

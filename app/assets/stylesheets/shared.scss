@@ -1,0 +1,16 @@
+.shared-icon {
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+
+  &.small {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.big {
+    width: 64px;
+    height: 64px;
+  }
+}

@@ -19,10 +19,13 @@ class ActivityTracksController < ApplicationController
   # GET /activity_tracks/new
   def new
     @activity_track = ActivityTrack.new(from: Date.today)
+    MixpanelService.track(current_user, 'activity_tracks_new', { project_id: @project.id })
   end
 
   # GET /activity_tracks/1/edit
-  def edit; end
+  def edit
+    MixpanelService.track(current_user, 'activity_tracks_edit', { project_id: @project.id })
+  end
 
   # POST /activity_tracks
   # POST /activity_tracks.json
@@ -31,7 +34,8 @@ class ActivityTracksController < ApplicationController
 
     respond_to do |format|
       if @activity_track.save
-        format.html { redirect_to @project, notice: 'Activity track was successfully created.' }
+        MixpanelService.track(current_user, 'activity_tracks_create', { project_id: @project.id })
+        format.html { redirect_to @project, notice: t(:activity_track_successfully_added) }
         format.json { render :show, status: :created, location: @activity_track }
       else
         format.html { render :new }
@@ -45,7 +49,8 @@ class ActivityTracksController < ApplicationController
   def update
     respond_to do |format|
       if @activity_track.update(activity_track_params)
-        format.html { redirect_to @project, notice: 'Activity track was successfully updated.' }
+        MixpanelService.track(current_user, 'activity_tracks_update', { project_id: @project.id })
+        format.html { redirect_to @project, notice: t(:activity_track_successfully_updated) }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -59,7 +64,8 @@ class ActivityTracksController < ApplicationController
   def destroy
     @activity_track.destroy
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'Activity track was successfully destroyed.' }
+      MixpanelService.track(current_user, 'activity_tracks_destroy', { project_id: @project.id })
+      format.html { redirect_to @project, notice: t(:activity_track_successfully_destroyed) }
       format.json { head :no_content }
     end
   end

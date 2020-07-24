@@ -49,12 +49,19 @@ to be used for team members).
 Represents each entry an invoice can have. Each one of these gets created from
 the activity tracks.
 
-## How to convert my user as admin?
+### Ability
+Determines what a user can do inside of the application (authorization). This file can
+be found on `app/models/ability.rb`.
+
+## Test/preview emails
+Go to http://localhost:3000/rails/mailers
+
+## Convert user to admin
 - Run the application with `docker-compose up`
 - `docker-compose exec app bundle exec rails c`
 - `User.find_by(email: 'your@email.com').update(is_admin: true)`
 
-## Where can I see the schema of the DB?
+## DB Schema
 Review `db/schema.rb`
 
 ## Library used for session/authentication

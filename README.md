@@ -20,7 +20,8 @@ Webpack configuration can be found on `config/webpacker.yml` and `config/webpack
 ## Entities
 
 ### User
-Represents the user of the application. This entity is mostly handled by Devise.
+Represents the user of the application. This entity is mostly handled by Devise
+(see below for libraries used in the project).
 
 ### Project
 Represents the many projects a user may belong to.
@@ -41,7 +42,7 @@ contract the user has.
 
 ### Invoice
 Gets linked to a project and holds information to know if the invoice is visible or not to
-the client (`is_client_visible`)or if it is an internal invoice (meaning only intended
+the client (`is_client_visible`) or if it is an internal invoice (meaning only intended
 to be used for team members).
 
 ### Invoice entry
@@ -64,3 +65,6 @@ Review `db/schema.rb`
 
 ## Library used for currency
 [MoneyRails](https://github.com/RubyMoney/money-rails)
+
+## Library used for soft-delete
+[Acts as paranoid](https://github.com/ActsAsParanoid/acts_as_paranoid)

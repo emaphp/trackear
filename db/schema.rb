@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_144959) do
+ActiveRecord::Schema.define(version: 2020_07_27_143135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2020_06_21_144959) do
     t.datetime "updated_at", null: false
     t.bigint "project_contract_id"
     t.datetime "deleted_at"
+    t.decimal "user_rate"
+    t.decimal "project_rate"
     t.index ["deleted_at"], name: "index_activity_tracks_on_deleted_at"
     t.index ["project_contract_id"], name: "index_activity_tracks_on_project_contract_id"
   end

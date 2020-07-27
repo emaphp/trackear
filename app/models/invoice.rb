@@ -81,7 +81,7 @@ class Invoice < ApplicationRecord
       logged = contract.activity_tracks.logged_in_period(from, to)
       logged.each do |activity|
         invoice_entries.create(
-          rate: contract.project_rate,
+          rate: activity.safe_project_rate,
           activity_track: activity,
           description: activity.description,
           from: activity.from,
@@ -158,7 +158,7 @@ class Invoice < ApplicationRecord
       logged = contract.activity_tracks.logged_in_period(from, to)
       logged.each do |activity|
         invoice_entries.create(
-          rate: contract.user_rate,
+          rate: activity.safe_user_rate,
           activity_track: activity,
           description: activity.description,
           from: activity.from,

@@ -1,8 +1,7 @@
-<div style="background-color: #232f3e; color: #212121;">
-  <div style="background-color: white; font-weight: bold; text-align: center; font-family: Arial; border-radius: 5px; border: 1px solid #bbbbbb; width: 600px; margin: 25px auto; padding: 15px;">
-      <h1>trackear</h1>
-      <h3>Tiene una nueva factura por un monto de $<%= @invoice.calculate_total.round(2) %></h3>
-      <%= link_to "Ver detalle", project_invoice_url(@invoice.project, @invoice), style: "border-radius: 25px; text-decoration: none; background-color: #028ee6; padding: 15px 30px; color: white; font-size: 16px;" %>
-      <h4 style="font-weight: normal; font-style: italic;">Gracias!</h4>
+<div style="background-color: #F7FAFC; color: #212121; padding: 100px;">
+  <h1 style="text-align: center; font-family: Arial;">trackear</h1>
+  <div style="background-color: white; font-weight: bold; text-align: center; font-family: Arial; border-radius: 5px; border: 1px solid rgba(113, 128, 150, 0.15); width: 600px; margin: 25px auto; padding: 50px;">
+      <p style="font-family: Verdana; font-weight: normal; font-size: 16px; padding-bottom: 15px;">Tiene una nueva factura por un monto de $<%= @invoice.calculate_total.round(2) %></p>
+      <%= link_to "Ver detalle", project_invoice_url(@invoice.project, @invoice), style: "border-radius: 25px; text-decoration: none; background-color: #028ee6; padding: 15px 30px; color: white; font-size: 16px; margin: 15px;" %>
   </div>
 </div>

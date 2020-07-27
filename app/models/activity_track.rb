@@ -13,6 +13,17 @@ class ActivityTrack < ApplicationRecord
 
   scope :logged_in_period, ->(from, to) { where(from: from.beginning_of_day..to.end_of_day) }
 
+  after_create :set_rates_from_contract
+
+  def set_rates_from_contract
+    return unless project_contract.present?
+
+    update(
+      project_rate: project_contract.project_rate,
+      user_rate: project_contract.user_rate
+    )
+  end
+
   def hours
     return '00:00' if !to || !from
 
@@ -34,10 +45,16 @@ class ActivityTrack < ApplicationRecord
   end
 
   def calculate_user_amount
-    calculate_hours * project_contract.user_rate
+    calculate_hours * safe_user_rate
   end
 
-  def project_rate
+  def safe_user_rate
+    return user_rate if user_rate.present?
+    project_contract.user_rate
+  end
+
+  def safe_project_rate
+    return project_rate if project_rate.present?
     project_contract.project_rate
   end
 

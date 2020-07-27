@@ -8,7 +8,13 @@ const calcHours = (entry) => entry.tracks.reduce(
   0
 )
 
-const calcAmount = (entry) => calcHours(entry) * entry.contract.project_rate
+const calcAmount = (entry) => entry.tracks.reduce(
+  (amount, track) => {
+    const safeProjectRate = track.project_rate ? track.project_rate : entry.contract.project_rate;
+    return amount + (trackHours(track) * safeProjectRate)
+  },
+  0
+)
 
 const calcTotalHours = (entries) => entries.reduce(
   (totalHours, entry) => totalHours + calcHours(entry),

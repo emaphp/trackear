@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :expenses
   has_many :expense_invitations
 
+  has_many :submissions
+
   def avatar_or_default
     picture || ''
   end

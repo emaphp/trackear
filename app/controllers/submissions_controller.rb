@@ -1,7 +1,9 @@
 class SubmissionsController < ApplicationController
+    before_action :authenticate_user!
+
     def create
-        submission = Submission.new(submission_params)
-        
+        submission = current_user.submissions.new(submission_params)
+
         respond_to do |format|
             if submission.save
                 format.json { head :no_content, status: :ok } 
@@ -13,6 +15,6 @@ class SubmissionsController < ApplicationController
 
     private
         def submission_params
-            params.require(:submissions).permit(:user_id, :feedback_option_id) 
+            params.require(:submission).permit(:user_id, :feedback_option_id) 
         end
 end

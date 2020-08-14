@@ -1,6 +1,8 @@
 class OtherSubmissionsController < ApplicationController
+    before_action :authenticate_user!
+
     def create
-        other_submission = OtherSubmission.new(other_submission_params)
+        other_submission = current_user.other_submissions.new(other_submission_params)
 
         respond_to do |format|
             if other_submission.save
@@ -13,6 +15,6 @@ class OtherSubmissionsController < ApplicationController
 
     private
         def other_submission_params
-            params.require(:other_submissions).permit(:user_id, :summary)
+            params.require(:other_submission).permit(:user_id, :summary)
         end
 end

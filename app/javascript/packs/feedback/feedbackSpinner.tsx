@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     }
 })
 
-const feedbackSpinner = () => {
+const feedbackSpinner: React.FC = () => {
     const classes = useStyles();
     return (
         <CircularProgress classes={{ colorPrimary: classes.colorPrimary }}/>

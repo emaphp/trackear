@@ -1,84 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import SubmitButton from './submitButton';
+import SummaryTextArea from './summaryTextArea';
+import FeedbackOption from './feedbackOption';
+import { Option, FeedbackFormState } from './feedbackTypes';
 
-const SubmitButton = ({ disabled }) => (
-    <button 
-        type="submit"
-        disabled={disabled}
-        className="btn btn-primary btn-lg w-100 submit-button"
-    >
-        Enviar feedback
-    </button>
-);
-
-interface IFeedbackOption {
-    checked: boolean,
-    value: string,
-    name: string,
-    onChange: () => {},
-    title: string,
-    description?: string
+interface FeedbackForm {
+    onSubmit: (formState: FeedbackFormState) => void,
+    options: Option[]
 }
 
-const FeedbackOption = ({ checked, name, value, onChange, title, description }: IFeedbackOption ) => (
-    <label className="d-flex align-items-center feedback-option-item">
-        <input
-            type="radio" 
-            value={value}
-            checked={checked}
-            onChange={onChange}
-            name={name}
-        />
-        <div className="d-flex flex-column">
-            <span className="font-weight-bold">{title}</span>
-            <span>{description}</span>
-        </div>
-    </label>
-);
-
-const OtherDescription = ({ value, onChange }) => (
-    <div className="d-flex flex-column description-container">
-        <p className="other-title">Otro problema</p>
-        <textarea
-            className="w-100 description-area"
-            value={value}
-            onChange={onChange}
-            rows={5}
-            name="other-description"
-        />
-    </div>
-);
-
-
-const FeedbackForm = props => {
-    const { onSuccess, options } = props;
-    const [ formState, setFormState ] = useState({
+const FeedbackForm: React.FC<FeedbackForm> = props => {
+    const { onSubmit, options } = props;
+    const [ formState, setFormState ] = useState<FeedbackFormState>({
         selectedOption: undefined,
-        description: ''
+        summary: ''
     });
-    const isOtherSelected = formState.selectedOption === 'other';
+    const isOtherSelected = formState.selectedOption === -1;
 
-    function handleInputChange(e) {
+    function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { value, name } = e.target;
+        const isSummaryChange = name === 'summary';
         setFormState({
             ...formState,
-            selectedOption: name.includes('other') ? 'other' : value,
-            description: name === 'other-description' ? value : ''
+            selectedOption: isSummaryChange ? -1 : parseInt(value),
+            summary: isSummaryChange ? value : ''
         })
     }
 
-    function handleOnSubmit(e) {
+    function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        onSuccess();
+        onSubmit(formState);
     }
 
-    const fetchedOptions = options.map(({ id, ...optionDetails }) => (
+    const fetchedOptions: JSX.Element[] = options.map(({ id, title, summary }: Option) => (
         <FeedbackOption 
-            key={id}
+            key={id.toString()}
             name="feedback"
             checked={formState.selectedOption === id}
             onChange={handleInputChange}
             value={id}
-            {...optionDetails}
+            title={title}
+            summary={summary}
         />
     ));    
 
@@ -89,15 +51,15 @@ const FeedbackForm = props => {
                 <div className="d-flex flex-column flex-grow-1">
                     {fetchedOptions}
                     {isOtherSelected ? (
-                        <OtherDescription 
+                        <SummaryTextArea 
                             onChange={handleInputChange}
-                            value={formState.description}
+                            value={formState.summary}
                         />
                     ) : (
                         <FeedbackOption 
                             checked={false}
                             onChange={handleInputChange}
-                            value="other"
+                            value={-1}
                             title="Otro"
                             name="other"
                         />

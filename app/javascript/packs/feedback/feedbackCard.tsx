@@ -1,54 +1,97 @@
 // vendors
 import React, { useState, useEffect } from 'react';
+import * as Rails from "@rails/ujs"
+import axios from 'axios';
 import SubmitSucceded from './submitSucceded';
 import FeedbackForm from './feedbackForm';
 import FeedbackSpinner from './feedbackSpinner';
+import { Option, FeedbackFormState } from './feedbackTypes';
 
-const mockData = [
-  {
-      id: '0',
-      title: 'Reportes',
-      description: 'Horas trabajadas, ganancias, etc.'
-  },
-  {
-      id: '1',
-      title: 'AFIP',
-      description: 'Tramites e inicio en AFIP'
-  },
-  {
-      id: '2',
-      title: 'Lorem Ipsum',
-      description: 'Lorem ipsum dolor sit amet '
-  }
-];
+interface FeedbackCard {
+  onClose: () => {}
+}
 
-const FeedbackCard = props => {
+interface FeedbackCardState {
+  success: boolean,
+  loading: boolean,
+  options: Option[]
+}
+
+const FeedbackCard: React.FC<FeedbackCard> = props => {
   const { onClose } = props;
-  const [ success, setSuccess ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
-  const [ options, setOptions ] = useState([]);
+  const [ fetchState, setFetchState ] = useState<FeedbackCardState>({
+    success: false,
+    loading: true,
+    options: []
+  });
 
-  async function getOptions() {
-    setLoading(true);
-    setTimeout(() => {
-      setOptions(mockData)
-      setLoading(false);
-    }, 3000);
+  function startLoading(): void {
+    setFetchState({
+      ...fetchState,
+      loading: true
+    });
+  }
+
+  function stopLoading(): void {
+    setFetchState({
+      ...fetchState,
+      loading: false
+    });
+  }
+
+  function saveOptions(options: Option[]): void {
+    setFetchState({
+      ...fetchState,
+      loading: false,
+      options
+    })
+  }
+
+  function showMessage(): void {
+    setFetchState({
+      ...fetchState,
+      loading: false,
+      success: true
+    })
+  }
+
+  async function getOptions(): Promise<void> {
+    startLoading()
+    const service = '/feedback_options.json';
+    axios.get(service)
+      .then(res => saveOptions(res.data))
+      .catch(e => {
+        const limitReached= e.response.status === 403;
+        if (limitReached) {
+          showMessage()
+        } else {
+          onClose()
+        }
+      });
   } 
 
-  async function submit() {
-    setLoading(true);
-    setTimeout(() => {
-      setSuccess(true)
-      setLoading(false);
-    }, 3000);
+  async function submit(formState: FeedbackFormState): Promise<void>{
+    startLoading()
+    const token = Rails.csrfToken();
+    const isOther= formState.selectedOption === -1;
+    const service = `/${isOther ? 'other_' : ''}submissions.json`;
+    const payload = {
+      authenticity_token: token,
+      feedback_option_id: formState.selectedOption,
+      summary: formState.summary
+    };
+
+    axios.post(service, payload)
+      .then(res => showMessage())
+      .catch(e => stopLoading())
   }
 
   useEffect(() => {
     getOptions();
   }, []);
 
-  function renderContent() {
+  function renderContent(): JSX.Element {
+    const { loading, success, options } = fetchState;
     if (loading) {
       return <FeedbackSpinner />
     }
@@ -58,7 +101,7 @@ const FeedbackCard = props => {
     return (
       <FeedbackForm 
         options={options}
-        onSuccess={() => submit()}
+        onSubmit={submit}
       />
     )
   }

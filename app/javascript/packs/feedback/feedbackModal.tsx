@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import FloatingButton from './floatingButton';
 import FeedbackCard from './feedbackCard';
 
-const FeedbackModal = () => {
-    const [ open, setOpen ] = useState(false);
+const FeedbackModal: React.FC = () => {
+    const [ open, setOpen ] = useState<boolean>(false);
 
     function toggleModal() {
         setOpen(!open);
@@ -12,9 +12,9 @@ const FeedbackModal = () => {
 
     useEffect(() => {
         if (open && window.innerWidth < 600) {
-            document.body.style.overflowY = 'hidden'
+            document.body.classList.add('hide-scrollbar');
         } else {
-            document.body.style.overflowY = 'scroll'
+            document.body.classList.remove('hide-scrollbar');
         }
     }, [ open ]);
 

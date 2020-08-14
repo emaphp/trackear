@@ -1,6 +1,10 @@
 import React from 'react';
 
-const FloatingButton = (props) => {
+interface FloatingButtonProps {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+}
+
+const FloatingButton: React.FC<FloatingButtonProps> = (props) => {
   const { onClick } = props;
   return (
     <button 

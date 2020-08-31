@@ -1,0 +1,139 @@
+$blue: #6992FF;
+// feedback general config
+$feedback-container-offset: 20px;
+// floating button
+$button-width: 66px !important;
+$button-bg-color: $blue !important;
+// modal card
+$card-width: 415px;
+$card-height: (638px / 415px) * $card-width;
+
+.feedback-modal-container {
+    position: fixed;
+    right: $feedback-container-offset;
+    bottom: $feedback-container-offset;
+}
+
+.hide-scrollbar {
+    overflow-y: hidden !important;
+}
+
+.floating-button {
+    width: $button-width;
+    height: $button-width;
+    border-radius: 50% !important;
+    box-shadow: 0px 4px 10px #A2B5E8 !important;
+    outline: none !important;
+    cursor: pointer; 
+    background-color: $button-bg-color;
+
+    .floating-button-icon {
+        color: #fff;
+        font-size: 24px;
+    }
+}
+
+.feedback-card-container {
+    position: relative;
+    width: $card-width;
+    height: $card-height;
+    border-radius: 15px;
+    padding: 50px 45px !important;
+
+    .close-icon {
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        cursor: pointer;
+    }
+}
+
+.feedback-form-container {
+    p {
+        font-size: 18px;
+    }
+
+    .summary-container {
+        margin-top: 20px;
+
+        .other-title {
+            margin-bottom: 5px;
+        }
+    
+        .summary-area {
+            resize: none;
+            box-sizing: border-box;
+            border: 1px solid #A2B5E8;
+            border-radius: 5px;
+        }
+    }
+
+    .submit-button {
+        background-color: $button-bg-color;
+        border: none;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: #81a0f3 !important;
+        }
+
+        &:disabled {
+            background-color: #81a0f3 !important;
+            cursor: auto;
+        }
+    }
+}
+
+.feedback-option-item {
+    height: 66px;
+    background-color: #F2F5FD;
+    border-radius: 3px;
+    padding: 12px 15px 12px 20px;
+    font-size: 16px;
+    line-height: 150%;
+    cursor: pointer;
+
+    input {
+        margin-right: 10px;
+    }
+
+    h5 {
+        font-weight: bold;
+    }
+}
+
+.heart-icon {
+    width: 66px;
+    height: 66px;
+    background-color: #F2F5FD;
+    color: $blue;
+    border-radius: 50%;
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 600px) {
+    .feedback-card-container {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .feedback-option-item {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .feedback-option-item {
+        font-size: 12px;
+    }
+
+    .feedback-form-container {
+        p {
+            font-size: 14px;
+        }
+    }    
+}

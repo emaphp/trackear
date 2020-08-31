@@ -66,6 +66,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :feedback_options, only: [:index]
+  resources :submissions, only: [:create]
+  resources :other_submissions, only: [:create]
+
   scope 'slack' do
     post 'log', to: 'slack#log'
   end

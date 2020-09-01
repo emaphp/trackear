@@ -1,4 +1,6 @@
 ## Installation Docker
+- Make a copy of `env.sample.yml` and name it `env.yml`
+- Make sure to complete with a valid GOOGLE API KEY (https://console.developers.google.com/)
 - `docker-compose up`
 - `docker-compose exec app bundle exec rails db:create db:migrate`
 - Go to http://localhost:3000/ (first time may take a while since assets are being compiled)

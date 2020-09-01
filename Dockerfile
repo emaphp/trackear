@@ -6,11 +6,17 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN apt-get update -qq && apt-get install -y nodejs yarn postgresql-client
 
-COPY Gemfile* /tmp/
 WORKDIR /tmp
+
+COPY Gemfile* ./
+COPY package*.json ./
+
 RUN gem install bundler
 RUN bundle install
 
+RUN yarn
+
 RUN mkdir -p /var/www/app
+
+COPY . /var/www/app
 WORKDIR /var/www/app
-COPY . ./

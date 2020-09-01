@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_143135) do
+ActiveRecord::Schema.define(version: 2020_08_09_185019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(version: 2020_07_27_143135) do
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
+  create_table "feedback_options", force: :cascade do |t|
+    t.string "title"
+    t.text "summary"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -129,6 +136,14 @@ ActiveRecord::Schema.define(version: 2020_07_27_143135) do
     t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
     t.index ["project_id"], name: "index_invoices_on_project_id"
     t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
+
+  create_table "other_submissions", force: :cascade do |t|
+    t.text "summary"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_other_submissions_on_user_id"
   end
 
   create_table "project_contracts", force: :cascade do |t|
@@ -201,6 +216,15 @@ ActiveRecord::Schema.define(version: 2020_07_27_143135) do
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "feedback_option_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feedback_option_id"], name: "index_submissions_on_feedback_option_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -246,6 +270,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_143135) do
   add_foreign_key "invoice_statuses", "invoices"
   add_foreign_key "invoice_statuses", "users"
   add_foreign_key "invoices", "projects"
+  add_foreign_key "other_submissions", "users"
   add_foreign_key "project_contracts", "projects"
   add_foreign_key "project_contracts", "users"
   add_foreign_key "project_invitations", "projects"
@@ -257,4 +282,6 @@ ActiveRecord::Schema.define(version: 2020_07_27_143135) do
   add_foreign_key "report_worker_entries", "users"
   add_foreign_key "reports", "projects"
   add_foreign_key "reports", "users"
+  add_foreign_key "submissions", "feedback_options"
+  add_foreign_key "submissions", "users"
 end

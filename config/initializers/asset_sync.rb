@@ -2,6 +2,17 @@
 
 if defined?(AssetSync)
   AssetSync.configure do |config|
+    config.run_on_precompile = false
+
+    config.add_local_file_paths do
+      # Support webpacker assets
+      public_root = Rails.root.join("public")
+      Dir.chdir(public_root) do
+        packs_dir = Webpacker.config.public_output_path.relative_path_from(public_root)
+        Dir[File.join(packs_dir, '/**/**')]
+      end
+    end
+
     config.fog_provider = 'AWS'
     config.aws_access_key_id = Rails.application.credentials.aws_access_key_id
     config.aws_secret_access_key = Rails.application.credentials.aws_secret_access_key
@@ -53,7 +64,7 @@ if defined?(AssetSync)
     # config.remote_file_list_cache_file_path = './.asset_sync_remote_file_list_cache.json'
     #
     # Fail silently.  Useful for environments such as Heroku
-    # config.fail_silently = true
+    config.fail_silently = false
     #
     # Log silently. Default is `true`. But you can set it to false if more logging message are preferred.
     # Logging messages are sent to `STDOUT` when `log_silently` is falsy

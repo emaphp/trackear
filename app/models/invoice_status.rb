@@ -10,6 +10,7 @@ class InvoiceStatus < ApplicationRecord
 
   scope :with_news, -> { where('invoice_statuses.last_checked is null or invoice_statuses.last_checked < invoice_statuses.updated_at') }
   scope :for_members, -> { where('invoice_statuses.invoice_status_id is not null') }
+  scope :in_process, -> { where.not(status: :user_complete).where.not(status: :admin_complete) }
   scope :for_project, lambda { |project|
     joins(invoice_status: [:invoice])
       .where({ invoice_status: { invoices: { project: project } } })
@@ -28,6 +29,10 @@ class InvoiceStatus < ApplicationRecord
     user_paying_in_progress: 'user_paying_in_progress',
     user_complete: 'user_complete'
   }
+
+  def is_completed?
+    user_complete? || admin_complete?
+  end
 
   def has_news?
     last_checked.nil? || last_checked < updated_at
@@ -51,13 +56,21 @@ class InvoiceStatus < ApplicationRecord
   end
 
   def admin_add_client_payment(exchange)
-    invoice_statuses.each do |member_status|
+    members_in_process = invoice_statuses.in_process
+
+    if members_in_process.count == 0
+      update(status: :admin_complete)
+      return
+    end
+
+    invoice_statuses.in_process.each do |member_status|
       member_status.invoice.exchange = exchange
       member_status.invoice.save
 
       member_status.status = :user_client_paid
       member_status.save
     end
+
     update(status: :admin_client_paid)
   end
 
@@ -70,7 +83,7 @@ class InvoiceStatus < ApplicationRecord
   end
 
   def admin_client_notification_sent
-    invoice_statuses.each do |member_status|
+    invoice_statuses.in_process.each do |member_status|
       member_status.status = :user_waiting_for_client_payment
       member_status.save
     end
@@ -95,8 +108,16 @@ class InvoiceStatus < ApplicationRecord
 
   def confirm_team_member_hours
     client_invoice = invoice_status.invoice
-    self.invoice = user.invoices.new_team_member_invoice(client_invoice)
+    invoice = user.invoices.new_team_member_invoice(client_invoice)
+
+    self.invoice = invoice
     self.status = :user_waiting_for_client_payment
+    save
+
+    # Refactor, this code is fragile since
+    # we have to make sure the invoice is saved
+    # before being able to calculate its total
+    self.status = :user_complete if invoice.calculate_total == 0
     save
   end
 

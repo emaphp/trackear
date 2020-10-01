@@ -66,6 +66,8 @@ class Invoice < ApplicationRecord
     true
   end
 
+  # Upload/attach an invoice file and
+  # update invoice status if required
   def add_invoice(params)
     update(params)
     invoice_status.user_add_invoice unless is_client_visible?
@@ -134,11 +136,30 @@ class Invoice < ApplicationRecord
   end
 
   def is_paid?
+    return true if calculate_total == 0 && invoice_status.is_completed?
+
     payment.present?
   end
 
   def is_unpaid?
     !is_paid?
+  end
+
+  def build_entries_without_saving
+    contracts = project.project_contracts.where(user: user)
+
+    contracts.each do |contract|
+      logged = contract.activity_tracks.logged_in_period(from, to)
+      logged.each do |activity|
+        invoice_entries.build(
+          rate: activity.safe_user_rate,
+          activity_track: activity,
+          description: activity.description,
+          from: activity.from,
+          to: activity.to
+        )
+      end
+    end
   end
 
   private
@@ -152,19 +173,7 @@ class Invoice < ApplicationRecord
   end
 
   def create_entries_for_member_invoice
-    contracts = project.project_contracts.where(user: user)
-
-    contracts.each do |contract|
-      logged = contract.activity_tracks.logged_in_period(from, to)
-      logged.each do |activity|
-        invoice_entries.create(
-          rate: activity.safe_user_rate,
-          activity_track: activity,
-          description: activity.description,
-          from: activity.from,
-          to: activity.to
-        )
-      end
-    end
+    build_entries_without_saving
+    save
   end
 end

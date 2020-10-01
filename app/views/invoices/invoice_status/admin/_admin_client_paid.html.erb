@@ -11,7 +11,7 @@
       </h4>
       <p class="lead">Time to make the payments to the team members!</p>
 
-      <% @invoice_status.invoice_statuses.each do |member_status| %>
+      <% @invoice_status.invoice_statuses.in_process.each do |member_status| %>
         <div class="p-3 rounded-pill mb-3 border d-flex align-items-center">
           <div class="flex-grow-1 d-flex align-items-center">
             <%= image_tag member_status.user.picture || '', class: "avatar mr-3" %>

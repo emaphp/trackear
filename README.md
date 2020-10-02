@@ -28,6 +28,7 @@ Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
 
 - Install [RVM](https://rvm.io/) on your server.
 - Install [NVM](https://github.com/nvm-sh/nvm) on your server
+- Install `nginx` in your server (ie `sudo apt install nginx`)
 - Install `ruby` in your server with `rvm install ruby-2.6.6`
 - Install `bundler` on your server with `gem install bundler`
 - Install `node` in your server with `nvm install node`
@@ -36,6 +37,7 @@ Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
 - Store `fullchain.pem` & `privkey.pem` from your certificate under `cert/<environment>`, where `environment` is development, production or whatever your environment name is. DO NOT commit these files.
 - Update `deploy/<environment>.rb` with your server's credentials, ie: `server "YOUR-IP", user: "root", roles: %w{app db web}`
 - Deploy with `bundle exec cap <environment> deploy`
+- Restart nginx to pick the new configuration up (ie `sudo nginx -t && sudo systemctl reload nginx`)
 
 ## FAQ
 Please review our FAQ.md file.

@@ -23,7 +23,7 @@ You can use it for free in https://www.trackear.app/.
 ## ENTITIES
 Please review our ENTITIES.md file for more information about the entities / models (users, invoices, etc.) in the project.
 
-## Deploy
+## DEPLOY
 Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
 
 - Install [RVM](https://rvm.io/) on your server.

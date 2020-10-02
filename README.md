@@ -31,6 +31,7 @@ Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
 - Install `ruby` in your server with `rvm install ruby-2.6.6`
 - Install `bundler` on your server with `gem install bundler`
 - Install `node` in your server with `nvm install node`
+- Install `yarn` in your server with `npm i -g yarn`
 - Create [SSL certificate](https://letsencrypt.org/) (ie certbot -d *.example.com -d example.com --manual --preferred-challenges dns certonly)
 - Store `fullchain.pem` & `privkey.pem` from your certificate under `cert/<environment>`, where `environment` is development, production or whatever your environment name is. DO NOT commit these files.
 - Update `deploy/<environment>.rb` with your server's credentials, ie: `server "YOUR-IP", user: "root", roles: %w{app db web}`

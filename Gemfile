@@ -45,6 +45,12 @@ group :development do
   gem 'letter_opener'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano', '~> 3.10', require: false
+  gem 'capistrano-rails', '~> 1.6', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-nvm', require: false
+  gem 'capistrano-bundler', '~> 2.0', require: false
+  gem 'capistrano3-puma', require: false
 end
 
 group :test do

@@ -23,6 +23,18 @@ You can use it for free in https://www.trackear.app/.
 ## ENTITIES
 Please review our ENTITIES.md file for more information about the entities / models (users, invoices, etc.) in the project.
 
+## Deploy
+Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
+
+- Install [RVM](https://rvm.io/) on your server.
+- Install [NVM](https://github.com/nvm-sh/nvm) on your server
+- Install `ruby` in your server with `rvm install ruby-2.6.6`
+- Install `bundler` on your server with `gem install bundler`
+- Install `node` in your server with `nvm install node`
+- Create an ssl certificate and store it under `cert/<environment>`, where `environment` is development, production or whatever your environment name is. DO NOT commit these files.
+- Update `deploy/<environment>.rb` with your server's credentials, ie: `server "YOUR-IP", user: "root", roles: %w{app db web}`
+- Deploy with `bundle exec cap <environment> deploy`
+
 ## FAQ
 Please review our FAQ.md file.
 

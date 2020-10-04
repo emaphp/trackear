@@ -4,16 +4,14 @@ namespace :nvm do
   namespace :webpacker do
     task :validate => [:'nvm:map_bins'] do
       on release_roles(fetch(:nvm_roles)) do
-        within release_path do
-          if !test('node', '--version')
-            warn "node is not installed"
-            exit 1
-          end
+        if !test('node', '--version')
+          warn "node is not installed"
+          exit 1
+        end
 
-          if !test('yarn', '--version')
-            warn "yarn is not installed"
-            exit 1
-          end
+        if !test('yarn', '--version')
+          warn "yarn is not installed"
+          exit 1
         end
       end
     end

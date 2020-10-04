@@ -26,7 +26,7 @@ module App
 
     config.before_configuration do
       env_file = File.join(Rails.root, 'env.yml')
-      if File.exist?(env_file) && ENV['RAILS_ENV'] != 'production'
+      if File.exist?(env_file)
         YAML.safe_load(File.open(env_file)).each do |key, value|
           ENV[key.to_s] = value
         end

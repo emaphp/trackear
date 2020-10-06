@@ -99,7 +99,7 @@ class Invoice < ApplicationRecord
     return unless is_client_visible?
 
     update(is_visible: true)
-    InvoiceMailer.invoice_notify(self).deliver
+    # InvoiceMailer.invoice_notify(self).deliver
     invoice_status.admin_client_notification_sent
   end
 

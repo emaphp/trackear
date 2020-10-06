@@ -116,7 +116,7 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
+  config.action_mailer.default_url_options = { host: Rails.application.credentials.domain }
 
   config.action_mailer.asset_host = "https://#{Rails.application.credentials.fog_directory}"
 

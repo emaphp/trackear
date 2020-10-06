@@ -1,33 +1,33 @@
-module Page exposing (..)
+module Layout exposing (..)
 
 import Browser exposing (Document)
 import Element exposing (Element, alignTop, centerX, fill, height, image, link, padding, rgb255, row, spacing, text, width)
 import Element.Background as Background
 import Element.Font as Font
 import Shared.Box
-import User exposing (Profile)
+import User exposing (User)
 
 
 type Page
     = Home
 
 
-view : Maybe Profile -> Document msg
+view : Maybe User -> Document msg
 view profile =
     { title = "Page "
     , body = [ Element.layout [ height fill ] (root profile) ]
     }
 
 
-root : Maybe Profile -> Element msg
+root : Maybe User -> Element msg
 root profile =
     row [ width fill, height fill ]
         [ header profile
-        , Shared.Box.box [ text "Something" ]
+        , Shared.Box.box [ link [] { url = "/project/42", label = text "Something" } ]
         ]
 
 
-profileName : Profile -> String
+profileName : User -> String
 profileName profile =
     case profile.first_name of
         Just name ->
@@ -37,7 +37,7 @@ profileName profile =
             "Guest"
 
 
-authenticatedHeader : Profile -> Element msg
+authenticatedHeader : User -> Element msg
 authenticatedHeader profile =
     row [ width fill, alignTop, padding 15, Background.color (rgb255 35 47 62), Font.color (rgb255 255 255 255) ]
         [ row
@@ -50,7 +50,7 @@ authenticatedHeader profile =
         ]
 
 
-header : Maybe Profile -> Element msg
+header : Maybe User -> Element msg
 header maybeProfile =
     case maybeProfile of
         Just profile ->

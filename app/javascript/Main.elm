@@ -4,15 +4,13 @@ import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Http
-import Page
-import ProjectContract exposing (ProjectContract)
+import Layout
+import Page.Home
+import Page.Project
+import Route exposing (Route(..))
+import Session
 import Url
 import User exposing (..)
-
-
-
--- MAIN
 
 
 main : Program () Model Msg
@@ -27,65 +25,103 @@ main =
         }
 
 
-
--- MODEL
-
-
-type alias Model =
-    { key : Nav.Key
-    , url : Url.Url
-    , profile : Maybe Profile
-    }
+type Model
+    = Home Page.Home.Model
+    | Project Page.Project.Model
+    | Redirect Session.Model
+    | NotFound Session.Model
 
 
 type Msg
     = LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
-    | GotProfile (Result Http.Error Profile)
-    | GotActiveContracts (Result Http.Error (List ProjectContract))
+    | HomeMsg Page.Home.Msg
+    | ProjectMsg Page.Project.Msg
 
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
-    ( Model key url Nothing
-    , User.getProfile GotProfile
-    )
+init _ url key =
+    let
+        session =
+            { key = key, user = Nothing }
+    in
+    changeRouteTo (Route.urlToRoute url) (Redirect session)
 
 
+changeRouteTo : Route -> Model -> ( Model, Cmd Msg )
+changeRouteTo route model =
+    let
+        session =
+            sessionFromModel model
+    in
+    case route of
+        Route.NotFound ->
+            ( NotFound session, Cmd.none )
 
--- UPDATE
+        Route.Home ->
+            Page.Home.init session
+                |> updateWith Home HomeMsg model
+
+        Route.Project id ->
+            Page.Project.init session
+                |> updateWith Project ProjectMsg model
+
+
+updateWith :
+    (subModel -> Model)
+    -> (subMsg -> Msg)
+    -> Model
+    -> ( subModel, Cmd subMsg )
+    -> ( Model, Cmd Msg )
+updateWith toModel toMsg model ( subModel, subCmd ) =
+    ( toModel subModel, Cmd.map toMsg subCmd )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         LinkClicked urlRequest ->
-            case urlRequest of
-                Browser.Internal url ->
-                    ( model, Nav.pushUrl model.key (Url.toString url) )
-
-                Browser.External href ->
-                    ( model, Nav.load href )
+            linkClicked urlRequest model
 
         UrlChanged url ->
-            ( { model | url = url }
-            , Cmd.none
-            )
+            changeRouteTo (Route.urlToRoute url) model
 
-        GotProfile (Ok profile) ->
-            ( { model | profile = Just profile }
-            , ProjectContract.getActiveContracts GotActiveContracts
-            )
-
-        GotProfile (Err error) ->
+        HomeMsg homeMsg ->
             ( model, Cmd.none )
 
-        GotActiveContracts activeContracts ->
+        ProjectMsg projectMsg ->
             ( model, Cmd.none )
 
 
+linkClicked : Browser.UrlRequest -> Model -> ( Model, Cmd Msg )
+linkClicked urlRequest model =
+    case urlRequest of
+        Browser.Internal url ->
+            ( model, Nav.pushUrl (keyFromModel model) (Url.toString url) )
 
--- SUBSCRIPTIONS
+        Browser.External href ->
+            ( model, Nav.load href )
+
+
+sessionFromModel : Model -> Session.Model
+sessionFromModel model =
+    case model of
+        Home homeModel ->
+            homeModel.session
+
+        Project projectModel ->
+            projectModel.session
+
+        Redirect session ->
+            session
+
+        NotFound session ->
+            session
+
+
+keyFromModel : Model -> Nav.Key
+keyFromModel model =
+    (sessionFromModel model).key
 
 
 subscriptions : Model -> Sub Msg
@@ -93,10 +129,6 @@ subscriptions _ =
     Sub.none
 
 
-
--- VIEW
-
-
 view : Model -> Browser.Document Msg
 view model =
-    Page.view model.profile
+    Layout.view Nothing

@@ -5,7 +5,7 @@ import Json.Decode as Decode exposing (Decoder, bool, nullable, string)
 import Json.Decode.Pipeline exposing (optional, required)
 
 
-type alias Profile =
+type alias User =
     { email : String
     , first_name : Maybe String
     , last_name : Maybe String
@@ -14,9 +14,9 @@ type alias Profile =
     }
 
 
-decoder : Decoder Profile
+decoder : Decoder User
 decoder =
-    Decode.succeed Profile
+    Decode.succeed User
         |> required "email" string
         |> required "first_name" (nullable string)
         |> required "last_name" (nullable string)

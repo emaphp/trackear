@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
+  get '/me', to: 'home#me', as: 'home_me'
+  get '/projects', to: 'home#projects', as: 'home_projects'
+  get '/active_contracts', to: 'home#active_contracts', as: 'home_active_contracts'
+
   match '/404', to: 'error#not_found', via: :all
   match '/422', to: 'error#unacceptable', via: :all
   match '/500', to: 'error#internal_error', via: :all

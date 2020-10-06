@@ -123,5 +123,4 @@
   <script>
     window.data = <%= @all_expenses.reorder(from: :asc).map{ |expense| { name: expense.from.strftime("%d %B %Y"), Spended: expense.price.to_i } }.to_json.html_safe %>
   </script>
-  <%= javascript_pack_tag 'expenses/index' %>
 </div>

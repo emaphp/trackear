@@ -4,9 +4,8 @@ default: &default
   source_path: app/javascript
   source_entry_path: packs
   public_root_path: public
-  public_output_path: assets
+  public_output_path: packs
   cache_path: tmp/cache/webpacker
-  compile: true
   webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
@@ -34,9 +33,7 @@ default: &default
     - .woff2
 
   extensions:
-    - .tsx
-    - .ts
-    - .jsx
+    - .elm
     - .mjs
     - .js
     - .sass
@@ -87,12 +84,10 @@ production:
   <<: *default
 
   # Production depends on precompilation of packs prior to booting for performance.
-  compile: true
+  compile: false
 
   # Extract and emit a css file
-  # extract_css: true
+  extract_css: true
 
   # Cache manifest.json for performance
-  # cache_manifest: false
-
-  check_yarn_integrity: false
+  cache_manifest: true

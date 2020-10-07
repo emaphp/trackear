@@ -106,3 +106,5 @@ gem 'acts_as_paranoid', '~> 0.6.3'
 gem 'webpacker', '~> 5.1'
 
 gem 'sitemap_generator'
+
+gem 'breadcrumbs_on_rails'

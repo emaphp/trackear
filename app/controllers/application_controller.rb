@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   layout :choose_layout
   around_action :switch_locale
+  add_breadcrumb "Home", :home_path
 
   private
 

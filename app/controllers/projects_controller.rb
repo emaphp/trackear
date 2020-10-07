@@ -85,6 +85,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    add_breadcrumb "Create project", :new_project_path
   end
 
   # GET /projects/1/edit

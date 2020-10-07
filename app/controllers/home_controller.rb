@@ -9,19 +9,5 @@ class HomeController < ApplicationController
     end
   end
 
-  def me
-    render json: current_user
-  end
-
-  def projects
-    render json: current_user.projects
-  end
-
-  def active_contracts
-    active_contracts = current_user.project_contracts.currently_active
-    active_contracts_with_projects = active_contracts.includes(:project)
-    render json: active_contracts_with_projects.to_json(include: :project)
-  end
-
   def solutions; end
 end

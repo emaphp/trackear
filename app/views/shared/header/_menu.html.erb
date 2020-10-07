@@ -1,60 +1,43 @@
-<nav class="navbar navbar-expand-lg navbar-light py-2">
-  <div class="container">
+<nav class="bg-gray-900">
+  <div class="mx-auto container px-4 flex items-center justify-between h-16">
     <a class="navbar-brand" href="/">
-      <span class="text-white font-weight-bold">trackear</span>
+      <span class="text-white font-bold">trackear</span>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">
-            <i class="fas fa-home mr-2"></i>
-            <%= t :home %>
-          </a>
-        </li>
-        <li class="nav-item">
-          <%= link_to(new_project_path, class: "nav-link") do %>
-            <i class="far fa-plus-square mr-2"></i>
-            <%= t :create_new_project %>
-          <% end %>
-        </li>
-        <% if can? :manage, Expense %>
-          <li class="nav-item">
-            <%= link_to(expenses_path, class: "nav-link") do %>
-              <i class="fas fa-wallet mr-2"></i>
-              <%= t :expenses %>
-            <% end %>
-          </li>
+    <div class="flex items-center justify-between text-white">
+      <a class="px-3 mx-2" href="/">
+        <i class="fas fa-home mr-2"></i>
+        <%= t :home %>
+      </a>
+      <%= link_to(new_project_path, class: "px-3 mx-2") do %>
+        <i class="far fa-plus-square mr-2"></i>
+        <%= t :create_new_project %>
+      <% end %>
+      <% if can? :manage, Expense %>
+        <%= link_to(expenses_path, class: "px-3 mx-2") do %>
+          <i class="fas fa-wallet mr-2"></i>
+          <%= t :expenses %>
         <% end %>
-        <% if can? :manage, User %>
-          <li class="nav-item">
-            <%= link_to(users_path, class: "nav-link") do %>
-              <i class="fas fa-users mr-2"></i>
-              <%= t :users %>
-            <% end %>
-          </li>
+      <% end %>
+      <% if can? :manage, User %>
+        <%= link_to(users_path, class: "px-3 mx-2") do %>
+          <i class="fas fa-users mr-2"></i>
+          <%= t :users %>
         <% end %>
-        <% if session[:impersonating_from].present? %>
-          <li class="nav-item">
-            <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
-              <i class="fas fa-sign-out-alt mr-2"></i>
-              <%= t :exit_impersionate, email: current_user.email %>
-            <% end %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
-              <i class="fas fa-sign-out-alt mr-2"></i>
-              <%= t :logout, email: current_user.first_name %>
-            <% end %>
-          </li>
+      <% end %>
+      <% if session[:impersonating_from].present? %>
+        <%= link_to(destroy_user_session_path, method: :delete, class: "px-3 mx-2") do %>
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          <%= t :exit_impersionate, email: current_user.email %>
         <% end %>
-      </ul>
-      <%= form_with(model: current_user, url: user_update_locale_url, method: :post, local: true, class: "form-inline my-2 my-lg-0") do |form| %>
-        <%= form.select :locale, [['🇦🇷 Español', 'es'], ['🇺🇸 English', 'en']], {}, onchange: "this.form.submit()", class: "form-control" %>
+      <% else %>
+        <%= link_to(destroy_user_session_path, method: :delete, class: "px-3 mx-2") do %>
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          <%= t :logout, email: current_user.first_name %>
+        <% end %>
       <% end %>
     </div>
+    <%= form_with(model: current_user, url: user_update_locale_url, method: :post, local: true, class: "form-inline my-2 my-lg-0") do |form| %>
+      <%= form.select :locale, [['🇦🇷 Español', 'es'], ['🇺🇸 English', 'en']], {}, onchange: "this.form.submit()", class: "px-3 py-2 rounded bg-white" %>
+    <% end %>
   </div>
 </nav>

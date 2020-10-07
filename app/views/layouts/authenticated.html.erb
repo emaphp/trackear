@@ -3,12 +3,9 @@
   <head>
     <%= render "shared/header/metatags" %>
     <%= render "shared/header/styles" %>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
     <script async defer data-domain="trackear.app" src="https://plausible.io/js/plausible.js"></script>
   </head>
-  <body class="min-h-screen bg-gray-100">
+  <body class="min-h-screen bg-gray-200">
     <%= render "shared/header/menu" %>
     <%= render "shared/header/alert" %>
     <div class="container mx-auto">
@@ -16,6 +13,5 @@
     </div>
     <div id="feedback-modal"></div>
     <%= render "shared/footer/footer" %>
-    <%= render "shared/footer/javascript" %>
   </body>
 </html>

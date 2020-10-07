@@ -1,4 +1,4 @@
-<h4><%= t :your_projects %></h4>
+<h4 class="text-lg font-bold my-3"><%= t :your_projects %></h4>
 <% unless @active_contracts.present? %>
   <div class="box mb-3">
     <p class="lead text-center mb-0">
@@ -8,18 +8,16 @@
 <% end %>
 
 <% @active_contracts.order(created_at: :desc).each do |active_contract| %>
-  <div class="box mb-4 projects-show">
-    <div class="media d-flex align-items-center">
-      <%= render 'shared/icon/avatar', image_url: active_contract.project.icon_url || image_url('default-project-icon.png'), extra_css: "mr-3" %>
-      <div class="media-body project-name">
-        <h5 class="m-0"><%= link_to active_contract.project.name, active_contract.project %></h5>
-      </div>
+  <%= render "shared/content/box" do %>
+    <div class="flex items-center">
+      <%= render "shared/icon/avatar", image_url: active_contract.project.icon_url || image_url('default-project-icon.png'), extra_css: "mr-3" %>
+      <h5 class="m-0 text-blue-500 font-bold"><%= link_to active_contract.project.name, active_contract.project %></h5>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <div class="text-center">
-  <%= link_to(new_project_path, class: "btn btn-orange") do %>
+  <%= link_to(new_project_path, class: "inline-block my-2 p-2 rounded-md bg-orange-400 text-white") do %>
     <i class="far fa-plus-square mr-2"></i>
     <%= t :create_new_project %>
   <% end %>

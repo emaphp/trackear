@@ -80,18 +80,15 @@ class ProjectsController < ApplicationController
     end
 
     @logs = @all_logs.paginate(page: params[:page], per_page: 5)
-    MixpanelService.track(current_user, 'projects_show', { project_id: @project.id })
   end
 
   # GET /projects/new
   def new
     @project = Project.new
-    MixpanelService.track(current_user, 'projects_new')
   end
 
   # GET /projects/1/edit
   def edit
-    MixpanelService.track(current_user, 'projects_edit', { project_id: @project.id })
   end
 
   # POST /projects
@@ -104,7 +101,6 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.valid? && @project.persisted?
-        MixpanelService.track(current_user, 'projects_create', { project_id: @project.id })
         format.html { redirect_to onboarding_project_url(@project), notice: t(:project_successfully_created) }
         format.json { render :show, status: :created, location: @project }
       else
@@ -119,7 +115,6 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        MixpanelService.track(current_user, 'projects_update', { project_id: @project.id })
         format.html { redirect_to @project, notice: t(:project_successfully_updated) }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -132,7 +127,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    MixpanelService.track(current_user, 'projects_destroy', { project_id: @project.id })
     @project.destroy
     respond_to do |format|
       format.html { redirect_to home_url, notice: t(:project_successfully_destroyed) }

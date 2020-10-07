@@ -15,13 +15,11 @@ class ProjectContractsController < ApplicationController
   # GET /project_contracts/1
   # GET /project_contracts/1.json
   def show
-    MixpanelService.track(current_user, 'project_contracts_show', { project_id: @project.id })
   end
 
   # GET /project_contracts/new
   def new
     @project_contract = @project.project_contracts.new
-    MixpanelService.track(current_user, 'project_contracts_new', { project_id: @project.id })
   end
 
   # GET /project_contracts/1/edit
@@ -36,7 +34,6 @@ class ProjectContractsController < ApplicationController
 
     respond_to do |format|
       if @project_contract.save
-        MixpanelService.track(current_user, 'project_contracts_create', { project_id: @project.id })
         format.html { redirect_to @project_contract.project, notice: t(:project_member_successfully_invited) }
         format.json { render :show, status: :created, location: @project_contract.project }
       else
@@ -51,7 +48,6 @@ class ProjectContractsController < ApplicationController
   def update
     respond_to do |format|
       if @project_contract.update(project_contract_params)
-        MixpanelService.track(current_user, 'project_contracts_update', { project_id: @project.id })
         format.html { redirect_to @project, notice: t(:project_member_successfully_updated) }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -66,7 +62,6 @@ class ProjectContractsController < ApplicationController
   def destroy
     @project_contract.destroy
     respond_to do |format|
-      MixpanelService.track(current_user, 'project_contracts_destroy', { project_id: @project.id })
       format.html { redirect_to home_url, notice: t(:project_member_successfully_destroyed) }
       format.json { head :no_content }
     end

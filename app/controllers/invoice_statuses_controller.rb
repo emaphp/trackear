@@ -7,7 +7,6 @@ class InvoiceStatusesController < ApplicationController
 
   def confirm_hours
     @invoice_status.confirm_team_member_hours
-    MixpanelService.track(current_user, 'invoice_status_confirm_hours', { project_id: @project.id })
 
     respond_to do |format|
       format.html do

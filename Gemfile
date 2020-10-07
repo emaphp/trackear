@@ -112,5 +112,3 @@ gem 'sassc', '~> 2.1.0'
 gem 'webpacker', '~> 5.1'
 
 gem 'sitemap_generator'
-
-gem 'mixpanel-ruby'

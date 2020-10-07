@@ -3,7 +3,6 @@
 class HomeController < ApplicationController
   def index
     if user_signed_in?
-      MixpanelService.track(current_user, 'home_index')
       @active_contracts = current_user.project_contracts.currently_active.includes(:project)
       @contracts = current_user.project_contracts.order(active_from: :desc).includes(:project)
       @invoices = current_user.invoices.includes(:project).order(from: :desc).limit(4)

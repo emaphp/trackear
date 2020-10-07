@@ -51,3 +51,4 @@ cert/*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+index.html

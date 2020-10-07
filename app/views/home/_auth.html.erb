@@ -1,14 +1,5 @@
 <div class="home-index">
-  <div class="home-welcome-message d-flex align-items-center media mb-4 shadow-sm border">
-    <span class="mr-3"><%= image_tag "Github.png" %></span>
-    <div class="media-body">
-      <h5><%= t :welcome, name: current_user.first_name %></h5>
-      <p class="mb-0">
-        <%= t :excellent_day_and_enjoying_app %><br>
-        <%= t :feedback_html %>
-      </p>
-    </div>
-  </div>
+  <%= render "welcome_message" %>
   <div class="row">
     <div class="col-lg-6">
       <%= render 'projects_box' %>

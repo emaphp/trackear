@@ -1,6 +1,5 @@
 import { Elm } from '../Main'
-
-import 'application.scss'
+import './main'
 
 document.addEventListener('DOMContentLoaded', () => {
   const target = document.createElement('div')

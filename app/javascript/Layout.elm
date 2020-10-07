@@ -8,6 +8,7 @@ import Element
         , column
         , fill
         , height
+        , htmlAttribute
         , link
         , padding
         , rgb255
@@ -19,6 +20,7 @@ import Element
 import Element.Background as Background
 import Element.Font as Font
 import Html
+import Html.Attributes exposing (class)
 import Session
 import Shared.Box
 import User exposing (User)
@@ -31,7 +33,7 @@ view session content =
 
 root : Session.Model -> Element msg -> Element msg
 root session content =
-    column [ width fill ]
+    column [ width fill, htmlAttribute (class "min-h-screen bg-gray-100") ]
         [ header session.user
         , Shared.Box.box [ content ]
         , footer

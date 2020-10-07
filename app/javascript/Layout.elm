@@ -1,29 +1,40 @@
-module Layout exposing (..)
+module Layout exposing (view)
 
-import Browser exposing (Document)
-import Element exposing (Element, alignTop, centerX, fill, height, image, link, padding, rgb255, row, spacing, text, width)
+import Element
+    exposing
+        ( Element
+        , alignTop
+        , centerX
+        , column
+        , fill
+        , height
+        , link
+        , padding
+        , rgb255
+        , row
+        , spacing
+        , text
+        , width
+        )
 import Element.Background as Background
 import Element.Font as Font
+import Html
+import Session
 import Shared.Box
 import User exposing (User)
 
 
-type Page
-    = Home
+view : Session.Model -> Element msg -> Html.Html msg
+view session content =
+    Element.layout [ height fill, width fill ] (root session content)
 
 
-view : Maybe User -> Document msg
-view profile =
-    { title = "Page "
-    , body = [ Element.layout [ height fill ] (root profile) ]
-    }
-
-
-root : Maybe User -> Element msg
-root profile =
-    row [ width fill, height fill ]
-        [ header profile
-        , Shared.Box.box [ link [] { url = "/project/42", label = text "Something" } ]
+root : Session.Model -> Element msg -> Element msg
+root session content =
+    column [ width fill ]
+        [ header session.user
+        , Shared.Box.box [ content ]
+        , footer
         ]
 
 
@@ -39,7 +50,12 @@ profileName profile =
 
 authenticatedHeader : User -> Element msg
 authenticatedHeader profile =
-    row [ width fill, alignTop, padding 15, Background.color (rgb255 35 47 62), Font.color (rgb255 255 255 255) ]
+    row
+        [ alignTop
+        , padding 15
+        , Background.color (rgb255 35 47 62)
+        , Font.color (rgb255 255 255 255)
+        ]
         [ row
             [ centerX, spacing 15 ]
             [ text "trackear"

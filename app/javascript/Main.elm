@@ -1,16 +1,32 @@
 module Main exposing (..)
 
-import Browser
+import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Layout
+import Http
 import Page.Home
 import Page.Project
 import Route exposing (Route(..))
 import Session
 import Url
 import User exposing (..)
+
+
+type Model
+    = Loading Session.Model
+    | Home Page.Home.Model
+    | Project Page.Project.Model
+    | Redirect Session.Model
+    | NotFound Session.Model
+
+
+type Msg
+    = GotUser ( Result Http.Error User, Url.Url )
+    | LinkClicked Browser.UrlRequest
+    | UrlChanged Url.Url
+    | HomeMsg Page.Home.Msg
+    | ProjectMsg Page.Project.Msg
 
 
 main : Program () Model Msg
@@ -25,27 +41,16 @@ main =
         }
 
 
-type Model
-    = Home Page.Home.Model
-    | Project Page.Project.Model
-    | Redirect Session.Model
-    | NotFound Session.Model
-
-
-type Msg
-    = LinkClicked Browser.UrlRequest
-    | UrlChanged Url.Url
-    | HomeMsg Page.Home.Msg
-    | ProjectMsg Page.Project.Msg
-
-
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url key =
-    let
-        session =
-            { key = key, user = Nothing }
-    in
-    changeRouteTo (Route.urlToRoute url) (Redirect session)
+    getUserAndRedirectToUrl
+        url
+        (Loading { key = key, user = Nothing })
+
+
+getUserAndRedirectToUrl : Url.Url -> Model -> ( Model, Cmd Msg )
+getUserAndRedirectToUrl url model =
+    ( model, User.getProfile (\x -> GotUser ( x, url )) )
 
 
 changeRouteTo : Route -> Model -> ( Model, Cmd Msg )
@@ -79,7 +84,19 @@ updateWith toModel toMsg model ( subModel, subCmd ) =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        session =
+            sessionFromModel model
+    in
     case msg of
+        GotUser ( Ok user, redirect ) ->
+            changeRouteTo
+                (Route.urlToRoute redirect)
+                (Loading { session | user = Just user })
+
+        GotUser ( Err err, redirect ) ->
+            changeRouteTo (Route.urlToRoute redirect) model
+
         LinkClicked urlRequest ->
             linkClicked urlRequest model
 
@@ -106,6 +123,9 @@ linkClicked urlRequest model =
 sessionFromModel : Model -> Session.Model
 sessionFromModel model =
     case model of
+        Loading session ->
+            session
+
         Home homeModel ->
             homeModel.session
 
@@ -129,6 +149,28 @@ subscriptions _ =
     Sub.none
 
 
-view : Model -> Browser.Document Msg
+view : Model -> Document Msg
 view model =
-    Layout.view Nothing
+    { title = "Trackear"
+    , body = [ currentView model ]
+    }
+
+
+currentView : Model -> Html.Html Msg
+currentView model =
+    case model of
+        Loading _ ->
+            div [] [ text "Loading" ]
+
+        Home homeModel ->
+            Page.Home.view homeModel
+                |> Html.map HomeMsg
+
+        Project _ ->
+            div [] []
+
+        Redirect _ ->
+            div [] []
+
+        NotFound _ ->
+            div [] []

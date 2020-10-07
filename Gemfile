@@ -95,10 +95,6 @@ gem 'aws-sdk-s3', '~> 1.14'
 
 gem 'font-awesome-sass', '~> 5.12.0'
 
-gem 'bootstrap', '~> 4.4.1'
-
-gem 'jquery-rails', '~> 4.3.5'
-
 gem 'mini_racer', '~> 0.2.9'
 
 gem 'will_paginate', '~> 3.1.0'
@@ -106,8 +102,6 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'cocoon', '~> 1.2.14'
 
 gem 'acts_as_paranoid', '~> 0.6.3'
-
-gem 'sassc', '~> 2.1.0'
 
 gem 'webpacker', '~> 5.1'
 

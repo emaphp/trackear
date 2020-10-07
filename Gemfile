@@ -78,7 +78,7 @@ gem 'date_validator', '~> 0.9.0'
 
 gem 'dotiw', '~> 4.0.1'
 
-gem 'shrine', '~> 3.0'
+gem 'shrine', '~> 3.3'
 
 gem 'rubocop', '~> 0.81.0'
 

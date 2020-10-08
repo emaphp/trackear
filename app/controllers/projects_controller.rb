@@ -80,6 +80,8 @@ class ProjectsController < ApplicationController
     end
 
     @logs = @all_logs.paginate(page: params[:page], per_page: 5)
+
+    add_breadcrumb @project.name, @project
   end
 
   # GET /projects/new

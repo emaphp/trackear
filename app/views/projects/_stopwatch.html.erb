@@ -1,0 +1,32 @@
+<% if @stopwatch.present? %>
+  <div class="stopwatch">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="media">
+          <span style="font-size: 32px;" class="mr-4">⏰</span>
+          <div class="media-body">
+            <h4 class="m-0 lead">
+              <%= t :stopwatch_running %>
+              <span id="stopwatchTimer"><%= @stopwatch.start.strftime("%G-W%V-%uT%R%:z") %></span>
+            </h4>
+            <% if @stopwatch.description.present? %>
+              <p class="m-0 text-white"><%= @stopwatch.description %></p>
+            <% else %>
+              <p class="m-0 text-white"><%= t :stopwatch_no_description_provided %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 text-right">
+        <%= link_to [@project, @stopwatch], data: { confirm: t(:stopwatch_discard_confirmation) }, method: :delete, class: "my-1 btn btn-outline-primary btn-sm" do %>
+          <i class="fas fa-trash mr-2"></i>
+          <%= t :stopwatch_discard %>
+        <% end %>
+        <%= link_to finish_project_activity_stop_watch_path(@project, @stopwatch), method: :post, class: "my-1 btn btn-primary btn-sm" do %>
+          <i class="fas fa-check mr-2"></i>
+          <%= t :stopwatch_finish %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

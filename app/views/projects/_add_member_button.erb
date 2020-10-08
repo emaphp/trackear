@@ -1,5 +1,5 @@
 <% if can? :manage, project %>
-  <%= link_to new_project_project_contract_path(project), class: "p-1 px-3 btn btn-sm btn-outline-primary" do %>
+  <%= link_to new_project_project_contract_path(project), class: "p-1 px-3 border-2 border-blue-400 rounded text-blue-400" do %>
     <%= icon "fas", "user-plus", class: "mr-2" %>
     <%= t :project_add_member %>
   <% end %>

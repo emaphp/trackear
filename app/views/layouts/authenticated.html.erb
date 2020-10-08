@@ -1,16 +1,18 @@
 <!doctype html>
-<html lang="es" class="text-gray-900 antialiased leading-tight">
+<html lang="es" class="h-full text-gray-900 antialiased leading-tight">
   <head>
     <%= render "shared/header/metatags" %>
     <%= render "shared/header/styles" %>
     <script async defer data-domain="trackear.app" src="https://plausible.io/js/plausible.js"></script>
   </head>
-  <body class="min-h-screen bg-gray-200">
+  <body class="flex flex-col h-full bg-gray-200">
     <%= render "shared/header/menu" %>
-    <%= render "shared/header/alert" %>
-    <div class="container mx-auto">
-      <%= yield %>
-    </div>
+    <main class="flex-1">
+      <%= render "shared/header/alert" %>
+      <div class="container mx-auto">
+        <%= yield %>
+      </div>
+    </main>
     <div id="feedback-modal"></div>
     <%= render "shared/footer/footer" %>
   </body>

@@ -20,3 +20,7 @@ RUN mkdir -p /var/www/app
 
 COPY . /var/www/app
 WORKDIR /var/www/app
+
+EXPOSE 3000
+
+CMD ["rails", "s", "-b", "0.0.0.0", "-p", "3000"]

@@ -19,6 +19,8 @@ class ActivityTracksController < ApplicationController
   # GET /activity_tracks/new
   def new
     @activity_track = ActivityTrack.new(from: Date.today)
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :new_activity_track
   end
 
   # GET /activity_tracks/1/edit
@@ -29,6 +31,8 @@ class ActivityTracksController < ApplicationController
   # POST /activity_tracks.json
   def create
     @activity_track = @active_contract.activity_tracks.new(activity_track_params)
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :new_activity_track
 
     respond_to do |format|
       if @activity_track.save

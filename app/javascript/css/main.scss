@@ -67,3 +67,15 @@ body {
   @apply p-3;
   @apply rounded;
 }
+
+.alert.alert-danger {
+  @apply bg-red-300;
+  @apply border;
+  @apply border-red-400;
+  @apply text-red-700;
+  @apply p-4;
+}
+
+.alert-heading {
+  @apply font-bold;
+}

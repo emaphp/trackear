@@ -24,7 +24,7 @@
   </div>
 
   <div class="text-right">
-    <%= link_to t(:cancel), project, class: "btn btn-link" %>
+    <%= link_to t(:cancel), project, class: "btn btn-secondary" %>
     <%= form.submit t(:log_activity), class: "btn btn-primary" unless activity_track.persisted? %>
     <%= form.submit t(:update_activity), class: "btn btn-primary" if activity_track.persisted? %>
   </div>

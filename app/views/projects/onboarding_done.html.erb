@@ -1,17 +1,14 @@
 <div class="my-4 py-4">
-  <h1 class="text-center"><%= t :onboarding_all_set %></h1>
-  <h2 class="text-center lead"><%= t :onboarding_ready_to_start_working %></h2>
+  <h1 class="text-center text-lg font-bold"><%= t :onboarding_all_set %></h1>
+  <h2 class="text-center text-lg text-gray-600"><%= t :onboarding_ready_to_start_working %></h2>
   <div class="text-center mt-4">
-    <%= link_to @project, class: "btn btn-orange" do %>
-      <h4 class="mb-0">
-        <%= render 'shared/icon/avatar', image_url: @project.icon_url || image_url('default-project-icon.png'), extra_css: "mr-3 d-inline-block align-text-bottom" %>
-        <%= t :onboarding_take_me_to_project, project: @project.name %>
-      </h4>
-    <% end %>
-    <div class="lead my-3"><%= t :onboarding_or %></div>
-    <div class="text-left box mx-auto" style="width: 600px">
-      <h4><%= t :onboarding_lets_start_working %></h4>
-      <%= render 'activity_stop_watches/form', project: @project, activity_stop_watch: ActivityStopWatch.new, user: current_user %>
+    <div class="text-left mx-auto" style="width: 600px">
+      <%= render "shared/content/box" do %>
+        <h4 class="font-bold"><%= t :onboarding_lets_start_working %></h4>
+        <%= render 'activity_stop_watches/form', project: @project, activity_stop_watch: ActivityStopWatch.new, user: current_user %>
+      <% end %>
     </div>
+    <div class="my-3 text-gray-500 font-bold"><%= t :onboarding_or %></div>
+    <%= link_to t(:onboarding_take_me_to_project, project: @project.name), @project %>
   </div>
 </div>

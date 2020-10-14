@@ -24,7 +24,10 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects.uniq
   end
 
-  def onboarding; end
+  def onboarding
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :onboarding_initial_setup
+  end
 
   def update_rate_from_onboarding
     contract = current_user.currently_active_contract_for(@project)
@@ -37,10 +40,16 @@ class ProjectsController < ApplicationController
 
   def onboarding_invite_members
     @project_contract = ProjectContract.new
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:onboarding_who_will_be_working_on_project, project: @project.name)
   end
 
   def invite_member_from_onboarding
     @project_contract = @project.project_contracts.from_invite(invite_member_params)
+
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:onboarding_who_will_be_working_on_project, project: @project.name)
+
     respond_to do |format|
       if @project_contract.save
         format.html { redirect_to onboarding_invite_members_project_url(@project), notice: t(:project_member_invited_from_onboarding) }
@@ -50,7 +59,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def onboarding_done; end
+  def onboarding_done
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :onboarding_all_set
+  end
 
   # GET /projects/1
   # GET /projects/1.json

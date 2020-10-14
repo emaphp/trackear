@@ -122,7 +122,7 @@ es:
   onboarding_invite_your_team_to_your_project: "Invitá a tu equipo a tu proyecto"
   onboarding_invite_member: "Invitar miembro"
   onboarding_all_set: "🎉 Listo, ¡ya estás listo para comenzar con tu proyecto!"
-  onboarding_ready_to_start_working: "¿Listo para registrar trabajo un poco de excelente trabajo?"
+  onboarding_ready_to_start_working: "Inicia registrando tiempo usando el cronómetro"
   onboarding_take_me_to_project: "Ir a %{project}"
   onboarding_lets_start_working: "¡Comenzá a trabajar!"
   onboarding_or: "o"

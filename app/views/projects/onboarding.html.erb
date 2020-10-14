@@ -1,36 +1,24 @@
-<div class="media">
-  <%= render 'shared/icon/avatar', image_url: @project.icon_url || image_url('default-project-icon.png'), extra_css: "big mr-3 align-self-start" %>
-  <div class="media-body">
-    <h1 class="mb-0"><%= t :onboarding_project_successfully_created, project: @project.name %></h1>
-    <h2 class="lead"><%= t :onboarding_initial_setup %></h2>
+<div class="flex items-center">
+  <%= render "shared/icon/avatar", image_url: @project.icon_url || image_url('default-project-icon.png'), extra_css: "mr-3" %>
+  <div>
+    <h1 class="font-bold text-lg mb-0"><%= t :onboarding_project_successfully_created, project: @project.name %></h1>
+    <h2 class="text-lg"><%= t :onboarding_initial_setup %></h2>
   </div>
 </div>
 
-<div class="box mt-4">
-  <h3><%= t :onboarding_rates %></h3>
-  <%= form_with(model: [@project, current_user.currently_active_contract_for(@project)], method: :post, url: update_rate_from_onboarding_project_url, local: true) do |form| %>
-    <div class="form-group" id="hourlyRateField">
-      <%= form.label :user_rate, t(:onboarding_your_hourly_rate) %>
-      <%= form.number_field :user_rate, step: ".01", class: "form-control" %>
-      <button style="display: none" type="button" class="btn btn-link px-0" id="fixedRateButton">
-        I'm planning on charging a fixed rate
-      </button>
-    </div>
-    <div class="form-group" id="fixedRateField" style="display: none;">
-      <%= form.label :user_fixed_rate, "Your fixed rate" %>
-      <%= form.number_field :user_fixed_rate, step: ".01", id: "fixedPriceInput", class: "form-control" %>
-      <button type="button" class="btn btn-link px-0" id="hourlyRateButton">
-        I'm planning on charging by hour
-      </button>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-6">
-        <%= link_to t(:onboarding_skip_rates_step), onboarding_invite_members_project_url(@project), class: "btn btn-outline-primary" %>
+<div class="mt-4">
+  <%= render "shared/content/box" do %>
+    <h3 class="font-bold"><%= t :onboarding_rates %></h3>
+    <%= form_with(model: [@project, current_user.currently_active_contract_for(@project)], method: :post, url: update_rate_from_onboarding_project_url, local: true) do |form| %>
+      <div class="form-group" id="hourlyRateField">
+        <%= form.label :user_rate, t(:onboarding_your_hourly_rate) %>
+        <%= form.number_field :user_rate, step: ".01", class: "form-control" %>
       </div>
-      <div class="col-lg-6 text-right">
+
+      <div class="text-right">
+        <%= link_to t(:onboarding_skip_rates_step), onboarding_invite_members_project_url(@project), class: "btn btn-secondary" %>
         <%= form.submit t(:onboarding_continue_invite_members), class: "btn btn-primary" %>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

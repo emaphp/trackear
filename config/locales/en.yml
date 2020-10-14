@@ -154,7 +154,7 @@ en:
   onboarding_invite_your_team_to_your_project: "Invite your team to work on the project"
   onboarding_invite_member: "Invite member"
   onboarding_all_set: "🎉 Awesome, you are all set!"
-  onboarding_ready_to_start_working: "Ready to start tracking some awesome work?"
+  onboarding_ready_to_start_working: "Start tracking some time using the stopwatch"
   onboarding_take_me_to_project: "Go to %{project}"
   onboarding_lets_start_working: "Let's start working!"
   onboarding_or: "or"

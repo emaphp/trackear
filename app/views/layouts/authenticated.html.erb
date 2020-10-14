@@ -5,11 +5,11 @@
     <%= render "shared/header/styles" %>
     <script async defer data-domain="trackear.app" src="https://plausible.io/js/plausible.js"></script>
   </head>
-  <body class="flex flex-col h-full bg-gray-200">
+  <body class="flex flex-col h-full bg-gray-100">
     <%= render "shared/header/menu" %>
     <main class="flex-1">
       <%= render "shared/header/alert" %>
-      <div class="container mx-auto">
+      <div class="container mx-auto mt-3">
         <%= yield %>
       </div>
     </main>

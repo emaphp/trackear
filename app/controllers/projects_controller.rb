@@ -81,6 +81,7 @@ class ProjectsController < ApplicationController
 
     @logs = @all_logs.paginate(page: params[:page], per_page: 5)
 
+    add_breadcrumb "Projects"
     add_breadcrumb @project.name, @project
   end
 
@@ -92,6 +93,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    add_breadcrumb @project.name, @project
+    add_breadcrumb "Edit"
   end
 
   # POST /projects

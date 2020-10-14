@@ -7,3 +7,63 @@
 body {
   font-family: 'Nunito';
 }
+
+.breadcrumb {
+  a {
+    font-weight: bold;
+  }
+}
+
+.form-control {
+  // @apply shadow;
+  @apply appearance-none;
+  @apply border;
+  @apply rounded;
+  @apply w-full;
+  @apply py-2;
+  @apply px-3;
+  @apply text-gray-700;
+  @apply leading-tight;
+
+  &:focus {
+    @apply outline-none;
+    @apply border-blue-300;
+  }
+}
+
+.form-group {
+  @apply py-3;
+
+  label {
+    @apply block;
+    @apply uppercase;
+    @apply tracking-wide;
+    @apply text-gray-700;
+    @apply text-xs;
+    @apply font-bold;
+    @apply mb-2;
+  }
+}
+
+.btn {
+  @apply cursor-pointer;
+  @apply font-bold;
+}
+
+.btn.btn-secondary {
+  // @apply text-blue-500;
+  @apply text-gray-600;
+  @apply border;
+  @apply p-3;
+  @apply rounded;
+}
+
+.btn.btn-primary {
+  // @apply bg-blue-500;
+  background-color: #48d466;
+  border-color: #48d466;
+  @apply border;
+  @apply text-white;
+  @apply p-3;
+  @apply rounded;
+}

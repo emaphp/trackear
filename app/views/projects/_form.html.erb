@@ -12,9 +12,9 @@
     <%= form.file_field :icon, class: "form-control", style: "height: 45px;" %>
   </div>
 
-  <div class="text-right">
-    <%= link_to t(:cancel), "/", class: "btn btn-link" %>
+  <div class="text-right mt-3">
+    <%= link_to t(:cancel), "/", class: "btn btn-secondary" %>
     <%= form.submit t(:create_project), class: "btn btn-primary" unless project.persisted? %>
-    <%= form.submit t(:update_project), class: "btn btn-primary" if project.persisted? %>
+    <%= form.submit t(:update_project), class: "btn btn-primary ml-3" if project.persisted? %>
   </div>
 <% end %>

@@ -4,7 +4,7 @@
   <% unless logs.present? %>
     <div class="text-center">
       <%= render "shared/content/box" do %>
-        <p class="mb-0"><%= t :no_logs_found %></p>
+        <p class="text-lg text-gray-600 mb-3"><%= t :no_logs_found %></p>
         <%= link_to t(:log_activity), new_project_activity_track_url(@project), class: "inline-block bg-orange-500 text-white rounded p-3" %>
       <% end %>
     </div>

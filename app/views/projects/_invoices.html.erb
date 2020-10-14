@@ -1,7 +1,7 @@
 <h4 class="text-lg font-bold my-3"><%= t :last_four_invoices %></h4>
 <% unless invoices.present? %>
   <%= render "shared/content/box" do %>
-    <p class="lead text-center mb-0">
+    <p class="text-lg text-gray-600 text-center">
       <%= t :you_dont_have_invoices %>
     </p>
   <% end %>

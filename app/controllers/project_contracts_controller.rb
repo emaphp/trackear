@@ -20,6 +20,8 @@ class ProjectContractsController < ApplicationController
   # GET /project_contracts/new
   def new
     @project_contract = @project.project_contracts.new
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :add_member
   end
 
   # GET /project_contracts/1/edit
@@ -33,6 +35,9 @@ class ProjectContractsController < ApplicationController
   # POST /project_contracts.json
   def create
     @project_contract = @project.project_contracts.from_invite(invite_member_params)
+
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :add_member
 
     respond_to do |format|
       if @project_contract.save
@@ -48,6 +53,9 @@ class ProjectContractsController < ApplicationController
   # PATCH/PUT /project_contracts/1
   # PATCH/PUT /project_contracts/1.json
   def update
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :edit_contract
+
     respond_to do |format|
       if @project_contract.update(project_contract_params)
         format.html { redirect_to @project, notice: t(:project_member_successfully_updated) }

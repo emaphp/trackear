@@ -25,6 +25,8 @@ class ActivityTracksController < ApplicationController
 
   # GET /activity_tracks/1/edit
   def edit
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :edit_activity_track
   end
 
   # POST /activity_tracks

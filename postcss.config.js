@@ -2,7 +2,7 @@ let environment = {
   plugins: [
     require('autoprefixer'),
     require('postcss-import'),
-    require('tailwindcss'),
+    require('tailwindcss')('./app/javascript/css/tailwind.config.js'),
     require('postcss-flexbugs-fixes'),
     require('postcss-preset-env')({
       autoprefixer: {
@@ -17,7 +17,7 @@ if (process.env.RAILS_ENV === 'production') {
   environment.plugins.push(
     require('@fullhuman/postcss-purgecss')({
       content: [
-        './app/**/*.html.erb',
+        './app/**/*.erb',
         './app/helpers/**/*.rb',
         './app/javascript/**/*.js',
         './app/javascript/**/*.elm',

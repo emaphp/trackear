@@ -3,7 +3,7 @@
 import 'cocoon-js'
 require('@rails/ujs').start()
 
-import "../css/main.css"
+import '../css/main.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
   const target = document.createElement('div')

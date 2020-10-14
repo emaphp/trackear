@@ -1,74 +1,52 @@
 <% unless project.is_client? user %>
-  <div class="d-flex justify-content-between">
-    <h4 class="mt-2"><%= t :activity_logs %></h4>
-
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-sm btn-outline-secondary border-0" data-target="#trackFilterModal" data-toggle="modal">
-        <%= icon "fas", "search", class: "mr-1" %>
-        <%= t :filter_logs %>
-      </button>
-
-      <div class="modal fade" id="trackFilterModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body text-left">
-              <h4 class="px-4 pt-4"><%= t :filter_logs %></h4>
-              <%= render 'activity_track_filter_box', project: @project, logs_from: @logs_from, logs_to: @logs_to %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-sm btn-outline-primary" data-target="#addTrackModal" data-toggle="modal">
-        <%= icon "fas", "plus", class: "mr-1" %>
-        <%= t :log_activity %>
-      </button>
-
-      <div class="modal fade" id="addTrackModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body text-left">
-              <h4 class="px-4 pt-4"><%= t :add_log %></h4>
-              <%= render 'activity_track_box', project: @project, activity_track: ActivityTrack.new, user: current_user %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h4 class="text-lg font-bold my-3"><%= t :activity_logs %></h4>
 
   <% unless logs.present? %>
-    <div class="mt-2 box text-center">
-      <p class="lead mb-0"><%= t :no_logs_found %></p>
+    <div class="text-center">
+      <%= render "shared/content/box" do %>
+        <p class="mb-0"><%= t :no_logs_found %></p>
+        <%= link_to t(:log_activity), new_project_activity_track_url(@project), class: "inline-block bg-orange-500 text-white rounded p-3" %>
+      <% end %>
     </div>
   <% else %>
-    <div class="form-row">
-      <div class="col-xl-3 mt-2 mb-2">
+    <div class="flex items-center justify-between">
+      <div class="mb-2">
         <div class="p-3">
-          <%= t :total_logs %>
-          <div class="stats-number"><%= all_logs.size %></div>
+          <span class="uppercase tracking-wide text-gray-700 text-xs font-bold">
+            <%= t :total_logs %>
+          </span>
+          <div class="text-gray-800"><%= all_logs.size %></div>
         </div>
       </div>
-      <div class="col-xl-6 mt-2 mb-2">
+      <div class="mb-2">
         <div class="p-3">
-          <%= t :time_from_logs %>
-          <div class="stats-number"><%= calculate_hours_from all_logs %></div>
+          <span class="uppercase tracking-wide text-gray-700 text-xs font-bold">
+            <%= t :time_from_logs %>
+          </span>
+          <div class="text-gray-800"><%= calculate_hours_from all_logs %></div>
         </div>
       </div>
-      <div class="col-xl-3 mt-2 mb-2">
+      <div class="mb-2">
         <div class="p-3">
-          <%= t :billable %>
-          <div class="stats-number">
+          <span class="uppercase tracking-wide text-gray-700 text-xs font-bold">
+            <%= t :billable %>
+          </span>
+          <div class="text-gray-800">
             <%= humanized_money_with_currency(calculate_invoice_amount_from(all_logs), 'USD') %>
           </div>
         </div>
       </div>
     </div>
     <% logs.each do |log| %>
-      <%= render 'activity_tracks/show', log: log %>
+      <div class="mb-2">
+        <%= render 'activity_tracks/show', log: log %>
+      </div>
     <% end %>
     <div class="mb-3">
       <%= will_paginate logs %>
+    </div>
+    <div class="text-center mt-3">
+      <%= link_to t(:log_activity), new_project_activity_track_url(@project), class: "btn btn-primary" %>
     </div>
   <% end %>
 <% end %>

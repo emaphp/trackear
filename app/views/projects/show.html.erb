@@ -7,10 +7,10 @@
 
 <div class="grid grid-cols-2 gap-3">
   <div>
-    <%= render 'invoices_box', project: @project, activity_track: ActivityTrack.new, user: current_user, invoices: @invoices %>
+    <%= render "tracks_box", project: @project, user: current_user, logs: @logs, all_logs: @all_logs %>
   </div>
   <div>
-    <%= render 'tracks_box', project: @project, logs_from: @logs_from, logs_to: @logs_to, logs: @logs, all_logs: @all_logs, user: current_user %>
+    <%= render "invoices", invoices: @invoices %>
   </div>
 </div>
 

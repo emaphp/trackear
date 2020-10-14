@@ -1,16 +1,21 @@
 <%= render "project_header" %>
 
-<%= render "logged_notification" %>
-
 <%= render "invoice_confirm_hours_notification" %>
 <%= render "invoice_updates_notification" %>
 
-<div class="grid grid-cols-2 gap-3">
-  <div>
-    <%= render "tracks_box", project: @project, user: current_user, logs: @logs, all_logs: @all_logs %>
+<div class="flex">
+  <div class="w-1/4">
+    <div class="pb-3">
+      <%= render "members", project: @project, contracts: @contracts %>
+    </div>
+    <div class="pt-3">
+      <%= render "invoices", invoices: @invoices %>
+    </div>
   </div>
-  <div>
-    <%= render "invoices", invoices: @invoices %>
+  <div class="w-3/4">
+    <div class="ml-6">
+      <%= render "tracks_box", project: @project, user: current_user, logs: @logs, all_logs: @all_logs %>
+    </div>
   </div>
 </div>
 

@@ -3,7 +3,7 @@
 
   <% contract = current_user.currently_active_contract_for(project) %>
   <% unless contract.project_rate.positive? %>
-    <div class="alert alert-warning border mb-2">
+    <div class="bg-orange-200 text-orange-800 p-3 border mb-2">
       <%= t :set_your_rates_warning_html, update_rates_url: edit_project_project_contract_path(project, contract) %>
     </div>
   <% end %>

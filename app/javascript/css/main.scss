@@ -8,9 +8,23 @@ body {
   font-family: 'Nunito';
 }
 
+.animation-expand-hover {
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+  @apply transform;
+
+  &:hover {
+    box-shadow: 0px 5px 5px #0000000d;
+    @apply -translate-y-1;
+    @apply scale-105;
+  }
+}
+
 .breadcrumb {
   a {
-    @apply text-orange-500;
+    @apply text-orange-400;
+    @apply font-normal;
   }
 }
 

@@ -14,7 +14,7 @@ es:
   last_four_invoices: "Últimas 4 facturas"
   you_dont_have_invoices: "No tenés ninguna factura."
   client_invoice: "Factura para cliente"
-  invoice_small_summary_html: "Creado por <span class='font-weight-bold'>%{author}</span> para <span class='font-weight-bold'>%{period}</span>. Monto %{amount}"
+  invoice_small_summary_html: "Creado por <span class='font-weight-bold'>%{author}</span> para <span class='font-weight-bold'>%{period}</span>.<br />Monto %{amount}"
   view_status: "Ver estado"
   edit: "Editar"
   friendly_reminder: "Recordatorio"

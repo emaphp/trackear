@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
-    add_breadcrumb "Create project", :new_project_path
+    add_breadcrumb t(:create_project)
   end
 
   # GET /projects/1/edit
@@ -104,6 +104,8 @@ class ProjectsController < ApplicationController
       @project = current_user.create_project_and_ensure_owner_contract(project_params)
     rescue StandardError
     end
+
+    add_breadcrumb t(:create_project)
 
     respond_to do |format|
       if @project.valid? && @project.persisted?

@@ -14,8 +14,21 @@ body {
   }
 }
 
+.form-group {
+  @apply py-3;
+
+  label {
+    @apply block;
+    @apply uppercase;
+    @apply tracking-wide;
+    @apply text-gray-700;
+    @apply text-xs;
+    @apply font-bold;
+    @apply mb-2;
+  }
+}
+
 .form-control {
-  // @apply shadow;
   @apply appearance-none;
   @apply border;
   @apply rounded;
@@ -31,17 +44,9 @@ body {
   }
 }
 
-.form-group {
-  @apply py-3;
-
-  label {
-    @apply block;
-    @apply uppercase;
-    @apply tracking-wide;
-    @apply text-gray-700;
-    @apply text-xs;
-    @apply font-bold;
-    @apply mb-2;
+.field_with_errors {
+  .form-control {
+    @apply border-red-500;
   }
 }
 
@@ -51,7 +56,6 @@ body {
 }
 
 .btn.btn-secondary {
-  // @apply text-blue-500;
   @apply text-gray-600;
   @apply border;
   @apply p-3;
@@ -59,7 +63,6 @@ body {
 }
 
 .btn.btn-primary {
-  // @apply bg-blue-500;
   background-color: #48d466;
   border-color: #48d466;
   @apply border;

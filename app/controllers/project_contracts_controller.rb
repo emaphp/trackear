@@ -25,6 +25,8 @@ class ProjectContractsController < ApplicationController
   # GET /project_contracts/1/edit
   def edit
     @members = User.all
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :edit_contract
   end
 
   # POST /project_contracts

@@ -1,12 +1,4 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
-    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-    <li class="breadcrumb-item active" aria-current="page"><%= t :edit_contract %></li>
-  </ol>
-</nav>
-
-<div class="box">
-  <h6><%= t :edit_contract %></h6>
+<%= render "shared/content/box" do %>
+  <h6 class="font-bold"><%= t :edit_contract %></h6>
   <%= render 'form', project: @project, project_contract: @project_contract, members: @members %>
-</div>
+<% end %>

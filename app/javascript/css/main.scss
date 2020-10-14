@@ -10,7 +10,7 @@ body {
 
 .breadcrumb {
   a {
-    font-weight: bold;
+    @apply text-orange-500;
   }
 }
 

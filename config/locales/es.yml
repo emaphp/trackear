@@ -1,4 +1,9 @@
 es:
+  subscription: "Suscripción"
+  settings: "Preferencias"
+  first_name: "Nombre"
+  last_name: "Apellido"
+  save: "Guardar"
   back: "Atrás"
   done: "Listo"
   home: "Inicio"

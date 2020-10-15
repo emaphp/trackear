@@ -2,17 +2,17 @@
   <%= render 'shared/form/errors', errors: user.errors %>
 
   <div class="form-group">
-    <%= form.label :first_name %>
+    <%= form.label :first_name, t(:first_name) %>
     <%= form.text_field :first_name, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :last_name %>
+    <%= form.label :last_name, t(:last_name) %>
     <%= form.text_field :last_name, class: "form-control" %>
   </div>
 
   <div class="text-right">
-    <%= link_to "Cancel", home_url, class: "btn btn-secondary" %>
-    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to t(:cancel), home_url, class: "btn btn-secondary" %>
+    <%= form.submit t(:save), class: "btn btn-primary" %>
   </div>
 <% end %>

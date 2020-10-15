@@ -8,7 +8,7 @@
       <%= render "shared/content/box" do %>
         <p class="text-lg text-gray-500 mb-3"><%= t :no_logs_found %></p>
         <span class="relative inline-flex rounded-md shadow-sm">
-          <%= link_to t(:log_activity), new_project_activity_track_url(@project), class: "inline-block border border-gray-300 text-gray-600 rounded p-3" %>
+          <%= link_to t(:log_activity), new_project_activity_track_url(@project), class: "inline-block btn btn-secondary" %>
           <span class="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>

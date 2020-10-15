@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  before_action :authenticate_user!, only: [:settings]
+  before_action :authenticate_user!, only: [:settings, :subscription]
 
   def index
     if user_signed_in?
@@ -14,4 +14,6 @@ class HomeController < ApplicationController
   def solutions; end
 
   def settings; end
+
+  def subscription; end
 end

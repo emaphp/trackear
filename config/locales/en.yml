@@ -30,6 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  subscription: "Subscription"
+  settings: "Settings"
+  first_name: "First name"
+  last_name: "Last name"
+  save: "Save"
   back: "Back"
   done: "Done"
   home: "Home"

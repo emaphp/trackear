@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
   get '/', to: 'home#index', as: 'home'
   get '/settings', to: 'home#settings', as: 'settings'
+  get '/subscription', to: 'home#subscription', as: 'subscription'
   get '/solutions', to: 'home#solutions', as: 'home_solutions'
   get '/robots.:format', to: 'pages#robots'
   get '/sitemap.:format', to: 'pages#sitemap'

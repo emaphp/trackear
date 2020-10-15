@@ -1,15 +1,13 @@
-<div class="box invoice-next-step <%= "completed" if completed %>">
-  <div class="media">
+<%= render "shared/content/box" do %>
+  <div class="flex items-center">
     <%= image_tag "waiting-payment.png", class: "mr-4" %>
-    <div class="media-body">
-      <h4 class="mt-4 mb-1">
-        <% if completed %>
-          #1 - Wait for client's payment <i class="fas fa-check-circle text-success"></i>
-        <% else %>
-          #1 - What to do next?
-        <% end %>
+    <div>
+      <h4 class="text-lg font-bold">
+        <%= t :waiting_for_payment %>
       </h4>
-      <p class="lead">We are waiting for the client to make the payment. Once they paid, we will let you know!</p>
+      <p class="text-lg">
+        <%= t :waiting_for_payment_description %>
+      </p>
     </div>
   </div>
-</div>
+<% end %>

@@ -40,6 +40,22 @@ body {
   }
 }
 
+.menu {
+  a {
+    @apply rounded;
+    @apply text-white;
+    @apply p-3;
+    @apply px-4;
+    @apply transition;
+    @apply duration-300;
+    @apply ease-in-out;
+
+    &:hover {
+      @apply bg-gray-800;
+    }
+  }
+}
+
 .form-group {
   @apply py-3;
 

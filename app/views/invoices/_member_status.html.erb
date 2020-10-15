@@ -1,10 +1,58 @@
-<% if @invoice_status.user_waiting_for_client_payment? %>
-  <%= render 'invoices/invoice_status/member/waiting_client_payment', completed: false %>
-<% elsif @invoice_status.user_client_paid? %>
-  <%= render 'invoices/invoice_status/member/user_client_paid', completed: false %>
-<% elsif @invoice_status.user_paying_in_progress? %>
-  <%= render 'invoices/invoice_status/member/user_paying_in_progress', completed: false %>
-<% elsif @invoice_status.user_complete? %>
-  <%= render 'invoices/invoice_status/member/user_complete' %>
+<% content_for :menu do %>
+  <div class="mt-4 pb-5">
+    <%= link_to project_invoices_url(@project), class: "btn btn-secondary w-full" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+        </svg>
+        <%= t :back %>
+      </div>
+    <% end %>
+  </div>
+  <div class="pb-5">
+    <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">
+      <%= t :actions %>
+    </h4>
+    <%= link_to [@invoice.project, @invoice], class: "btn btn-secondary mb-2 w-full animation-expand-hover" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <%= t :invoice_details %>
+      </div>
+    <% end %>
+    <%= link_to download_invoice_project_invoice_path(@invoice.project, @invoice), class: "btn btn-secondary mb-2 w-full animation-expand-hover" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+        </svg>
+        <%= t(:invoice_download_afip_invoice) %>
+      </div>
+    <% end %>
+    <%= link_to download_payment_project_invoice_path(@invoice.project, @invoice), class: "btn btn-secondary mb-2 w-full animation-expand-hover" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+        </svg>
+        <%= t(:invoice_download_payment_receipt) %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
+<% content_for :content do %>
+  <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">
+    <%= t :invoice_status %>
+  </h4>
+  <% if @invoice_status.user_waiting_for_client_payment? %>
+    <%= render 'invoices/invoice_status/member/waiting_client_payment' %>
+  <% elsif @invoice_status.user_client_paid? %>
+    <%= render 'invoices/invoice_status/member/user_client_paid' %>
+  <% elsif @invoice_status.user_paying_in_progress? %>
+    <%= render 'invoices/invoice_status/member/user_paying_in_progress' %>
+  <% elsif @invoice_status.user_complete? %>
+    <%= render 'invoices/invoice_status/member/user_complete' %>
+  <% end %>
+<% end %>
+
+<%= render "projects/layout" %>

@@ -164,6 +164,9 @@ class InvoicesController < ApplicationController
   def status
     @invoice_status = @invoice.invoice_status
     @invoice_status.update_last_checked
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb @invoice.from.strftime('%B %Y')
   end
 
   private

@@ -1,24 +1,18 @@
-<div class="box invoice-next-step <%= "completed" if completed %>">
-  <div class="media">
+<%= render "shared/content/box" do %>
+  <div class="flex items-start">
     <%= image_tag "admin-review-entries.png", class: "mr-4" %>
-    <div class="media-body">
-      <h4 class="mt-4 mb-1">
-        <% if completed %>
-          #2 - Confirm invoice entries <i class="fas fa-check-circle text-success"></i>
-        <% else %>
-          #2 - What to do next?
-        <% end %>
+    <div class="w-full">
+      <h4 class="text-lg font-bold">
+        <%= t :review_client_invoice %>
       </h4>
-      <p class="lead">Please review and confirm all entries for the client invoice are correct</p>
+      <p class="text-lg mb-3">
+        <%= t :review_client_invoice_description %>
+      </p>
 
-      <% unless completed %>
-        <div class="text-right">
-          <%= link_to "Review", review_entries_project_invoice_path(@invoice.project, @invoice), class: "btn btn-outline-secondary" %>
-          <%= link_to "Notify client", email_notify_project_invoice_path(@invoice.project, @invoice), method: :post, class: "btn btn-primary" %>
-        </div>
-      <% end %>
+      <div class="text-center">
+        <%= link_to t(:review_invoice), review_entries_project_invoice_path(@invoice.project, @invoice), class: "btn btn-secondary" %>
+        <%= link_to t(:create_invoice), email_notify_project_invoice_path(@invoice.project, @invoice), method: :post, class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
-</div>
-
-<%= render 'invoices/invoice_status/admin/waiting_for_hours_confirmation', completed: true %>
+<% end %>

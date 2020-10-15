@@ -1,4 +1,5 @@
 es:
+  default_stopwatch_description: "Registrado desde cronómetro"
   filters: "Filtros"
   all_invoices: "Todas las facturas"
   paid_invoices: "Facturas pagas"

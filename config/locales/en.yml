@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  default_stopwatch_description: "Logged from stopwatch"
   filters: "Filters"
   all_invoices: "All invoices"
   paid_invoices: "Paid invoices"

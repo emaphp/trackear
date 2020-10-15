@@ -1,29 +1,35 @@
 <% if @stopwatch.present? %>
-  <div class="stopwatch">
-    <div class="row align-items-center">
-      <div class="col-lg-7">
-        <div class="media">
-          <span style="font-size: 32px;" class="mr-4">⏰</span>
-          <div class="media-body">
-            <h4 class="m-0 lead">
+  <div class="bg-gray-800 p-4 px-6 rounded text-white">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center w-3/4">
+        <svg class="w-8 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+
+        <div class="ml-6">
+          <span class="relative inline-flex rounded-md shadow-sm">
+            <span class="flex absolute h-3 w-3 top-0 left-0 mt-1">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+            </span>
+            <h4 class="text-lg font-bold pl-4">
               <%= t :stopwatch_running %>
-              <span id="stopwatchTimer"><%= @stopwatch.start.strftime("%G-W%V-%uT%R%:z") %></span>
+              <span id="stopwatch-timer" data-timer="<%= @stopwatch.start.utc.to_i * 1000 %>"></span>
+              <%= javascript_pack_tag "projects_show" %>
             </h4>
-            <% if @stopwatch.description.present? %>
-              <p class="m-0 text-white"><%= @stopwatch.description %></p>
-            <% else %>
-              <p class="m-0 text-white"><%= t :stopwatch_no_description_provided %></p>
-            <% end %>
-          </div>
+          </span>
+          <% if @stopwatch.description.present? %>
+            <p class="text-white"><%= @stopwatch.description %></p>
+          <% else %>
+            <p class="text-white"><%= t :stopwatch_no_description_provided %></p>
+          <% end %>
         </div>
       </div>
-      <div class="col-lg-5 text-right">
-        <%= link_to [@project, @stopwatch], data: { confirm: t(:stopwatch_discard_confirmation) }, method: :delete, class: "my-1 btn btn-outline-primary btn-sm" do %>
-          <i class="fas fa-trash mr-2"></i>
+      <div class="w-1/4 text-right">
+        <%= link_to [@project, @stopwatch], data: { confirm: t(:stopwatch_discard_confirmation) }, method: :delete, class: "btn btn-sm text-gray-400 hover:text-gray-300 rounded mr-2" do %>
           <%= t :stopwatch_discard %>
         <% end %>
-        <%= link_to finish_project_activity_stop_watch_path(@project, @stopwatch), method: :post, class: "my-1 btn btn-primary btn-sm" do %>
-          <i class="fas fa-check mr-2"></i>
+        <%= link_to finish_project_activity_stop_watch_path(@project, @stopwatch), method: :post, class: "btn btn-primary btn-sm" do %>
           <%= t :stopwatch_finish %>
         <% end %>
       </div>

@@ -1,6 +1,6 @@
 <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">Miembros</h4>
 <% contracts.each do |contract| %>
-  <div class="mb-1">
+  <div class="mb-2">
     <% if can? :manage, contract %>
       <%= link_to edit_project_project_contract_path(project, contract), class: "btn btn-secondary w-full animation-expand-hover" do %>
         <div class="flex items-center">

@@ -44,7 +44,9 @@
     <%= render "shared/content/box" do %>
       <div class="text-center">
         <p class="text-lg text-gray-600 mb-3"><%= t :no_invoices_found %></p>
-        <%= link_to t(:create_invoice), new_project_invoice_path, class: "btn btn-secondary" %>
+        <% if can? :create, @project.invoices.new %>
+          <%= link_to t(:create_invoice), new_project_invoice_path, class: "btn btn-secondary" %>
+        <% end %>
       </div>
     <% end %>
   <% else %>
@@ -99,9 +101,11 @@
         </tbody>
       </table>
     <% end %>
-    <div class="text-center mt-3">
-      <%= link_to t(:create_invoice), new_project_invoice_path(@project), class: "btn btn-primary" %>
-    </div>
+    <% if can? :create, @project.invoices.new %>
+      <div class="text-center mt-3">
+        <%= link_to t(:create_invoice), new_project_invoice_path(@project), class: "btn btn-primary" %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 

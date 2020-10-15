@@ -28,7 +28,7 @@ body {
   }
 }
 
-a {
+.btn.btn-link, a {
   @apply text-blue-400;
   @apply font-bold;
 }

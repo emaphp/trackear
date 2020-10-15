@@ -9,6 +9,12 @@
       </div>
     <% end %>
   </div>
+  <div class="pb-8">
+    <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">
+      <%= t :filter_logs %>
+    </h4>
+    <%= render "activity_track_filter_box", project: @project, logs_from: @logs_from, logs_to: @logs_to %>
+  </div>
   <div class="pb-5">
     <%= render "projects/members", project: @project, contracts: @contracts %>
   </div>

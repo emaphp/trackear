@@ -1,4 +1,5 @@
 es:
+  or: "O"
   track_time: "Registrar tiempo"
   log_from_to_logged: "%{from} hasta %{to} - %{time_words} registrado"
   afip_invoice_amount: "Monto factura AFIP: %{amount}"

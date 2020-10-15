@@ -1,10 +1,23 @@
 <% unless @stopwatch.present? %>
-  <button type="button" class="bg-orange-500 p-3 px-6 rounded-full text-white text-lg flex items-center">
-    <svg class="w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-    <%= t :start_stopwatch %>
-  </button>
+  <div class="flex items-center">
+    <button type="button" class="btn btn-secondary shadow-sm text-lg">
+      <div class="flex items-center">
+        <svg class="w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <%= t :start_stopwatch %>
+      </div>
+    </button>
+    <span class="text-sm px-3 text-gray-400"><%= t :or %></span>
+    <%= link_to new_project_activity_track_url(@project), class: "btn btn-secondary" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <%= t(:log_activity) %>
+      </div>
+    <% end %>
+  </div>
 
   <!--
   <div class="modal fade" id="stopWatchModal" tabindex="-1" role="dialog" aria-hidden="true">

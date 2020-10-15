@@ -96,7 +96,7 @@ class ProjectsController < ApplicationController
     end
 
     @invoices = @invoices.includes([:user, :invoice_entries])
-    @logs = @all_logs.paginate(page: params[:page], per_page: 5)
+    @logs = @all_logs.paginate(page: params[:page], per_page: 6)
 
     add_breadcrumb @project.name, @project
   end

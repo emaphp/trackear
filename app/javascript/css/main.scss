@@ -158,10 +158,12 @@ body {
 
 .pagination {
   @apply justify-end;
+  @apply my-3;
 
   .current {
-    @apply text-black;
+    @apply text-gray-800;
     @apply font-normal;
+    @apply text-base;
   }
 
   .disabled {

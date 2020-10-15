@@ -8,6 +8,8 @@ class InvoicesController < ApplicationController
 
   def index
     @invoices = InvoiceService.invoices_from(current_user, @project)
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :invoices
   end
 
   def show

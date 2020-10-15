@@ -1,9 +1,108 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
-    <li class="breadcrumb-item"><%= link_to @project.name, @project %></li>
-    <li class="breadcrumb-item active" aria-current="page"><%= t :invoices %></li>
-  </ol>
-</nav>
+<% content_for :menu do %>
+  <div class="mt-4 pb-5">
+    <%= link_to @project, class: "btn btn-secondary w-full" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+        </svg>
+        <%= t :back %>
+      </div>
+    <% end %>
+  </div>
+  <div class="pb-5">
+    <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">Filtros</h4>
+    <%= link_to "/", class: "btn btn-secondary animation-expand-hover w-full mb-2" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        Todas las facturas
+      </div>
+    <% end %>
+    <%= link_to "/", class: "btn btn-secondary animation-expand-hover w-full mb-2" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Facturas pagas
+      </div>
+    <% end %>
+    <%= link_to "/", class: "btn btn-secondary animation-expand-hover w-full mb-2" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Facturas impagas
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<% content_for :content do %>
+  <h4 class="text-sm font-bold text-gray-600 my-3 uppercase"><%= t :invoices %></h4>
 
-<%= render 'projects/invoices_box', invoices: @invoices, project: @project, user: current_user %>
+  <% if @invoices.empty? %>
+    <%= render "shared/content/box" do %>
+      <div class="text-center">
+        <p class="text-lg text-gray-600 mb-3"><%= t :no_invoices_found %></p>
+        <%= link_to t(:create_invoice), new_project_invoice_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= render "shared/content/box" do %>
+      <table class="table-auto w-full">
+        <thead>
+          <tr>
+            <th class="py-2 text-left">Period</th>
+            <th class="py-2 text-left">Amount</th>
+            <th class="py-2 text-left">Paid</th>
+            <th class="py-2 text-left">Type</th>
+            <th class="py-2 text-left">Invoice</th>
+            <th class="py-2 text-left">Payment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @invoices.each do |invoice| %>
+          <tr>
+            <td class="py-2">
+              <div class="flex items-center">
+                <%= render "shared/icon/avatar_sm", image_url: invoice.user.picture, extra_css: "mr-2" %>
+                <%= link_to humanized_invoice_period(invoice), status_project_invoice_path(invoice.project, invoice) %>
+              </div>
+            </td>
+            <td class="py-2">
+              <%= humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
+            </td>
+            <td class="py-2">
+              <% if invoice.is_paid? %>
+                Yes
+              <% end %>
+
+              <% if invoice.is_unpaid? %>
+                No
+              <% end %>
+            </td>
+            <td class="py-2">
+              <% if invoice.is_client_visible? %>
+                Client
+              <% else %>
+                Internal
+              <% end %>
+            </td>
+            <td class="py-2">
+              <%= link_to t(:invoice_download_afip_invoice), download_invoice_project_invoice_path(invoice.project, invoice), class: "border p-1 px-2 text-gray-600 rounded text-sm" %>
+            </td>
+            <td class="py-2">
+              <%= link_to t(:invoice_download_payment_receipt), download_payment_project_invoice_path(invoice.project, invoice), class: "border p-1 px-2 text-gray-600 rounded text-sm" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <div class="text-center mt-3">
+      <%= link_to t(:create_invoice), new_project_invoice_path(@project), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render "projects/layout" %>

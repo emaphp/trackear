@@ -1,22 +1,23 @@
-<%= render "project_header" %>
-
-<%= render "invoice_confirm_hours_notification" %>
-<%= render "invoice_updates_notification" %>
-
-<div class="flex">
-  <div class="w-1/4">
-    <div class="pb-5">
-      <%= render "members", project: @project, contracts: @contracts %>
-    </div>
-    <div class="pt-5">
-      <%= render "invoices", invoices: @invoices %>
-    </div>
+<% content_for :menu do %>
+  <div class="mt-4 pb-5">
+    <%= link_to home_path, class: "btn btn-secondary w-full" do %>
+      <div class="flex items-center">
+        <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+        </svg>
+        <%= t :back %>
+      </div>
+    <% end %>
   </div>
-  <div class="w-3/4">
-    <div class="ml-6">
-      <%= render "tracks_box", project: @project, user: current_user, logs: @logs, all_logs: @all_logs %>
-    </div>
+  <div class="pb-5">
+    <%= render "projects/members", project: @project, contracts: @contracts %>
   </div>
-</div>
+  <div class="pt-5">
+    <%= render "projects/invoices", invoices: @invoices %>
+  </div>
+<% end %>
+<% content_for :content do %>
+  <%= render "tracks_box", project: @project, user: current_user, logs: @logs, all_logs: @all_logs %>
+<% end %>
 
-<%= render "stopwatch" %>
+<%= render "layout" %>

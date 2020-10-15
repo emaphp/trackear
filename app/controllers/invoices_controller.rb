@@ -7,7 +7,7 @@ class InvoicesController < ApplicationController
   authorize_resource
 
   def index
-    @invoices = InvoiceService.invoices_from(current_user, @project)
+    @invoices = InvoiceService.invoices_from(current_user, @project).includes([:invoice_entries, :invoice_status])
     add_breadcrumb @project.name, @project
     add_breadcrumb t :invoices
   end

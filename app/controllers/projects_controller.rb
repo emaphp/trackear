@@ -74,7 +74,7 @@ class ProjectsController < ApplicationController
     @logs_to = logs_to_param
     @has_logged_today = ActivityTrackService.log_from_today?(@project, current_user)
     @all_logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to)
-                                    .includes(:project_contract)
+                                    .includes([:project_contract])
                                     .order(from: :desc)
 
     @invoice_status = current_user.invoice_status
@@ -95,6 +95,7 @@ class ProjectsController < ApplicationController
       @invoices = @project.invoices.where(user: current_user).paginate(page: 1, per_page: 4)
     end
 
+    @invoices = @invoices.includes([:user, :invoice_entries])
     @logs = @all_logs.paginate(page: params[:page], per_page: 5)
 
     add_breadcrumb @project.name, @project

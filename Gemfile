@@ -124,3 +124,5 @@ group :development do
   gem 'flamegraph'
   gem 'stackprof'
 end
+
+gem 'bullet', group: 'development'

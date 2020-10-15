@@ -17,6 +17,7 @@ class Ability
 
   def user_ability(user)
     can :update_locale, User, id: user.id
+    can :update, User, id: user.id
   end
 
   def project_ability(user)

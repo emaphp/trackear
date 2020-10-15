@@ -1,11 +1,5 @@
-<div class="home-index">
-  <%= render "welcome_message" %>
-  <div class="grid grid-cols-2 gap-3">
-    <div>
-      <%= render 'projects_box' %>
-    </div>
-    <div>
-      <%= render 'invoices_box' %>
-    </div>
-  </div>
-</div>
+<% content_for :content do %>
+  <%= render "projects_box" %>
+<% end %>
+
+<%= render "auth_layout" %>

@@ -31,6 +31,13 @@ body {
 .btn.btn-link, a {
   @apply text-blue-400;
   @apply font-bold;
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+
+  &:hover {
+    @apply text-blue-300;
+  }
 }
 
 .form-group {
@@ -89,6 +96,13 @@ body {
   @apply text-white;
   @apply p-3;
   @apply rounded;
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+
+  &:hover {
+    background-color: #50e06f;
+  }
 }
 
 .alert.alert-danger {

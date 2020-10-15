@@ -1,0 +1,10 @@
+<% content_for :content do %>
+  <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">
+    <%= t :settings %>
+  </h4>
+  <%= render "shared/content/box" do %>
+    <%= render "users/form", user: current_user %>
+  <% end %>
+<% end %>
+
+<%= render "auth_layout" %>

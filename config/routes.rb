@@ -12,18 +12,8 @@ Rails.application.routes.draw do
 
   post '/update-locale', to: 'users#update_locale', as: 'user_update_locale'
 
-  scope 'admin' do
-    resources :users do
-      post :become, on: :member
-    end
-  end
-
-  resources :expenses do
-    delete '/destroy_invitation/:invitation_id', as: 'destroy_invitation', action: :destroy_invitation, on: :collection
-    get '/accept_invitation/:token', as: 'accept_invitation', action: :accept_invitation, on: :collection
-    post :send_invitation, on: :collection
-    get :download_invoice, on: :member
-    get :download_receipt, on: :member
+  resources :users, only: [:update] do
+    post :become, on: :member
   end
 
   resources :projects do
@@ -75,6 +65,7 @@ Rails.application.routes.draw do
   end
 
   get '/', to: 'home#index', as: 'home'
+  get '/settings', to: 'home#settings', as: 'settings'
   get '/solutions', to: 'home#solutions', as: 'home_solutions'
   get '/robots.:format', to: 'pages#robots'
   get '/sitemap.:format', to: 'pages#sitemap'

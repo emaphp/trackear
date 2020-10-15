@@ -1,4 +1,4 @@
-<h4 class="text-lg font-bold my-3"><%= t :your_projects %></h4>
+<h4 class="text-sm font-bold text-gray-600 my-3 uppercase"><%= t :your_projects %></h4>
 <% unless @active_contracts.present? %>
   <div class="box mb-3">
     <p class="lead text-center mb-0">
@@ -18,13 +18,13 @@
   </div>
 <% end %>
 
-<div class="text-center">
-  <div class="inline-block">
-    <%= link_to(new_project_path, class: "flex items-center my-2 p-2 rounded-md bg-orange-500 text-white") do %>
-      <svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<div class="my-2 text-center">
+  <%= link_to(new_project_path, class: "btn btn-primary") do %>
+    <div class="flex items-center">
+      <svg class="w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
       <%= t :create_new_project %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

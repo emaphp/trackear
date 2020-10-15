@@ -21,6 +21,17 @@ body {
   }
 }
 
+.back-animation {
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+  @apply transform;
+
+  &:hover {
+    @apply -translate-x-1;
+  }
+}
+
 .breadcrumb {
   a {
     color: #1ea7fd;
@@ -98,6 +109,10 @@ body {
   @apply transition;
   @apply duration-300;
   @apply ease-in-out;
+
+  &:hover {
+    @apply shadow;
+  }
 }
 
 .btn.btn-secondary {

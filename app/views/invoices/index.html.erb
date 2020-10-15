@@ -1,6 +1,6 @@
 <% content_for :menu do %>
   <div class="mt-4 pb-5">
-    <%= link_to @project, class: "btn btn-secondary w-full" do %>
+    <%= link_to @project, class: "btn btn-secondary w-full back-animation" do %>
       <div class="flex items-center">
         <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
@@ -64,8 +64,8 @@
             <th class="py-2 text-left">Amount</th>
             <th class="py-2 text-left">Paid</th>
             <th class="py-2 text-left">Type</th>
-            <th class="py-2 text-left">Invoice</th>
-            <th class="py-2 text-left">Payment</th>
+            <th class="py-2 text-center">Invoice</th>
+            <th class="py-2 text-center">Payment</th>
           </tr>
         </thead>
         <tbody>
@@ -93,13 +93,13 @@
               <% if invoice.is_client_visible? %>
                 Client
               <% else %>
-                Internal
+                Team member
               <% end %>
             </td>
-            <td class="py-2">
+            <td class="py-2 text-center">
               <%= link_to t(:invoice_download_afip_invoice), download_invoice_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
             </td>
-            <td class="py-2">
+            <td class="py-2 text-center">
               <%= link_to t(:invoice_download_payment_receipt), download_payment_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
             </td>
           </tr>

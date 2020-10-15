@@ -91,10 +91,10 @@
               <% end %>
             </td>
             <td class="py-2">
-              <%= link_to t(:invoice_download_afip_invoice), download_invoice_project_invoice_path(invoice.project, invoice), class: "border p-1 px-2 text-gray-600 rounded text-sm" %>
+              <%= link_to t(:invoice_download_afip_invoice), download_invoice_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
             </td>
             <td class="py-2">
-              <%= link_to t(:invoice_download_payment_receipt), download_payment_project_invoice_path(invoice.project, invoice), class: "border p-1 px-2 text-gray-600 rounded text-sm" %>
+              <%= link_to t(:invoice_download_payment_receipt), download_payment_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
             </td>
           </tr>
           <% end %>

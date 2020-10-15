@@ -30,7 +30,6 @@ body {
 
 .btn.btn-link, a {
   @apply text-blue-400;
-  @apply font-bold;
   @apply transition;
   @apply duration-300;
   @apply ease-in-out;
@@ -94,7 +93,7 @@ body {
 
 .btn {
   @apply cursor-pointer;
-  @apply font-bold;
+  @apply font-semibold;
   @apply inline-block;
 }
 

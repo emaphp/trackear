@@ -47,7 +47,7 @@
 
   <% @invoice_status.invoice_statuses.each do |member_status| %>
   <div class="pb-2">
-    <h4 class="text-sm text-gray-600 my-2 uppercase">
+    <h4 class="text-gray-600 my-2">
       <%= "#{member_status.user.first_name} (#{member_status.user.email})" %>
     </h4>
     <%= link_to [member_status.invoice.project, member_status.invoice], class: "btn btn-secondary mb-2 w-full animation-expand-hover" do %>

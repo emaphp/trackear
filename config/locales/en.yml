@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  locale: "Locale"
   team_member_invoices: "Team member invoices"
   invoice_completed: "Invoice completed"
   invoice_completed_description: "This invoice is already completed"

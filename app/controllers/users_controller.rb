@@ -84,7 +84,7 @@ class UsersController < ApplicationController
   end
 
   def update_user_params
-    params.require(:user).permit(:first_name, :last_name)
+    params.require(:user).permit(:first_name, :locale, :last_name)
   end
 
   def user_locale_params

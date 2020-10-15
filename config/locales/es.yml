@@ -1,4 +1,5 @@
 es:
+  locale: "Idioma"
   team_member_invoices: "Facturas del equipo"
   invoice_completed: "Factura completada"
   invoice_completed_description: "Esta factura ya ha sido completada"

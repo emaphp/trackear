@@ -1,4 +1,6 @@
 es:
+  afip_invoice_amount: "Monto factura AFIP: %{amount}"
+  waiting_for_afip_invoice_upload: "Esperando a que el usuario suba la factura AFIP"
   locale: "Idioma"
   team_member_invoices: "Facturas del equipo"
   invoice_completed: "Factura completada"

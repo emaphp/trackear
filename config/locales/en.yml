@@ -30,6 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  afip_invoice_amount: "AFIP Amount: %{amount}"
+  waiting_for_afip_invoice_upload: "Waiting for user to upload AFIP invoice"
   locale: "Locale"
   team_member_invoices: "Team member invoices"
   invoice_completed: "Invoice completed"

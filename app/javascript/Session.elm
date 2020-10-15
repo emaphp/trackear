@@ -5,6 +5,5 @@ import User exposing (User)
 
 
 type alias Model =
-    { key : Nav.Key
-    , user : Maybe User
+    { user : Maybe User
     }

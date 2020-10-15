@@ -35,7 +35,7 @@ body {
   @apply ease-in-out;
 
   &:hover {
-    @apply text-blue-300;
+    @apply text-blue-500;
   }
 }
 
@@ -95,6 +95,9 @@ body {
   @apply cursor-pointer;
   @apply font-semibold;
   @apply inline-block;
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
 }
 
 .btn.btn-secondary {
@@ -102,6 +105,10 @@ body {
   @apply border;
   @apply p-3;
   @apply rounded;
+
+  &:hover {
+    @apply border-gray-400;
+  }
 }
 
 .btn.btn-primary {
@@ -111,9 +118,6 @@ body {
   @apply text-white;
   @apply p-3;
   @apply rounded;
-  @apply transition;
-  @apply duration-300;
-  @apply ease-in-out;
 
   &:hover {
     background-color: #50e06f;

@@ -25,6 +25,9 @@ class InvoicesController < ApplicationController
       from: Date.today.beginning_of_month,
       to: Date.today.end_of_month
     )
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb t :create_invoice
   end
 
   def edit

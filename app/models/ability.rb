@@ -25,6 +25,7 @@ class Ability
     can :read, Project, users: { id: user.id }
     can :manage, Project, project_contracts: { user: user, activity: 'Creator' }
     can :manage, ProjectContract, project: { project_contracts: { user: user, activity: 'Creator' } }
+    can [:create, :new], ProjectContract
   end
 
   def invoice_ability(user)

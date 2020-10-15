@@ -108,3 +108,5 @@ gem 'webpacker', '~> 5.1'
 gem 'sitemap_generator'
 
 gem 'breadcrumbs_on_rails'
+
+gem 'turbolinks', '~> 5.2.0'

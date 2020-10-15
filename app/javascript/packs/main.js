@@ -1,6 +1,6 @@
 // import { Elm } from '../Main'
 
-import 'cocoon-js'
+require("turbolinks").start()
 require('@rails/ujs').start()
 
 import '../css/main.scss'

@@ -19,11 +19,6 @@
         </svg>
         <%= t :create_new_project %>
       <% end %>
-      <% if can? :manage, Expense %>
-        <%= link_to(expenses_path, class: "px-3 mx-2") do %>
-          <%= t :expenses %>
-        <% end %>
-      <% end %>
       <% if can? :manage, User %>
         <%= link_to(users_path, class: "px-3 mx-2") do %>
           <%= t :users %>

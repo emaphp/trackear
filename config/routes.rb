@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   post '/update-locale', to: 'users#update_locale', as: 'user_update_locale'
 
-  resources :users, only: [:update] do
+  resources :users do
     post :become, on: :member
   end
 

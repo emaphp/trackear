@@ -13,8 +13,8 @@
       </p>
     </div>
   </div>
-  <div class="bg-gray-100 text-sm -m-6 p-3 mt-2 flex justify-between text-gray-600">
-    <%= log.from.strftime "%d %B %Y" %> to <%= log.to.strftime "%d %B %Y" %>, <%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %> logged
+  <div class="bg-gray-100 -m-6 p-3 mt-2 flex justify-between text-gray-600">
+    <%= t(:log_from_to_logged, from: log.from.strftime("%d %B %Y"), to: log.to.strftime("%d %B %Y"), time_words: distance_of_time_in_words(log.from, log.to, true, accumulate_on: :hours)) %>
     <div>
       <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "border px-2 mx-1 rounded") do %>
         <%= t :edit %>

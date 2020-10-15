@@ -3,9 +3,13 @@
 class ApplicationController < ActionController::Base
   layout :choose_layout
   around_action :switch_locale
-  add_breadcrumb "Home", :home_path
+  before_action :add_home_breadcrumb
 
   private
+
+  def add_home_breadcrumb
+    add_breadcrumb t(:home), home_path
+  end
 
   def switch_locale(&action)
     locale = if user_signed_in?

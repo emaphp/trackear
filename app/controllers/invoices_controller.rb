@@ -13,6 +13,9 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb @invoice.from.strftime('%B %Y')
   end
 
   def new
@@ -185,8 +188,8 @@ class InvoicesController < ApplicationController
         ]
       }
     ]
-    if current_user.is_admin?
-      @invoice = Invoice.includes(invoice_entries: to_be_included).find(params[:id])
+    if @project.is_owner?(current_user)
+      @invoice = @project.invoices.includes(invoice_entries: to_be_included).find(params[:id])
     elsif @project.is_client? current_user
       @invoice = @project.invoices.includes(invoice_entries: to_be_included).for_client_visible.find(params[:id])
     else

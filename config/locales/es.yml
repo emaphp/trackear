@@ -1,4 +1,5 @@
 es:
+  log_from_to_logged: "%{from} hasta %{to} - %{time_words} registrado"
   afip_invoice_amount: "Monto factura AFIP: %{amount}"
   waiting_for_afip_invoice_upload: "Esperando a que el usuario suba la factura AFIP"
   locale: "Idioma"

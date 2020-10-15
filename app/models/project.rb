@@ -33,6 +33,10 @@ class Project < ApplicationRecord
     owner_contract.project
   end
 
+  def is_owner?(user)
+    project_contracts.where(user: user, activity: 'Creator').any?
+  end
+
   def is_client?(user)
     project_contracts.where(user: user, activity: 'Client').any?
   end

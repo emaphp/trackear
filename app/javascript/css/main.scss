@@ -132,3 +132,21 @@ body {
 .alert-heading {
   @apply font-bold;
 }
+
+.pagination {
+  @apply justify-end;
+
+  .current {
+    @apply text-black;
+    @apply font-normal;
+  }
+
+  .disabled {
+    display: none;
+  }
+
+  .current, a {
+    @apply font-normal;
+    @apply px-3;
+  }
+}

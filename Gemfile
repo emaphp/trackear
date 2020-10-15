@@ -110,3 +110,17 @@ gem 'sitemap_generator'
 gem 'breadcrumbs_on_rails'
 
 gem 'turbolinks', '~> 5.2.0'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
+  gem 'rack-mini-profiler'
+
+  # For memory profiling
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs
+  gem 'flamegraph'
+  gem 'stackprof'
+end

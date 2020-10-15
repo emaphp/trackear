@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   layout :choose_layout
+  around_action :user_time_zone, if: :user_signed_in?
   around_action :switch_locale
   before_action :add_home_breadcrumb
 
@@ -18,6 +19,10 @@ class ApplicationController < ActionController::Base
                :es
              end
     I18n.with_locale(locale, &action)
+  end
+
+  def user_time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
   end
 
   def choose_layout

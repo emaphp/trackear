@@ -32,7 +32,7 @@
 en:
   or: "Or"
   track_time: "Track time"
-  log_from_to_logged: "%{from} to %{to} - %{time_words} logged"
+  log_from_to_logged: "%{from} - %{time_words} logged"
   afip_invoice_amount: "AFIP Amount: %{amount}"
   waiting_for_afip_invoice_upload: "Waiting for user to upload AFIP invoice"
   locale: "Locale"

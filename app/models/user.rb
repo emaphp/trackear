@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_many :submissions
   has_many :other_submissions
 
+  validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all(&:name)
+
   def avatar_or_default
     picture || ''
   end
@@ -86,7 +88,7 @@ class User < ApplicationRecord
     last_ten_days_feedbacks.length < max_submissions_in_ten_days
   end
 
-  private 
+  private
     def days_to_seconds days
         60 * 60 * 24 * days
     end
@@ -97,5 +99,5 @@ class User < ApplicationRecord
 
     def last_ten_days_other_submissions
         self.other_submissions.submitted_in_period(Time.now() - days_to_seconds(10), Time.now())
-    end  
+    end
 end

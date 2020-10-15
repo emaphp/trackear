@@ -16,6 +16,11 @@
     <%= form.select :locale, [['🇦🇷 Español', 'es'], ['🇺🇸 English', 'en']], {}, class: "bg-white form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :time_zone, t(:time_zone) %>
+    <%= form.time_zone_select :time_zone, ActiveSupport::TimeZone.country_zones(:ar), { default: 'Eastern Time (US & Canada)' }, { class: 'bg-white form-control' } %>
+  </div>
+
   <div class="text-right">
     <%= link_to t(:cancel), home_url, class: "btn btn-secondary" %>
     <%= form.submit t(:save), class: "btn btn-primary" %>

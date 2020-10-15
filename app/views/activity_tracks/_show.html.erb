@@ -2,24 +2,24 @@
   <div class="flex">
     <%= render "shared/icon/avatar", image_url: log.project_contract.user.picture, extra_css: "mr-3" %>
     <div>
-      <h5 class="font-bold mt-1 m-0">
+      <h5 class="font-bold">
         <%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %>
         <span class="text-gray-500">
           (<%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %>)
         </span>
       </h5>
-      <p class="mb-0">
+      <p class="text-lg text-gray-600">
         <%= log.description.gsub(/\n/, '<br/>').html_safe %>
       </p>
     </div>
   </div>
-  <div class="bg-gray-100 -m-6 p-3 mt-2 flex justify-between text-gray-600">
+  <div class="bg-gray-100 -m-6 p-2 pl-4 mt-2 flex items-center justify-between text-gray-600">
     <%= t(:log_from_to_logged, from: log.from.strftime("%d %B %Y"), to: log.to.strftime("%d %B %Y"), time_words: distance_of_time_in_words(log.from, log.to, true, accumulate_on: :hours)) %>
     <div>
-      <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "border px-2 mx-1 rounded") do %>
+      <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "btn btn-secondary btn-sm  mx-1") do %>
         <%= t :edit %>
       <% end %>
-      <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "border px-2 text-red-400 mx-1 rounded") do %>
+      <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "btn btn-secondary btn-sm text-red-400 mx-1") do %>
         <%= t :delete %>
       <% end %>
     </div>

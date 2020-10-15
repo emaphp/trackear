@@ -121,6 +121,11 @@ body {
   }
 }
 
+.btn.btn-sm {
+  @apply p-2;
+  @apply py-1;
+}
+
 .alert.alert-danger {
   @apply bg-red-300;
   @apply border;

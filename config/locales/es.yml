@@ -1,4 +1,8 @@
 es:
+  filters: "Filtros"
+  all_invoices: "Todas las facturas"
+  paid_invoices: "Facturas pagas"
+  unpaid_invoices: "Facturas impagas"
   or: "O"
   track_time: "Registrar tiempo"
   log_from_to_logged: "%{from} - %{time_words} registrado"

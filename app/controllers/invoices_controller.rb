@@ -7,7 +7,15 @@ class InvoicesController < ApplicationController
   authorize_resource
 
   def index
+    filter = params.dig(:type)
     @invoices = InvoiceService.invoices_from(current_user, @project).includes([:invoice_entries, :invoice_status])
+
+    if (filter == "paid")
+      @invoices = @invoices.select(&:is_paid?)
+    elsif (filter == "unpaid")
+      @invoices = @invoices.select(&:is_unpaid?)
+    end
+
     add_breadcrumb @project.name, @project
     add_breadcrumb t :invoices
   end

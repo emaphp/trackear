@@ -4,9 +4,14 @@ class ApplicationController < ActionController::Base
   layout :choose_layout
   around_action :user_time_zone, if: :user_signed_in?
   around_action :switch_locale
+  after_action :user_activity
   before_action :add_home_breadcrumb
 
   private
+
+  def user_activity
+    current_user.try :touch
+  end
 
   def add_home_breadcrumb
     add_breadcrumb t(:home), home_path

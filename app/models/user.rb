@@ -28,6 +28,8 @@ class User < ApplicationRecord
 
   # validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name)
 
+  scope :online, -> { where("updated_at > ?", 25.minutes.ago) }
+
   def avatar_or_default
     picture || ''
   end

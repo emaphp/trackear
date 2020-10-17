@@ -51,6 +51,20 @@ group :development do
   gem 'capistrano-nvm', require: false
   gem 'capistrano-bundler', '~> 2.0', require: false
   gem 'capistrano3-puma', require: false
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
+  gem 'rack-mini-profiler'
+
+  # For memory profiling
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs
+  gem 'flamegraph'
+  gem 'stackprof'
+
+  gem 'bullet'
 end
 
 group :test do
@@ -107,18 +121,4 @@ gem 'breadcrumbs_on_rails'
 
 gem 'turbolinks', '~> 5.2.0'
 
-group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-
-  gem 'rack-mini-profiler'
-
-  # For memory profiling
-  gem 'memory_profiler'
-
-  # For call-stack profiling flamegraphs
-  gem 'flamegraph'
-  gem 'stackprof'
-end
-
-gem 'bullet', group: 'development'
+gem 'sentry-raven'

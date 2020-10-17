@@ -2,10 +2,14 @@
 
 class ApplicationController < ActionController::Base
   layout :choose_layout
+
+  before_action :set_raven_context
+  before_action :add_home_breadcrumb
+
+  after_action :user_activity
+
   around_action :user_time_zone, if: :user_signed_in?
   around_action :switch_locale
-  after_action :user_activity
-  before_action :add_home_breadcrumb
 
   private
 
@@ -33,5 +37,10 @@ class ApplicationController < ActionController::Base
   def choose_layout
     'application' unless user_signed_in?
     'authenticated' if user_signed_in?
+  end
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

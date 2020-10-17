@@ -17,7 +17,7 @@ module App
 
     config.middleware.use Rack::Attack
 
-    config.exceptions_app = routes
+    # config.exceptions_app = routes
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

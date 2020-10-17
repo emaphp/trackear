@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  form_error_title: "Oops, something went wrong"
   continue: "Continue"
   name: "Name"
   hours: "Hours"
@@ -106,8 +107,8 @@ en:
   stopwatch_finish: "Finish"
   project_add_member: "Add new member"
   time_to_create_invoice: "Time to create the invoice!"
-  time_to_create_invoice_message: "%{name}, it's end of the month and it's time to get paid and create some invoices 🎉"
-  time_to_create_invoice_confirmation: "For the period %{period} you logged %{hours}, making a billable total of %{amount}"
+  time_to_create_invoice_message: "%{name}, the project's administrator has starting the billing process. Please, confirm your logged hours and amounts are correct. If not, you can edit your tracks or add in case of need."
+  time_to_create_invoice_confirmation: "For the billing period %{period} you logged %{hours}, making a billable total of %{amount}"
   time_to_create_invoice_yes_its_correct: "Yes, the hours and amounts are correct"
   updates_for_your_invoice: "Updates for your invoice!"
   updates_in_your_invoice: "%{name}, there are updates for your invoice."

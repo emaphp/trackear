@@ -1,4 +1,4 @@
-<% if @invoice_status.present? && @invoice_status.has_news? %>
+<% if @invoice_status.present? && @invoice_status.invoice.present? && @invoice_status.has_news? %>
   <div class="bg-orange-200 text-orange-900 p-3 border">
     <div class="media">
       <div class="mr-3">

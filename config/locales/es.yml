@@ -1,4 +1,5 @@
 es:
+  form_error_title: "Oops, hubo un error al procesar tu solicitud"
   continue: "Continuar"
   name: "Nombre"
   hours: "Horas"
@@ -76,8 +77,8 @@ es:
   stopwatch_finish: "Registrar"
   project_add_member: "Agregar miembro"
   time_to_create_invoice: "¡Tiempo de crear la factura!"
-  time_to_create_invoice_message: "%{name}, es fin de mes y es momento de crear la factura 🎉"
-  time_to_create_invoice_confirmation: "Para el período de %{period} registraste %{hours}, haciendo un total de %{amount}"
+  time_to_create_invoice_message: "%{name}, el administrador del proyecto inició el proceso de facturación. Por favor confirmá si tus horas y montos son correctos, de lo contrario, podés editar tus registros de trabajo o agregar en caso de faltar."
+  time_to_create_invoice_confirmation: "Para el período a facturar de %{period} registraste %{hours}, haciendo un total de %{amount}"
   time_to_create_invoice_yes_its_correct: "Si, las horas y montos son correctos"
   updates_for_your_invoice: "¡Novedades en tu factura!"
   updates_in_your_invoice: "%{name}, hay novedades en tu factura."

@@ -3,6 +3,8 @@ module Page.Invoices.New exposing (..)
 import Browser
 import Browser.Navigation exposing (load)
 import DurationDatePicker exposing (Settings, defaultSettings)
+import FormatNumber exposing (format)
+import FormatNumber.Locales exposing (Decimals(..), spanishLocale)
 import Html exposing (Html, button, div, img, label, table, tbody, td, text, tfoot, th, thead, tr)
 import Html.Attributes exposing (class, disabled, src, style)
 import Html.Events exposing (onClick)
@@ -198,12 +200,17 @@ calculateMinutesFor row =
 
 calculateAmount : InvoiceSummary -> String
 calculateAmount row =
-    "$" ++ String.fromFloat (InoviceSummary.calculateAmount row)
+    "$" ++ formatAmount (InoviceSummary.calculateAmount row)
 
 
 calculateTotalAmount : List InvoiceSummary -> String
 calculateTotalAmount summary =
-    "$" ++ String.fromFloat (List.sum (List.map InoviceSummary.calculateAmount summary))
+    "$" ++ formatAmount (List.sum (List.map InoviceSummary.calculateAmount summary))
+
+
+formatAmount : Float -> String
+formatAmount amount =
+    format { spanishLocale | decimals = Exact 2 } amount
 
 
 summaryTableRow : InvoiceSummary -> Html Msg

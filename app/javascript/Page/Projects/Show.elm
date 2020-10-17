@@ -1,4 +1,4 @@
-module PageProjectsShow exposing (..)
+module Page.Projects.Show exposing (..)
 
 import Browser
 import Html exposing (Html, button, div, span, text)

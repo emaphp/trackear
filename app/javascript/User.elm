@@ -1,31 +1,19 @@
 module User exposing (..)
 
-import Http
-import Json.Decode as Decode exposing (Decoder, bool, nullable, string)
-import Json.Decode.Pipeline exposing (optional, required)
+import Json.Decode exposing (Decoder, string)
+import Json.Decode.Pipeline exposing (required)
 
 
 type alias User =
-    { email : String
-    , first_name : Maybe String
-    , last_name : Maybe String
-    , picture : Maybe String
-    , is_admin : Bool
+    { first_name : String
+    , last_name : String
+    , picture : String
     }
 
 
 decoder : Decoder User
 decoder =
-    Decode.succeed User
-        |> required "email" string
-        |> required "first_name" (nullable string)
-        |> required "last_name" (nullable string)
-        |> required "picture" (nullable string)
-        |> optional "is_admin" bool False
-
-
-getProfile msg =
-    Http.get
-        { url = "http://localhost:3000/me"
-        , expect = Http.expectJson msg decoder
-        }
+    Json.Decode.succeed User
+        |> required "first_name" string
+        |> required "last_name" string
+        |> required "picture" string

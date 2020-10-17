@@ -8,15 +8,9 @@
     </a>
     <div class="flex menu">
       <a class="px-3 mx-1 flex items-center" href="/">
-        <svg class="w-5 mr-3 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
         <%= t :home %>
       </a>
       <%= link_to(new_project_path, class: "px-3 mx-1 flex items-center text-white") do %>
-        <svg class="w-5 mr-3 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
         <%= t :create_new_project %>
       <% end %>
       <% if can? :manage, User %>
@@ -26,16 +20,10 @@
       <% end %>
       <% if session[:impersonating_from].present? %>
         <%= link_to(destroy_user_session_path, method: :delete, class: "px-3 mx-1 flex items-center text-white") do %>
-          <svg class="w-5 mr-3 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
           <%= t :exit_impersionate, email: current_user.email %>
         <% end %>
       <% else %>
         <%= link_to(destroy_user_session_path, method: :delete, class: "px-3 mx-1 flex items-center text-white") do %>
-          <svg class="w-5 mr-3 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
           <%= t :logout, email: current_user.first_name %>
         <% end %>
       <% end %>

@@ -20,9 +20,20 @@
     <input type="hidden" id="project_slug" value="<%= @project.slug %>">
     <%= render 'new_invoice_form', invoice: @invoice, project: @project %>
 
-    <div id="invoice-form"></div>
+    <div
+      id="invoice-form"
+      data-project_id="<%= @project.id %>"
+      data-name_label="<%= t :name %>"
+      data-hours_label="<%= t :hours %>"
+      data-amount_label="<%= t :amount %>"
+      data-date_label="<%= t :date %>"
+      data-choose_another_date_label="<%= t :choose_another_date %>"
+      data-create_invoice_label="<%= t :create_invoice %>"
+      data-continue_label="<%= t :continue %>"
+      data-select_date_label="<%= t :select_date %>"
+    ></div>
   <% end %>
 <% end %>
 
 <%= render "projects/layout" %>
-<%= javascript_pack_tag "invoices_new" %>
+<%= javascript_pack_tag "invoices/new" %>

@@ -1,4 +1,10 @@
 es:
+  continue: "Continuar"
+  name: "Nombre"
+  hours: "Horas"
+  amount: "Monto"
+  choose_another_date: "Elegir otra fecha"
+  select_date: "Seleccionar fecha"
   default_stopwatch_description: "Registrado desde cronómetro"
   filters: "Filtros"
   all_invoices: "Todas las facturas"

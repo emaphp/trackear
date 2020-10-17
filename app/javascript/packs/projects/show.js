@@ -1,4 +1,4 @@
-import { Elm } from '../PageProjectsShow'
+import { Elm } from '../../Page/Projects/Show'
 
 document.addEventListener('turbolinks:load', function () {
   const parent = document.getElementById('stopwatch-timer')
@@ -14,7 +14,7 @@ document.addEventListener('turbolinks:load', function () {
 
   parent.appendChild(node)
 
-  Elm.PageProjectsShow.init({
+  Elm.Page.Projects.Show.init({
     node: node,
     flags: Number(timer),
   })

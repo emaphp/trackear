@@ -30,7 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  continue: "Continue"
+  name: "Name"
+  hours: "Hours"
+  amount: "Amount"
+  choose_another_date: "Chose another date"
   default_stopwatch_description: "Logged from stopwatch"
+  select_date: "Select date"
   filters: "Filters"
   all_invoices: "All invoices"
   paid_invoices: "Paid invoices"

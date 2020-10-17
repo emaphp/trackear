@@ -8,6 +8,12 @@ body {
   font-family: 'Nunito';
 }
 
+.turbolinks-progress-bar {
+  @apply h-1;
+  @apply bg-blue-400;
+  @apply shadow;
+}
+
 .animation-expand-hover {
   @apply transition;
   @apply duration-300;
@@ -175,4 +181,194 @@ body {
     @apply font-normal;
     @apply px-3;
   }
+}
+
+.elm-datetimepicker-duration--picker-container {
+  @apply bg-white;
+  @apply absolute;
+  @apply text-gray-600;
+  @apply p-4;
+  @apply rounded;
+  @apply shadow-md;
+  @apply border;
+}
+
+.elm-datetimepicker-duration--picker-header-chevrons {
+  @apply flex;
+  @apply justify-between;
+  @apply items-center;
+  @apply px-2;
+  @apply py-2;
+  @apply text-lg;
+}
+
+.elm-datetimepicker-duration--picker-header-chevron {
+  @apply cursor-pointer;
+}
+
+.elm-datetimepicker-duration--picker-header-chevron:hover {
+  @apply text-green-500;
+}
+
+.elm-datetimepicker-duration--calendars-container {
+  @apply flex;
+  @apply mb-1;
+}
+
+.elm-datetimepicker-duration--calendar {
+  @apply inline-flex;
+}
+
+.elm-datetimepicker-duration--calendar-spacer {
+  @apply inline-flex;
+  @apply w-8;
+}
+
+.elm-datetimepicker-duration--calendar-header {
+  @apply py-2;
+  @apply font-bold;
+}
+
+.elm-datetimepicker-duration--calendar-header-row {
+  @apply flex;
+  @apply items-center;
+  @apply text-gray-800;
+  @apply px-2;
+}
+
+.elm-datetimepicker-duration--calendar-header-text {
+  @apply inline-flex;
+  @apply items-center;
+}
+
+.elm-datetimepicker-duration--calendar-header-chevron.elm-datetimepicker-duration--hidden {
+  visibility: hidden;
+}
+
+.elm-datetimepicker-duration--calendar-header-week {
+  @apply flex;
+  @apply text-gray-500;
+  @apply font-normal;
+}
+
+.elm-datetimepicker-duration--calendar-header-day {
+  @apply inline-flex;
+  @apply items-center;
+  @apply justify-center;
+  height: 30px;
+  width: 30px;
+}
+
+.elm-datetimepicker-duration--calendar-month {
+  height: 180px;
+  width: 210px;
+}
+
+.elm-datetimepicker-duration--calendar-week {
+  @apply flex;
+}
+
+.elm-datetimepicker-duration--calendar-day {
+  height: 30px;
+  width: 30px;
+  @apply inline-flex;
+  @apply items-center;
+  @apply justify-center;
+  @apply text-base;
+  @apply bg-white;
+  @apply text-gray-800;
+  @apply cursor-pointer;
+}
+
+.elm-datetimepicker-duration--calendar-day:hover {
+  @apply bg-gray-400;
+}
+
+.elm-datetimepicker-duration--calendar-day.elm-datetimepicker-duration--hidden {
+  visibility: hidden;
+}
+
+.elm-datetimepicker-duration--calendar-day.elm-datetimepicker-duration--disabled {
+  @apply text-gray-500;
+  @apply cursor-default;
+  @apply bg-white;
+}
+
+.elm-datetimepicker-duration--calendar-day.elm-datetimepicker-duration--picked {
+  @apply bg-blue-300;
+  @apply text-white;
+}
+
+.elm-datetimepicker-duration--calendar-day.elm-datetimepicker-duration--today {
+  @apply font-bold;
+}
+
+.elm-datetimepicker-duration--calendar-day.elm-datetimepicker-duration--between {
+  @apply bg-blue-100;
+}
+
+.elm-datetimepicker-duration--calendar-day.elm-datetimepicker-duration--today-between {
+  @apply bg-blue-100;
+  @apply font-bold;
+}
+
+.elm-datetimepicker-duration--footer-container {
+  @apply flex;
+}
+
+.elm-datetimepicker-duration--footer {
+  @apply flex;
+  width: 100%;
+  @apply justify-between;
+  @apply p-4;
+}
+
+.elm-datetimepicker-duration--time-pickers-container {
+  width: 100%;
+}
+
+.elm-datetimepicker-duration--time-picker-information-container {
+  @apply items-center;
+  width: 100%;
+}
+
+.elm-datetimepicker-duration--time-picker-container {
+  @apply inline-flex;
+  @apply justify-between;
+  @apply items-center;
+  width: 35%;
+}
+
+.elm-datetimepicker-duration--date-display-container {
+  @apply inline-flex;
+  @apply justify-end;
+  width: 65%;
+}
+
+.elm-datetimepicker-duration--time-picker {
+  @apply flex;
+  @apply justify-between;
+  @apply p-4;
+}
+
+.elm-datetimepicker-duration--select-container {
+  @apply inline-flex;
+}
+
+.elm-datetimepicker-duration--select {
+  @apply inline-flex;
+}
+
+.elm-datetimepicker-duration--selection-time {
+  @apply ml-4;
+}
+
+.elm-datetimepicker-duration--selection-time-danger {
+  margin-left: 5px;
+  color: red;
+}
+
+.elm-datetimepicker-duration--select-spacer {
+  @apply inline-flex;
+  @apply p-4;
 }

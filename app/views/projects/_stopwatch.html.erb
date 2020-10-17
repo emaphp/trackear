@@ -15,7 +15,7 @@
             <h4 class="text-lg font-bold pl-4">
               <%= t :stopwatch_running %>
               <span id="stopwatch-timer" data-timer="<%= @stopwatch.start.utc.to_i * 1000 %>"></span>
-              <%= javascript_pack_tag "projects_show" %>
+              <%= javascript_pack_tag "projects/show" %>
             </h4>
           </span>
           <% if @stopwatch.description.present? %>

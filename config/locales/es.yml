@@ -1,4 +1,7 @@
 es:
+  update_invoice: "Actualizar factura"
+  entries: "Registros"
+  no_entries_found: "No se encontraron registros para este período"
   form_error_title: "Oops, hubo un error al procesar tu solicitud"
   continue: "Continuar"
   name: "Nombre"

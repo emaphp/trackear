@@ -1,24 +1,19 @@
-<h6>Review invoice entries</h6>
+<h6 class="font-bold"><%= t :review_invoice %></h6>
 
 <%= render 'shared/form/errors', errors: invoice.errors %>
 
 <%= form_with(model: [project, invoice], local: true, id: "invoice-form") do |form| %>
-    <div class="form-group">
-        <%= form.label :discount_percentage %>
-        <%= form.number_field :discount_percentage, class: "form-control discount-percentage", onchange: "updateInvoiceTotal()" %>
-    </div>
-
-    <h6 class="mb-2">Entries</h6>
+    <h6 class="mb-2 font-bold"><%= t :entries %></h6>
     <% if invoice.invoice_entries.empty? %>
-        <p class="lead">No entries found for this period</p>
+        <p class="text-lg"><%= t :no_entries_found %></p>
     <% end %>
     <%= form.fields_for :invoice_entries do |entry| %>
         <%= render 'invoice_entry', entry: entry %>
     <% end %>
     <div class="text-right form-group">
-        <strong>Total:</strong> <span class="invoice-total">0</span> <%= invoice.currency %>
+        <span class="font-bold">Total:</span> <span class="invoice-total">0</span> <%= invoice.currency %>
     </div>
     <div class="form-group text-right">
-        <%= form.submit "Update", class: "btn btn-primary" %>
+        <%= form.submit t(:update_invoice), class: "btn btn-primary" %>
     </div>
 <% end %>

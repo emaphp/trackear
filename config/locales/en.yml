@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  update_invoice: "Update invoice"
+  entries: "Entries"
+  no_entries_found: "No entries found for this period"
   form_error_title: "Oops, something went wrong"
   continue: "Continue"
   name: "Name"

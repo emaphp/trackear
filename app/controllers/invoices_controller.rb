@@ -149,6 +149,10 @@ class InvoicesController < ApplicationController
   end
 
   def review_entries
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb @invoice.from.strftime('%B %Y'), [@project, @invoice]
+    add_breadcrumb t(:review_invoice)
   end
 
   def upload_invoice

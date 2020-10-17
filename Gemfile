@@ -86,14 +86,10 @@ gem 'secure_headers', '~> 6.3.0'
 
 gem 'rack-attack', '~> 6.2.2'
 
-gem 'slack-ruby-client', '~> 0.14.5'
-
 gem 'asset_sync', '~> 2.11.0'
 gem 'fog-aws', '~> 3.6.2'
 
 gem 'aws-sdk-s3', '~> 1.14'
-
-gem 'font-awesome-sass', '~> 5.12.0'
 
 gem 'mini_racer', '~> 0.2.9'
 

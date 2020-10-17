@@ -11,11 +11,6 @@ class UsersController < ApplicationController
     @users = User.all.order(created_at: :desc)
   end
 
-  def update_locale
-    current_user.update(user_locale_params)
-    redirect_to request.referer
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show; end

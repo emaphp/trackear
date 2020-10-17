@@ -10,8 +10,6 @@ Rails.application.routes.draw do
   match '/422', to: 'error#unacceptable', via: :all
   match '/500', to: 'error#internal_error', via: :all
 
-  post '/update-locale', to: 'users#update_locale', as: 'user_update_locale'
-
   resources :users do
     post :become, on: :member
   end
@@ -29,7 +27,6 @@ Rails.application.routes.draw do
 
     get :status_period, on: :member
 
-    resources :reports
     resources :project_contracts, except: [:index]
 
     resources :activity_tracks, except: [:index]
@@ -59,10 +56,6 @@ Rails.application.routes.draw do
   resources :feedback_options, only: [:index]
   resources :submissions, only: [:create]
   resources :other_submissions, only: [:create]
-
-  scope 'slack' do
-    post 'log', to: 'slack#log'
-  end
 
   get '/', to: 'home#index', as: 'home'
   get '/settings', to: 'home#settings', as: 'settings'

@@ -26,7 +26,7 @@ class User < ApplicationRecord
   has_many :submissions
   has_many :other_submissions
 
-  validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all(&:name)
+  # validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name)
 
   def avatar_or_default
     picture || ''

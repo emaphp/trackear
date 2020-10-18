@@ -1,33 +1,29 @@
-<nav class="relative bg-gray-900">
+<nav class="relative py-6">
   <div class="mx-auto container flex items-center justify-between h-16">
     <a href="/" class="flex items-center">
       <svg class="w-5 mr-2 text-pink-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
-      <span class="text-white font-bold text-lg">trackear</span>
+      <span class="text-gray-800 font-bold text-lg">trackear</span>
     </a>
-    <div class="flex menu">
-      <a class="px-3 mx-1 flex items-center" href="/">
-        <%= t :home %>
+    <div class="flex menu text-gray-600 font-bold">
+      <a class="px-3 mx-1" href="/">
+        ¿Por qué trackear.app?
       </a>
-      <%= link_to(new_project_path, class: "px-3 mx-1 flex items-center text-white") do %>
-        <%= t :create_new_project %>
-      <% end %>
-      <% if can? :manage, User %>
-        <%= link_to(users_path, class: "px-3 mx-1") do %>
-          <%= t :users %>
-        <% end %>
-      <% end %>
-      <% if session[:impersonating_from].present? %>
-        <%= link_to(destroy_user_session_path, method: :delete, class: "px-3 mx-1 flex items-center text-white") do %>
-          <%= t :exit_impersionate, email: current_user.email %>
-        <% end %>
-      <% else %>
-        <%= link_to(destroy_user_session_path, method: :delete, class: "px-3 mx-1 flex items-center text-white") do %>
-          <%= t :logout, email: current_user.first_name %>
-        <% end %>
-      <% end %>
+      <a class="px-3 mx-1" href="/">
+        Comunidad
+      </a>
+      <a class="px-3 mx-1" href="/">
+        Precio
+      </a>
     </div>
-
+    <div>
+      <a class="py-2 px-4 mx-1 text-gray-800" href="/">
+        Ingresar
+      </a>
+      <a class="py-2 px-4 mx-1 bg-blue-400 rounded text-white" href="/">
+        Registrase gratis
+      </a>
+    </div>
   </div>
 </nav>

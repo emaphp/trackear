@@ -1,40 +1,11 @@
-<div class="home-index">
-  <div class="section">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-3">
-          <h1>Registrá tu trabajo, invitá a tu equipo y facturá.</h1>
-          <p class="lead">La herramienta indispensable para el freelancer argentino</p>
-          <div class="text-center py-4">
-            <%= link_to "Registrate con Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-orange d-block" %>
-            <%= link_to "Más información", home_solutions_path, class: "btn btn-link d-block" %>
-          </div>
-        </div>
-        <div class="col-lg-9 text-center">
-          <div id="preview" class="carousel slide carousel-fade" data-ride="carousel" data-interval="4500">
-            <ol class="carousel-indicators">
-              <li data-target="#preview" data-slide-to="0" class="active"></li>
-              <li data-target="#preview" data-slide-to="1"></li>
-              <li data-target="#preview" data-slide-to="2"></li>
-              <li data-target="#preview" data-slide-to="3"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <%= image_tag 'trackear-pagina-principal.jpg', class: "img-fluid", alt: "Página principal de Trackear" %>
-              </div>
-              <div class="carousel-item">
-                <%= image_tag 'trackear-facturas.jpg', class: "img-fluid", alt: "Trackear te ayuda con la facturación" %>
-              </div>
-              <div class="carousel-item">
-                <%= image_tag 'trackear-registro-de-actividad.jpg', class: "img-fluid", alt: "Registrá tus horas de trabajo en Trackear" %>
-              </div>
-              <div class="carousel-item">
-                <%= image_tag 'trackear-creacion-de-factura.jpg', class: "img-fluid", alt: "Creá facturas muy fácil en Trackear" %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="text-center py-16">
+  <h1 class="text-5xl font-bold">
+    Registrá tu trabajo, invitá a tu equipo y facturá.
+  </h1>
+  <p class="text-2xl text-gray-600">
+    La herramienta indispensable para el freelancer argentino
+  </p>
+</div>
+<div class="text-center">
+  <%= link_to "Comenzar", user_google_oauth2_omniauth_authorize_path, class: "px-8 py-4 text-lg font-bold bg-orange-500 text-white rounded shadow" %>
 </div>

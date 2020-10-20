@@ -1,4 +1,6 @@
 en:
+  download: "Download"
+  invoice_type: "Type"
   update_invoice: "Update invoice"
   entries: "Entries"
   no_entries_found: "No entries found for this period"
@@ -69,6 +71,7 @@ en:
   last_four_invoices: "Last 4 invoices"
   you_dont_have_invoices: "You don't have any invoices."
   client_invoice: "Client invoice"
+  team_invoice: "Team invoice"
   invoice_small_summary_html: "Created by <span class='font-weight-bold'>%{author}</span> for <span class='font-weight-bold'>%{period}</span>.<br />Amount %{amount}"
   view_status: "View status"
   edit: "Edit"

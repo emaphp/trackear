@@ -62,12 +62,12 @@
       <table class="table-auto w-full">
         <thead>
           <tr>
-            <th class="py-2 text-left">Period</th>
-            <th class="py-2 text-left">Amount</th>
-            <th class="py-2 text-left">Paid</th>
-            <th class="py-2 text-left">Type</th>
-            <th class="py-2 text-center">Invoice</th>
-            <th class="py-2 text-center">Payment</th>
+            <th class="py-2 text-left"><%= t :invoice_period %></th>
+            <th class="py-2 text-left"><%= t :amount %></th>
+            <th class="py-2 text-left"><%= t :invoice_status %></th>
+            <th class="py-2 text-left"><%= t :invoice_type %></th>
+            <th class="py-2 text-center"><%= t :afip_invoice %></th>
+            <th class="py-2 text-center"><%= t :payment_receipt %></th>
           </tr>
         </thead>
         <tbody>
@@ -84,25 +84,25 @@
             </td>
             <td class="py-2">
               <% if invoice.is_paid? %>
-                Yes
+                <%= t :invoice_paid %>
               <% end %>
 
               <% if invoice.is_unpaid? %>
-                No
+                <%= t :invoice_unpaid %>
               <% end %>
             </td>
             <td class="py-2">
               <% if invoice.is_client_visible? %>
-                Client
+                <%= t :client_invoice %>
               <% else %>
-                Team member
+                <%= t :team_invoice %>
               <% end %>
             </td>
             <td class="py-2 text-center">
-              <%= link_to t(:invoice_download_afip_invoice), download_invoice_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
+              <%= link_to t(:download), download_invoice_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
             </td>
             <td class="py-2 text-center">
-              <%= link_to t(:invoice_download_payment_receipt), download_payment_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
+              <%= link_to t(:download), download_payment_project_invoice_path(invoice.project, invoice), class: "btn btn-secondary btn-sm" %>
             </td>
           </tr>
           <% end %>

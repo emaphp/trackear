@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   extend FriendlyId
 
+  include Shrine::Attachment(:company_logo)
+
   friendly_id :slug_candidates, use: :slugged
 
   devise :database_authenticatable, :registerable,

@@ -1,4 +1,11 @@
 en:
+  client_full_name: "Client full name (optional)"
+  client_address: "Client address (optional)"
+  client_email: "Client email (optional)"
+  company_logo: "Company logo"
+  company_name: "Company name"
+  company_address: "Company address"
+  company_email: "Company email"
   download: "Download"
   invoice_type: "Type"
   update_invoice: "Update invoice"

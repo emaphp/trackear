@@ -188,7 +188,7 @@ class ProjectsController < ApplicationController
       params[:project][:icon].open
     rescue StandardError
     end
-    params.require(:project).permit(:name, :icon)
+    params.require(:project).permit(:name, :icon, :client_full_name, :client_address, :client_email)
   end
 
   def logs_from_param

@@ -79,7 +79,16 @@ class UsersController < ApplicationController
   end
 
   def update_user_params
-    params.require(:user).permit(:first_name, :last_name, :locale, :time_zone)
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :locale,
+      :time_zone,
+      :company_logo,
+      :company_name,
+      :company_address,
+      :company_email
+    )
   end
 
   def user_locale_params

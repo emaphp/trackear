@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_15_154501) do
+ActiveRecord::Schema.define(version: 2020_10_20_174603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,9 @@ ActiveRecord::Schema.define(version: 2020_10_15_154501) do
     t.string "currency"
     t.string "slug"
     t.text "icon_data"
+    t.string "client_full_name"
+    t.string "client_address"
+    t.string "client_email"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
@@ -253,6 +256,10 @@ ActiveRecord::Schema.define(version: 2020_10_15_154501) do
     t.datetime "locked_at"
     t.string "locale", default: "es"
     t.string "time_zone"
+    t.string "company_name"
+    t.string "company_address"
+    t.string "company_email"
+    t.text "company_logo_data"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -24,6 +24,17 @@ class InvoicesController < ApplicationController
     add_breadcrumb @project.name, @project
     add_breadcrumb t(:invoices), project_invoices_path(@project)
     add_breadcrumb @invoice.from.strftime('%B %Y')
+
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf { send_data(
+        ClientInvoicePdfService.build(@invoice).render,
+        filename: "#{@invoice.from.strftime('%B %Y')}.pdf",
+        type: "application/pdf",
+        disposition: :inline
+      )}
+    end
   end
 
   def new

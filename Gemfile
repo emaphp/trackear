@@ -122,3 +122,5 @@ gem 'breadcrumbs_on_rails'
 gem 'turbolinks', '~> 5.2.0'
 
 gem 'sentry-raven'
+
+gem 'receipts'

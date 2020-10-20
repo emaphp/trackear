@@ -103,6 +103,10 @@ class InvoicesController < ApplicationController
   def email_notify
     @invoice.notify_client
 
+    if @invoice.project.client_email.present?
+      InvoiceMailer.invoice_notify(@invoice).deliver_later
+    end
+
     respond_to do |format|
       format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Email notification sent.' }
       format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }

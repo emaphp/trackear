@@ -1,7 +1,11 @@
 <div style="background-color: #F7FAFC; color: #212121; padding: 100px;">
-  <h1 style="text-align: center; font-family: Arial;">trackear</h1>
+  <h1 style="text-align: center; font-family: Arial;">
+    <%= @invoice.project.name %>
+  </h1>
   <div style="background-color: white; font-weight: bold; text-align: center; font-family: Arial; border-radius: 5px; border: 1px solid rgba(113, 128, 150, 0.15); width: 600px; margin: 25px auto; padding: 50px;">
-      <p style="font-family: Verdana; font-weight: normal; font-size: 16px; padding-bottom: 15px;">Tiene una nueva factura por un monto de $<%= @invoice.calculate_total.round(2) %></p>
-      <%= link_to "Ver detalle", project_invoice_url(@invoice.project, @invoice), style: "border-radius: 25px; text-decoration: none; background-color: #028ee6; padding: 15px 30px; color: white; font-size: 16px; margin: 15px;" %>
+    <p style="font-family: Verdana; font-weight: normal; font-size: 16px; padding-bottom: 15px;">
+      Desde Trackear.app le informamos que tiene una nueva factura de <%= @invoice.project.name %> por el monto de <%= @invoice.calculate_total.to_money.format({ symbol: true }) %>.<br />
+      Le dejamos adjuntada la factura con el detalle.
+    </p>
   </div>
 </div>

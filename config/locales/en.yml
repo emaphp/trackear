@@ -1,4 +1,5 @@
 en:
+  download_client_invoice: "Download client invoice"
   client_full_name: "Client full name (optional)"
   client_address: "Client address (optional)"
   client_email: "Client email (optional)"

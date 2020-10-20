@@ -1,4 +1,5 @@
 es:
+  download_client_invoice: "Descargar factura para cliente"
   client_full_name: "Nombre completo del cliente (opcional)"
   client_address: "Dirección del cliente (opcional)"
   client_email: "Email del cliente (opcional)"

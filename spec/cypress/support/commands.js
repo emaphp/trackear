@@ -36,7 +36,7 @@ Cypress.Commands.add('findButton', (text) => {
 })
 
 Cypress.Commands.add('findInput', (text) => {
-  cy.get(`label:contains("${text}")`).parent().find('input,select').first()
+  cy.get(`label:contains("${text}")`).parent().find('input,select,textarea').first()
 })
 
 Cypress.Commands.add('findInputWithValue', (text, value) => {

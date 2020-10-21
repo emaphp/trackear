@@ -54,6 +54,9 @@ describe('Settings', () => {
     goToSettings()
     cy.findInput('Idioma').select('🇺🇸 English')
     cy.findButton('Guardar').click()
+
+    // If it worked, the previous Guardar button
+    // should now be Save
     cy.findButton('Save')
   })
 })

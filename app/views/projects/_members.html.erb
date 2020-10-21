@@ -4,9 +4,9 @@
     <% if can? :manage, contract %>
       <%= link_to edit_project_project_contract_path(project, contract), class: "btn btn-secondary w-full animation-expand-hover" do %>
         <div class="flex items-center">
-          <%= render "shared/icon/avatar", image_url: contract.user.picture || image_url('default-avatar.png'), extra_css: "mr-3" %>
+          <%= render "shared/icon/avatar", image_url: contract.user.try(:picture) || image_url('default-avatar.png'), extra_css: "mr-3" %>
           <div>
-            <div class="text-lg text-black font-bold"><%= contract.user.first_name %> <%= contract.user.last_name %></div>
+            <div class="text-lg text-black font-bold"><%= contract.user.try(:first_name) %> <%= contract.user.try(:last_name) %></div>
             <span class="text-gray-500 font-normal"><%= contract.activity %></span>
           </div>
         </div>

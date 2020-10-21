@@ -203,6 +203,10 @@ es:
   activerecord:
     errors:
       models:
+        project:
+          attributes:
+            name:
+              blank: "es requerido"
         user:
           attributes:
             email:

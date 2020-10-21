@@ -33,6 +33,15 @@
     <%= form.check_box :is_admin %>
   </div>
 
+  <% unless project_contract.user == current_user %>
+  <% if project_contract.persisted? %>
+    <div class="form-group border border-red-600 rounded px-4 mb-2">
+      <h4 class="font-bold text-red-500 text-lg mb-2"><%= t :danger_zone %></h5>
+      <%= link_to t(:remove_user_from_project), [project, project_contract], method: :delete, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+  <% end %>
+
   <div class="text-right">
     <%= link_to t(:cancel), project, class: "btn btn-secondary" %>
     <%= form.submit t(:add_member), class: "btn btn-primary" unless project_contract.persisted? %>

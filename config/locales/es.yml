@@ -1,4 +1,6 @@
 es:
+  remove_user_from_project: "Remover usuario del proyecto"
+  danger_zone: "Zona de peligro"
   is_admin: "¿Puede administrar el proyecto?"
   download_client_invoice: "Descargar factura para cliente"
   client_full_name: "Nombre completo del cliente (opcional)"

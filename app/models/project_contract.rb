@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectContract < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :project
   belongs_to :user
   has_many :activity_tracks

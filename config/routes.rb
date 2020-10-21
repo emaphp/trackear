@@ -6,9 +6,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  match '/404', to: 'error#not_found', via: :all
-  match '/422', to: 'error#unacceptable', via: :all
-  match '/500', to: 'error#internal_error', via: :all
+  # match '/404', to: 'error#not_found', via: :all
+  # match '/422', to: 'error#unacceptable', via: :all
+  # match '/500', to: 'error#internal_error', via: :all
 
   resources :users do
     post :become, on: :member

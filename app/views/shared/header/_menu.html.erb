@@ -18,12 +18,8 @@
       </a>
     </div>
     <div>
-      <a class="py-2 px-4 mx-1 text-gray-800" href="/">
-        Ingresar
-      </a>
-      <a class="py-2 px-4 mx-1 bg-blue-400 rounded text-white" href="/">
-        Registrase gratis
-      </a>
+      <%= link_to "Ingresar", new_user_session_path, class: "py-2 px-4 mx-1 text-gray-800" %>
+      <%= link_to "Registrarse gratis", new_user_registration_path, class: "py-2 px-4 mx-1 bg-blue-400 rounded text-white" %>
     </div>
   </div>
 </nav>

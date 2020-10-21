@@ -209,6 +209,9 @@ es:
       user:
         signed_in: "¡Es bueno verte por acá!"
         signed_out: "¡Que tengas un excelente día!"
+    registrations:
+      user:
+        signed_up: "Te registraste exitosamente, ¡bienvenido!"
 
   will_paginate:
     previous_label: "Atrás"

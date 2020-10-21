@@ -7,3 +7,94 @@
 body {
   font-family: 'Nunito';
 }
+
+footer {
+  a {
+    @apply text-blue-400;
+    @apply transition;
+    @apply duration-300;
+    @apply ease-in-out;
+
+    &:hover {
+      @apply text-blue-500;
+    }
+  }
+}
+
+.form-group {
+  @apply py-3;
+
+  label {
+    @apply block;
+    @apply uppercase;
+    @apply tracking-wide;
+    @apply text-gray-700;
+    @apply text-xs;
+    @apply font-bold;
+    @apply mb-2;
+  }
+}
+
+.form-control {
+  @apply appearance-none;
+  @apply border;
+  @apply rounded;
+  @apply w-full;
+  @apply py-2;
+  @apply px-3;
+  @apply text-gray-700;
+  @apply leading-tight;
+
+  &:focus {
+    @apply outline-none;
+    @apply border-blue-300;
+  }
+}
+
+.field_with_errors {
+  .form-control {
+    @apply border-red-500;
+  }
+}
+
+.btn {
+  @apply cursor-pointer;
+  @apply font-semibold;
+  @apply inline-block;
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+
+  &:hover {
+    @apply shadow;
+  }
+}
+
+.btn.btn-secondary {
+  @apply text-gray-600;
+  @apply border;
+  @apply p-3;
+  @apply rounded;
+
+  &:hover {
+    @apply border-gray-400;
+  }
+}
+
+.btn.btn-primary {
+  background-color: #48d466;
+  border-color: #48d466;
+  @apply border;
+  @apply text-white;
+  @apply p-3;
+  @apply rounded;
+
+  &:hover {
+    background-color: #50e06f;
+  }
+}
+
+.btn.btn-sm {
+  @apply p-2;
+  @apply py-1;
+}

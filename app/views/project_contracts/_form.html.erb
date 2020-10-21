@@ -2,13 +2,12 @@
   <%= render 'shared/form/errors', errors: project_contract.errors %>
 
   <div class="form-group">
-    <%= form.label :user_email, t(:user_gmail) %>
+    <%= form.label :user_email, t(:email) %>
 
     <% if project_contract.persisted? %>
       <input type="text" value="<%= project_contract.user.email %>" class="w-full" readonly />
     <% else %>
       <%= form.email_field :user_email, class: "form-control", required: true %>
-      <small class="text-gray-600"><%= t :only_gmail_accounts_supported %></small>
     <% end %>
   </div>
 

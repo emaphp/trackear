@@ -23,11 +23,11 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-Cypress.Commands.add("findLink", (text) => {
+Cypress.Commands.add('findLink', (text) => {
   cy.get(`a:contains("${text}")`)
 })
 
-Cypress.Commands.add("findButton", (text) => {
+Cypress.Commands.add('findButton', (text) => {
   cy.get(`
     button:contains("${text}"),
     input[type="submit"]:contains("${text}"),
@@ -35,10 +35,14 @@ Cypress.Commands.add("findButton", (text) => {
   )
 })
 
-Cypress.Commands.add("findInput", (text) => {
+Cypress.Commands.add('findInput', (text) => {
   cy.get(`label:contains("${text}")`).parent().find('input').first()
 })
 
-Cypress.Commands.add("findAlert", () => {
+Cypress.Commands.add('findAlert', () => {
   cy.get('div.text-lg.p-4.font-bold.bg-green-200.text-green-600.text-center.flex.items-center.justify-center')
+})
+
+Cypress.Commands.add('urlContains', (contains) => {
+  cy.url().should('include', contains)
 })

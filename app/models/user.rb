@@ -13,7 +13,7 @@ class User < ApplicationRecord
          :trackable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :project_contracts
-  # has_many :project_invitations
+  has_many :project_invitations
   has_many :projects, through: :project_contracts
 
   has_many :activity_tracks

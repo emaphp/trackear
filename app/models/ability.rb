@@ -28,10 +28,10 @@ class Ability
     can :manage, Project, project_contracts: { user: user, is_admin: true }
 
     # Legacy, remove when activity="Creator" is no longer used
-    can :manage, ProjectContract, project: { project_contracts: { user: user, activity: 'Creator' } }
-    can :manage, ProjectContract, project: { project_contracts: { user: user, is_admin: true } }
+    can :manage, [ProjectContract, ProjectInvitation], project: { project_contracts: { user: user, activity: 'Creator' } }
+    can :manage, [ProjectContract, ProjectInvitation], project: { project_contracts: { user: user, is_admin: true } }
 
-    can [:create, :new], ProjectContract
+    can [:create, :new], [ProjectContract, ProjectInvitation]
   end
 
   def invoice_ability(user)

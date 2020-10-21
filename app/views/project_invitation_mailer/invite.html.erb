@@ -1,0 +1,13 @@
+<div style="background-color: #F7FAFC; color: #212121; padding: 100px;">
+  <h1 style="text-align: center; font-family: Arial;">
+    ¡Has sido invitado a <%= @invitation.project.name %>!
+  </h1>
+  <div style="background-color: white; font-weight: bold; text-align: center; font-family: Arial; border-radius: 5px; border: 1px solid rgba(113, 128, 150, 0.15); width: 600px; margin: 25px auto; padding: 50px;">
+    <p style="font-family: Verdana; font-weight: normal; font-size: 16px; padding-bottom: 15px;">
+      Fuiste invitado por <%= @invitation.user.first_name %> a unirte al proyecto <%= @invitation.project.name %>. Creá una cuenta en Trackear.app para continuar con el proceso.
+    </p>
+    <div style="text-align: center">
+      <%= link_to "Crear cuenta", new_user_registration_url, style: "text-decoration: none; padding: 15px; background-color: #48d466; color: white; border-radius: 0.25rem; margin-top: 15px;" %>
+    </div>
+  </div>
+</div>

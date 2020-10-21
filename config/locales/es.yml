@@ -1,4 +1,7 @@
 es:
+  invited_to_project: "%{user}, te han invitado a unirte al proyecto %{project}."
+  accept_invitation: "Aceptar"
+  decline_invitation: "Rechazar"
   remove_user_from_project: "Remover usuario del proyecto"
   danger_zone: "Zona de peligro"
   is_admin: "¿Puede administrar el proyecto?"

@@ -19,9 +19,10 @@ class ProjectContractsController < ApplicationController
 
   # GET /project_contracts/new
   def new
-    @project_contract = @project.project_contracts.new
-    add_breadcrumb @project.name, @project
-    add_breadcrumb t :add_member
+    redirect_to new_project_project_invitation_path(@project)
+    # @project_contract = @project.project_contracts.new
+    # add_breadcrumb @project.name, @project
+    # add_breadcrumb t :add_member
   end
 
   # GET /project_contracts/1/edit
@@ -34,20 +35,20 @@ class ProjectContractsController < ApplicationController
   # POST /project_contracts
   # POST /project_contracts.json
   def create
-    @project_contract = @project.project_contracts.from_invite(invite_member_params)
+    # @project_contract = @project.project_contracts.from_invite(invite_member_params)
 
-    add_breadcrumb @project.name, @project
-    add_breadcrumb t :add_member
+    # add_breadcrumb @project.name, @project
+    # add_breadcrumb t :add_member
 
-    respond_to do |format|
-      if @project_contract.save
-        format.html { redirect_to @project_contract.project, notice: t(:project_member_successfully_invited) }
-        format.json { render :show, status: :created, location: @project_contract.project }
-      else
-        format.html { render :new }
-        format.json { render json: @project_contract.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @project_contract.save
+    #     format.html { redirect_to @project_contract.project, notice: t(:project_member_successfully_invited) }
+    #     format.json { render :show, status: :created, location: @project_contract.project }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @project_contract.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /project_contracts/1

@@ -7,6 +7,7 @@ class Project < ApplicationRecord
 
   include Shrine::Attachment(:icon)
 
+  has_many :project_invitations
   has_many :project_contracts
   has_many :users, through: :project_contracts
 

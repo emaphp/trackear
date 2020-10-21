@@ -1,4 +1,7 @@
 en:
+  invited_to_project: "%{user}, you have invited to join the project %{project}."
+  accept_invitation: "Accept"
+  decline_invitation: "Decline"
   remove_user_from_project: "Remove user from project"
   danger_zone: "Danger zone"
   is_admin: "Can administrate the project?"

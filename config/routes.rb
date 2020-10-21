@@ -28,6 +28,11 @@ Rails.application.routes.draw do
 
     get :status_period, on: :member
 
+    resources :project_invitations do
+      post :accept, on: :member
+      post :decline, on: :member
+    end
+
     resources :project_contracts, except: [:index]
 
     resources :activity_tracks, except: [:index]

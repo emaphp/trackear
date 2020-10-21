@@ -58,6 +58,20 @@ Cypress.Commands.add('login', (email, password) => {
   cy.findButton('Log in').click()
 })
 
+Cypress.Commands.add('logout', () => {
+  cy.findLink('Salir').click()
+})
+
+Cypress.Commands.add('register', ({ firstName, lastName, email, password }) => {
+  cy.visit('/users/sign_up')
+  cy.findInput('Nombre').type(firstName)
+  cy.findInput('Apellido').type(lastName)
+  cy.findInput('Email').type(email)
+  cy.findInput('Password').type(password)
+  cy.findInput('Password confirmation').type(password)
+  cy.findButton('Registrarse').click()
+})
+
 Cypress.Commands.add('findFormErrors', () => {
   cy.get('.alert.alert-danger.mb-4 ul li')
 })

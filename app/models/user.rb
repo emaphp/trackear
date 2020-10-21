@@ -53,7 +53,8 @@ class User < ApplicationRecord
         active_from: DateTime.now,
         ends_at: DateTime.now + 100.years,
         user_rate: 0,
-        project_rate: 0
+        project_rate: 0,
+        is_admin: true
       )
       project.save!
       project

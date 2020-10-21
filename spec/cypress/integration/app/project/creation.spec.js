@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe('Login', () => {
+describe('Project', () => {
   beforeEach(() => {
     cy.appScenario('login');
     cy.login('john@doe.com', 'test123456')

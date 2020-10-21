@@ -28,13 +28,14 @@ class Project < ApplicationRecord
       project: Project.new(props),
       activity: 'Creator',
       project_rate: 0,
-      user_rate: 0
+      user_rate: 0,
+      is_admin: true
     )
     owner_contract.project
   end
 
   def is_owner?(user)
-    project_contracts.where(user: user, activity: 'Creator').any?
+    project_contracts.where(user: user).where("activity = ? or is_admin = ?", "Creator", true).any?
   end
 
   def is_client?(user)

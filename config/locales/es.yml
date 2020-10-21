@@ -1,4 +1,5 @@
 es:
+  is_admin: "¿Puede administrar el proyecto?"
   download_client_invoice: "Descargar factura para cliente"
   client_full_name: "Nombre completo del cliente (opcional)"
   client_address: "Dirección del cliente (opcional)"
@@ -121,8 +122,7 @@ es:
   billable: "Facturable"
   user_gmail: "Gmail"
   only_gmail_accounts_supported: "Solo soportamos cuentas de Gmail"
-  role: "Rol"
-  role_tooltip: "Usá el rol Client para invitar clientes. Miembros con el rol Client pueden ingresar y ver facturas."
+  role: "Actividad"
   role_placeholder: "Desarrollador, diseñador, etc."
   project_hourly_rate: "Tarifa del proyecto por hora"
   project_hourly_rate_tooltip: "El monto que vas a cobrar a tu cliente por hora"

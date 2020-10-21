@@ -95,7 +95,8 @@ class ProjectContractsController < ApplicationController
       :ends_at,
       :project_rate,
       :user_rate,
-      :user_fixed_rate
+      :user_fixed_rate,
+      :is_admin
     )
   end
 

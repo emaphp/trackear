@@ -10,7 +10,6 @@ class Ability
     project_ability(user)
     invoice_ability(user)
     activity_track_ability(user)
-    expense_ability(user)
 
     can :manage, :all if user.is_admin?
   end
@@ -23,8 +22,15 @@ class Ability
   def project_ability(user)
     can :create, Project
     can :read, Project, users: { id: user.id }
+
+    # Legacy, remove when activity="Creator" is no longer used
     can :manage, Project, project_contracts: { user: user, activity: 'Creator' }
+    can :manage, Project, project_contracts: { user: user, is_admin: true }
+
+    # Legacy, remove when activity="Creator" is no longer used
     can :manage, ProjectContract, project: { project_contracts: { user: user, activity: 'Creator' } }
+    can :manage, ProjectContract, project: { project_contracts: { user: user, is_admin: true } }
+
     can [:create, :new], ProjectContract
   end
 
@@ -40,18 +46,15 @@ class Ability
 
     # Allow to read the invoice status
     can :status, Invoice, user: user
-    can :manage, Invoice, project: {
-      project_contracts: { user: user, activity: 'Creator' }
-    }
+
+    # Legacy, remove when activity="Creator" is no longer used
+    can :manage, Invoice, project: { project_contracts: { user: user, activity: 'Creator' } }
+    can :manage, Invoice, project: { project_contracts: { user: user, is_admin: true } }
   end
 
   def activity_track_ability(user)
     can :manage, ActivityTrack, project_contract: { user: user }
     can :create, ActivityTrack
     can :manage, ActivityStopWatch
-  end
-
-  def expense_ability(user)
-    # can :manage, Expense, user: user
   end
 end

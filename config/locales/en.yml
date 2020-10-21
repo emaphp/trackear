@@ -1,4 +1,5 @@
 en:
+  is_admin: "Can administrate the project?"
   download_client_invoice: "Download client invoice"
   client_full_name: "Client full name (optional)"
   client_address: "Client address (optional)"
@@ -123,7 +124,6 @@ en:
   user_gmail: "User Gmail"
   only_gmail_accounts_supported: "Only Gmail accounts are supported"
   role: "Role"
-  role_tooltip: "Use the role Client to invite customers. Members with role Client can log into the platform and check invoices"
   role_placeholder: "Developer, designer, etc."
   project_hourly_rate: "Project hourly rate"
   project_hourly_rate_tooltip: "How much will you charge the client"

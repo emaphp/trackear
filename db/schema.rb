@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_174603) do
+ActiveRecord::Schema.define(version: 2020_10_21_000129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 2020_10_20_174603) do
     t.date "active_from"
     t.date "ends_at"
     t.decimal "user_fixed_rate"
+    t.boolean "is_admin"
     t.index ["project_id"], name: "index_project_contracts_on_project_id"
     t.index ["user_id"], name: "index_project_contracts_on_user_id"
   end

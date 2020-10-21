@@ -28,6 +28,9 @@ class User < ApplicationRecord
   has_many :submissions
   has_many :other_submissions
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   # validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name)
 
   scope :online, -> { where("updated_at > ?", 25.minutes.ago) }

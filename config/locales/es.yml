@@ -196,6 +196,25 @@ es:
   date: "Fecha"
   stopwatch_description_optional: "¿En qué vas a trabajar? (opcional)"
 
+  errors:
+    messages:
+      not_saved: "Por favor, corrige los siguiente errores:"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "es requerido"
+              taken: "ya está siendo usado"
+            password:
+              blank: "es requerido"
+            first_name:
+              blank: "es requerido"
+            last_name:
+              blank: "es requerido"
+
   datetime:
     dotiw:
       two_words_connector: " y "

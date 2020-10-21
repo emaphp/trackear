@@ -26,6 +26,7 @@ type alias Props =
     , create_invoice_label : String
     , continue_label : String
     , select_date_label : String
+    , default_avatar : String
     , authenticity_token : String
     }
 
@@ -213,13 +214,13 @@ formatAmount amount =
     format { spanishLocale | decimals = Exact 2 } amount
 
 
-summaryTableRow : InvoiceSummary -> Html Msg
-summaryTableRow row =
+summaryTableRow : Props -> InvoiceSummary -> Html Msg
+summaryTableRow props row =
     tr []
         [ td
             [ class "py-2" ]
             [ div [ class "flex items-center" ]
-                [ img [ src row.user.picture, class "rounded-full w-8 mr-3" ] []
+                [ img [ src (Maybe.withDefault props.default_avatar row.user.picture), class "rounded-full w-8 mr-3" ] []
                 , text (row.user.first_name ++ " " ++ row.user.last_name)
                 ]
             ]
@@ -231,9 +232,9 @@ summaryTableRow row =
         ]
 
 
-summaryTableBody : List InvoiceSummary -> Html Msg
-summaryTableBody summary =
-    tbody [] (List.map summaryTableRow summary)
+summaryTableBody : Props -> List InvoiceSummary -> Html Msg
+summaryTableBody props summaries =
+    tbody [] (List.map (\summary -> summaryTableRow props summary) summaries)
 
 
 summaryTableHead : Props -> Html Msg
@@ -267,7 +268,7 @@ summaryTable model =
                     [ table
                         [ class "table-auto w-full" ]
                         [ summaryTableHead model.props
-                        , summaryTableBody summary
+                        , summaryTableBody model.props summary
                         , summaryTableFooter summary
                         ]
                     ]

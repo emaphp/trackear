@@ -17,6 +17,7 @@ document.addEventListener('turbolinks:load', function () {
     create_invoice_label: parent.dataset.create_invoice_label,
     continue_label: parent.dataset.continue_label,
     select_date_label: parent.dataset.select_date_label,
+    default_avatar: parent.dataset.default_avatar,
     authenticity_token: Rails.csrfToken()
   }
 

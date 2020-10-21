@@ -3,21 +3,21 @@
 describe('Login', () => {
   beforeEach(() => {
     cy.appScenario('login');
+  })
+
+  it('can go to log in from home', () => {
     cy.visit('/')
     cy.findLink('Ingresar').click()
+    cy.urlContains('/users/sign_in')
   })
 
   it('should login if credentials are ok', () => {
-    cy.findInput('Email').type('john@doe.com')
-    cy.findInput('Password').type('test123456')
-    cy.findButton('Log in').click()
+    cy.login('john@doe.com', 'test123456')
     cy.findAlert().contains('¡Es bueno verte por acá!')
   })
 
   it('should not log in if credentials are invalid', () => {
-    cy.findInput('Email').type('lorem@ipsum')
-    cy.findInput('Password').type('test123456')
-    cy.findButton('Log in').click()
+    cy.login('lorem@ipsum.com', '1234')
     cy.urlContains('/users/sign_in')
   })
 })

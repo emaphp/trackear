@@ -46,3 +46,10 @@ Cypress.Commands.add('findAlert', () => {
 Cypress.Commands.add('urlContains', (contains) => {
   cy.url().should('include', contains)
 })
+
+Cypress.Commands.add('login', (email, password) => {
+  cy.visit('/users/sign_in')
+  cy.findInput('Email').type(email)
+  cy.findInput('Password').type(password)
+  cy.findButton('Log in').click()
+})

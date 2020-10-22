@@ -18,7 +18,7 @@ document.addEventListener('turbolinks:load', function () {
     continue_label: parent.dataset.continue_label,
     select_date_label: parent.dataset.select_date_label,
     default_avatar: parent.dataset.default_avatar,
-    authenticity_token: Rails.csrfToken()
+    authenticity_token: Rails.csrfToken() || ''
   }
 
   while (parent.firstChild) {

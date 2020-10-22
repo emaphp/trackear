@@ -23,6 +23,8 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import 'cypress-file-upload'
+
 Cypress.Commands.add('findLink', (text) => {
   cy.get(`a:contains("${text}")`)
 })
@@ -74,4 +76,11 @@ Cypress.Commands.add('register', ({ firstName, lastName, email, password }) => {
 
 Cypress.Commands.add('findFormErrors', () => {
   cy.get('.alert.alert-danger.mb-4 ul li')
+})
+
+Cypress.Commands.add('containsExact', { prevSubject: 'optional' }, (subject, text) => {
+  const exactText = new RegExp(`^${text}$`)
+
+  if (subject) return cy.wrap(subject).contains(exactText)
+  return cy.contains(exactText)
 })

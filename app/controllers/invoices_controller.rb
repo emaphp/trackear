@@ -173,8 +173,8 @@ class InvoicesController < ApplicationController
   def upload_invoice
     respond_to do |format|
       if @invoice.add_invoice(upload_invoice_params)
-        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: t(:invoice_attached_successfully) }
-        format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
+        format.html { redirect_to status_project_invoice_path(@project, @invoice), notice: t(:invoice_attached_successfully) }
+        format.json { render :show, status: :ok, location: status_project_invoice_path(@project, @invoice) }
       else
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }

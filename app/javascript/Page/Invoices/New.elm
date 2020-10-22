@@ -145,7 +145,13 @@ update msg model =
             ( { model | summary = Nothing }, Cmd.none )
 
         ChooseAnotherDate ->
-            ( { model | summary = Nothing }, Cmd.none )
+            ( { model
+                | summary = Nothing
+                , pickedStartTime = Nothing
+                , pickedEndTime = Nothing
+              }
+            , Cmd.none
+            )
 
         CreateInvoice ->
             ( { model | disabled = True }

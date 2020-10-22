@@ -30,6 +30,7 @@ class Ability
     # Legacy, remove when activity="Creator" is no longer used
     can :manage, [ProjectContract, ProjectInvitation], project: { project_contracts: { user: user, activity: 'Creator' } }
     can :manage, [ProjectContract, ProjectInvitation], project: { project_contracts: { user: user, is_admin: true } }
+    can [:accept, :decline], ProjectInvitation, email: user.email
 
     can [:create, :new], [ProjectContract, ProjectInvitation]
   end

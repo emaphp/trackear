@@ -59,7 +59,7 @@ Cypress.Commands.add('login', (email, password) => {
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.findLink('Salir').click()
+  cy.findLink('Salir').first().click()
 })
 
 Cypress.Commands.add('register', ({ firstName, lastName, email, password }) => {

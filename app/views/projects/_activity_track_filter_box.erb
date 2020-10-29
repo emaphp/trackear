@@ -1,15 +1,20 @@
-<%= form_with(url: project, method: "get", local: true) do %>
-<div class="p-4">
+<div class="p-3 border rounded bg-gray-200">
+  <%= form_with(url: project, method: "get", local: true) do %>
     <div class="form-group">
-        <%= label "logs", "from", t(:from) %>
-        <%= date_field "logs", "from", value: logs_from, class: "form-control" %>
+      <%= label "logs", "from", t(:from) %>
+      <%= date_field "logs", "from", value: logs_from, class: "form-control" %>
     </div>
     <div class="form-group">
-        <%= label "logs", "to", t(:to) %>
-        <%= date_field "logs", "to", value: logs_to, class: "form-control" %>
+      <%= label "logs", "to", t(:to) %>
+      <%= date_field "logs", "to", value: logs_to, class: "form-control" %>
     </div>
-    <div class="text-center">
-        <button class="btn btn-primary"><%= t :filter %></button>
-    </div>
+    <button class="btn btn-secondary bg-white">
+      <div class="flex items-center">
+        <svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        </svg>
+        <%= t :filter %>
+      </div>
+    </button>
+  <% end %>
 </div>
-<% end %>

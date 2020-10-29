@@ -1,152 +1,23 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="h-full text-gray-900 antialiased leading-tight">
   <head>
-    <meta charset="utf-8">
-
-    <link rel="apple-touch-icon" sizes="57x57" href="<%= image_url('favicon/apple-icon-57x57.png') %>">
-    <link rel="apple-touch-icon" sizes="60x60" href="<%= image_url('favicon/apple-icon-60x60.png') %>">
-    <link rel="apple-touch-icon" sizes="72x72" href="<%= image_url('favicon/apple-icon-72x72.png') %>">
-    <link rel="apple-touch-icon" sizes="76x76" href="<%= image_url('favicon/apple-icon-76x76.png') %>">
-    <link rel="apple-touch-icon" sizes="114x114" href="<%= image_url('favicon/apple-icon-114x114.png') %>">
-    <link rel="apple-touch-icon" sizes="120x120" href="<%= image_url('favicon/apple-icon-120x120.png') %>">
-    <link rel="apple-touch-icon" sizes="144x144" href="<%= image_url('favicon/apple-icon-144x144.png') %>">
-    <link rel="apple-touch-icon" sizes="152x152" href="<%= image_url('favicon/apple-icon-152x152.png') %>">
-    <link rel="apple-touch-icon" sizes="180x180" href="<%= image_url('favicon/apple-icon-180x180.png') %>">
-    <link rel="icon" type="image/png" sizes="192x192"  href="<%= image_url('favicon/android-icon-192x192.png') %>">
-    <link rel="icon" type="image/png" sizes="32x32" href="<%= image_url('favicon/favicon-32x32.png') %>">
-    <link rel="icon" type="image/png" sizes="96x96" href="<%= image_url('favicon/favicon-96x96.png') %>">
-    <link rel="icon" type="image/png" sizes="16x16" href="<%= image_url('favicon/favicon-16x16.png') %>">
-    <link rel="manifest" href="<%= asset_url('favicon/manifest.json') %>">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="<%= image_url('favicon/ms-icon-144x144.png') %>">
-    <meta name="theme-color" content="#ffffff">
-
-    <title>Trackear - Aplicación de gestión de trabajo para freelancers argentinos. Calculá y registrá tus horas de trabajo</title>
-    <meta name="description" content="Aplicación de gestión de trabajo para freelancer. Administrá tu equipo, registrá horas de trabajo y facturá. Trackear es LA herramienta indispensable para el freelancer argentino.">
-    <meta name="keywords" content="aplicación para control de tiempo, calculá horas, gestionar horas de trabajo, gestion de trabajo, controla tu tiempo, herramienta de control de tiempo, trackear, registro de trabajo, freelancer, administracion de equipos, registro de horas, freelancer argentino, facturación, afip">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Trackear">
-    <meta property="og:title" content="Registra tu trabajo y facturá">
-    <meta property="og:image" content="<%= image_url 'projects-view.png' %>">
-    <meta property="og:description" content="Aplicación de gestión de trabajo para freelancer. Administrá tu equipo, registrá horas de trabajo y facturá. Trackear es LA herramienta indispensable para el freelancer argentino.">
-    <meta property="og:url" content="https://www.trackear.app">
-
-    <link rel="canonical" href="https://www.trackear.app/">
-
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= render "shared/header/metatags" %>
+    <%= render "shared/header/auth/styles" %>
     <script async defer data-domain="trackear.app" src="https://plausible.io/js/plausible.js"></script>
   </head>
-  <body class="d-flex flex-column">
-  <div class="content-container">
-    <nav class="navbar navbar-expand-lg navbar-light py-2">
-      <div class="container">
-        <a class="navbar-brand" href="/">
-          <span class="text-white font-weight-bold">trackear</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="fas fa-home mr-2"></i>
-                <%= t :home %>
-              </a>
-            </li>
-            <li class="nav-item">
-              <%= link_to(new_project_path, class: "nav-link") do %>
-                <i class="far fa-plus-square mr-2"></i>
-                <%= t :create_new_project %>
-              <% end %>
-            </li>
-            <% if can? :manage, Expense %>
-              <li class="nav-item">
-                <%= link_to(expenses_path, class: "nav-link") do %>
-                  <i class="fas fa-wallet mr-2"></i>
-                  <%= t :expenses %>
-                <% end %>
-              </li>
-            <% end %>
-            <% if can? :manage, User %>
-              <li class="nav-item">
-                <%= link_to(users_path, class: "nav-link") do %>
-                  <i class="fas fa-users mr-2"></i>
-                  <%= t :users %>
-                <% end %>
-              </li>
-            <% end %>
-            <% if session[:impersonating_from].present? %>
-              <li class="nav-item">
-                <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
-                  <i class="fas fa-sign-out-alt mr-2"></i>
-                  <%= t :exit_impersionate, email: current_user.email %>
-                <% end %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
-                  <i class="fas fa-sign-out-alt mr-2"></i>
-                  <%= t :logout, email: current_user.first_name %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-          <%= form_with(model: current_user, url: user_update_locale_url, method: :post, local: true, class: "form-inline my-2 my-lg-0") do |form| %>
-            <%= form.select :locale, [['🇦🇷 Español', 'es'], ['🇺🇸 English', 'en']], {}, onchange: "this.form.submit()", class: "form-control" %>
-          <% end %>
-        </div>
-      </div>
-    </nav>
-    <% if notice.present? %>
-      <div class="lead text-success p-4 font-weight-bold alert alert-success text-center">
-        <i class="far fa-thumbs-up fa-lg mr-2"></i>
-        <%= notice %>
-      </div>
-    <% end %>
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-12 pt-5">
-          <div class="px-4">
-            <%= yield %>
+  <body class="flex flex-col h-full bg-gray-100">
+    <%= render "shared/header/auth/menu" %>
+    <main class="flex-1">
+      <%= render "shared/header/auth/alert" %>
+      <div class="container mx-auto mt-3 pb-8">
+        <div>
+          <div class="breadcrumb container mx-auto py-6 text-base text-gray-500">
+            <%= render_breadcrumbs separator: ' / ' %>
           </div>
         </div>
+        <%= yield %>
       </div>
-    </div>
-  </div>
-  <div id="feedback-modal"></div>
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <h5 class="font-weight-bold">trackear</h5>
-          <p class="pt-2">
-            Si tenés comentarios y/o sugerencias por favor <a class="text-primary btn-link p-0" href="mailto:contact@black-mountain.com.ar">enviános un email</a>, ¡nos encanta recibir feedback!
-          </p>
-        </div>
-        <div class="col-lg-3">
-        </div>
-
-        <div class="col-lg-3">
-          <div class="my-2 font-weight-bold">REDES SOCIALES</div>
-          <ul class="list-unstyled">
-            <li class="py-2">
-              <i class="fab fa-github-square"></i>
-              <a target="_blank" rel="nofollow" href="https://github.com/Ruk33/trackear">GitHub</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <%= javascript_pack_tag 'main' %>
-  <%= javascript_pack_tag 'feedback/feedbackModal' %>
+    </main>
+    <%= render "shared/footer/footer" %>
   </body>
 </html>

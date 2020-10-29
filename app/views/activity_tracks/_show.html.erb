@@ -1,36 +1,27 @@
-<div class="box mt-2 mb-3">
-  <div class="media">
-    <%= image_tag log.project_contract.user.picture || '', class: "avatar align-self-start mr-3" %>
-    <div class="media-body">
-      <h5 class="mt-1 m-0"><%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %> <span class="lead"><%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %></span></h5>
-      <p class="mb-0">
+<%= render "shared/content/box" do %>
+  <div class="flex">
+    <%= render "shared/icon/avatar", image_url: log.project_contract.user.picture || image_url('default-avatar.png'), extra_css: "mr-3" %>
+    <div>
+      <h5 class="font-bold my-1">
+        <%= log.project_contract.user.first_name %> <%= log.project_contract.user.last_name %>
+        <span class="text-gray-500">
+          (<%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %>)
+        </span>
+      </h5>
+      <p class="text-lg text-gray-800">
         <%= log.description.gsub(/\n/, '<br/>').html_safe %>
       </p>
     </div>
-    <div class="align-self-start">
-      <button
-        id="track-menu-popover-<%= log.id %>"
-        type="button"
-        class="btn border-0 btn-sm btn-outline-secondary nav-item nav-link dropdown-toggle"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <%= icon "fas", "ellipsis-v" %>
-      </button>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="track-menu-popover-<%= log.id %>">
-        <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "dropdown-item") do %>
-          <i class="fas fa-edit"></i>
-          <%= t :edit %>
-        <% end %>
-        <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "dropdown-item") do %>
-          <i class="fas fa-trash"></i>
-          <%= t :delete %>
-        <% end %>
-      </div>
+  </div>
+  <div class="bg-gray-100 -m-6 p-2 pl-4 mt-2 flex items-center justify-between text-gray-600">
+    <%= t(:log_from_to_logged, from: log.from.strftime("%d %B %Y"), time_words: distance_of_time_in_words(log.from, log.to, true, accumulate_on: :hours)) %>
+    <div>
+      <%= link_to(edit_project_activity_track_path(log.project_contract.project, log), class: "btn btn-secondary btn-sm  mx-1") do %>
+        <%= t :edit %>
+      <% end %>
+      <%= link_to([log.project_contract.project, log], method: :delete, data: { confirm: "Confirm you want to remove this activity?" }, class: "btn btn-secondary btn-sm text-red-400 mx-1") do %>
+        <%= t :delete %>
+      <% end %>
     </div>
   </div>
-  <div class="track-footer">
-    <%= log.from.strftime "%d %B %Y" %> to <%= log.to.strftime "%d %B %Y" %>, <%= distance_of_time_in_words(log.from, log.to, true, :accumulate_on => :hours) %> logged
-  </div>
-</div>
+<% end %>

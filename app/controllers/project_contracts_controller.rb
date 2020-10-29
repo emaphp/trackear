@@ -19,33 +19,44 @@ class ProjectContractsController < ApplicationController
 
   # GET /project_contracts/new
   def new
-    @project_contract = @project.project_contracts.new
+    redirect_to new_project_project_invitation_path(@project)
+    # @project_contract = @project.project_contracts.new
+    # add_breadcrumb @project.name, @project
+    # add_breadcrumb t :add_member
   end
 
   # GET /project_contracts/1/edit
   def edit
     @members = User.all
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :edit_contract
   end
 
   # POST /project_contracts
   # POST /project_contracts.json
   def create
-    @project_contract = @project.project_contracts.from_invite(invite_member_params)
+    # @project_contract = @project.project_contracts.from_invite(invite_member_params)
 
-    respond_to do |format|
-      if @project_contract.save
-        format.html { redirect_to @project_contract.project, notice: t(:project_member_successfully_invited) }
-        format.json { render :show, status: :created, location: @project_contract.project }
-      else
-        format.html { render :new }
-        format.json { render json: @project_contract.errors, status: :unprocessable_entity }
-      end
-    end
+    # add_breadcrumb @project.name, @project
+    # add_breadcrumb t :add_member
+
+    # respond_to do |format|
+    #   if @project_contract.save
+    #     format.html { redirect_to @project_contract.project, notice: t(:project_member_successfully_invited) }
+    #     format.json { render :show, status: :created, location: @project_contract.project }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @project_contract.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /project_contracts/1
   # PATCH/PUT /project_contracts/1.json
   def update
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :edit_contract
+
     respond_to do |format|
       if @project_contract.update(project_contract_params)
         format.html { redirect_to @project, notice: t(:project_member_successfully_updated) }
@@ -85,7 +96,8 @@ class ProjectContractsController < ApplicationController
       :ends_at,
       :project_rate,
       :user_rate,
-      :user_fixed_rate
+      :user_fixed_rate,
+      :is_admin
     )
   end
 

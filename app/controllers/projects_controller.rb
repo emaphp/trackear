@@ -24,7 +24,10 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects.uniq
   end
 
-  def onboarding; end
+  def onboarding
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :onboarding_initial_setup
+  end
 
   def update_rate_from_onboarding
     contract = current_user.currently_active_contract_for(@project)
@@ -37,10 +40,16 @@ class ProjectsController < ApplicationController
 
   def onboarding_invite_members
     @project_contract = ProjectContract.new
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:onboarding_who_will_be_working_on_project, project: @project.name)
   end
 
   def invite_member_from_onboarding
     @project_contract = @project.project_contracts.from_invite(invite_member_params)
+
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:onboarding_who_will_be_working_on_project, project: @project.name)
+
     respond_to do |format|
       if @project_contract.save
         format.html { redirect_to onboarding_invite_members_project_url(@project), notice: t(:project_member_invited_from_onboarding) }
@@ -50,7 +59,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def onboarding_done; end
+  def onboarding_done
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :onboarding_all_set
+  end
 
   # GET /projects/1
   # GET /projects/1.json
@@ -62,10 +74,14 @@ class ProjectsController < ApplicationController
     @logs_to = logs_to_param
     @has_logged_today = ActivityTrackService.log_from_today?(@project, current_user)
     @all_logs = ActivityTrackService.all_from_range(@project, current_user, @logs_from, @logs_to)
-                                    .includes(:project_contract)
+                                    .includes([:project_contract])
                                     .order(from: :desc)
 
-    @invoice_status = current_user.invoice_status.for_members.for_project(@project).with_news.first
+    @invoice_status = current_user.invoice_status
+                                  .for_members
+                                  .for_project(@project)
+                                  .with_news
+                                  .first
 
     if @invoice_status.present?
       @invoice_status_logs = ActivityTrackService.all_from_range(@project, current_user, @invoice_status.invoice_status.invoice.from, @invoice_status.invoice_status.invoice.to)
@@ -79,16 +95,22 @@ class ProjectsController < ApplicationController
       @invoices = @project.invoices.where(user: current_user).paginate(page: 1, per_page: 4)
     end
 
-    @logs = @all_logs.paginate(page: params[:page], per_page: 5)
+    @invoices = @invoices.includes([:user, :invoice_entries])
+    @logs = @all_logs.paginate(page: params[:page], per_page: 6)
+
+    add_breadcrumb @project.name, @project
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+    add_breadcrumb t(:create_project)
   end
 
   # GET /projects/1/edit
   def edit
+    add_breadcrumb @project.name, @project
+    add_breadcrumb "Edit"
   end
 
   # POST /projects
@@ -98,6 +120,8 @@ class ProjectsController < ApplicationController
       @project = current_user.create_project_and_ensure_owner_contract(project_params)
     rescue StandardError
     end
+
+    add_breadcrumb t(:create_project)
 
     respond_to do |format|
       if @project.valid? && @project.persisted?
@@ -164,7 +188,7 @@ class ProjectsController < ApplicationController
       params[:project][:icon].open
     rescue StandardError
     end
-    params.require(:project).permit(:name, :icon)
+    params.require(:project).permit(:name, :icon, :client_full_name, :client_address, :client_email)
   end
 
   def logs_from_param

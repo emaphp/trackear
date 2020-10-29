@@ -1,0 +1,25 @@
+<nav class="relative py-6">
+  <div class="mx-auto container flex items-center justify-between h-16">
+    <a href="/" class="flex items-center">
+      <svg class="w-5 mr-2 text-pink-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span class="text-gray-800 font-bold text-lg">trackear</span>
+    </a>
+    <div class="flex menu text-gray-600 font-bold">
+      <a class="px-3 mx-1" href="/#why-trackear">
+        ¿Por qué trackear.app?
+      </a>
+      <a class="px-3 mx-1" href="/#pricing">
+        Precio
+      </a>
+      <a class="px-3 mx-1" href="/#faq">
+        Preguntas frecuentes
+      </a>
+    </div>
+    <div>
+      <%= link_to "Ingresar", new_user_session_path, class: "py-2 px-4 mx-1 text-gray-800" %>
+      <%= link_to "Registrarse gratis", new_user_registration_path, class: "py-2 px-4 mx-1 border border-blue-500 rounded text-blue-500 shadow" %>
+    </div>
+  </div>
+</nav>

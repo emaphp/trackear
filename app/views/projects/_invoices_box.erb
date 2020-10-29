@@ -1,6 +1,6 @@
-<div class="d-flex justify-content-between">
+<div class="flex justify-between">
   <h4 class="mt-2"><%= t :invoices %></h4>
-  <div class="d-flex justify-content-end">
+  <div class="flex justify-content-end">
     <% unless project.is_client? current_user %>
       <%= link_to project_invoices_path(@project), class: "mx-2 btn btn-sm btn-outline-secondary border-0" do %>
         <%= icon "fas", "file-invoice", class: "mr-1" %>
@@ -16,14 +16,14 @@
   </div>
 </div>
 <% unless invoices.present? %>
-  <div class="box text-center mt-2 mb-3">
+  <%= render "shared/content/box" do %>
     <p class="lead mb-0"><%= t :no_invoices_found %></p>
-  </div>
+  <% end %>
 <% else %>
   <div class="row">
     <% invoices.each do |invoice| %>
       <div class="col-lg-3">
-        <div class="invoice-box box mt-2 mb-3">
+        <%= render "shared/content/box" do %>
           <div class="invoice-actions">
             <%= render 'invoices/action_dropdown', invoice: invoice, user: current_user %>
           </div>
@@ -37,7 +37,7 @@
           <% end %>
 
           <div class="text-center">
-              <%= image_tag invoice.user.avatar_or_default, class: "avatar mb-2" %>
+              <%= render "shared/icon/avatar", image_url: invoice.user.avatar_or_default, extra_css: "" %>
               <h5><%= invoice.user.first_name %><br><%= invoice.user.last_name %></h5>
           </div>
 
@@ -65,7 +65,7 @@
               <% end %>
             </div>
           <% end %>
-        </div>
+        <% end %>
       </div>
     <% end %>
   </div>

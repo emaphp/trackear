@@ -1,40 +1,36 @@
-<div class="media mb-3 p-3 border rounded shadow-sm entry">
-  <%= image_tag entry.object.activity_track.project_contract.user.picture, class: "avatar align-self-start mr-3" %>
-  <div class="media-body text-dark">
-    <h5 class="py-1"><%= entry.object.activity_track.project_contract.user.first_name %> <%= entry.object.activity_track.project_contract.user.last_name %></h5>
-    <div class="form-row">
-      <div class="col-lg-6">
-        <div class="mb-2">
-          <%= entry.text_area :description, class: "form-control form-control-sm", style: "height: 109px;" %>
+<div class="flex items-start mb-3 p-3 border rounded shadow-sm entry">
+  <%= render "shared/icon/avatar", image_url: entry.object.activity_track.project_contract.user.picture, extra_css: "avatar mr-3" %>
+  <div class="w-full">
+    <h5 class="font-bold">
+      <%= entry.object.activity_track.project_contract.user.first_name %> <%= entry.object.activity_track.project_contract.user.last_name %>
+    </h5>
+    <div class="form-group">
+      <%= entry.text_area :description, class: "form-control", style: "height: 109px;" %>
+    </div>
+    <div class="grid gap-1 grid-cols-3">
+      <div class="form-group">
+        <%= entry.label :rate %>
+        <div>
+          <%= entry.number_field :rate, class: "form-control rate", onchange: "updateInvoiceTotal()" %>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="row">
-          <%= entry.label :rate, class: "col-sm-2 col-form-label-sm" %>
-          <div class="col-sm-10">
-            <%= entry.number_field :rate, class: "form-control form-control-sm rate", onchange: "updateInvoiceTotal()" %>
-          </div>
-        </div>
-        <div class="row">
-          <%= entry.label :from, class: "col-sm-2 col-form-label-sm" %>
-          <div class="col-sm-10">
-            <%= entry.datetime_field :from, class: "form-control form-control-sm from", onchange: "updateInvoiceTotal()" %>
-          </div>
-        </div>
-        <div class="row">
-          <%= entry.label :to, class: "col-sm-2 col-form-label-sm" %>
-          <div class="col-sm-10">
-            <%= entry.datetime_field :to, class: "form-control form-control-sm to", onchange: "updateInvoiceTotal()" %>
-          </div>
-        </div>
-        <div class="text-right">
-          <small>
-            <strong>Quantity:</strong> <span class="quantity">0</span>
-            |
-            <strong>Total:</strong> <span class="total">0</span>
-          </small>
+      <div class="form-group">
+        <%= entry.label :from %>
+        <div class="col-sm-10">
+          <%= entry.datetime_field :from, class: "form-control from", onchange: "updateInvoiceTotal()" %>
         </div>
       </div>
+      <div class="form-group">
+        <%= entry.label :to %>
+        <div class="col-sm-10">
+          <%= entry.datetime_field :to, class: "form-control to", onchange: "updateInvoiceTotal()" %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-right">
+      <strong>Quantity:</strong> <span class="quantity">0</span>
+      |
+      <strong>Total:</strong> <span class="total">0</span>
     </div>
   </div>
 </div>

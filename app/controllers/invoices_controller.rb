@@ -7,10 +7,34 @@ class InvoicesController < ApplicationController
   authorize_resource
 
   def index
-    @invoices = InvoiceService.invoices_from(current_user, @project)
+    @filter = params.dig(:type)
+    @invoices = InvoiceService.invoices_from(current_user, @project).includes([:invoice_entries, :invoice_status])
+
+    if (@filter == "paid")
+      @invoices = @invoices.select(&:is_paid?)
+    elsif (@filter == "unpaid")
+      @invoices = @invoices.select(&:is_unpaid?)
+    end
+
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t :invoices
   end
 
   def show
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb @invoice.from.strftime('%B %Y')
+
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf { send_data(
+        ClientInvoicePdfService.build(@invoice).render,
+        filename: "#{@invoice.from.strftime('%B %Y')}.pdf",
+        type: "application/pdf",
+        disposition: :inline
+      )}
+    end
   end
 
   def new
@@ -20,6 +44,9 @@ class InvoicesController < ApplicationController
       from: Date.today.beginning_of_month,
       to: Date.today.end_of_month
     )
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb t :create_invoice
   end
 
   def edit
@@ -75,6 +102,10 @@ class InvoicesController < ApplicationController
 
   def email_notify
     @invoice.notify_client
+
+    if @invoice.project.client_email.present?
+      InvoiceMailer.invoice_notify(@invoice).deliver_later
+    end
 
     respond_to do |format|
       format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: 'Email notification sent.' }
@@ -133,13 +164,17 @@ class InvoicesController < ApplicationController
   end
 
   def review_entries
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb @invoice.from.strftime('%B %Y'), [@project, @invoice]
+    add_breadcrumb t(:review_invoice)
   end
 
   def upload_invoice
     respond_to do |format|
       if @invoice.add_invoice(upload_invoice_params)
-        format.html { redirect_to status_project_invoice_url(@project, @invoice), notice: t(:invoice_attached_successfully) }
-        format.json { render :show, status: :ok, location: status_project_invoice_url(@project, @invoice) }
+        format.html { redirect_to status_project_invoice_path(@project, @invoice), notice: t(:invoice_attached_successfully) }
+        format.json { render :show, status: :ok, location: status_project_invoice_path(@project, @invoice) }
       else
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
@@ -162,6 +197,9 @@ class InvoicesController < ApplicationController
   def status
     @invoice_status = @invoice.invoice_status
     @invoice_status.update_last_checked
+    add_breadcrumb @project.name, @project
+    add_breadcrumb t(:invoices), project_invoices_path(@project)
+    add_breadcrumb @invoice.from.strftime('%B %Y')
   end
 
   private
@@ -180,8 +218,8 @@ class InvoicesController < ApplicationController
         ]
       }
     ]
-    if current_user.is_admin?
-      @invoice = Invoice.includes(invoice_entries: to_be_included).find(params[:id])
+    if @project.is_owner?(current_user)
+      @invoice = @project.invoices.includes(invoice_entries: to_be_included).find(params[:id])
     elsif @project.is_client? current_user
       @invoice = @project.invoices.includes(invoice_entries: to_be_included).for_client_visible.find(params[:id])
     else

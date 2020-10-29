@@ -1,28 +1,30 @@
-<h4><%= t :last_four_invoices %></h4>
+<h4 class="text-lg font-bold my-3"><%= t :last_four_invoices %></h4>
 <% unless @invoices.present? %>
-  <div class="box mb-3">
+  <%= render "shared/content/box" do %>
     <p class="lead text-center mb-0">
       <%= t :you_dont_have_invoices %>
     </p>
-  </div>
+  <% end %>
 <% end %>
 
 <% @invoices.each do |invoice| %>
-  <div class="box mb-4">
-    <div class="media d-flex align-items-center">
-      <%= image_tag invoice.user.picture || '', class: "avatar align-self-start" %>
-      <div class="media-body project-name">
-        <h5 class="m-0">
-          <%= invoice.project.name %>
-          <% if invoice.is_client_visible? %>
-            <span class="badge badge-primary"><%= t :client_invoice %></span>
-          <% end %>
-        </h5>
-        <p class="lead m-0" style="font-size: 16px;">
-          <%= t :invoice_small_summary_html, author: invoice.user.first_name, period: humanized_invoice_period(invoice), amount: humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
-        </p>
-        <%= link_to t(:view_status), status_project_invoice_url(invoice.project, invoice), class: "btn btn-sm btn-link p-0" %>
+  <div class="mb-2">
+    <%= render "shared/content/box" do %>
+      <div class="flex items-center">
+        <%= render "shared/icon/avatar", image_url: invoice.user.picture, extra_css: "" %>
+        <div class="ml-3">
+          <h5 class="text-lg font-bold">
+            <%= invoice.project.name %>
+            <% if invoice.is_client_visible? %>
+              <span class="badge badge-primary"><%= t :client_invoice %></span>
+            <% end %>
+          </h5>
+          <p class="text-base text-gray-500">
+            <%= t :invoice_small_summary_html, author: invoice.user.first_name, period: humanized_invoice_period(invoice), amount: humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
+          </p>
+          <%= link_to t(:view_status), status_project_invoice_url(invoice.project, invoice), class: "font-bold text-blue-400" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 <% end %>

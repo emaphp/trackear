@@ -2,7 +2,7 @@
 
 class InvoiceService
   def self.invoices_from(user, project)
-    if user.is_admin?
+    if project.is_owner?(user)
       project.invoices.includes(:user).order(from: :desc)
     elsif project.is_client? user
       project.invoices.includes(:user).for_client_visible.order(from: :desc)

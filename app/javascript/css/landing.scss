@@ -1,0 +1,146 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+body {
+  font-family: 'Nunito';
+}
+
+.home-preview {
+  @apply shadow-xl;
+  @apply border;
+  @apply border-gray-400;
+  @apply rounded;
+  @apply my-12;
+  background-image: url('../../assets/images/guest/home-3.png');
+  background-position-x: center;
+  width: 105%;
+  margin-left: -30px;
+  height: 900px;
+}
+
+.image-animation {
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+  @apply transform;
+
+  &:hover {
+    box-shadow: 0px 5px 5px #0000000d;
+    @apply -translate-y-1;
+    @apply scale-105;
+    @apply opacity-100;
+    @apply shadow-lg;
+  }
+}
+
+.animation-expand-hover {
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+  @apply transform;
+
+  &:hover {
+    box-shadow: 0px 5px 5px #0000000d;
+    @apply -translate-y-1;
+    @apply scale-105;
+  }
+}
+
+footer {
+  a {
+    @apply text-blue-400;
+    @apply transition;
+    @apply duration-300;
+    @apply ease-in-out;
+
+    &:hover {
+      @apply text-blue-500;
+    }
+  }
+}
+
+.form-group {
+  @apply py-3;
+
+  label {
+    @apply block;
+    @apply uppercase;
+    @apply tracking-wide;
+    @apply text-gray-700;
+    @apply text-xs;
+    @apply font-bold;
+    @apply mb-2;
+  }
+}
+
+.form-control {
+  @apply appearance-none;
+  @apply border;
+  @apply rounded;
+  @apply w-full;
+  @apply py-2;
+  @apply px-3;
+  @apply text-gray-700;
+  @apply leading-tight;
+
+  &:focus {
+    @apply outline-none;
+    @apply border-blue-300;
+  }
+}
+
+.field_with_errors {
+  .form-control {
+    @apply border-red-500;
+  }
+}
+
+.btn {
+  @apply cursor-pointer;
+  @apply font-semibold;
+  @apply inline-block;
+  @apply transition;
+  @apply duration-300;
+  @apply ease-in-out;
+
+  &:hover {
+    @apply shadow;
+  }
+}
+
+.btn.btn-secondary {
+  @apply text-gray-600;
+  @apply border;
+  @apply p-3;
+  @apply rounded;
+
+  &:hover {
+    @apply border-gray-400;
+  }
+}
+
+.btn.btn-primary {
+  background-color: #48d466;
+  border-color: #48d466;
+  @apply border;
+  @apply text-white;
+  @apply p-3;
+  @apply rounded;
+
+  &:hover {
+    background-color: #50e06f;
+  }
+}
+
+.btn.btn-sm {
+  @apply p-2;
+  @apply py-1;
+}
+
+img {
+  max-width: initial;
+  height: initial;
+}

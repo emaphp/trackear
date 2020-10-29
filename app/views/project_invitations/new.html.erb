@@ -1,0 +1,4 @@
+<%= render "shared/content/box" do %>
+  <h6 class="font-bold"><%= t :add_member %></h6>
+  <%= render 'form', project: @project, invitation: @invitation %>
+<% end %>

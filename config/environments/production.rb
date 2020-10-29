@@ -123,10 +123,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    user_name: 'apikey',
+    password: Rails.application.credentials.sendgrid_key,
+    domain: Rails.application.credentials.domain,
+    address: 'smtp.sendgrid.net',
     port: 587,
-    user_name: Rails.application.credentials.email_username,
-    password: Rails.application.credentials.email_password,
     authentication: 'plain',
     enable_starttls_auto: true
   }

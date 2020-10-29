@@ -1,0 +1,17 @@
+<%= render "projects/project_header" %>
+
+<%= render "projects/invoice_confirm_hours_notification" %>
+<%= render "projects/invoice_updates_notification" %>
+
+<%= render "projects/stopwatch" %>
+
+<div class="flex">
+  <div class="w-1/4">
+    <%= yield :menu %>
+  </div>
+  <div class="w-3/4">
+    <div class="ml-6">
+      <%= yield :content %>
+    </div>
+  </div>
+</div>

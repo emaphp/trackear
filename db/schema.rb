@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_09_185019) do
+ActiveRecord::Schema.define(version: 2020_10_21_215206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,19 +157,24 @@ ActiveRecord::Schema.define(version: 2020_08_09_185019) do
     t.date "active_from"
     t.date "ends_at"
     t.decimal "user_fixed_rate"
+    t.boolean "is_admin"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_project_contracts_on_deleted_at"
     t.index ["project_id"], name: "index_project_contracts_on_project_id"
     t.index ["user_id"], name: "index_project_contracts_on_user_id"
   end
 
   create_table "project_invitations", force: :cascade do |t|
     t.string "email"
+    t.string "token"
     t.bigint "user_id", null: false
     t.string "activity"
+    t.bigint "project_id", null: false
+    t.decimal "project_rate"
+    t.decimal "user_rate"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "project_id", null: false
-    t.string "token"
     t.index ["project_id"], name: "index_project_invitations_on_project_id"
     t.index ["user_id"], name: "index_project_invitations_on_user_id"
   end
@@ -179,6 +184,9 @@ ActiveRecord::Schema.define(version: 2020_08_09_185019) do
     t.string "currency"
     t.string "slug"
     t.text "icon_data"
+    t.string "client_full_name"
+    t.string "client_address"
+    t.string "client_email"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
@@ -252,6 +260,11 @@ ActiveRecord::Schema.define(version: 2020_08_09_185019) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "locale", default: "es"
+    t.string "time_zone"
+    t.string "company_name"
+    t.string "company_address"
+    t.string "company_email"
+    t.text "company_logo_data"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -1,0 +1,38 @@
+<h4 class="text-sm font-bold text-gray-600 my-3 uppercase"><%= t :last_four_invoices %></h4>
+<% unless invoices.present? %>
+  <p class="text-lg text-gray-500">
+    <%= t :you_dont_have_invoices %>
+  </p>
+<% end %>
+
+<% invoices.each do |invoice| %>
+  <div class="mb-2">
+    <%= link_to status_project_invoice_url(invoice.project, invoice), class: "btn btn-secondary w-full animation-expand-hover" do %>
+      <h5 class="font-bold text-gray-900">
+        <%= humanized_invoice_period(invoice) %>
+        <% if invoice.is_client_visible? %>
+          <span class="text-white bg-indigo-400 rounded px-2 text-sm"><%= t :client_invoice %></span>
+        <% end %>
+      </h5>
+      <p class="text-gray-500 font-normal text-sm">
+        <%= t :invoice_small_summary_html, author: invoice.user.first_name, period: humanized_invoice_period(invoice), amount: humanized_money_with_currency(invoice.calculate_total, invoice.currency) %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+<div class="mt-4">
+  <%= link_to project_invoices_path(@project), class: "font-normal flex items-center my-2" do %>
+    <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+    <%= t :see_all_invoices %>
+  <% end %>
+  <% if can? :create, @project.invoices.new %>
+    <%= link_to new_project_invoice_path(@project), class: "font-normal flex items-center my-2" do %>
+      <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <%= t :create_invoice %>
+    <% end %>
+  <% end %>
+</div>

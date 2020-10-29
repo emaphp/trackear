@@ -12,7 +12,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6.0'
+# gem 'sass-rails', '>= 6.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
@@ -35,9 +35,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'cypress-on-rails', '~> 1.0'
 end
 
 group :development do
+  gem 'rubocop', '~> 0.81.0'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
@@ -51,6 +54,20 @@ group :development do
   gem 'capistrano-nvm', require: false
   gem 'capistrano-bundler', '~> 2.0', require: false
   gem 'capistrano3-puma', require: false
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
+  gem 'rack-mini-profiler'
+
+  # For memory profiling
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs
+  gem 'flamegraph'
+  gem 'stackprof'
+
+  gem 'bullet'
 end
 
 group :test do
@@ -59,6 +76,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -80,24 +98,14 @@ gem 'dotiw', '~> 4.0.1'
 
 gem 'shrine', '~> 3.3'
 
-gem 'rubocop', '~> 0.81.0'
-
 gem 'secure_headers', '~> 6.3.0'
 
 gem 'rack-attack', '~> 6.2.2'
-
-gem 'slack-ruby-client', '~> 0.14.5'
 
 gem 'asset_sync', '~> 2.11.0'
 gem 'fog-aws', '~> 3.6.2'
 
 gem 'aws-sdk-s3', '~> 1.14'
-
-gem 'font-awesome-sass', '~> 5.12.0'
-
-gem 'bootstrap', '~> 4.4.1'
-
-gem 'jquery-rails', '~> 4.3.5'
 
 gem 'mini_racer', '~> 0.2.9'
 
@@ -107,8 +115,14 @@ gem 'cocoon', '~> 1.2.14'
 
 gem 'acts_as_paranoid', '~> 0.6.3'
 
-gem 'sassc', '~> 2.1.0'
-
 gem 'webpacker', '~> 5.1'
 
 gem 'sitemap_generator'
+
+gem 'breadcrumbs_on_rails'
+
+gem 'turbolinks', '~> 5.2.0'
+
+gem 'sentry-raven'
+
+gem 'receipts'

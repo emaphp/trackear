@@ -7,6 +7,7 @@ class Project < ApplicationRecord
 
   include Shrine::Attachment(:icon)
 
+  has_many :project_invitations
   has_many :project_contracts
   has_many :users, through: :project_contracts
 
@@ -28,9 +29,14 @@ class Project < ApplicationRecord
       project: Project.new(props),
       activity: 'Creator',
       project_rate: 0,
-      user_rate: 0
+      user_rate: 0,
+      is_admin: true
     )
     owner_contract.project
+  end
+
+  def is_owner?(user)
+    project_contracts.where(user: user).where("activity = ? or is_admin = ?", "Creator", true).any?
   end
 
   def is_client?(user)

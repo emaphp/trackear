@@ -1,4 +1,74 @@
 es:
+  invited_to_project: "%{user}, te han invitado a unirte al proyecto %{project}."
+  accept_invitation: "Aceptar"
+  decline_invitation: "Rechazar"
+  remove_user_from_project: "Remover usuario del proyecto"
+  danger_zone: "Zona de peligro"
+  is_admin: "¿Puede administrar el proyecto?"
+  download_client_invoice: "Descargar factura para cliente"
+  client_full_name: "Nombre completo del cliente (opcional)"
+  client_address: "Dirección del cliente (opcional)"
+  client_email: "Email del cliente (opcional)"
+  company_logo: "Logo de la empresa"
+  company_name: "Nombre de la empresa"
+  company_address: "Dirección de la empresa"
+  company_email: "Email de la empresa"
+  download: "Descargar"
+  invoice_type: "Tipo"
+  update_invoice: "Actualizar factura"
+  entries: "Registros"
+  no_entries_found: "No se encontraron registros para este período"
+  form_error_title: "Oops, hubo un error al procesar tu solicitud"
+  continue: "Continuar"
+  name: "Nombre"
+  hours: "Horas"
+  amount: "Monto"
+  choose_another_date: "Elegir otra fecha"
+  select_date: "Seleccionar fecha"
+  default_stopwatch_description: "Registrado desde cronómetro"
+  filters: "Filtros"
+  all_invoices: "Todas las facturas"
+  paid_invoices: "Facturas pagas"
+  unpaid_invoices: "Facturas impagas"
+  or: "O"
+  track_time: "Registrar tiempo"
+  log_from_to_logged: "%{from} - %{time_words} registrado"
+  afip_invoice_amount: "Monto factura AFIP: %{amount}"
+  waiting_for_afip_invoice_upload: "Esperando a que el usuario suba la factura AFIP"
+  locale: "Idioma"
+  team_member_invoices: "Facturas del equipo"
+  invoice_completed: "Factura completada"
+  invoice_completed_description: "Esta factura ya ha sido completada"
+  pay_team: "Pagar al equipo"
+  pay_team_description: "¡Es hora de realizar los pagos a los miembros equipo!"
+  awaiting_for_client_payment: "Esperando por el pago del cliente"
+  awaiting_for_client_payment_description: "Esperá por el pago del cliente. Una vez efectuado, registrá el pago y la cotización"
+  register_payment: "Registrar pago"
+  payment_receipt: "Recibo de pago"
+  review_client_invoice: "Revisar factura de cliente"
+  review_client_invoice_description: "Última revisión antes de crear la factura. Asegurate de que todo esté en órden."
+  review_invoice: "Revisar factura"
+  create_client_invoice_for_review: "Crear factura de cliente para revisar"
+  confirmed_hours: "Confirmado"
+  waiting_hours_confirmation: "Esperando confirmación"
+  await_for_confirmation: "Esperando confirmación del equipo"
+  await_for_confirmation_description: "Esperando a que todos los miembros del equipo confirmen su tiempo registrado"
+  actions: "Acciones"
+  payment_completed: "Pago completado"
+  payment_completed_description: "Esta factura ya fue pagada"
+  payment_in_process: "Pago en proceso"
+  payment_in_process_description: "El administrador del proyecto esta procesando tu pago"
+  add_invoice: "Subir factura"
+  afip_invoice: "Factura AFIP"
+  upload_afip_invoice: "Subir factura AFIP"
+  upload_afip_invoice_description: "El administrator requiere que subas una factura AFIP para realizar el pago"
+  waiting_for_payment: "Esperando el pago..."
+  waiting_for_payment_description: "Esperando el pago por parte del administrador del proyecto"
+  subscription: "Suscripción"
+  settings: "Preferencias"
+  first_name: "Nombre"
+  last_name: "Apellido"
+  save: "Guardar"
   back: "Atrás"
   done: "Listo"
   home: "Inicio"
@@ -13,8 +83,9 @@ es:
   create_new_project: "Crear nuevo proyecto"
   last_four_invoices: "Últimas 4 facturas"
   you_dont_have_invoices: "No tenés ninguna factura."
-  client_invoice: "Factura para cliente"
-  invoice_small_summary_html: "Creado por <span class='font-weight-bold'>%{author}</span> para <span class='font-weight-bold'>%{period}</span>. Monto %{amount}"
+  client_invoice: "Factura cliente"
+  team_invoice: "Factura equipo"
+  invoice_small_summary_html: "Creado por <span class='font-weight-bold'>%{author}</span> para <span class='font-weight-bold'>%{period}</span>.<br />Monto %{amount}"
   view_status: "Ver estado"
   edit: "Editar"
   friendly_reminder: "Recordatorio"
@@ -26,10 +97,10 @@ es:
   stopwatch_finish: "Registrar"
   project_add_member: "Agregar miembro"
   time_to_create_invoice: "¡Tiempo de crear la factura!"
-  time_to_create_invoice_message: "%{name}, es fin de mes y es momento de crear la factura 🎉"
-  time_to_create_invoice_confirmation: "Para el período de %{period} registraste %{hours}, haciendo un total de %{amount}"
+  time_to_create_invoice_message: "%{name}, el administrador del proyecto inició el proceso de facturación. Por favor confirmá si tus horas y montos son correctos, de lo contrario, podés editar tus registros de trabajo o agregar en caso de faltar."
+  time_to_create_invoice_confirmation: "Para el período a facturar de %{period} registraste %{hours}, haciendo un total de %{amount}"
   time_to_create_invoice_yes_its_correct: "Si, las horas y montos son correctos"
-  updated_for_your_invoice: "¡Novedades en tu factura!"
+  updates_for_your_invoice: "¡Novedades en tu factura!"
   updates_in_your_invoice: "%{name}, hay novedades en tu factura."
   check_invoice_status: "Revisar el estado de la factura"
   invoices: "Facturas"
@@ -56,8 +127,7 @@ es:
   billable: "Facturable"
   user_gmail: "Gmail"
   only_gmail_accounts_supported: "Solo soportamos cuentas de Gmail"
-  role: "Rol"
-  role_tooltip: "Usá el rol Client para invitar clientes. Miembros con el rol Client pueden ingresar y ver facturas."
+  role: "Actividad"
   role_placeholder: "Desarrollador, diseñador, etc."
   project_hourly_rate: "Tarifa del proyecto por hora"
   project_hourly_rate_tooltip: "El monto que vas a cobrar a tu cliente por hora"
@@ -122,12 +192,35 @@ es:
   onboarding_invite_your_team_to_your_project: "Invitá a tu equipo a tu proyecto"
   onboarding_invite_member: "Invitar miembro"
   onboarding_all_set: "🎉 Listo, ¡ya estás listo para comenzar con tu proyecto!"
-  onboarding_ready_to_start_working: "¿Listo para registrar trabajo un poco de excelente trabajo?"
+  onboarding_ready_to_start_working: "Inicia registrando tiempo usando el cronómetro"
   onboarding_take_me_to_project: "Ir a %{project}"
   onboarding_lets_start_working: "¡Comenzá a trabajar!"
   onboarding_or: "o"
   date: "Fecha"
   stopwatch_description_optional: "¿En qué vas a trabajar? (opcional)"
+
+  errors:
+    messages:
+      not_saved: "Por favor, corrige los siguiente errores:"
+
+  activerecord:
+    errors:
+      models:
+        project:
+          attributes:
+            name:
+              blank: "es requerido"
+        user:
+          attributes:
+            email:
+              blank: "es requerido"
+              taken: "ya está siendo usado"
+            password:
+              blank: "es requerido"
+            first_name:
+              blank: "es requerido"
+            last_name:
+              blank: "es requerido"
 
   datetime:
     dotiw:
@@ -136,9 +229,19 @@ es:
       last_word_connector: " y "
 
   devise:
+    passwords:
+      user:
+        updated: "¡Tu contraseña fue actualizada!"
     omniauth_callbacks:
       success: "¡Es bueno verte por acá!"
     sessions:
       user:
         signed_in: "¡Es bueno verte por acá!"
         signed_out: "¡Que tengas un excelente día!"
+    registrations:
+      user:
+        signed_up: "Te registraste exitosamente, ¡bienvenido!"
+
+  will_paginate:
+    previous_label: "Atrás"
+    next_label: "Siguiente"

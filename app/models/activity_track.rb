@@ -3,7 +3,7 @@
 class ActivityTrack < ApplicationRecord
   acts_as_paranoid
 
-  belongs_to :project_contract
+  belongs_to :project_contract, with_deleted: true
   has_one :invoice_entry
 
   validates :description, presence: true

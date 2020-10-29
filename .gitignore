@@ -17,6 +17,7 @@
 /storage/*
 !/storage/.keep
 
+/elm-stuff
 /node_modules
 /yarn-error.log
 
@@ -37,8 +38,17 @@ env.yml
 
 /public/packs
 /public/packs-test
+/elm-stuff
 /node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 cert/*
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+index.html

@@ -1,0 +1,15 @@
+<% unless @has_logged_today %>
+  <div class="bg-orange-200 py-2 px-4 text-orange-900 border mb-2">
+    <div class="flex items-center">
+      <div class="mr-3">
+        <svg class="w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-2.829a5 5 0 010-7.07m7.072 0a5 5 0 010 7.07M13 12a1 1 0 11-2 0 1 1 0 012 0z" />
+        </svg>
+      </div>
+      <div class="media-body">
+        <h6 class="alert-heading mb-0"><%= t :friendly_reminder %></h6>
+        <%= t :havent_logged_hours_reminder_html, name: current_user.first_name, add_track_url: new_project_activity_track_path(@project) %>
+      </div>
+    </div>
+  </div>
+<% end %>

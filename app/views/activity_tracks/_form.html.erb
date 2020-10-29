@@ -3,7 +3,7 @@
 
   <% contract = current_user.currently_active_contract_for(project) %>
   <% unless contract.project_rate.positive? %>
-    <div class="alert alert-warning border mb-2">
+    <div class="bg-orange-200 text-orange-800 p-3 border mb-2">
       <%= t :set_your_rates_warning_html, update_rates_url: edit_project_project_contract_path(project, contract) %>
     </div>
   <% end %>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="text-right">
-    <%= link_to t(:cancel), project, class: "btn btn-link" %>
+    <%= link_to t(:cancel), project, class: "btn btn-secondary" %>
     <%= form.submit t(:log_activity), class: "btn btn-primary" unless activity_track.persisted? %>
     <%= form.submit t(:update_activity), class: "btn btn-primary" if activity_track.persisted? %>
   </div>

@@ -1,15 +1,5 @@
-// https://github.com/rails/webpacker/blob/master/docs/webpack.md
-
 const { environment } = require('@rails/webpacker')
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const elm =  require('./loaders/elm')
 
-// Only en locale by default
-environment.plugins.append('MomentLocales', new MomentLocalesPlugin());
-
-environment.config.set('resolve.alias', {
-    "react": "preact/compat",
-    "react-dom": "preact/compat",
-})
-
+environment.loaders.prepend('elm', elm)
 module.exports = environment

@@ -1,35 +1,74 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
+  invited_to_project: "%{user}, you have invited to join the project %{project}."
+  accept_invitation: "Accept"
+  decline_invitation: "Decline"
+  remove_user_from_project: "Remove user from project"
+  danger_zone: "Danger zone"
+  is_admin: "Can administrate the project?"
+  download_client_invoice: "Download client invoice"
+  client_full_name: "Client full name (optional)"
+  client_address: "Client address (optional)"
+  client_email: "Client email (optional)"
+  company_logo: "Company logo"
+  company_name: "Company name"
+  company_address: "Company address"
+  company_email: "Company email"
+  download: "Download"
+  invoice_type: "Type"
+  update_invoice: "Update invoice"
+  entries: "Entries"
+  no_entries_found: "No entries found for this period"
+  form_error_title: "Oops, something went wrong"
+  continue: "Continue"
+  name: "Name"
+  hours: "Hours"
+  amount: "Amount"
+  choose_another_date: "Chose another date"
+  default_stopwatch_description: "Logged from stopwatch"
+  select_date: "Select date"
+  filters: "Filters"
+  all_invoices: "All invoices"
+  paid_invoices: "Paid invoices"
+  unpaid_invoices: "Unpaid invoices"
+  or: "Or"
+  track_time: "Track time"
+  log_from_to_logged: "%{from} - %{time_words} logged"
+  afip_invoice_amount: "AFIP Amount: %{amount}"
+  waiting_for_afip_invoice_upload: "Waiting for user to upload AFIP invoice"
+  locale: "Locale"
+  team_member_invoices: "Team member invoices"
+  invoice_completed: "Invoice completed"
+  invoice_completed_description: "This invoice is already completed"
+  pay_team: "Pay the team"
+  pay_team_description: "Time to make the payments to the team members!"
+  awaiting_for_client_payment: "Awaiting for client's payment"
+  awaiting_for_client_payment_description: "Wait for the client to make the payment. Once paid, register the payment and the exchange rate"
+  register_payment: "Register payment"
+  payment_receipt: "Payment receipt"
+  review_client_invoice: "Review client invoice"
+  review_client_invoice_description: "Last review before creating the client invoice. Make sure everything is right."
+  review_invoice: "Review invoice"
+  create_client_invoice_for_review: "Create client invoice for review"
+  confirmed_hours: "Confirmed"
+  waiting_hours_confirmation: "Waiting for confirmation"
+  await_for_confirmation: "Awaiting for team confirmation"
+  await_for_confirmation_description: "Waiting for all team members to confirm their work"
+  actions: "Actions"
+  payment_completed: "Payment completed"
+  payment_completed_description: "This invoice has been payed"
+  payment_in_process: "Payment in process"
+  payment_in_process_description: "The project's administrator is processing your payment"
+  add_invoice: "Add invoice"
+  afip_invoice: "AFIP invoice"
+  upload_afip_invoice: "Upload AFIP invoice"
+  upload_afip_invoice_description: "The administrator requires for you to upload the AFIP invoice to proceed with the payment"
+  waiting_for_payment: "Waiting for payment..."
+  waiting_for_payment_description: "Awaiting for project's administrator payment"
+  subscription: "Subscription"
+  settings: "Settings"
+  first_name: "First name"
+  last_name: "Last name"
+  save: "Save"
   back: "Back"
   done: "Done"
   home: "Home"
@@ -46,7 +85,8 @@ en:
   last_four_invoices: "Last 4 invoices"
   you_dont_have_invoices: "You don't have any invoices."
   client_invoice: "Client invoice"
-  invoice_small_summary_html: "Created by <span class='font-weight-bold'>%{author}</span> for <span class='font-weight-bold'>%{period}</span>. Amount %{amount}"
+  team_invoice: "Team invoice"
+  invoice_small_summary_html: "Created by <span class='font-weight-bold'>%{author}</span> for <span class='font-weight-bold'>%{period}</span>.<br />Amount %{amount}"
   view_status: "View status"
   edit: "Edit"
   friendly_reminder: "Friendly reminder"
@@ -58,10 +98,10 @@ en:
   stopwatch_finish: "Finish"
   project_add_member: "Add new member"
   time_to_create_invoice: "Time to create the invoice!"
-  time_to_create_invoice_message: "%{name}, it's end of the month and it's time to get paid and create some invoices 🎉"
-  time_to_create_invoice_confirmation: "For the period %{period} you logged %{hours}, making a billable total of %{amount}"
+  time_to_create_invoice_message: "%{name}, the project's administrator has starting the billing process. Please, confirm your logged hours and amounts are correct. If not, you can edit your tracks or add in case of need."
+  time_to_create_invoice_confirmation: "For the billing period %{period} you logged %{hours}, making a billable total of %{amount}"
   time_to_create_invoice_yes_its_correct: "Yes, the hours and amounts are correct"
-  updated_for_your_invoice: "Updates for your invoice!"
+  updates_for_your_invoice: "Updates for your invoice!"
   updates_in_your_invoice: "%{name}, there are updates for your invoice."
   check_invoice_status: "Check invoice status"
   invoices: "Invoices"
@@ -89,7 +129,6 @@ en:
   user_gmail: "User Gmail"
   only_gmail_accounts_supported: "Only Gmail accounts are supported"
   role: "Role"
-  role_tooltip: "Use the role Client to invite customers. Members with role Client can log into the platform and check invoices"
   role_placeholder: "Developer, designer, etc."
   project_hourly_rate: "Project hourly rate"
   project_hourly_rate_tooltip: "How much will you charge the client"
@@ -154,7 +193,7 @@ en:
   onboarding_invite_your_team_to_your_project: "Invite your team to work on the project"
   onboarding_invite_member: "Invite member"
   onboarding_all_set: "🎉 Awesome, you are all set!"
-  onboarding_ready_to_start_working: "Ready to start tracking some awesome work?"
+  onboarding_ready_to_start_working: "Start tracking some time using the stopwatch"
   onboarding_take_me_to_project: "Go to %{project}"
   onboarding_lets_start_working: "Let's start working!"
   onboarding_or: "or"

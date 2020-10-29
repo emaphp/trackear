@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectContract < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :project
   belongs_to :user
   has_many :activity_tracks
@@ -13,7 +15,7 @@ class ProjectContract < ApplicationRecord
   validates :project_rate, numericality: { greater_than_or_equal_to: :user_rate }
   validates :user_rate, numericality: { greater_than_or_equal_to: 0 }, unless: :user_fixed_rate?
   # validates :user_fixed_rate, numericality: { greater_than_or_equal_to: 0 }, unless: :user_rate?
-  validate :dates_do_not_collide_with_existing_contracts
+  # validate :dates_do_not_collide_with_existing_contracts
 
   scope :only_team, -> { where.not(activity: 'Client') }
   scope :in_range, ->(from, to) { where(['active_from >= ? and ends_at >= ?', from, to]) }

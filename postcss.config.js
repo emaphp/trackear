@@ -20,9 +20,9 @@ if (process.env.RAILS_ENV === 'production') {
         './app/**/*.erb',
         './app/helpers/**/*.rb',
         './app/javascript/**/*.js',
-        './app/javascript/**/*.elm',
+        './app/javascript/**/*.elm'
       ],
-      whitelist: ["html", "body"],
+      defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || []
     })
   )
 }

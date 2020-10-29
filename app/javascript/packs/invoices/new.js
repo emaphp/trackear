@@ -1,5 +1,6 @@
 import { Elm } from '../../Page/Invoices/New'
 import * as Rails from "@rails/ujs"
+import '../../css/calendar.scss'
 
 document.addEventListener('turbolinks:load', function () {
   const parent = document.getElementById('invoice-form')

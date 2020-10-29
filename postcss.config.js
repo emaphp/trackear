@@ -22,7 +22,7 @@ if (process.env.RAILS_ENV === 'production') {
         './app/javascript/**/*.js',
         './app/javascript/**/*.elm',
       ],
-      defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || []
+      whitelist: ["html", "body"],
     })
   )
 }

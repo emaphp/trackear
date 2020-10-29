@@ -229,6 +229,9 @@ es:
       last_word_connector: " y "
 
   devise:
+    passwords:
+      user:
+        updated: "¡Tu contraseña fue actualizada!"
     omniauth_callbacks:
       success: "¡Es bueno verte por acá!"
     sessions:

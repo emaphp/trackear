@@ -44,33 +44,6 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
     t.index ["project_contract_id"], name: "index_activity_tracks_on_project_contract_id"
   end
 
-  create_table "expense_invitations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "email"
-    t.string "name"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "token"
-    t.index ["email", "user_id"], name: "index_expense_invitations_on_email_and_user_id", unique: true
-    t.index ["user_id"], name: "index_expense_invitations_on_user_id"
-  end
-
-  create_table "expenses", force: :cascade do |t|
-    t.string "name"
-    t.text "receipt_data"
-    t.date "from"
-    t.bigint "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "USD", null: false
-    t.bigint "user_id", null: false
-    t.string "invoice_data"
-    t.index ["project_id"], name: "index_expenses_on_project_id"
-    t.index ["user_id"], name: "index_expenses_on_user_id"
-  end
-
   create_table "feedback_options", force: :cascade do |t|
     t.string "title"
     t.text "summary"
@@ -190,40 +163,6 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
     t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
-  create_table "report_partner_entries", force: :cascade do |t|
-    t.bigint "report_id"
-    t.bigint "user_id"
-    t.decimal "percentage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["report_id"], name: "index_report_partner_entries_on_report_id"
-    t.index ["user_id"], name: "index_report_partner_entries_on_user_id"
-  end
-
-  create_table "report_worker_entries", force: :cascade do |t|
-    t.bigint "report_id"
-    t.bigint "user_id"
-    t.bigint "invoice_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["invoice_id"], name: "index_report_worker_entries_on_invoice_id"
-    t.index ["report_id"], name: "index_report_worker_entries_on_report_id"
-    t.index ["user_id"], name: "index_report_worker_entries_on_user_id"
-  end
-
-  create_table "reports", force: :cascade do |t|
-    t.date "from"
-    t.date "to"
-    t.bigint "user_id"
-    t.bigint "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "invoice_id"
-    t.index ["invoice_id"], name: "index_reports_on_invoice_id"
-    t.index ["project_id"], name: "index_reports_on_project_id"
-    t.index ["user_id"], name: "index_reports_on_user_id"
-  end
-
   create_table "submissions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "feedback_option_id", null: false
@@ -275,9 +214,6 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
   add_foreign_key "activity_stop_watches", "activity_tracks"
   add_foreign_key "activity_stop_watches", "projects"
   add_foreign_key "activity_stop_watches", "users"
-  add_foreign_key "expense_invitations", "users"
-  add_foreign_key "expenses", "projects"
-  add_foreign_key "expenses", "users"
   add_foreign_key "invoice_entries", "invoices"
   add_foreign_key "invoice_statuses", "invoice_statuses"
   add_foreign_key "invoice_statuses", "invoices"
@@ -288,13 +224,6 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
   add_foreign_key "project_contracts", "users"
   add_foreign_key "project_invitations", "projects"
   add_foreign_key "project_invitations", "users"
-  add_foreign_key "report_partner_entries", "reports"
-  add_foreign_key "report_partner_entries", "users"
-  add_foreign_key "report_worker_entries", "invoices"
-  add_foreign_key "report_worker_entries", "reports"
-  add_foreign_key "report_worker_entries", "users"
-  add_foreign_key "reports", "projects"
-  add_foreign_key "reports", "users"
   add_foreign_key "submissions", "feedback_options"
   add_foreign_key "submissions", "users"
 end

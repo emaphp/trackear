@@ -4,24 +4,37 @@ Trackear is a simple web application for freelancers to track work and generate 
 You can use it for free in https://www.trackear.app/.
 
 ## Installation steps
-- Install `docker` and `docker-compose`
+- Install [RVM](https://rvm.io/)
+- Install [NVM](https://github.com/nvm-sh/nvm)
+- Install ruby with `rvm install 2.6.6`
+- Install node with `nvm install node`
+- Install yarn with `npm i -g yarn`
+- Install bundler with `gem install bundler`
+- Install dependencies with `bundle install` and `yarn`
 - Make a copy of `env.sample.yml` and name it `env.yml`
 - Make sure to complete with a valid GOOGLE API KEY (https://console.developers.google.com/)
-- `docker-compose up`
-- `docker-compose exec app bundle exec rails db:create db:migrate`
+- Initiate the database with `docker-compose up -d db` (if you have PSQL installed and running, this step is not required)
+- Create the database and run the migrations with `rails db:create db:migrate`
 - Go to http://localhost:3000/ (first time may take a while since assets are being compiled)
 
 ## TECH STACK
 - Ruby
 - Ruby on Rails
 - PSQL
-- Docker
-- Docker compose
-- React
+- Elm
 - SASS
+- Cypress
 
 ## ENTITIES
 Please review our ENTITIES.md file for more information about the entities / models (users, invoices, etc.) in the project.
+
+## End to end test
+- Install test dependencies with `bundle install --with=development,test`
+- Create test database and run migrations with `RAILS_ENV=test rails db:create db:migrate`
+- Start rails in test mode with `rails s -e test`
+- Run cypress with `yarn e2e`
+- Search for `app`
+- Run all specs
 
 ## DEPLOY
 Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.

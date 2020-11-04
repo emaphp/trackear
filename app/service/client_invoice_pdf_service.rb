@@ -19,10 +19,10 @@ class ClientInvoicePdfService
         logo: invoice.user.company_logo.present? ? invoice.user.company_logo.download : nil
       },
       line_items: [
-        ["<b>Description</b>", "<b>Unit Cost</b>", "<b>Quantity</b>", "<b>Amount</b>"],
+        [self.small("<b>Description</b>"), self.small("<b>Unit Cost</b>"), self.small("<b>Qty</b>"), self.small("<b>Amount</b>")],
         *entries(invoice),
-        [nil, nil, "Subtotal", invoice.calculate_subtotal.to_money.format({ symbol: true })],
-        [nil, nil, "Total", invoice.calculate_total.to_money.format({ symbol: true })],
+        [nil, nil, self.small("<b>Subtotal</b>"), self.small(invoice.calculate_subtotal.to_money.format({ symbol: true }))],
+        [nil, nil, self.small("<b>Total</b>"), self.small(invoice.calculate_total.to_money.format({ symbol: true }))],
       ],
     )
   end
@@ -36,10 +36,20 @@ class ClientInvoicePdfService
 
   def self.entries(invoice)
     invoice.invoice_entries.map { |entry| [
-      entry.description,
-      entry.rate.to_money.format({ symbol: true }),
-      entry.calculate_quantity.round(2),
-      entry.calculate_total.to_money.format({ symbol: true })
+      self.small(self.word_wrap(entry.description, line_width: 50)),
+      self.small(entry.rate.to_money.format({ symbol: true })),
+      self.small(entry.calculate_quantity.round(2)),
+      self.small(entry.calculate_total.to_money.format({ symbol: true }))
     ] }
+  end
+
+  def self.word_wrap(text, line_width: 80, break_sequence: "\n")
+    text.split("\n").collect! do |line|
+      line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1#{break_sequence}").strip : line
+    end * break_sequence
+  end
+
+  def self.small(text)
+    "<font size='6px'>#{text}</font>"
   end
 end

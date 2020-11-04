@@ -6,12 +6,3 @@ services:
       - /var/lib/postgresql/data
     ports:
       - "5432:5432"
-  app:
-    tty: true
-    build:
-      context: .
-      dockerfile: ./Dockerfile.dev
-    volumes:
-      - .:/var/www/app
-    depends_on:
-      - db

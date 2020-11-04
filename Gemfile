@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'cypress-on-rails', '~> 1.0'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do

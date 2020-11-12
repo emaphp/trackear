@@ -107,7 +107,7 @@ gem 'fog-aws', '~> 3.6.2'
 
 gem 'aws-sdk-s3', '~> 1.14'
 
-gem 'mini_racer', '~> 0.2.9'
+gem 'mini_racer', '~> 0.2.9', platforms: :ruby
 
 gem 'will_paginate', '~> 3.1.0'
 

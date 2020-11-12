@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
   apt-get update && apt-get install -y nodejs yarn
 
-RUN gem install bundler
+RUN mkdir -p /var/www/
+WORKDIR /var/www/
 
-RUN mkdir /app
-WORKDIR /app
+RUN gem install bundler
 
 COPY Gemfile* ./
 RUN bundle install

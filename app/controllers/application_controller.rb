@@ -6,14 +6,27 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
   before_action :add_home_breadcrumb
 
-  after_action :user_activity
+  after_action :update_user_activity
 
   around_action :user_time_zone, if: :user_signed_in?
   around_action :switch_locale
 
+  # Only check for active subscription
+  # for the current user
+  def pay_wall
+    redirect_to subscription_path unless current_user.can_use_premium_features?
+  end
+
+  # Check if the project owner has an
+  # active subscription
+  def project_pay_wall
+    owners = @project.owners
+    redirect_to subscription_path unless owners.any? &:can_use_premium_features?
+  end
+
   private
 
-  def user_activity
+  def update_user_activity
     current_user.try :touch
   end
 

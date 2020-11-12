@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_215206) do
+ActiveRecord::Schema.define(version: 2020_11_12_045610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,50 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
     t.index ["user_id"], name: "index_other_submissions_on_user_id"
   end
 
+  create_table "pay_charges", id: :serial, force: :cascade do |t|
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.string "processor", null: false
+    t.string "processor_id", null: false
+    t.integer "amount", null: false
+    t.integer "amount_refunded"
+    t.string "card_type"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "receipt_url"
+  end
+
+  create_table "pay_subscriptions", id: :serial, force: :cascade do |t|
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.string "name", null: false
+    t.string "processor", null: false
+    t.string "processor_id", null: false
+    t.string "processor_plan", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "trial_ends_at"
+    t.datetime "ends_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "status"
+    t.string "update_url"
+    t.string "cancel_url"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "payment_type"
+    t.integer "billed_cents", default: 0, null: false
+    t.string "billed_currency", default: "USD", null: false
+    t.datetime "valid_until"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
   create_table "project_contracts", force: :cascade do |t|
     t.bigint "project_id"
     t.bigint "user_id"
@@ -204,6 +248,14 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
     t.string "company_address"
     t.string "company_email"
     t.text "company_logo_data"
+    t.string "processor"
+    t.string "processor_id"
+    t.datetime "trial_ends_at"
+    t.string "card_type"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
+    t.text "extra_billing_info"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -220,6 +272,7 @@ ActiveRecord::Schema.define(version: 2020_10_21_215206) do
   add_foreign_key "invoice_statuses", "users"
   add_foreign_key "invoices", "projects"
   add_foreign_key "other_submissions", "users"
+  add_foreign_key "payments", "users"
   add_foreign_key "project_contracts", "projects"
   add_foreign_key "project_contracts", "users"
   add_foreign_key "project_invitations", "projects"

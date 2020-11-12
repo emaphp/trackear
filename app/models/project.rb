@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  include Shrine::Attachment(:icon)
   extend FriendlyId
 
   friendly_id :slug_candidates, use: :slugged
-
-  include Shrine::Attachment(:icon)
 
   has_many :project_invitations
   has_many :project_contracts
@@ -15,6 +14,10 @@ class Project < ApplicationRecord
   has_many :reports
 
   validates :name, presence: true
+
+  def owners
+    users.where "project_contracts.activity = ? or project_contracts.is_admin = ?", "Creator", true
+  end
 
   def slug_candidates
     [%i[name slug_suffix]]

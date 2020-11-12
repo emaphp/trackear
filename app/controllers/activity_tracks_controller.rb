@@ -2,8 +2,18 @@
 
 class ActivityTracksController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_currently_active_contract, only: %i[show new create edit update destroy]
+
   before_action :set_activity_track, only: %i[show edit update destroy]
+
+  before_action :project_pay_wall, only: [
+    :new,
+    :create,
+    :edit,
+    :update
+  ]
+
   load_and_authorize_resource
 
   # GET /activity_tracks

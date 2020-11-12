@@ -2,8 +2,15 @@
 
 class ActivityStopWatchesController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_project
+
   before_action :set_activity_stop_watch, only: %i[destroy stop resume finish]
+
+  before_action :project_pay_wall, only: [
+    :create
+  ]
+
   load_and_authorize_resource
 
   def create

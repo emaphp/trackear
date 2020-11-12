@@ -2,9 +2,28 @@
   <h4 class="text-sm font-bold text-gray-600 my-3 uppercase">
     <%= t :subscription %>
   </h4>
-  <%= render "shared/content/box" do %>
-    Subscription
-  <% end %>
+  <div class="mb-3">
+    <%= render "shared/content/box" do %>
+      <% if current_user.on_generic_trial? %>
+        <%= t :trial_message_short, days: current_user.trial_days_left %>
+      <% elsif current_user.subscribed? %>
+        <%= t :subscribed, date: current_user.subscription.ends_at %>
+        <%= link_to t(:cancel_subscription), cancel_subscription_path, class: "btn btn-primary" %>
+      <% else %>
+        <%= t :subscription_ended %>
+        <div>
+          <a href="#!" class="paddle_button" data-product="<%= ENV['PADDLE_SUBSCRIPTION_PRODUCT_ID'] %>" data-email="<%= current_user.email %>" data-passthrough="<%= { owner_id: current_user.id, owner_type: "User" }.to_json %>">
+            <%= t :subscribe, price: "ARS $480.00" %>
+          </a>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
 
 <%= render "auth_layout" %>
+
+<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+<script type="text/javascript">
+	Paddle.Setup({ vendor: <%= ENV['PADDLE_VENDOR_ID'] %> });
+</script>

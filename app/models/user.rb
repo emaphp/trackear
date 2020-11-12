@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  extend FriendlyId
-
+  include Pay::Billable
   include Shrine::Attachment(:company_logo)
+
+  extend FriendlyId
 
   friendly_id :slug_candidates, use: :slugged
 
@@ -34,6 +35,12 @@ class User < ApplicationRecord
   # validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name)
 
   scope :online, -> { where("updated_at > ?", 25.minutes.ago) }
+
+  before_create :add_30_days_trial
+
+  def can_use_premium_features?
+    is_admin? || on_trial_or_subscribed?
+  end
 
   def avatar_or_default
     picture || ''
@@ -96,6 +103,10 @@ class User < ApplicationRecord
     last_ten_days_feedbacks.length < max_submissions_in_ten_days
   end
 
+  def trial_days_left
+    [0, (trial_ends_at - DateTime.now).to_i / 1.days].max
+  end
+
   private
     def days_to_seconds days
         60 * 60 * 24 * days
@@ -107,5 +118,9 @@ class User < ApplicationRecord
 
     def last_ten_days_other_submissions
         self.other_submissions.submitted_in_period(Time.now() - days_to_seconds(10), Time.now())
+    end
+
+    def add_30_days_trial
+      self.trial_ends_at = 30.days.from_now
     end
 end

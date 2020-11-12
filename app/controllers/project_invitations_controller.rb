@@ -1,7 +1,15 @@
 class ProjectInvitationsController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_project, only: %i[new create accept decline]
+
   before_action :set_invitation, only: %i[accept decline]
+
+  before_action :project_pay_wall, only: [
+    :new,
+    :create
+  ]
+
   load_and_authorize_resource
 
   # def index; end

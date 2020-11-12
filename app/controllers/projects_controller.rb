@@ -4,6 +4,13 @@ class ProjectsController < ApplicationController
   include ProjectsHelper
 
   before_action :authenticate_user!
+
+  before_action :pay_wall, only: [
+    :new,
+    :create,
+    :invite_member_from_onboarding
+  ]
+
   before_action :set_project, only: %i[
     onboarding
     update_rate_from_onboarding
@@ -16,6 +23,7 @@ class ProjectsController < ApplicationController
     destroy
     status_period
   ]
+
   load_and_authorize_resource
 
   # GET /projects

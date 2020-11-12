@@ -17,4 +17,12 @@ class HomeController < ApplicationController
   def settings; end
 
   def subscription; end
+
+  def cancel_subscription
+    current_user.subscription.cancel
+
+    repond_to do |format|
+      format.html { redirect_to subscription_url, notice: t(:subscription_cancelled) }
+    end
+  end
 end

@@ -2,8 +2,19 @@
 
 class ProjectContractsController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_project, only: %i[show new create edit update destroy]
+
   before_action :set_project_contract, only: %i[show edit update destroy]
+
+  before_action :project_pay_wall, only: [
+    :new,
+    :edit,
+    :create,
+    :update,
+    :update
+  ]
+
   load_and_authorize_resource
 
   # GET /project_contracts

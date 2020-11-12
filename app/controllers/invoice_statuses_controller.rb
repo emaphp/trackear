@@ -2,8 +2,14 @@
 
 class InvoiceStatusesController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_project
+
   before_action :set_invoice_status
+
+  before_action :project_pay_wall, only: [
+    :confirm_hours
+  ]
 
   def confirm_hours
     @invoice_status.confirm_team_member_hours

@@ -7,8 +7,12 @@
       <% if current_user.on_generic_trial? %>
         <%= t :trial_message_short, days: current_user.trial_days_left %>
       <% elsif current_user.subscribed? %>
-        <%= t :subscribed, date: current_user.subscription.ends_at %>
-        <%= link_to t(:cancel_subscription), cancel_subscription_path, class: "btn btn-primary" %>
+        <%= t :subscribed, date: current_user.next_payment_date %>
+
+        <div>
+          <%= link_to t(:cancel_subscription), cancel_subscription_path, class: "btn btn-secondary", data: { confirm: "¿Confirmar cancelación de suscripción?" } %>
+          <%= link_to t(:update_subscription_payment_method), current_user.subscription.update_url, class: "btn btn-primary ml-2" %>
+        </div>
       <% else %>
         <%= t :subscription_ended %>
         <div>

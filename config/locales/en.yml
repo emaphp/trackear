@@ -213,3 +213,4 @@ en:
   cancel_subscription: "Cancel subscription"
   subscription_ended: "Your subscription has ended."
   subscription_cancelled: "Your subscription has been successfully cancelled."
+  update_subscription_payment_method: "Update payment method"

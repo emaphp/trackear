@@ -212,6 +212,7 @@ es:
   cancel_subscription: "Cancelar suscripción"
   subscription_ended: "Tu suscripción se ha vencido."
   subscription_cancelled: "Tu suscripción ha sido cancelada exitosamente."
+  update_subscription_payment_method: "Actualizar método de pago"
 
   errors:
     messages:

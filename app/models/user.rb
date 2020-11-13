@@ -107,6 +107,11 @@ class User < ApplicationRecord
     [0, (trial_ends_at - DateTime.now).to_i / 1.days].max
   end
 
+  def next_payment_date
+    return subscription.ends_at if subscription.ends_at.present?
+    subscription.created_at + 30.days
+  end
+
   private
     def days_to_seconds days
         60 * 60 * 24 * days

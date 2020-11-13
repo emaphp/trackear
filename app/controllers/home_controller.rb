@@ -20,9 +20,6 @@ class HomeController < ApplicationController
 
   def cancel_subscription
     current_user.subscription.cancel_now!
-
-    repond_to do |format|
-      format.html { redirect_to subscription_url, notice: t(:subscription_cancelled) }
-    end
+    redirect_to subscription_url, notice: t(:subscription_cancelled)
   end
 end

@@ -28,7 +28,9 @@ class ActivityTracksController < ApplicationController
 
   # GET /activity_tracks/new
   def new
-    @activity_track = ActivityTrack.new(from: Date.today)
+    @activity_track = @active_contract.activity_tracks.new(from: Date.today)
+    @activity_track.project_rate = @active_contract.project_rate
+    @activity_track.user_rate = @active_contract.user_rate
     add_breadcrumb @project.name, @project
     add_breadcrumb t :new_activity_track
   end
@@ -95,6 +97,10 @@ class ActivityTracksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def activity_track_params
-    params.require(:activity_track).permit(:from, :hours, :description)
+    if @project.is_owner? current_user
+      params.require(:activity_track).permit(:project_rate, :user_rate, :from, :hours, :description)
+    else
+      params.require(:activity_track).permit(:from, :hours, :description)
+    end
   end
 end

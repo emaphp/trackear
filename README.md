@@ -3,6 +3,15 @@ Trackear is a simple web application for freelancers to track work and generate 
 
 You can use it for free in https://www.trackear.app/.
 
+## Docker installation
+- Install [Docker](https://docs.docker.com/get-docker/)
+- Install [Docker compose](https://docs.docker.com/compose/install/)
+- Make a copy of `env.sample.yml` and name it `env.yml`
+- Make sure to complete with a valid GOOGLE API KEY (https://console.developers.google.com/)
+- Run `docker-compose build`
+- Run `docker-compose up`
+- Run `sh rails.sh db:create db:migrate`
+
 ## Installation steps
 - Install [RVM](https://rvm.io/)
 - Install [NVM](https://github.com/nvm-sh/nvm)
@@ -17,7 +26,7 @@ You can use it for free in https://www.trackear.app/.
 - Create the database and run the migrations with `rails db:create db:migrate`
 - Go to http://localhost:3000/ (first time may take a while since assets are being compiled)
 
-## TECH STACK
+## Tech stack
 - Ruby
 - Ruby on Rails
 - PSQL
@@ -25,7 +34,7 @@ You can use it for free in https://www.trackear.app/.
 - SASS
 - Cypress
 
-## ENTITIES
+## Entities
 Please review our ENTITIES.md file for more information about the entities / models (users, invoices, etc.) in the project.
 
 ## End to end test
@@ -36,7 +45,7 @@ Please review our ENTITIES.md file for more information about the entities / mod
 - Search for `app`
 - Run all specs
 
-## DEPLOY
+## Deploy
 Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
 
 - Install [RVM](https://rvm.io/) on your server.
@@ -55,7 +64,7 @@ Trackear is using [capistrano](https://capistranorb.com/) to handle deployments.
 ## FAQ
 Please review our FAQ.md file.
 
-## CONTRIBUTING
+## Contributing
 Thank you for considering contributing to this project, we really appreciate it!
 
 There are many ways you can contribute:
@@ -77,5 +86,5 @@ Trackear.app is an application / project intended to be fully free. If you would
 - [Donation 250 ARS](https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=114997172-9735ce3a-6445-4cf0-b0d0-0f49d1cdaff3)
 - [Donation 500 ARS](https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=114997172-ceadee56-00df-48d2-82e0-5168b8c34a0e)
 
-## LICENSE
+## License
 Please review our LICENSE.md file.

@@ -221,6 +221,10 @@ es:
   activerecord:
     errors:
       models:
+        activity_track:
+          attributes:
+            description:
+              blank: "es requerido"
         project:
           attributes:
             name:

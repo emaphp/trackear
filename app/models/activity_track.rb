@@ -19,8 +19,8 @@ class ActivityTrack < ApplicationRecord
     return unless project_contract.present?
 
     update(
-      project_rate: project_contract.project_rate,
-      user_rate: project_contract.user_rate
+      project_rate: project_rate || project_contract.project_rate,
+      user_rate: user_rate || project_contract.user_rate
     )
   end
 

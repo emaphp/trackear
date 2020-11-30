@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2'
@@ -102,12 +102,12 @@ gem 'secure_headers', '~> 6.3.0'
 
 gem 'rack-attack', '~> 6.2.2'
 
-gem 'asset_sync', '~> 2.11.0'
+# gem 'asset_sync', '~> 2.11.0'
 gem 'fog-aws', '~> 3.6.2'
 
 gem 'aws-sdk-s3', '~> 1.14'
 
-gem 'mini_racer'
+# gem 'mini_racer', platform: :ruby
 
 gem 'will_paginate', '~> 3.1.0'
 

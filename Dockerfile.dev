@@ -14,7 +14,7 @@ WORKDIR /var/www/
 RUN gem install bundler
 
 COPY Gemfile* ./
-RUN bundle install
+RUN bundle install --with=development,test
 
 COPY package* ./
 RUN yarn

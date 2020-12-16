@@ -68,6 +68,8 @@ Rails.application.routes.draw do
   get '/subscription', to: 'home#subscription', as: 'subscription'
   post '/subscription/cancel', to: 'home#cancel_subscription', as: 'cancel_subscription'
   get '/solutions', to: 'home#solutions', as: 'home_solutions'
+  get '/privacy-policy', to: 'pages#privacy_policy', as: 'privacy_policy'
+  get '/terms-and-conditions', to: 'pages#terms_and_conditions', as: 'terms_and_conditions'
   get '/robots.:format', to: 'pages#robots'
   get '/sitemap.:format', to: 'pages#sitemap'
   root to: redirect('/')

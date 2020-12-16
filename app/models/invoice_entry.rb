@@ -2,7 +2,7 @@
 
 class InvoiceEntry < ApplicationRecord
   belongs_to :invoice
-  belongs_to :activity_track
+  belongs_to :activity_track, with_deleted: true
 
   def calculate_quantity
     (to - from) / 1.hour
